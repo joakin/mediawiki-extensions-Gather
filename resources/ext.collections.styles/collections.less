@@ -1,0 +1,166 @@
+@import "minerva.variables";
+@import "minerva.mixins";
+
+.reset-special-page-heading-styles() {
+	// Reset .mw-mf-special #content_wrapper styles for headers...
+	// FIXME: Bad defaults.
+	text-align: left;
+	font-family: @fontFamilyHeading;
+	line-height: 1.3em;
+	margin: 0;
+}
+.reset-link-styles() {
+	a, a:visited, a:hover {
+		color: inherit;
+		text-decoration: none;
+	}
+}
+
+// FIXME: Bad special page styling defaults.
+#section_0 {
+	padding-bottom: 0;
+}
+
+.collection {
+
+	// Push the content up to be close to the title
+	// FIXME: Bad special page styling defaults.
+	&.content {
+		padding-top: 0;
+	}
+
+	/*
+	 *  Collection page
+	 */
+
+	.collection-header {
+		text-align: center;
+		padding: 0 1em;
+		margin-bottom: 2em;
+
+		h1 {
+			font-weight: bold;
+		}
+
+		.collection-description {
+			color: @grayMediumLight;
+		}
+
+		.collection-owner {
+			&.mw-ui-icon-before:before {
+				margin-right: 0.5em;
+				width: 1em;
+			}
+		}
+
+		.collection-action-button {
+			padding: 0.5em 2em;
+		}
+	}
+
+	.collection-empty {
+		text-align: center;
+		* {
+			font-family: @fontFamily;
+		}
+		h3 {
+			padding-bottom: 0em;
+		}
+		h6 {
+			font-size: 0.8em;
+		}
+	}
+
+	.collection-items {
+	}
+
+	.collection-item {
+		@collectionItemPadding: 1em;
+
+		border: 1px solid @grayLightest;
+		padding: 0 @collectionItemPadding;
+		margin-bottom: 2em;
+
+		.collection-item-title {
+			font-size: 2em;
+			padding-bottom: 0;
+			.reset-special-page-heading-styles();
+			// FIXME: Why is this inconsistent with other headings colors
+			color: black;
+			.reset-link-styles();
+		}
+
+		.collection-item-footer {
+			// Make footer run to edges
+			margin: 1em -@collectionItemPadding 0;
+			padding: @collectionItemPadding;
+			text-align: right;
+			border-top: 1px solid @grayLightest;
+			font-weight: bold;
+
+			& * {
+				// Align the items on the footer
+				display: inline-block;
+				vertical-align: bottom;
+			}
+
+			.collections-read-more-arrow {
+				// Need a small icon size
+				width: 1.5em;
+				min-width: 1.5em;
+
+				&:before {
+					// FIXME: mw-ui icons assume square/horizontal icons, this svg
+					// (next.svg) is vertical, so we have to switch the background-size.
+					// This shouldn't be necessary, either fix the icon(?) or mw-ui to
+					// support vertical icons.
+					background-size: auto 100%;
+					// Fix icon spacing
+					margin-left: 0.5em;
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+
+	/*
+	 *  List of collections
+	 */
+
+	@overlayHeight: 6em;
+
+	.collection-card {
+		height: @overlayHeight;
+		border: 1px solid @grayLightest;
+		position: relative;
+	}
+
+	.collection-card-overlay {
+		position: absolute;
+		height: @overlayHeight;
+		background: rgba(0, 0, 0, 0.8);
+		padding: 1em;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		span {
+			color: #FAF9F9;
+			padding: 0 0.25em;
+		}
+	}
+
+	.collection-card-title {
+		font-size: 2em;
+		padding-bottom: 0;
+		color: #FAF9F9;
+		.reset-special-page-heading-styles();
+		.reset-link-styles();
+	}
+
+	// User not found page
+	&.user-not-found {
+		text-align: center;
+	}
+
+}

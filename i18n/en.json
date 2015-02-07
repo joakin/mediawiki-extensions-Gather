@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"gather-desc": "Component of Mobile Frontend allowing users to curate lists.",
+	"gather-anon-view-lists": "You need to be logged in to see your Collections.",
+	"gather-watchlist-title": "Watchlist",
+	"gather-watchlist-description": "A list of pages that I am interested in.",
+	"gather-lists-title": "Collections",
+	"gather-read-more": "Read more",
+	"gather-private": "Private",
+	"gather-article-count": "$1 {{PLURAL:$1|article|articles}}",
+	"gather-empty": "Nothing in this collection yet...",
+	"gather-empty-footer": "I don't know how you got here but this is a sad place."
+}

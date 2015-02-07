@@ -1,0 +1,95 @@
+{
+	"name": "Gather",
+	"author": [
+		"Jon Robson",
+		"Joaquin Hernandez",
+		"Rob Moen"
+	],
+	"url": "https://www.mediawiki.org/wiki/Gather",
+	"descriptionmsg": "gather-desc",
+	"license-name": "GPL-2.0+",
+	"type": "other",
+	"ExtensionFunctions": [
+		"efGatherExtensionSetup"
+	],
+	"SpecialPages": {
+		"Gather": "Gather\\SpecialGather"
+	},
+	"MessagesDirs": {
+		"Gather": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"GatherAlias": "Gather.alias.php"
+	},
+	"AutoloadClasses": {
+		"Gather\\Hooks": "includes/Gather.hooks.php",
+		"Gather\\Collection": "includes/models/Collection.php",
+		"Gather\\CollectionsList": "includes/models/CollectionsList.php",
+		"Gather\\CollectionStore": "includes/stores/CollectionStore.php",
+		"Gather\\WatchlistCollectionStore": "includes/stores/WatchlistCollectionStore.php",
+		"Gather\\View": "includes/views/View.php",
+		"Gather\\UserNotFoundView": "includes/views/UserNotFoundView.php",
+		"Gather\\CollectionView": "includes/views/CollectionView.php",
+		"Gather\\CollectionItemCardView": "includes/views/CollectionItemCardView.php",
+		"Gather\\CollectionsListView": "includes/views/CollectionsListView.php",
+		"Gather\\CollectionsListItemCardView": "includes/views/CollectionsListItemCardView.php",
+		"Gather\\SpecialGather": "includes/specials/SpecialGather.php"
+	},
+	"ResourceModules": {
+		"ext.collections.icons": {
+			"localBasePath": "includes",
+			"remoteExtPath": "Gather",
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"class": "ResourceLoaderImageModule",
+			"prefix": "mw-ui",
+			"images": {
+				"icon": {
+					"collections-read-more:before": "images/icons/next.svg"
+				}
+			}
+		},
+		"ext.collections.styles": {
+			"localBasePath": "includes",
+			"remoteExtPath": "Gather",
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"styles": [
+				"resources/ext.collections.styles/icons.less",
+				"resources/ext.collections.styles/collections.less"
+			],
+			"dependencies": [
+				"mediawiki.ui.anchor",
+				"skins.minerva.special.styles"
+			],
+			"position": "top",
+			"group": "other"
+		}
+	},
+	"config": {
+		"GatherResourceBoilerplate": {
+			"localBasePath": "extensions/Gather/includes",
+			"remoteExtPath": "Gather"
+		},
+		"GatherResourceFileModuleBoilerplate": {
+			"localBasePath": "extensions/Gather/includes",
+			"remoteExtPath": "Gather",
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"GatherMobileSpecialPageResourceBoilerplate": {
+			"localBasePath": "extensions/Gather/includes",
+			"remoteExtPath": "Gather",
+			"targets": "mobile",
+			"group": "other"
+		}
+	}
+}
