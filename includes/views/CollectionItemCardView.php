@@ -6,7 +6,7 @@
 namespace Gather;
 
 use \MobilePage;
-use \MobileUI;
+use Gather\views\helpers\CSS;
 use \Html;
 
 /**
@@ -47,13 +47,13 @@ class CollectionItemCardView extends View {
 			Html::openElement( 'a',
 				array(
 					'href' => $title->getLocalUrl(),
-					'class' => MobileUI::anchorClass( 'progressive' )
+					'class' => CSS::anchorClass( 'progressive' )
 				)
 			) .
 			wfMessage( 'gather-read-more' )->text() .
 			Html::element(
 				'span',
-				array( 'class' => MobileUI::iconClass( 'collections-read-more', 'element', 'collections-read-more-arrow' ) ),
+				array( 'class' => CSS::iconClass( 'collections-read-more', 'element', 'collections-read-more-arrow' ) ),
 				''
 			) .
 			Html::closeElement( 'a' ) .

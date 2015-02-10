@@ -8,6 +8,7 @@ namespace Gather;
 use \Html;
 use \User;
 use \SpecialPage;
+use Gather\views\helpers\CSS;
 
 /**
  * Render a mobile card.
@@ -53,7 +54,7 @@ class CollectionView extends View {
 	private function getOwnerHtml( $owner ) {
 		$name = $owner->getName();
 		$attrs = array(
-			'class' => 'collection-owner mw-ui-icon mw-ui-icon-before mw-ui-icon-user',
+			'class' => CSS::iconClass( 'user', 'before', 'collections-owner' ),
 			'href' => SpecialPage::getTitleFor( 'UserProfile', $name )->getLocalUrl(),
 		);
 		return Html::element( 'span', $attrs, $name );

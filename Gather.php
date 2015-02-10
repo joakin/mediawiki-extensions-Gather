@@ -55,6 +55,8 @@ $autoloadClasses = array (
 	'Gather\CollectionsListView' => 'views/CollectionsListView',
 	'Gather\CollectionsListItemCardView' => 'views/CollectionsListItemCardView',
 
+	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
+
 	'Gather\SpecialGather' => 'specials/SpecialGather',
 );
 
