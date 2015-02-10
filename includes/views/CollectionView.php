@@ -57,7 +57,7 @@ class CollectionView extends View {
 			'class' => CSS::iconClass( 'user', 'before', 'collections-owner' ),
 			'href' => SpecialPage::getTitleFor( 'UserProfile', $name )->getLocalUrl(),
 		);
-		return Html::element( 'span', $attrs, $name );
+		return Html::element( 'a', $attrs, $name );
 	}
 
 	/**
