@@ -48,7 +48,7 @@ class Collection implements IteratorAggregate {
 	 * @param string $description Description of the collection
 	 */
 	public function __construct( User $user, $title = '', $description = '', $public = true ) {
-		$this->user = $user;
+		$this->owner = $user;
 		$this->title = $title;
 		$this->description = $description;
 		$this->public = $public;
