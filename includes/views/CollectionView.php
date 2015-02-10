@@ -52,12 +52,12 @@ class CollectionView extends View {
 	 * @return string Html
 	 */
 	private function getOwnerHtml( $owner ) {
-		$name = $owner->getName();
-		$attrs = array(
-			'class' => CSS::iconClass( 'user', 'before', 'collections-owner' ),
-			'href' => SpecialPage::getTitleFor( 'UserProfile', $name )->getLocalUrl(),
-		);
-		return Html::element( 'a', $attrs, $name );
+		return Html::openElement( 'a', array(
+				'href' => SpecialPage::getTitleFor( 'UserProfile', $name )->getLocalUrl() ) ) .
+			Html::element( 'span', array(
+				'class' => CSS::iconClass( 'user', 'before', 'collections-owner' ) ) ) .
+			$owner->getName() .
+			Html::closeElement( 'a' );
 	}
 
 	/**
