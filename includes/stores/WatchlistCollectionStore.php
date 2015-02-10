@@ -1,5 +1,11 @@
 <?php
 
+namespace Gather;
+
+use \User;
+use \Title;
+use \GenderCache;
+
 /**
  * Abstraction for watchlist storage.
  * FIXME: This should live in core and power Special:EditWatchlist

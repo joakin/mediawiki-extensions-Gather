@@ -5,10 +5,14 @@
 
 namespace Gather;
 
+use \MobilePage;
+use \MobileUI;
+use \Html;
+
 /**
  * View for an item card in a mobile collection.
  */
-class CollectionItemCardView extends Gather\View {
+class CollectionItemCardView extends View {
 	protected $item;
 
 	/**

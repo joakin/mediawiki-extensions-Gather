@@ -5,29 +5,33 @@
 
 namespace Gather;
 
+use \Html;
+use \User;
+use \SpecialPage;
+
 /**
  * Render a mobile card.
  */
-class CollectionView extends Gather\View {
+class CollectionView extends View {
 	/**
-	 * @var Gather\Collection
+	 * @var Collection
 	 */
 	protected $collection;
 
 	/**
-	 * @param Gather\Collection $collection
+	 * @param Collection $collection
 	 */
-	public function __construct( Gather\Collection $collection ) {
+	public function __construct( Collection $collection ) {
 		$this->collection = $collection;
 	}
 
 	/**
 	 * Returns the rendered html for the collection header
-	 * @param Gather\Collection $collection
+	 * @param Collection $collection
 	 *
 	 * @return string Html
 	 */
-	private function getHeaderHtml( Gather\Collection $collection ) {
+	private function getHeaderHtml( Collection $collection ) {
 		$collection = $this->collection;
 		$description = $collection->getDescription();
 		$owner = $collection->getOwner();
@@ -81,11 +85,11 @@ class CollectionView extends Gather\View {
 	/**
 	 * Returns the html for the items of a collection
 	 *
-	 * @param Gather\Collection
+	 * @param Collection
 	 *
 	 * @return string HTML
 	 */
-	public function getCollectionItems( Gather\Collection $collection ) {
+	public function getCollectionItems( Collection $collection ) {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-items' ) );
 		foreach ( $collection as $item ) {
 			if ( $item->getTitle()->getNamespace() === NS_MAIN ) {

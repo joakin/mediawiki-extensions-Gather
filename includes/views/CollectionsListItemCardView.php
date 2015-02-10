@@ -5,15 +5,17 @@
 
 namespace Gather;
 
+use \Html;
+
 /**
  * View for an item card in a mobile collection.
  */
-class CollectionsListItemCardView extends Gather\View {
+class CollectionsListItemCardView extends View {
 
 	/**
-	 * @param Gather\Collection $collection
+	 * @param Collection $collection
 	 */
-	public function __construct( Gather\Collection $collection ) {
+	public function __construct( Collection $collection ) {
 		$this->collection = $collection;
 	}
 

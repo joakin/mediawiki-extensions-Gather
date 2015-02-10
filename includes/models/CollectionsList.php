@@ -6,12 +6,16 @@
 
 namespace Gather;
 
+use \User;
+use \IteratorAggregate;
+use \ArrayIterator;
+
 /**
  * A list of collections, which are represented by the Collection class.
  */
 class CollectionsList implements IteratorAggregate {
 	/**
-	 * @var Gather\Collection[] Internal list of collections.
+	 * @var Collection[] Internal list of collections.
 	 */
 	protected $lists = array();
 
@@ -32,7 +36,7 @@ class CollectionsList implements IteratorAggregate {
 		// Get watchlist collection (private)
 		// Directly avoid adding if not owner
 		if ( $includePrivate ) {
-			$watchlist = new Gather\Collection(
+			$watchlist = new Collection(
 				$user,
 				wfMessage( 'gather-watchlist-title' ),
 				wfMessage( 'gather-watchlist-description' ),
@@ -51,9 +55,9 @@ class CollectionsList implements IteratorAggregate {
 	 * If the collection to add is private, and this collection list does not include
 	 * private items, the collection won't be added
 	 *
-	 * @param Gather\Collection $collection
+	 * @param Collection $collection
 	 */
-	public function add( Gather\Collection $collection ) {
+	public function add( Collection $collection ) {
 		if ( $this->includePrivate ||
 			( !$this->includePrivate && $collection->isPublic() ) ) {
 			$this->lists[] = $collection;

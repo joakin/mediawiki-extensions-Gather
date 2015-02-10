@@ -5,6 +5,9 @@
 
 namespace Gather;
 
+use \User;
+use \SpecialPage;
+
 /**
  * Render a collection of articles.
  */
@@ -54,7 +57,7 @@ class SpecialGather extends SpecialPage {
 	 * Render an error when the user was not found
 	 */
 	public function renderUserNotFoundError() {
-		$this->render( new Gather\UserNotFoundView() );
+		$this->render( new UserNotFoundView() );
 	}
 
 	/**
@@ -64,7 +67,7 @@ class SpecialGather extends SpecialPage {
 	 * @param int $id collection id
 	 */
 	public function renderUserCollection( User $user, $id ) {
-		$collection = new Gather\Collection(
+		$collection = new Collection(
 			$user,
 			$this->msg( 'gather-watchlist-title' ),
 			$this->msg( 'gather-watchlist-description' )
@@ -79,7 +82,7 @@ class SpecialGather extends SpecialPage {
 		}
 		// FIXME: For empty-collection and not-allowed-to-see-this we are doing the
 		// same thing right now.
-		$this->render( new Gather\CollectionView( $collection ) );
+		$this->render( new CollectionView( $collection ) );
 	}
 
 	/**
@@ -88,8 +91,8 @@ class SpecialGather extends SpecialPage {
 	 * @param User $user owner of collections
 	 */
 	public function renderUserCollectionsList( User $user ) {
-		$collectionsList = new Gather\CollectionsList( $user, $this->isOwner( $user ) );
-		$this->render( new Gather\CollectionsListView( $collectionsList ) );
+		$collectionsList = new CollectionsList( $user, $this->isOwner( $user ) );
+		$this->render( new CollectionsListView( $collectionsList ) );
 	}
 
 	/**

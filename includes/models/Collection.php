@@ -6,6 +6,13 @@
 
 namespace Gather;
 
+use \User;
+use \Title;
+use \IteratorAggregate;
+use \ArrayIterator;
+use \MobilePage;
+use \SpecialPage;
+
 /**
  * A collection of pages, which are represented by the MobilePage class.
  */
