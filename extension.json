@@ -39,7 +39,7 @@
 	},
 	"ResourceModules": {
 		"ext.collections.icons": {
-			"localBasePath": "includes",
+			"localBasePath": "resources",
 			"remoteExtPath": "Gather",
 			"targets": [
 				"mobile",
@@ -54,15 +54,15 @@
 			}
 		},
 		"ext.collections.styles": {
-			"localBasePath": "includes",
+			"localBasePath": "resources",
 			"remoteExtPath": "Gather",
 			"targets": [
 				"mobile",
 				"desktop"
 			],
 			"styles": [
-				"resources/ext.collections.styles/icons.less",
-				"resources/ext.collections.styles/collections.less"
+				"ext.collections.styles/icons.less",
+				"ext.collections.styles/collections.less"
 			],
 			"dependencies": [
 				"mediawiki.ui.anchor",
@@ -74,11 +74,11 @@
 	},
 	"config": {
 		"GatherResourceBoilerplate": {
-			"localBasePath": "extensions/Gather/includes",
+			"localBasePath": "resources",
 			"remoteExtPath": "Gather"
 		},
 		"GatherResourceFileModuleBoilerplate": {
-			"localBasePath": "extensions/Gather/includes",
+			"localBasePath": "resources",
 			"remoteExtPath": "Gather",
 			"targets": [
 				"mobile",
@@ -86,7 +86,7 @@
 			]
 		},
 		"GatherMobileSpecialPageResourceBoilerplate": {
-			"localBasePath": "extensions/Gather/includes",
+			"localBasePath": "resources",
 			"remoteExtPath": "Gather",
 			"targets": "mobile",
 			"group": "other"

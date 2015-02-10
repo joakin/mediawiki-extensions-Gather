@@ -29,7 +29,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
  * Agnostic to whether desktop or mobile specific.
  */
 $wgGatherResourceBoilerplate = array(
-	'localBasePath' => __DIR__,
+	'localBasePath' => __DIR__ . '/../resources',
 	'remoteExtPath' => 'Gather',
 );
 
@@ -64,8 +64,8 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 
 	'ext.collections.styles' => $wgGatherResourceFileModuleBoilerplate + array(
 		'styles' => array(
-			'resources/ext.collections.styles/icons.less',
-			'resources/ext.collections.styles/collections.less',
+			'ext.collections.styles/icons.less',
+			'ext.collections.styles/collections.less',
 		),
 		'dependencies' => array(
 			'mediawiki.ui.anchor',
