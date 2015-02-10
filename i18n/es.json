@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Macofe"
+		]
+	},
+	"gather-anon-view-lists": "Debes iniciar sesión para ver tus colecciones.",
+	"gather-watchlist-title": "Lista de seguimiento",
+	"gather-watchlist-description": "Una lista de páginas que me interesan.",
+	"gather-lists-title": "Colecciones",
+	"gather-read-more": "Leer más",
+	"gather-private": "Privada",
+	"gather-article-count": "$1 {{PLURAL:$1|artículo|artículos}}",
+	"gather-empty": "Aún no hay nada en esta colección.",
+	"gather-empty-footer": "No sé cómo llegaste aquí, pero este es un lugar triste."
+}

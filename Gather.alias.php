@@ -13,3 +13,8 @@ $specialPageAliases = array();
 $specialPageAliases['en'] = array(
 	'Gather' => array( 'Gather' ),
 );
+
+/** German (Deutsch) */
+$specialPageAliases['de'] = array(
+	'Gather' => array( 'Sammeln' ),
+);
