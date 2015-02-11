@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Liuxinyu970226"
+		]
+	},
+	"gather-watchlist-title": "監視清單",
+	"gather-lists-title": "典藏",
+	"gather-read-more": "閱讀更多",
+	"gather-private": "私有",
+	"gather-article-count": "$1 個{{PLURAL:$1|條目}}"
+}

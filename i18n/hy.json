@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Աշոտ1997"
+		]
+	},
+	"gather-anon-view-lists": "Ձեր հավաքածուները տեսնելու համար դուք պետք է մուտք գործեք համակարգ",
+	"gather-watchlist-title": "Հսկացանկ",
+	"gather-watchlist-description": "Ինձ հետաքրքրող էջերի ցանկ",
+	"gather-lists-title": "Հավաքածուներ",
+	"gather-read-more": "Կարդալ ավելին",
+	"gather-article-count": "$1 {{PLURAL:$1|հոդված|հոդվածներ}}",
+	"gather-empty": "Այս հավաքածույում դեռ ոչինչ չկա",
+	"gather-empty-footer": "Ես չգիտեմ թե դուք ինչպես եք այստեղ հայտնվել, բայց սա վտանգավոր տեղ է"
+}
