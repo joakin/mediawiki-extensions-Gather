@@ -65,4 +65,11 @@ class CollectionItem {
 	public function getTitle() {
 		return $this->title;
 	}
+
+	/**
+ 	 * @return string extract of the item
+	 */
+	public function getExtract() {
+		return $this->extract;
+	}
 }
