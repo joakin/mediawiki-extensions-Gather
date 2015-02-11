@@ -114,7 +114,7 @@ class CollectionView extends View {
 		$html = Html::openElement( 'div', array( 'class' => 'collection content' ) ) .
 			$this->getHeaderHtml( $collection );
 
-		if ( count( $collection->getPages() ) > 0 ) {
+		if ( $collection->getCount() > 0 ) {
 			$html .= $this->getCollectionItems( $collection );
 		} else {
 			$html .= $this->getEmptyCollectionMessage();

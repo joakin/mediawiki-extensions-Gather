@@ -10,20 +10,19 @@ use \User;
 use \Title;
 use \IteratorAggregate;
 use \ArrayIterator;
-use \MobilePage;
 use \SpecialPage;
 
 /**
- * A collection of pages, which are represented by the MobilePage class.
+ * A collection of items, which are represented by the CollectionItem class.
  */
 class Collection implements IteratorAggregate {
 
 	/**
-	 * The internal collection of pages.
+	 * The internal collection of items.
 	 *
-	 * @var MobilePage[]
+	 * @var CollectionItem[]
 	 */
-	protected $pages = array();
+	protected $items = array();
 
 	/**
 	 * Owner of collection
@@ -69,12 +68,12 @@ class Collection implements IteratorAggregate {
 	protected $id;
 
 	/**
-	 * Adds a page to the collection.
+	 * Adds a item to the collection.
 	 *
-	 * @param MobilePage $page
+	 * @param CollectionItem $item
 	 */
-	public function add( MobilePage $page ) {
-		$this->pages[] = $page;
+	public function add( CollectionItem $item ) {
+		$this->items[] = $item;
 	}
 
 	/**
@@ -83,7 +82,7 @@ class Collection implements IteratorAggregate {
 	 * @return ArrayIterator
 	 */
 	public function getIterator() {
-		return new ArrayIterator( $this->pages );
+		return new ArrayIterator( $this->items );
 	}
 
 	/**
@@ -133,12 +132,12 @@ class Collection implements IteratorAggregate {
 	}
 
 	/**
-	 * Returns pages count
+	 * Returns items count
 	 *
-	 * @return int count of pages in collection
+	 * @return int count of items in collection
 	 */
 	public function getCount() {
-		return count( $this->pages );
+		return count( $this->items );
 	}
 
 	/**
@@ -155,10 +154,10 @@ class Collection implements IteratorAggregate {
 	}
 
 	/**
-	 * @return array list of pages
+	 * @return array list of items
 	 */
-	public function getPages() {
-		return $this->pages;
+	public function getItems() {
+		return $this->items;
 	}
 
 	/**
@@ -168,9 +167,9 @@ class Collection implements IteratorAggregate {
 	 */
 	public function load( CollectionStore $store ) {
 		$this->id = $store->getId();
-		$titles = $store->getTitles();
-		foreach ( $titles as $title ) {
-			$this->add( new MobilePage( $title ) );
+		$items = $store->getItems();
+		foreach ( $items as $item ) {
+			$this->add( $item );
 		}
 	}
 

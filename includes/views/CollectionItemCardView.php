@@ -5,7 +5,6 @@
 
 namespace Gather;
 
-use \MobilePage;
 use Gather\views\helpers\CSS;
 use \Html;
 
@@ -17,9 +16,9 @@ class CollectionItemCardView extends View {
 
 	/**
 	 * Constructor
-	 * @param MobilePage $item
+	 * @param CollectionItem $item
 	 */
-	public function __construct( MobilePage $item ) {
+	public function __construct( CollectionItem $item ) {
 		$this->item = $item;
 	}
 

@@ -12,15 +12,15 @@ use \GenderCache;
  */
 class WatchlistCollectionStore implements CollectionStore {
 	/**
-	 * @var title[]
+	 * @var CollectionItem[]
 	 */
-	protected $titles = array();
+	protected $items = array();
 
 	/**
 	 * @inheritdoc
 	 */
-	public function getTitles() {
-		return $this->titles;
+	public function getItems() {
+		return $this->items;
 	}
 
 	/**
@@ -37,6 +37,20 @@ class WatchlistCollectionStore implements CollectionStore {
 	 * @param User $user to lookup watchlist members for
 	 */
 	public function __construct( User $user ) {
+		$titles = $this->loadTitles( $user );
+		// FIXME: Load here extracts and images from titles.
+
+		foreach ( $titles as $title ) {
+			$this->items[] = new CollectionItem( $title, false, false );
+		}
+	}
+
+	/**
+	 * Load titles of the watchlist
+	 *
+	 * @return Title[]
+	 */
+	private function loadTitles( $user ) {
 		$list = array();
 		$dbr = wfGetDB( DB_SLAVE );
 
@@ -61,7 +75,7 @@ class WatchlistCollectionStore implements CollectionStore {
 		}
 		GenderCache::singleton()->doTitlesArray( $titles );
 
-		$this->titles = $titles;
+		return $titles;
 	}
 
 }
