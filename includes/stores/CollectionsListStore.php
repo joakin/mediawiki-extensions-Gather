@@ -1,19 +1,24 @@
 <?php
 
 /**
- * CollectionsList.php
+ * CollectionsListStore.php
  */
 
 namespace Gather;
 
 use \User;
-use \IteratorAggregate;
-use \ArrayIterator;
 
 /**
- * A list of collections, which are represented by the Collection class.
+ * Abstract class for a store that loads the collections of a user.
+ * Extend it and implement loadCollections.
  */
-class CollectionsList implements IteratorAggregate {
+abstract class CollectionsListStore {
+
+	/**
+	 * @var User Owner of the collections
+	 */
+	protected $user;
+
 	/**
 	 * @var Collection[] Internal list of collections.
 	 */
@@ -25,30 +30,26 @@ class CollectionsList implements IteratorAggregate {
 	protected $includePrivate;
 
 	/**
-	 * Creates a list of collection cards
+	 * Creates a list of collections
 	 *
 	 * @param User $user collection list owner
 	 * @param boolean $includePrivate if the list can show private collections or not
 	 */
 	public function __construct( User $user, $includePrivate = false ) {
+		$this->user = $user;
 		$this->includePrivate = $includePrivate;
-
-		// Get watchlist collection (private)
-		// Directly avoid adding if not owner
-		if ( $includePrivate ) {
-			$watchlist = new Collection(
-				$user,
-				wfMessage( 'gather-watchlist-title' ),
-				wfMessage( 'gather-watchlist-description' ),
-				false
-			);
-			$watchlist->load( new WatchlistCollectionStore( $user ) );
-
-			$this->add( $watchlist );
+		$collections = $this->loadCollections();
+		foreach ( $collections as $collection ) {
+			$this->add( $collection );
 		}
-
-		// FIXME: Add from UserCollectionStore
 	}
+
+	/**
+	 * Load collections of the user
+	 *
+	 * @return CollectionItem[] titles
+	 */
+	abstract public function loadCollections();
 
 	/**
 	 * Adds a page to the collection.
@@ -65,11 +66,12 @@ class CollectionsList implements IteratorAggregate {
 	}
 
 	/**
-	 * Gets the iterator for the internal array
+	 * Returns the list of collections
 	 *
-	 * @return ArrayIterator
+	 * @return Collection[]
 	 */
-	public function getIterator() {
-		return new ArrayIterator( $this->lists );
+	public function getLists() {
+		return $this->lists;
 	}
 }
+

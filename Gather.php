@@ -44,10 +44,11 @@ $autoloadClasses = array (
 
 	'Gather\CollectionItem' => 'models/CollectionItem',
 	'Gather\Collection' => 'models/Collection',
-	'Gather\CollectionsList' => 'models/CollectionsList',
 
 	'Gather\CollectionStore' => 'stores/CollectionStore',
 	'Gather\WatchlistCollectionStore' => 'stores/WatchlistCollectionStore',
+	'Gather\CollectionsListStore' => 'stores/CollectionsListStore',
+	'Gather\DumbWatchlistOnlyCollectionsListStore' => 'stores/DumbWatchlistOnlyCollectionsListStore',
 
 	'Gather\View' => 'views/View',
 	'Gather\UserNotFoundView' => 'views/UserNotFoundView',
