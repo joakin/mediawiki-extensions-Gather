@@ -39,9 +39,10 @@ class WatchlistCollectionStore implements CollectionStore {
 	public function __construct( User $user ) {
 		$titles = $this->loadTitles( $user );
 		$extracts = ItemExtractsStore::loadExtracts( $titles );
+		$images = ItemImagesStore::loadImages( $titles );
 
 		foreach ( $titles as $key=>$title ) {
-			$this->items[] = new CollectionItem( $title, false, $extracts[$key] );
+			$this->items[] = new CollectionItem( $title, $images[$key], $extracts[$key] );
 		}
 	}
 

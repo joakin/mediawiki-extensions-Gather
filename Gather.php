@@ -50,11 +50,13 @@ $autoloadClasses = array (
 	'Gather\CollectionsListStore' => 'stores/CollectionsListStore',
 	'Gather\DumbWatchlistOnlyCollectionsListStore' => 'stores/DumbWatchlistOnlyCollectionsListStore',
 	'Gather\ItemExtractsStore' => 'stores/ItemExtractsStore',
+	'Gather\ItemImagesStore' => 'stores/ItemImagesStore',
 
 	'Gather\View' => 'views/View',
 	'Gather\UserNotFoundView' => 'views/UserNotFoundView',
 	'Gather\CollectionView' => 'views/CollectionView',
 	'Gather\CollectionItemCardView' => 'views/CollectionItemCardView',
+	'Gather\ItemImageView' => 'views/ItemImageView',
 	'Gather\CollectionsListView' => 'views/CollectionsListView',
 	'Gather\CollectionsListItemCardView' => 'views/CollectionsListItemCardView',
 
