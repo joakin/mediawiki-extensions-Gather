@@ -30,7 +30,6 @@ class CollectionItem {
 	private $extract;
 
 	/**
-	 * Constructor
 	 * @param Title $title
 	 * @param File|bool $file
 	 * @param string|bool $extract
@@ -60,14 +59,14 @@ class CollectionItem {
 	}
 
 	/**
- 	 * @return Title title of the item
+	 * @return Title title of the item
 	 */
 	public function getTitle() {
 		return $this->title;
 	}
 
 	/**
- 	 * @return string extract of the item
+	 * @return string extract of the item
 	 */
 	public function getExtract() {
 		return $this->extract;
