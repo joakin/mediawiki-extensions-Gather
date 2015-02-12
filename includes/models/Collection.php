@@ -6,7 +6,7 @@
 
 namespace Gather\models;
 
-use Gather\stores\CollectionStore;
+use Gather\stores;
 use \User;
 use \Title;
 use \IteratorAggregate;
@@ -164,9 +164,9 @@ class Collection implements IteratorAggregate {
 	/**
 	 * Adds an array of titles to the collection
 	 *
-	 * @param CollectionStore $store
+	 * @param stores\Collection $store
 	 */
-	public function load( CollectionStore $store ) {
+	public function load( stores\Collection $store ) {
 		$this->id = $store->getId();
 		$items = $store->getItems();
 		foreach ( $items as $item ) {

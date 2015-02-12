@@ -5,7 +5,7 @@ namespace Gather\stores;
 /**
  * Abstraction for collection storage.
  */
-interface CollectionStore {
+interface Collection {
 	/**
 	 * Get CollectionItem of all pages in the current collection.
 	 *

@@ -2,7 +2,7 @@
 
 namespace Gather\stores;
 
-use Gather\models\CollectionItem;
+use Gather\models;
 
 use \User;
 use \Title;
@@ -12,9 +12,9 @@ use \GenderCache;
  * Abstraction for watchlist storage.
  * FIXME: This should live in core and power Special:EditWatchlist
  */
-class WatchlistCollectionStore implements CollectionStore {
+class WatchlistCollection implements Collection {
 	/**
-	 * @var CollectionItem[]
+	 * @var models\CollectionItem[]
 	 */
 	protected $items = array();
 
@@ -34,17 +34,17 @@ class WatchlistCollectionStore implements CollectionStore {
 	}
 
 	/**
-	 * Initialise WatchlistCollectionStore from database
+	 * Initialise WatchlistCollection from database
 	 *
 	 * @param User $user to lookup watchlist members for
 	 */
 	public function __construct( User $user ) {
 		$titles = $this->loadTitles( $user );
-		$extracts = ItemExtractsStore::loadExtracts( $titles );
-		$images = ItemImagesStore::loadImages( $titles );
+		$extracts = ItemExtracts::loadExtracts( $titles );
+		$images = ItemImages::loadImages( $titles );
 
 		foreach ( $titles as $key=>$title ) {
-			$this->items[] = new CollectionItem( $title, $images[$key], $extracts[$key] );
+			$this->items[] = new models\CollectionItem( $title, $images[$key], $extracts[$key] );
 		}
 	}
 

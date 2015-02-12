@@ -1,12 +1,12 @@
 <?php
 
 /**
- * DumbOnlyWatchlistCollectionsListStore.php
+ * DumbOnlyWatchlistCollectionsList.php
  */
 
 namespace Gather\stores;
 
-use Gather\models\Collection;
+use Gather\models;
 
 /**
  * Dumb collections list store that only knows to return the watchlist.
@@ -14,7 +14,7 @@ use Gather\models\Collection;
  * FIXME: This class will be substituted when we actually load collections list from
  * somewhere else.
  */
-class DumbWatchlistOnlyCollectionsListStore extends CollectionsListStore {
+class DumbWatchlistOnlyCollectionsList extends CollectionsList {
 	/**
 	 * @inherit
 	 */
@@ -24,13 +24,13 @@ class DumbWatchlistOnlyCollectionsListStore extends CollectionsListStore {
 		// Get watchlist collection (private)
 		// Directly avoid adding if no privates
 		if ( $this->includePrivate ) {
-			$watchlist = new Collection(
+			$watchlist = new models\Collection(
 				$this->user,
 				wfMessage( 'gather-watchlist-title' ),
 				wfMessage( 'gather-watchlist-description' ),
 				false
 			);
-			$watchlist->load( new WatchlistCollectionStore( $this->user ) );
+			$watchlist->load( new WatchlistCollection( $this->user ) );
 			$collections[] = $watchlist;
 		}
 		return $collections;

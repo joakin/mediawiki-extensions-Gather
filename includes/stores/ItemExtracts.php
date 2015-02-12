@@ -9,7 +9,7 @@ use \FauxRequest;
 /**
  * Loading extracts for titles
  */
-class ItemExtractsStore {
+class ItemExtracts {
 	const CHAR_LIMIT=140;
 
 	/**
@@ -24,7 +24,7 @@ class ItemExtractsStore {
 			'prop' => 'extracts',
 			'explaintext' => true,
 			'exintro' => true,
-			'exchars' => ItemExtractsStore::CHAR_LIMIT,
+			'exchars' => ItemExtracts::CHAR_LIMIT,
 			'titles' => implode( '|', $titles ),
 			'exlimit' => count( $titles ),
 		) ) );

@@ -7,7 +7,7 @@ use \PageImages;
 /**
  * Loading page images for titles
  */
-class ItemImagesStore {
+class ItemImages {
 
 	/**
 	 * Load images for a collection of titles

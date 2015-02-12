@@ -45,12 +45,12 @@ $autoloadClasses = array(
 	'Gather\models\CollectionItem' => 'models/CollectionItem',
 	'Gather\models\Collection' => 'models/Collection',
 
-	'Gather\stores\CollectionStore' => 'stores/CollectionStore',
-	'Gather\stores\WatchlistCollectionStore' => 'stores/WatchlistCollectionStore',
-	'Gather\stores\CollectionsListStore' => 'stores/CollectionsListStore',
-	'Gather\stores\DumbWatchlistOnlyCollectionsListStore' => 'stores/DumbWatchlistOnlyCollectionsListStore',
-	'Gather\stores\ItemExtractsStore' => 'stores/ItemExtractsStore',
-	'Gather\stores\ItemImagesStore' => 'stores/ItemImagesStore',
+	'Gather\stores\Collection' => 'stores/Collection',
+	'Gather\stores\WatchlistCollection' => 'stores/WatchlistCollection',
+	'Gather\stores\CollectionsList' => 'stores/CollectionsList',
+	'Gather\stores\DumbWatchlistOnlyCollectionsList' => 'stores/DumbWatchlistOnlyCollectionsList',
+	'Gather\stores\ItemExtracts' => 'stores/ItemExtracts',
+	'Gather\stores\ItemImages' => 'stores/ItemImages',
 
 	'Gather\views\View' => 'views/View',
 	'Gather\views\UserNotFoundView' => 'views/UserNotFoundView',

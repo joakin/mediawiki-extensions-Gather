@@ -1,19 +1,19 @@
 <?php
 
 /**
- * CollectionsListStore.php
+ * CollectionsList.php
  */
 
 namespace Gather\stores;
 
-use Gather\models\Collection;
+use Gather\models;
 use \User;
 
 /**
  * Abstract class for a store that loads the collections of a user.
  * Extend it and implement loadCollections.
  */
-abstract class CollectionsListStore {
+abstract class CollectionsList {
 
 	/**
 	 * @var User Owner of the collections
@@ -21,7 +21,7 @@ abstract class CollectionsListStore {
 	protected $user;
 
 	/**
-	 * @var Collection[] Internal list of collections.
+	 * @var models\Collection[] Internal list of collections.
 	 */
 	protected $lists = array();
 
@@ -57,9 +57,9 @@ abstract class CollectionsListStore {
 	 * If the collection to add is private, and this collection list does not include
 	 * private items, the collection won't be added
 	 *
-	 * @param Collection $collection
+	 * @param models\Collection $collection
 	 */
-	public function add( Collection $collection ) {
+	public function add( models\Collection $collection ) {
 		if ( $this->includePrivate ||
 			( !$this->includePrivate && $collection->isPublic() ) ) {
 			$this->lists[] = $collection;
@@ -69,7 +69,7 @@ abstract class CollectionsListStore {
 	/**
 	 * Returns the list of collections
 	 *
-	 * @return Collection[]
+	 * @return models\Collection[]
 	 */
 	public function getLists() {
 		return $this->lists;
