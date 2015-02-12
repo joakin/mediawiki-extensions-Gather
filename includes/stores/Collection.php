@@ -7,16 +7,9 @@ namespace Gather\stores;
  */
 interface Collection {
 	/**
-	 * Get CollectionItem of all pages in the current collection.
+	 * Get Collection model of the current collection.
 	 *
-	 * @return CollectionItem[] titles
+	 * @return Collection collection
 	 */
-	public function getItems();
-
-	/**
-	 * Get current collection identifier
-	 *
-	 * @return int id
-	 */
-	public function getId();
+	public function getCollection();
 }

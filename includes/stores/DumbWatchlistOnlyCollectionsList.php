@@ -24,14 +24,8 @@ class DumbWatchlistOnlyCollectionsList extends CollectionsList {
 		// Get watchlist collection (private)
 		// Directly avoid adding if no privates
 		if ( $this->includePrivate ) {
-			$watchlist = new models\Collection(
-				$this->user,
-				wfMessage( 'gather-watchlist-title' ),
-				wfMessage( 'gather-watchlist-description' ),
-				false
-			);
-			$watchlist->load( new WatchlistCollection( $this->user ) );
-			$collections[] = $watchlist;
+			$watchlistStore = new WatchlistCollection( $this->user );
+			$collections[] = $watchlistStore->getCollection();
 		}
 		return $collections;
 	}

@@ -50,11 +50,12 @@ class Collection implements IteratorAggregate {
 	protected $public;
 
 	/**
+	 * @param int $id id of the collection. Null if not persisted yet
 	 * @param User $user User that owns the collection
 	 * @param string $title Title of the collection
 	 * @param string $description Description of the collection
 	 */
-	public function __construct( User $user, $title = '', $description = '', $public = true ) {
+	public function __construct( $id = null, User $user, $title = '', $description = '', $public = true ) {
 		$this->owner = $user;
 		$this->title = $title;
 		$this->description = $description;
@@ -75,6 +76,17 @@ class Collection implements IteratorAggregate {
 	 */
 	public function add( CollectionItem $item ) {
 		$this->items[] = $item;
+	}
+
+	/**
+	 * Adds an array of items to the collection
+	 *
+	 * @param CollectionItem[] $items list of items to add
+	 */
+	public function batch( $items ) {
+		foreach ( $items as $item ) {
+			$this->add( $item );
+		}
 	}
 
 	/**
@@ -159,19 +171,6 @@ class Collection implements IteratorAggregate {
 	 */
 	public function getItems() {
 		return $this->items;
-	}
-
-	/**
-	 * Adds an array of titles to the collection
-	 *
-	 * @param stores\Collection $store
-	 */
-	public function load( stores\Collection $store ) {
-		$this->id = $store->getId();
-		$items = $store->getItems();
-		foreach ( $items as $item ) {
-			$this->add( $item );
-		}
 	}
 
 }

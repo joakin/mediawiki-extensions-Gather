@@ -70,22 +70,19 @@ class SpecialGather extends SpecialPage {
 	 * @param int $id collection id
 	 */
 	public function renderUserCollection( User $user, $id ) {
-		$collection = new models\Collection(
-			$user,
-			$this->msg( 'gather-watchlist-title' ),
-			$this->msg( 'gather-watchlist-description' )
-		);
 		// Watchlist lives at id 0
 		if ( (int)$id === 0 ) {
-			// Watchlist is private
-			$collection->setPublic( false );
 			if ( $this->isOwner( $user ) ) {
-				$collection->load( new stores\WatchlistCollection( $user ) );
+				$watchlistStore = new stores\WatchlistCollection( $user );
+				$this->render( new views\Collection( $watchlistStore->getCollection() ) );
+			} else {
+				// FIXME: No permissions to visit this. Showing not found ATM.
+				$this->renderNotFoundError();
 			}
+		} else {
+			// FIXME: Not rendering other collections yet. Render not found ATM.
+			$this->renderNotFoundError();
 		}
-		// FIXME: For empty-collection and not-allowed-to-see-this we are doing the
-		// same thing right now.
-		$this->render( new views\Collection( $collection ) );
 	}
 
 	/**

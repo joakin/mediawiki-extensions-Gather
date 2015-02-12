@@ -14,15 +14,15 @@ use \GenderCache;
  */
 class WatchlistCollection implements Collection {
 	/**
-	 * @var models\CollectionItem[]
+	 * @var models\Collection
 	 */
-	protected $items = array();
+	protected $collection;
 
 	/**
 	 * @inheritdoc
 	 */
-	public function getItems() {
-		return $this->items;
+	public function getCollection() {
+		return $this->collection;
 	}
 
 	/**
@@ -39,13 +39,26 @@ class WatchlistCollection implements Collection {
 	 * @param User $user to lookup watchlist members for
 	 */
 	public function __construct( User $user ) {
+		// Load the different data we need
 		$titles = $this->loadTitles( $user );
 		$extracts = ItemExtracts::loadExtracts( $titles );
 		$images = ItemImages::loadImages( $titles );
 
+		// Merge the data into models\CollectionItem
+		$items = array();
 		foreach ( $titles as $key=>$title ) {
-			$this->items[] = new models\CollectionItem( $title, $images[$key], $extracts[$key] );
+			$items[] = new models\CollectionItem( $title, $images[$key], $extracts[$key] );
 		}
+
+		// Construct the internal models\Collection
+		$this->collection = new models\Collection(
+			$this->getId(),
+			$user,
+			wfMessage( 'gather-watchlist-title' ),
+			wfMessage( 'gather-watchlist-description' ),
+			false
+		);
+		$this->collection->batch( $items );
 	}
 
 	/**
