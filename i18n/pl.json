@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrumps"
+		]
+	},
+	"gather-watchlist-title": "Obserwowane",
+	"gather-watchlist-description": "Lista stron, które mnie interesują.",
+	"gather-read-more": "Czytaj więcej",
+	"gather-article-count": "$1 {{PLURAL:$1|artykuł|artykuły|artykułów}}"
+}

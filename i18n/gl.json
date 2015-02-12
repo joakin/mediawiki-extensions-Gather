@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fisterraeomar"
+		]
+	},
+	"gather-desc": "Compoñente da extensión Mobile Frontend que permite aos usuarios xestionar listas.",
+	"gather-anon-view-lists": "Debe iniciar sesión para ver as súas coleccións.",
+	"gather-watchlist-title": "Lista de vixilancia",
+	"gather-watchlist-description": "Lista de páxinas que me interesan.",
+	"gather-lists-title": "Coleccións",
+	"gather-read-more": "Seguir lendo",
+	"gather-private": "Privado",
+	"gather-empty": "Colección aínda baleira.",
+	"gather-empty-footer": "Non sei como chegou aquí, pero este é un lugar triste."
+}

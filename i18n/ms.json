@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Anakmalaysia"
+		]
+	},
+	"gather-desc": "Komponen Mobile Frontend yang membolehken pengguna untuk menghuraikan senarai.",
+	"gather-anon-view-lists": "Anda perlu log masuk untuk melihat Koleksi anda.",
+	"gather-watchlist-title": "Senarai pantau",
+	"gather-lists-title": "Koleksi",
+	"gather-read-more": "Baca lagi",
+	"gather-private": "Tertutup",
+	"gather-article-count": "$1 {{PLURAL:$1|rencana}}",
+	"gather-empty": "Belum ada apa-apa dalam koleksi ini..."
+}

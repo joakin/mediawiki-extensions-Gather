@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Macofe"
+			"Macofe",
+			"Awesomecat5"
 		]
 	},
+	"gather-desc": "Componente de móvil Frontend permitiendo a los usuarios cura listas.",
 	"gather-anon-view-lists": "Debes iniciar sesión para ver tus colecciones.",
 	"gather-watchlist-title": "Lista de seguimiento",
 	"gather-watchlist-description": "Una lista de páginas que me interesan.",

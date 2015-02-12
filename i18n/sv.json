@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jenniesarina"
+		]
+	},
+	"gather-desc": "Komponent av Mobila Gränssnitt som tillåter användare att sätta ihop listor.",
+	"gather-anon-view-lists": "Du måste vara inloggad för att se dina samlingar.",
+	"gather-watchlist-title": "Bevakningslista",
+	"gather-watchlist-description": "En lista över sidor som jag är intresserad av.",
+	"gather-lists-title": "Samlingar",
+	"gather-read-more": "Läs mer",
+	"gather-private": "Privat",
+	"gather-article-count": "$1 {{PLURAL:$1|artikel|artiklar}}",
+	"gather-empty": "Ingenting i denna samling ännu...",
+	"gather-empty-footer": "Jag vet inte hur du kom hit, men det här är en sorglig plats."
+}
