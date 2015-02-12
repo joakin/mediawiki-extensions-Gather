@@ -3,8 +3,9 @@
  * CollectionItemCardView.php
  */
 
-namespace Gather;
+namespace Gather\views;
 
+use Gather\models\CollectionItem;
 use Gather\views\helpers\CSS;
 use \Html;
 

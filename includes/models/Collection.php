@@ -4,8 +4,9 @@
  * Collection.php
  */
 
-namespace Gather;
+namespace Gather\models;
 
+use Gather\stores\CollectionStore;
 use \User;
 use \Title;
 use \IteratorAggregate;

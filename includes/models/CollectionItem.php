@@ -4,7 +4,7 @@
  * CollectionItem.php
  */
 
-namespace Gather;
+namespace Gather\models;
 
 use \Title;
 

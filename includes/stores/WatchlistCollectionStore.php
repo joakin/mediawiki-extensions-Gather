@@ -1,6 +1,8 @@
 <?php
 
-namespace Gather;
+namespace Gather\stores;
+
+use Gather\models\CollectionItem;
 
 use \User;
 use \Title;

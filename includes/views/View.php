@@ -3,7 +3,7 @@
  * View.php
  */
 
-namespace Gather;
+namespace Gather\views;
 
 use \OutputPage;
 

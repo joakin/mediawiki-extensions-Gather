@@ -3,7 +3,7 @@
  * CollectionsListView.php
  */
 
-namespace Gather;
+namespace Gather\views;
 
 use \Html;
 

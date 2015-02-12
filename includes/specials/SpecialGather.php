@@ -5,6 +5,9 @@
 
 namespace Gather;
 
+use Gather\models\Collection;
+use Gather\stores as stores;
+use Gather\views as views;
 use \User;
 use \SpecialPage;
 
@@ -57,7 +60,7 @@ class SpecialGather extends SpecialPage {
 	 * Render an error when the user was not found
 	 */
 	public function renderUserNotFoundError() {
-		$this->render( new UserNotFoundView() );
+		$this->render( new views\UserNotFoundView() );
 	}
 
 	/**
@@ -77,12 +80,12 @@ class SpecialGather extends SpecialPage {
 			// Watchlist is private
 			$collection->setPublic( false );
 			if ( $this->isOwner( $user ) ) {
-				$collection->load( new WatchlistCollectionStore( $user ) );
+				$collection->load( new stores\WatchlistCollectionStore( $user ) );
 			}
 		}
 		// FIXME: For empty-collection and not-allowed-to-see-this we are doing the
 		// same thing right now.
-		$this->render( new CollectionView( $collection ) );
+		$this->render( new views\CollectionView( $collection ) );
 	}
 
 	/**
@@ -92,10 +95,10 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function renderUserCollectionsList( User $user ) {
 		// FIXME: Substitute with proper storage class
-		$collectionsListStore = new DumbWatchlistOnlyCollectionsListStore(
+		$collectionsListStore = new stores\DumbWatchlistOnlyCollectionsListStore(
 			$user, $this->isOwner( $user )
 		);
-		$this->render( new CollectionsListView( $collectionsListStore->getLists() ) );
+		$this->render( new views\CollectionsListView( $collectionsListStore->getLists() ) );
 	}
 
 	/**

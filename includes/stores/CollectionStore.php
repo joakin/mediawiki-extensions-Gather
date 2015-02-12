@@ -1,6 +1,6 @@
 <?php
 
-namespace Gather;
+namespace Gather\stores;
 
 /**
  * Abstraction for collection storage.

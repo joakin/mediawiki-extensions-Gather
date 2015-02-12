@@ -4,8 +4,9 @@
  * CollectionsListStore.php
  */
 
-namespace Gather;
+namespace Gather\stores;
 
+use Gather\models\Collection;
 use \User;
 
 /**

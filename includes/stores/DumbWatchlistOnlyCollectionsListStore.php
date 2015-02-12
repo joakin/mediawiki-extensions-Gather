@@ -4,7 +4,9 @@
  * DumbOnlyWatchlistCollectionsListStore.php
  */
 
-namespace Gather;
+namespace Gather\stores;
+
+use Gather\models\Collection;
 
 /**
  * Dumb collections list store that only knows to return the watchlist.

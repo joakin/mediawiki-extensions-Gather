@@ -39,26 +39,26 @@ function efGatherExtensionSetup() {
 }
 
 // autoload extension classes
-$autoloadClasses = array (
+$autoloadClasses = array(
 	'Gather\Hooks' => 'Gather.hooks',
 
-	'Gather\CollectionItem' => 'models/CollectionItem',
-	'Gather\Collection' => 'models/Collection',
+	'Gather\models\CollectionItem' => 'models/CollectionItem',
+	'Gather\models\Collection' => 'models/Collection',
 
-	'Gather\CollectionStore' => 'stores/CollectionStore',
-	'Gather\WatchlistCollectionStore' => 'stores/WatchlistCollectionStore',
-	'Gather\CollectionsListStore' => 'stores/CollectionsListStore',
-	'Gather\DumbWatchlistOnlyCollectionsListStore' => 'stores/DumbWatchlistOnlyCollectionsListStore',
-	'Gather\ItemExtractsStore' => 'stores/ItemExtractsStore',
-	'Gather\ItemImagesStore' => 'stores/ItemImagesStore',
+	'Gather\stores\CollectionStore' => 'stores/CollectionStore',
+	'Gather\stores\WatchlistCollectionStore' => 'stores/WatchlistCollectionStore',
+	'Gather\stores\CollectionsListStore' => 'stores/CollectionsListStore',
+	'Gather\stores\DumbWatchlistOnlyCollectionsListStore' => 'stores/DumbWatchlistOnlyCollectionsListStore',
+	'Gather\stores\ItemExtractsStore' => 'stores/ItemExtractsStore',
+	'Gather\stores\ItemImagesStore' => 'stores/ItemImagesStore',
 
-	'Gather\View' => 'views/View',
-	'Gather\UserNotFoundView' => 'views/UserNotFoundView',
-	'Gather\CollectionView' => 'views/CollectionView',
-	'Gather\CollectionItemCardView' => 'views/CollectionItemCardView',
-	'Gather\ItemImageView' => 'views/ItemImageView',
-	'Gather\CollectionsListView' => 'views/CollectionsListView',
-	'Gather\CollectionsListItemCardView' => 'views/CollectionsListItemCardView',
+	'Gather\views\View' => 'views/View',
+	'Gather\views\UserNotFoundView' => 'views/UserNotFoundView',
+	'Gather\views\CollectionView' => 'views/CollectionView',
+	'Gather\views\CollectionItemCardView' => 'views/CollectionItemCardView',
+	'Gather\views\ItemImageView' => 'views/ItemImageView',
+	'Gather\views\CollectionsListView' => 'views/CollectionsListView',
+	'Gather\views\CollectionsListItemCardView' => 'views/CollectionsListItemCardView',
 
 	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
 
