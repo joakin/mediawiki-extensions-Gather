@@ -26,6 +26,13 @@ class Collection implements IteratorAggregate {
 	protected $items = array();
 
 	/**
+	 * The internal id of a collection
+	 *
+	 * @var int id
+	 */
+	protected $id;
+
+	/**
 	 * Owner of collection
 	 * @var User
 	 */
@@ -56,18 +63,12 @@ class Collection implements IteratorAggregate {
 	 * @param string $description Description of the collection
 	 */
 	public function __construct( $id = null, User $user, $title = '', $description = '', $public = true ) {
+		$this->id = $id;
 		$this->owner = $user;
 		$this->title = $title;
 		$this->description = $description;
 		$this->public = $public;
 	}
-
-	/**
-	 * The internal id of a collection
-	 *
-	 * @var int id
-	 */
-	protected $id;
 
 	/**
 	 * Adds a item to the collection.
