@@ -47,7 +47,7 @@ class CollectionItem {
 	 * @return Boolean
 	 */
 	public function hasImage() {
-		return $this->image ? true : false;
+		return $this->file ? true : false;
 	}
 
 	/**
@@ -64,5 +64,19 @@ class CollectionItem {
 	 */
 	public function getTitle() {
 		return $this->title;
+	}
+
+	/**
+ 	 * @return string extract of the item
+	 */
+	public function getExtract() {
+		return $this->extract;
+	}
+
+	/**
+	 * @return File|bool Get the file from this item
+	 */
+	public function getFile() {
+		return $this->file;
 	}
 }
