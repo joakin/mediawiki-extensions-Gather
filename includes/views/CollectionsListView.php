@@ -12,20 +12,20 @@ use \Html;
  */
 class CollectionsListView extends View {
 	/**
-	 * @param Collection $collection
+	 * @param Collection[] $collectionsList
 	 */
-	public function __construct( CollectionsList $collectionsList ) {
+	public function __construct( $collectionsList ) {
 		$this->collectionsList = $collectionsList;
 	}
 
 	/**
-	 * Returns the html for the items of a collection
+	 * Returns the html for the collections in a list
 	 *
-	 * @param CollectionsList
+	 * @param Collection[]
 	 *
 	 * @return string Html
 	 */
-	public static function getListItemsHtml( CollectionsList $collectionsList ) {
+	public static function getListItemsHtml( $collectionsList ) {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-cards' ) );
 		foreach ( $collectionsList as $item ) {
 			$view = new CollectionsListItemCardView( $item );
