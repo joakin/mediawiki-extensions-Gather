@@ -22,7 +22,7 @@ class Hooks {
 	 * Add collections link in personal tools menu
 	 * @param array &$items Items array to be added to menu
 	 */
-	public static function addPersonalTools( &$items ) {
+	public static function onMobilePersonalTools( &$items ) {
 		if ( MobileContext::singleton()->isAlphaGroupMember() ) {
 			// Add collections link below watchlist
 			$itemArray = array_slice( $items, 0, 1, true ) +

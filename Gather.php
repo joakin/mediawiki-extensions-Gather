@@ -74,7 +74,7 @@ $wgExtensionFunctions[] = 'efGatherExtensionSetup';
 $wgSpecialPages['Gather'] = 'Gather\SpecialGather';
 
 // Hooks
-$wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::addPersonalTools';
+$wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
 
 // ResourceLoader modules
 require_once __DIR__ . "/includes/Resources.php";
