@@ -45,7 +45,7 @@ class SpecialGather extends SpecialPage {
 
 		if ( !( $user && $user->getId() ) ) {
 			// Invalid user
-			$this->renderUserNotFoundError();
+			$this->renderNotFoundError();
 		} else {
 			if ( isset( $args ) && isset( $args[1] ) ) {
 				$id = $args[1];
@@ -59,8 +59,8 @@ class SpecialGather extends SpecialPage {
 	/**
 	 * Render an error when the user was not found
 	 */
-	public function renderUserNotFoundError() {
-		$this->render( new views\UserNotFound() );
+	public function renderNotFoundError() {
+		$this->render( new views\NotFound() );
 	}
 
 	/**
