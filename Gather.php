@@ -42,6 +42,7 @@ function efGatherExtensionSetup() {
 $autoloadClasses = array (
 	'Gather\Hooks' => 'Gather.hooks',
 
+	'Gather\CollectionItem' => 'models/CollectionItem',
 	'Gather\Collection' => 'models/Collection',
 	'Gather\CollectionsList' => 'models/CollectionsList',
 

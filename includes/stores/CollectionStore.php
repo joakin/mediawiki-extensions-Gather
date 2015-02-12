@@ -7,11 +7,11 @@ namespace Gather;
  */
 interface CollectionStore {
 	/**
-	 * Get titles of all pages in the current collection.
+	 * Get CollectionItem of all pages in the current collection.
 	 *
-	 * @return array titles
+	 * @return CollectionItem[] titles
 	 */
-	public function getTitles();
+	public function getItems();
 
 	/**
 	 * Get current collection identifier
