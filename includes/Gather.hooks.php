@@ -31,7 +31,7 @@ class Hooks {
 						'links' => array(
 							array(
 								'text' => wfMessage( 'gather-lists-title' )->escaped(),
-								'href' => SpecialPage::getTitleFor( 'Gather' ),
+								'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
 								// FIXME: Temporarily watchlist icon
 								'class' => CSS::iconClass( 'watchlist', 'before' ),
 							),
