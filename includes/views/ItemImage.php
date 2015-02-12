@@ -1,25 +1,25 @@
 <?php
 /**
- * ItemImageView.php
+ * ItemImage.php
  */
 
 namespace Gather\views;
 
-use Gather\models\CollectionItem;
+use Gather\models;
 use Gather\views\helpers\CSS;
 use \Html;
 
 /**
  * View for the image of an item card.
  */
-class ItemImageView {
+class ItemImage {
 	protected $item;
 
 	/**
 	 * Constructor
-	 * @param CollectionItem $item
+	 * @param models\CollectionItem $item
 	 */
-	public function __construct( CollectionItem $item ) {
+	public function __construct( models\CollectionItem $item ) {
 		$this->item = $item;
 	}
 

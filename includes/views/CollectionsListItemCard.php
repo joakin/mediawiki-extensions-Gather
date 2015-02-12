@@ -1,22 +1,22 @@
 <?php
 /**
- * CollectionsListItemCardView.php
+ * CollectionsListItemCard.php
  */
 
 namespace Gather\views;
 
-use Gather\models\Collection;
+use Gather\models;
 use \Html;
 
 /**
  * View for an item card in a mobile collection.
  */
-class CollectionsListItemCardView extends View {
+class CollectionsListItemCard extends View {
 
 	/**
-	 * @param Collection $collection
+	 * @param models\Collection $collection
 	 */
-	public function __construct( Collection $collection ) {
+	public function __construct( models\Collection $collection ) {
 		$this->collection = $collection;
 	}
 

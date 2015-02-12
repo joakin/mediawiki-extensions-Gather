@@ -53,12 +53,12 @@ $autoloadClasses = array(
 	'Gather\stores\ItemImages' => 'stores/ItemImages',
 
 	'Gather\views\View' => 'views/View',
-	'Gather\views\UserNotFoundView' => 'views/UserNotFoundView',
-	'Gather\views\CollectionView' => 'views/CollectionView',
-	'Gather\views\CollectionItemCardView' => 'views/CollectionItemCardView',
-	'Gather\views\ItemImageView' => 'views/ItemImageView',
-	'Gather\views\CollectionsListView' => 'views/CollectionsListView',
-	'Gather\views\CollectionsListItemCardView' => 'views/CollectionsListItemCardView',
+	'Gather\views\UserNotFound' => 'views/UserNotFound',
+	'Gather\views\Collection' => 'views/Collection',
+	'Gather\views\CollectionItemCard' => 'views/CollectionItemCard',
+	'Gather\views\ItemImage' => 'views/ItemImage',
+	'Gather\views\CollectionsList' => 'views/CollectionsList',
+	'Gather\views\CollectionsListItemCard' => 'views/CollectionsListItemCard',
 
 	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
 

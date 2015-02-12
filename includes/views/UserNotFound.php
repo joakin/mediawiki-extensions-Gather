@@ -1,6 +1,6 @@
 <?php
 /**
- * UserNotFoundView.php
+ * UserNotFound.php
  */
 
 namespace Gather\views;
@@ -10,7 +10,7 @@ use \Html;
 /**
  * Renders an error when the user wasn't found
  */
-class UserNotFoundView extends View {
+class UserNotFound extends View {
 
 	/**
 	 * @inheritdoc

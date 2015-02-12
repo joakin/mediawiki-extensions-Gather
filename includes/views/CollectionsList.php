@@ -1,6 +1,6 @@
 <?php
 /**
- * CollectionsListView.php
+ * CollectionsList.php
  */
 
 namespace Gather\views;
@@ -10,7 +10,7 @@ use \Html;
 /**
  * Renders a mobile collection card list
  */
-class CollectionsListView extends View {
+class CollectionsList extends View {
 	/**
 	 * @param Collection[] $collectionsList
 	 */
@@ -28,7 +28,7 @@ class CollectionsListView extends View {
 	public static function getListItemsHtml( $collectionsList ) {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-cards' ) );
 		foreach ( $collectionsList as $item ) {
-			$view = new CollectionsListItemCardView( $item );
+			$view = new CollectionsListItemCard( $item );
 			$html .= $view->getHtml();
 		}
 		// FIXME: Pagination

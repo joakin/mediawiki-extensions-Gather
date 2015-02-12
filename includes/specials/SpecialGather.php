@@ -60,7 +60,7 @@ class SpecialGather extends SpecialPage {
 	 * Render an error when the user was not found
 	 */
 	public function renderUserNotFoundError() {
-		$this->render( new views\UserNotFoundView() );
+		$this->render( new views\UserNotFound() );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class SpecialGather extends SpecialPage {
 		}
 		// FIXME: For empty-collection and not-allowed-to-see-this we are doing the
 		// same thing right now.
-		$this->render( new views\CollectionView( $collection ) );
+		$this->render( new views\Collection( $collection ) );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class SpecialGather extends SpecialPage {
 		$collectionsListStore = new stores\DumbWatchlistOnlyCollectionsList(
 			$user, $this->isOwner( $user )
 		);
-		$this->render( new views\CollectionsListView( $collectionsListStore->getLists() ) );
+		$this->render( new views\CollectionsList( $collectionsListStore->getLists() ) );
 	}
 
 	/**

@@ -1,32 +1,32 @@
 <?php
 /**
- * CollectionItemCardView.php
+ * CollectionItemCard.php
  */
 
 namespace Gather\views;
 
-use Gather\models\CollectionItem;
+use Gather\models;
 use Gather\views\helpers\CSS;
 use \Html;
 
 /**
  * View for an item card in a mobile collection.
  */
-class CollectionItemCardView extends View {
+class CollectionItemCard extends View {
 	protected $item;
 
 	/**
-	 * @var ItemImageView view for the item image
+	 * @var ItemImage view for the item image
 	 */
 	protected $image;
 
 	/**
 	 * Constructor
-	 * @param CollectionItem $item
+	 * @param models\CollectionItem $item
 	 */
-	public function __construct( CollectionItem $item ) {
+	public function __construct( models\CollectionItem $item ) {
 		$this->item = $item;
-		$this->image = new ItemImageView( $item );
+		$this->image = new ItemImage( $item );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * CollectionView.php
+ * Collection.php
  */
 
 namespace Gather\views;
@@ -9,21 +9,21 @@ use \Html;
 use \User;
 use \SpecialPage;
 use Gather\views\helpers\CSS;
-use Gather\models\Collection;
+use Gather\models;
 
 /**
  * Render a mobile card.
  */
-class CollectionView extends View {
+class Collection extends View {
 	/**
 	 * @var Collection
 	 */
 	protected $collection;
 
 	/**
-	 * @param Collection $collection
+	 * @param models\Collection $collection
 	 */
-	public function __construct( Collection $collection ) {
+	public function __construct( models\Collection $collection ) {
 		$this->collection = $collection;
 	}
 
@@ -33,7 +33,7 @@ class CollectionView extends View {
 	 *
 	 * @return string Html
 	 */
-	private function getHeaderHtml( Collection $collection ) {
+	private function getHeaderHtml( models\Collection $collection ) {
 		$collection = $this->collection;
 		$description = $collection->getDescription();
 		$owner = $collection->getOwner();
@@ -67,7 +67,7 @@ class CollectionView extends View {
 	 * @return string HTML
 	 */
 	private function getEmptyCollectionMessage() {
-		// FIXME: i18n this messagesinclude 'CollectionView.php';
+		// FIXME: i18n this messagesinclude 'Collection.php';
 		return Html::openElement( 'div', array( 'class' => 'collection-empty' ) ) .
 			Html::element( 'h3', array(), wfMessage( 'gather-empty' ) ) .
 			Html::element( 'div', array(),
@@ -86,16 +86,15 @@ class CollectionView extends View {
 
 	/**
 	 * Returns the html for the items of a collection
-	 *
-	 * @param Collection
+	 * @param models\Collection
 	 *
 	 * @return string HTML
 	 */
-	public function getCollectionItems( Collection $collection ) {
+	public function getCollectionItems( models\Collection $collection ) {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-items' ) );
 		foreach ( $collection as $item ) {
 			if ( $item->getTitle()->getNamespace() === NS_MAIN ) {
-				$view = new CollectionItemCardView( $item );
+				$view = new CollectionItemCard( $item );
 				$html .= $view->getHtml();
 			}
 		}
