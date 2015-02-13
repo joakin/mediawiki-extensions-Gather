@@ -25,22 +25,26 @@
 	},
 	"AutoloadClasses": {
 		"Gather\\Hooks": "includes/Gather.hooks.php",
-		"Gather\\Collection": "includes/models/Collection.php",
-		"Gather\\CollectionsList": "includes/models/CollectionsList.php",
-		"Gather\\CollectionStore": "includes/stores/CollectionStore.php",
-		"Gather\\WatchlistCollectionStore": "includes/stores/WatchlistCollectionStore.php",
-		"Gather\\View": "includes/views/View.php",
-		"Gather\\UserNotFoundView": "includes/views/UserNotFoundView.php",
-		"Gather\\CollectionView": "includes/views/CollectionView.php",
-		"Gather\\CollectionItemCardView": "includes/views/CollectionItemCardView.php",
-		"Gather\\CollectionsListView": "includes/views/CollectionsListView.php",
-		"Gather\\CollectionsListItemCardView": "includes/views/CollectionsListItemCardView.php",
+		"Gather\\models\\CollectionItem": "includes/models/CollectionItem.php",
+		"Gather\\models\\Collection": "includes/models/Collection.php",
+		"Gather\\stores\\Collection": "includes/stores/Collection.php",
+		"Gather\\stores\\WatchlistCollection": "includes/stores/WatchlistCollection.php",
+		"Gather\\stores\\CollectionsList": "includes/stores/CollectionsList.php",
+		"Gather\\stores\\DumbWatchlistOnlyCollectionsList": "includes/stores/DumbWatchlistOnlyCollectionsList.php",
+		"Gather\\stores\\ItemExtracts": "includes/stores/ItemExtracts.php",
+		"Gather\\stores\\ItemImages": "includes/stores/ItemImages.php",
+		"Gather\\views\\View": "includes/views/View.php",
+		"Gather\\views\\NotFound": "includes/views/NotFound.php",
+		"Gather\\views\\Collection": "includes/views/Collection.php",
+		"Gather\\views\\CollectionItemCard": "includes/views/CollectionItemCard.php",
+		"Gather\\views\\ItemImage": "includes/views/ItemImage.php",
+		"Gather\\views\\CollectionsList": "includes/views/CollectionsList.php",
+		"Gather\\views\\CollectionsListItemCard": "includes/views/CollectionsListItemCard.php",
+		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
 		"Gather\\SpecialGather": "includes/specials/SpecialGather.php"
 	},
 	"ResourceModules": {
 		"ext.collections.icons": {
-			"localBasePath": "resources",
-			"remoteExtPath": "Gather",
 			"targets": [
 				"mobile",
 				"desktop"
@@ -54,8 +58,6 @@
 			}
 		},
 		"ext.collections.styles": {
-			"localBasePath": "resources",
-			"remoteExtPath": "Gather",
 			"targets": [
 				"mobile",
 				"desktop"
@@ -66,11 +68,22 @@
 			],
 			"dependencies": [
 				"mediawiki.ui.anchor",
-				"skins.minerva.special.styles"
+				"mediawiki.ui.icon",
+				"skins.minerva.special.styles",
+				"ext.collections.icons"
 			],
 			"position": "top",
 			"group": "other"
 		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "Gather"
+	},
+	"Hooks": {
+		"MobilePersonalTools": [
+			"Gather\\Hooks::onMobilePersonalTools"
+		]
 	},
 	"config": {
 		"GatherResourceBoilerplate": {
