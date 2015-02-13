@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yona b"
+		]
+	},
+	"gather-desc": "מרכיב באתר הניידים המאפשר למשתמשים לסדר רשימות.",
+	"gather-anon-view-lists": "נדרש להתחבר למשתמש כדי לראות את האוסף שלכם.",
+	"gather-watchlist-title": "רשימות המעקב",
+	"gather-watchlist-description": "רשימת דפים שמעניינים אותי.",
+	"gather-lists-title": "אוספים",
+	"gather-read-more": "קריאה נוספת",
+	"gather-private": "פרטי",
+	"gather-article-count": "$1 {{PLURAL:$1|ערך|ערכים}}",
+	"gather-empty": "האוסף שלכם ריק כרגע...",
+	"gather-empty-footer": "אני לא יוע איך הגעת לכאן אבל זה מקום עצוב."
+}
