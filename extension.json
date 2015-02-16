@@ -57,7 +57,8 @@
 			"prefix": "mw-ui",
 			"images": {
 				"icon": {
-					"collections-read-more:before": "images/icons/next.svg"
+					"collections-read-more:before": "ext.collections.styles/images/icons/next.svg",
+					"collection-owner:before": "ext.collections.styles/images/icons/user.svg"
 				}
 			}
 		},

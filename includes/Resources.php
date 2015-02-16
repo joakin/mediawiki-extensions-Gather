@@ -57,7 +57,8 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 		'images' => array(
 			// FIXME: ':before' suffix should be configurable in image module.
 			'icon' => array(
-				'collections-read-more:before' => 'images/icons/next.svg',
+				'collections-read-more:before' => 'ext.collections.styles/images/icons/next.svg',
+				'collection-owner:before' => 'ext.collections.styles/images/icons/user.svg',
 			),
 		),
 	),
