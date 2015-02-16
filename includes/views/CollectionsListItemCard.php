@@ -18,7 +18,7 @@ class CollectionsListItemCard extends View {
 	 */
 	public function __construct( models\CollectionInfo $collection ) {
 		$this->collection = $collection;
-		$this->image = new ItemImage( $collection );
+		$this->image = new Image( $collection );
 	}
 
 	/**
@@ -27,7 +27,7 @@ class CollectionsListItemCard extends View {
 	protected $collection;
 
 	/**
-	 * @var ItemImage view for the collection image
+	 * @var Image view for the collection image
 	 */
 	protected $image;
 

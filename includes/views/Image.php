@@ -1,6 +1,6 @@
 <?php
 /**
- * ItemImage.php
+ * Image.php
  */
 
 namespace Gather\views;
@@ -12,7 +12,7 @@ use \Html;
 /**
  * View for the image of an item card.
  */
-class ItemImage {
+class Image {
 	protected $item;
 
 	/**

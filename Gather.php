@@ -60,7 +60,7 @@ $autoloadClasses = array(
 	'Gather\views\NotFound' => 'views/NotFound',
 	'Gather\views\Collection' => 'views/Collection',
 	'Gather\views\CollectionItemCard' => 'views/CollectionItemCard',
-	'Gather\views\ItemImage' => 'views/ItemImage',
+	'Gather\views\Image' => 'views/Image',
 	'Gather\views\CollectionsList' => 'views/CollectionsList',
 	'Gather\views\CollectionsListItemCard' => 'views/CollectionsListItemCard',
 

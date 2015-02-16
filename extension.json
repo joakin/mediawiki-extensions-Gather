@@ -41,7 +41,7 @@
 		"Gather\\views\\NotFound": "includes/views/NotFound.php",
 		"Gather\\views\\Collection": "includes/views/Collection.php",
 		"Gather\\views\\CollectionItemCard": "includes/views/CollectionItemCard.php",
-		"Gather\\views\\ItemImage": "includes/views/ItemImage.php",
+		"Gather\\views\\Image": "includes/views/Image.php",
 		"Gather\\views\\CollectionsList": "includes/views/CollectionsList.php",
 		"Gather\\views\\CollectionsListItemCard": "includes/views/CollectionsListItemCard.php",
 		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",

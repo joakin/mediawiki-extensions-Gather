@@ -19,7 +19,7 @@ class CollectionItemCard extends View {
 	protected $item;
 
 	/**
-	 * @var ItemImage view for the item image
+	 * @var Image view for the item image
 	 */
 	protected $image;
 
@@ -29,7 +29,7 @@ class CollectionItemCard extends View {
 	 */
 	public function __construct( models\CollectionItem $item ) {
 		$this->item = $item;
-		$this->image = new ItemImage( $item );
+		$this->image = new Image( $item );
 	}
 
 	/**
