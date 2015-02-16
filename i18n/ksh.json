@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Purodha"
+		]
+	},
+	"gather-desc": "Aandeil för et Projramm för Mobihljerähte för de eije Leßte ze beärbeide.",
+	"gather-anon-view-lists": "Mer moß ennjelogg sin, öm de eije Leßte belohre ze künne.",
+	"gather-watchlist-title": "Oppaßleß",
+	"gather-watchlist-description": "En Leß met Sigge, woh esch Enträße draan han.",
+	"gather-lists-title": "Leßte",
+	"gather-read-more": "Mieh lässe",
+	"gather-private": "Nit öffentlesch",
+	"gather-article-count": "{{PLURAL:$1|Eine Atikel|$1 Atikele|Keine Atikel}}",
+	"gather-empty": "En heh dä Sammlong es noch nix dren&nbsp;&hellip;"
+}

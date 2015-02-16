@@ -1,0 +1,11 @@
+{
+	"gather-anon-view-lists": "Du må være logget inn for å se samlingene dine.",
+	"gather-watchlist-title": "Overvåkningsliste",
+	"gather-watchlist-description": "En liste over sider jeg er interessert i.",
+	"gather-lists-title": "Samlinger",
+	"gather-read-more": "Les mer",
+	"gather-private": "Privat",
+	"gather-article-count": "{{PLURAL:$1|Én artikkel|$1 artikler}}",
+	"gather-empty": "Ingenting i denne samlinga ennå...",
+	"gather-empty-footer": "Jeg vet ikke hvordan du kom hit, men dette er et trist sted."
+}

@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Batumski brodyaga"
+		]
+	},
+	"gather-watchlist-description": "Список страниц, которые мне интересны.",
+	"gather-lists-title": "Коллекции",
+	"gather-private": "Личная",
+	"gather-empty": "В коллекции еще ничего нет...",
+	"gather-empty-footer": "Не знаю, как вы сюда попали, но это скучное место."
+}

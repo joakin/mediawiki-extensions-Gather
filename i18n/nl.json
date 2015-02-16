@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sjoerddebruin"
+		]
+	},
+	"gather-watchlist-title": "Volglijst",
+	"gather-lists-title": "Verzamelingen",
+	"gather-read-more": "Meer lezen",
+	"gather-private": "Privé",
+	"gather-article-count": "$1 {{PLURAL:$1|artikel|artikelen}}",
+	"gather-empty": "Er zit nog niks in deze verzameling..."
+}

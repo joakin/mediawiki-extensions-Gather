@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby"
+		]
+	},
+	"gather-watchlist-title": "Iwwerwaachungslëscht",
+	"gather-watchlist-description": "Eng Lëscht vu Säiten un deenen ech interesséiert sinn.",
+	"gather-lists-title": "Sammlungen",
+	"gather-read-more": "Liest méi",
+	"gather-private": "Privat",
+	"gather-article-count": "{{PLURAL:$1|Een Artikel|$1 Artikelen}}",
+	"gather-empty": "Nach näischt an dëser Sammlung..."
+}
