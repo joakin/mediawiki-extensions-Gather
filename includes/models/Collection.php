@@ -15,7 +15,7 @@ use \SpecialPage;
 /**
  * A collection of items, which are represented by the CollectionItem class.
  */
-class Collection implements IteratorAggregate {
+class Collection implements IteratorAggregate, WithImage {
 
 	/**
 	 * The internal collection of items.
@@ -56,17 +56,28 @@ class Collection implements IteratorAggregate {
 	protected $public;
 
 	/**
+	 * Image that represents the collection.
+	 *
+	 * @var File
+	 */
+	protected $image;
+
+	/**
 	 * @param int $id id of the collection. Null if not persisted yet
 	 * @param User $user User that owns the collection
 	 * @param string $title Title of the collection
 	 * @param string $description Description of the collection
+	 * @param File $image Main image of the collection
 	 * @param boolean $public Whether the collection is public or private
 	 */
-	public function __construct( $id = null, User $user, $title = '', $description = '', $public = true ) {
+	public function __construct( $id = null, User $user, $title = '', $description = '',
+		$image = null, $public = true ) {
+
 		$this->id = $id;
 		$this->owner = $user;
 		$this->title = $title;
 		$this->description = $description;
+		$this->image = $image;
 		$this->public = $public;
 	}
 
@@ -172,6 +183,20 @@ class Collection implements IteratorAggregate {
 	 */
 	public function getItems() {
 		return $this->items;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hasImage() {
+		return $this->image ? true : false;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getFile() {
+		return $this->image;
 	}
 
 }

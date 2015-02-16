@@ -12,7 +12,7 @@ use \Title;
  * An item of a Collection. Similar to a Page and MobilePage, but with some
  * extra information like the extract and image.
  */
-class CollectionItem {
+class CollectionItem implements WithImage {
 
 	/**
 	 * @var Title: Title for page
@@ -41,9 +41,7 @@ class CollectionItem {
 	}
 
 	/**
-	 * Check whether the item has an image
-	 *
-	 * @return Boolean
+	 * @inheritdoc
 	 */
 	public function hasImage() {
 		return $this->file ? true : false;
@@ -73,7 +71,7 @@ class CollectionItem {
 	}
 
 	/**
-	 * @return File|bool Get the file from this item
+	 * @inheritdoc
 	 */
 	public function getFile() {
 		return $this->file;

@@ -13,6 +13,9 @@ use \Html;
  * View for an item card in a mobile collection.
  */
 class CollectionItemCard extends View {
+	/**
+	 * @var models\CollectionItem Item that is going to be shown in this view
+	 */
 	protected $item;
 
 	/**
@@ -44,14 +47,18 @@ class CollectionItemCard extends View {
 		$item = $this->item;
 		$title = $item->getTitle();
 		$html = Html::openElement( 'div', array( 'class' => 'collection-item' ) ) .
+			Html::openElement( 'a', array( 'href' => $title->getLocalUrl() ) ) .
 			$this->image->getHtml() .
+			Html::closeElement( 'a' ) .
 			Html::openElement( 'h2', array( 'class' => 'collection-item-title' ) ) .
 			Html::element( 'a', array( 'href' => $title->getLocalUrl() ),
 				$this->getTitle()
 			) .
 			Html::closeElement( 'h2' );
 		if ( $item->hasExtract() ) {
-			$html .= Html::element( 'p', array( 'class' => 'collection-item-excerpt' ), $item->getExtract() );
+			$html .= Html::element(
+				'p', array( 'class' => 'collection-item-excerpt' ), $item->getExtract()
+			);
 		}
 		$html .= Html::openElement( 'div', array( 'class' => 'collection-item-footer' ) )
 			. Html::openElement( 'a',
@@ -63,7 +70,9 @@ class CollectionItemCard extends View {
 			. wfMessage( 'gather-read-more' )->escaped()
 			. Html::element(
 				'span',
-				array( 'class' => CSS::iconClass( 'collections-read-more', 'element', 'collections-read-more-arrow' ) ),
+				array( 'class' => CSS::iconClass(
+					'collections-read-more', 'element', 'collections-read-more-arrow'
+				) ),
 				''
 			)
 			. Html::closeElement( 'a' )

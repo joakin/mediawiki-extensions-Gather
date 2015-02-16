@@ -27,6 +27,7 @@
 		"Gather\\Hooks": "includes/Gather.hooks.php",
 		"Gather\\models\\CollectionItem": "includes/models/CollectionItem.php",
 		"Gather\\models\\Collection": "includes/models/Collection.php",
+		"Gather\\models\\WithImage": "includes/models/WithImage.php",
 		"Gather\\stores\\Collection": "includes/stores/Collection.php",
 		"Gather\\stores\\WatchlistCollection": "includes/stores/WatchlistCollection.php",
 		"Gather\\stores\\CollectionsList": "includes/stores/CollectionsList.php",

@@ -136,10 +136,23 @@
 	@overlayHeight: 6em;
 
 	.collection-card {
-		height: @overlayHeight;
+		height: (@overlayHeight + 8em);
 		border: 1px solid @grayLightest;
 		position: relative;
 		margin-bottom: 1em;
+
+		&.without-image {
+			// If there is no image on the card, then make it as big as the overlay
+			height: @overlayHeight;
+		}
+	}
+
+	.collection-card-image {
+		// Make the link and div with the image fully expand
+		&, &>div {
+			position: absolute;
+			top: 0; right: 0; left: 0; bottom: 0;
+		}
 	}
 
 	.collection-card-overlay {

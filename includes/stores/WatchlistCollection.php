@@ -50,12 +50,22 @@ class WatchlistCollection implements Collection {
 			$items[] = new models\CollectionItem( $title, $images[$key], $extracts[$key] );
 		}
 
+		// Grab first image available for the collection
+		$firstImage = null;
+		foreach ( $images as $image ) {
+			if ( $image ) {
+				$firstImage = $image;
+				break;
+			}
+		}
+
 		// Construct the internal models\Collection
 		$this->collection = new models\Collection(
 			$this->getId(),
 			$user,
 			wfMessage( 'gather-watchlist-title' ),
 			wfMessage( 'gather-watchlist-description' ),
+			$firstImage,
 			false
 		);
 		$this->collection->batch( $items );

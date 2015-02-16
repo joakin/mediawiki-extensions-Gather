@@ -44,6 +44,7 @@ $autoloadClasses = array(
 
 	'Gather\models\CollectionItem' => 'models/CollectionItem',
 	'Gather\models\Collection' => 'models/Collection',
+	'Gather\models\WithImage' => 'models/WithImage',
 
 	'Gather\stores\Collection' => 'stores/Collection',
 	'Gather\stores\WatchlistCollection' => 'stores/WatchlistCollection',

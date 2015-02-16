@@ -17,9 +17,9 @@ class ItemImage {
 
 	/**
 	 * Constructor
-	 * @param models\CollectionItem $item
+	 * @param models\WithImage $item
 	 */
-	public function __construct( models\CollectionItem $item ) {
+	public function __construct( models\WithImage $item ) {
 		$this->item = $item;
 	}
 
@@ -58,13 +58,7 @@ class ItemImage {
 					$props['src'] = $imgUrl;
 					$text = $this->title->getText();
 				}
-				$imageHtml = Html::openElement( 'a', array(
-							'href' => $this->item->getTitle()->getLocalUrl(),
-							'class' => CSS::anchorClass( 'progressive' )
-						)
-					)
-					. Html::element( $useBackgroundImage ? 'div' : 'img', $props, $text )
-					. Html::closeElement( 'a' );
+				$imageHtml = Html::element( $useBackgroundImage ? 'div' : 'img', $props, $text );
 			}
 		}
 		return $imageHtml;

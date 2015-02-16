@@ -18,9 +18,18 @@ class CollectionsListItemCard extends View {
 	 */
 	public function __construct( models\Collection $collection ) {
 		$this->collection = $collection;
+		$this->image = new ItemImage( $collection );
 	}
 
+	/**
+	 * @var models\Collection Model to be rendered on this view
+	 */
 	protected $collection;
+
+	/**
+	 * @var ItemImage view for the collection image
+	 */
+	protected $image;
 
 	/**
 	 * Return title of collection
@@ -42,8 +51,16 @@ class CollectionsListItemCard extends View {
 		// FIXME: should consider privacy in collection
 		$followingMsg = wfMessage( 'gather-private' )->text();
 		$collectionUrl = $this->collection->getUrl();
+		$hasImage = $this->collection->hasImage();
 
-		$html = Html::openElement( 'div', array( 'class' => 'collection-card' ) ) .
+		$html = Html::openElement( 'div', array(
+			'class' => 'collection-card ' . ( $hasImage ? '' : 'without-image' )
+			) ) .
+			Html::openElement( 'a', array(
+				'href' => $collectionUrl, 'class' => 'collection-card-image',
+			) ) .
+			$this->image->getHtml() .
+			Html::closeElement( 'a' ) .
 			Html::openElement( 'div', array( 'class' => 'collection-card-overlay' ) ) .
 			Html::openElement( 'div', array( 'class' => 'collection-card-title' ) ) .
 			Html::element( 'a', array( 'href' => $collectionUrl ), $this->getTitle() ) .
