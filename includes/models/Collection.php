@@ -61,6 +61,7 @@ class Collection implements IteratorAggregate {
 	 * @param User $user User that owns the collection
 	 * @param string $title Title of the collection
 	 * @param string $description Description of the collection
+	 * @param boolean $public Whether the collection is public or private
 	 */
 	public function __construct( $id = null, User $user, $title = '', $description = '', $public = true ) {
 		$this->id = $id;
