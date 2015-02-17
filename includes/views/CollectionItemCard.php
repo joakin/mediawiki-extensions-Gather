@@ -48,27 +48,28 @@ class CollectionItemCard extends View {
 			Html::openElement( 'h2', array( 'class' => 'collection-item-title' ) ) .
 			Html::element( 'a', array( 'href' => $title->getLocalUrl() ),
 				$this->getTitle()
-			).
+			) .
 			Html::closeElement( 'h2' );
 		if ( $item->hasExtract() ) {
 			$html .= Html::element( 'p', array( 'class' => 'collection-item-excerpt' ), $item->getExtract() );
 		}
-		$html .= Html::openElement( 'div', array( 'class' => 'collection-item-footer' ) ) .
-			Html::openElement( 'a',
+		$html .= Html::openElement( 'div', array( 'class' => 'collection-item-footer' ) )
+			. Html::openElement( 'a',
 				array(
 					'href' => $title->getLocalUrl(),
 					'class' => CSS::anchorClass( 'progressive' )
 				)
-			) .
-			wfMessage( 'gather-read-more' )->text() .
-			Html::element(
+			)
+			. wfMessage( 'gather-read-more' )->escaped()
+			. Html::element(
 				'span',
 				array( 'class' => CSS::iconClass( 'collections-read-more', 'element', 'collections-read-more-arrow' ) ),
 				''
-			) .
-			Html::closeElement( 'a' ) .
-			Html::closeElement( 'div' ) .
-			Html::closeElement( 'div' );
+			)
+			. Html::closeElement( 'a' )
+			. Html::closeElement( 'div' )
+			. Html::closeElement( 'div' );
+
 		return $html;
 	}
 }

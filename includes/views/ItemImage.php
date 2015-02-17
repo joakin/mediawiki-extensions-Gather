@@ -27,7 +27,8 @@ class ItemImage {
 	 * Get the view html
 	 */
 	public function getHtml() {
-		return $this->getPageImageHtml(750, true);
+		// FIXME: magic number
+		return $this->getPageImageHtml( 750, true );
 	}
 
 	/**
@@ -58,12 +59,12 @@ class ItemImage {
 					$text = $this->title->getText();
 				}
 				$imageHtml = Html::openElement( 'a', array(
-						'href' => $this->item->getTitle()->getLocalUrl(),
-						'class' => CSS::anchorClass( 'progressive' )
+							'href' => $this->item->getTitle()->getLocalUrl(),
+							'class' => CSS::anchorClass( 'progressive' )
+						)
 					)
-				) .
-				Html::element( $useBackgroundImage ? 'div' : 'img', $props, $text ) .
-				Html::closeElement( 'a' );
+					. Html::element( $useBackgroundImage ? 'div' : 'img', $props, $text )
+					. Html::closeElement( 'a' );
 			}
 		}
 		return $imageHtml;

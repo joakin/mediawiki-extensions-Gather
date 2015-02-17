@@ -5,12 +5,13 @@ namespace Gather\stores;
 use \ApiQuery;
 use \ApiMain;
 use \FauxRequest;
+use Title;
 
 /**
  * Loading extracts for titles
  */
 class ItemExtracts {
-	const CHAR_LIMIT=140;
+	const CHAR_LIMIT = 140;
 
 	/**
 	 * Load extracts for a collection of titles
@@ -18,7 +19,7 @@ class ItemExtracts {
 	 *
 	 * @return string[]
 	 */
-	public static function loadExtracts( $titles ) {
+	public static function loadExtracts( array $titles ) {
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'prop' => 'extracts',
