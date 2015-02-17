@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Macofe"
+		]
+	},
+	"gather-watchlist-title": "Llista de seguiment",
+	"gather-lists-title": "Col·leccions",
+	"gather-read-more": "Llegir més",
+	"gather-private": "Privat",
+	"gather-article-count": "$1 {{PLURAL:$1|article|articles}}"
+}

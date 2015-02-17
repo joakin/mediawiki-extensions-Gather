@@ -10,5 +10,6 @@
 	"gather-read-more": "Liest méi",
 	"gather-private": "Privat",
 	"gather-article-count": "{{PLURAL:$1|Een Artikel|$1 Artikelen}}",
-	"gather-empty": "Nach näischt an dëser Sammlung..."
+	"gather-empty": "Nach näischt an dëser Sammlung...",
+	"gather-empty-footer": "Ech weess net wéi Dir heihi kommt sidd awer et ass eng traureg Plaz."
 }
