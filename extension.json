@@ -69,7 +69,6 @@
 			"dependencies": [
 				"mediawiki.ui.anchor",
 				"mediawiki.ui.icon",
-				"skins.minerva.special.styles",
 				"ext.collections.icons"
 			],
 			"position": "top",

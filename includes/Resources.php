@@ -70,7 +70,6 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 		'dependencies' => array(
 			'mediawiki.ui.anchor',
 			'mediawiki.ui.icon',
-			'skins.minerva.special.styles',
 			'ext.collections.icons',
 		),
 		'position' => 'top',
