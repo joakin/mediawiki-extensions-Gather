@@ -71,6 +71,7 @@ $wgSpecialPages['Gather'] = 'Gather\SpecialGather';
 $wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
 $wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
 $wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
+$wgHooks['getUserPermissionsErrors'][] = 'Gather\Hooks::onGetUserPermissionsErrors';
 
 // ResourceLoader modules
 require_once __DIR__ . "/includes/Resources.php";

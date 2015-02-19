@@ -46,7 +46,7 @@ class Hooks {
 						),
 					),
 				) +
-				array_slice( $items, 1, count( $items ) - 1, true ) ;
+				array_slice( $items, 1, count( $items ) - 1, true );
 			$items = $itemArray;
 		}
 	}
@@ -62,5 +62,27 @@ class Hooks {
 		$files[] = __DIR__ . '/../tests/phpunit';
 
 		return true;
+	}
+
+	/**
+	 * Disallow moving or editing gather page json files
+	 */
+	public static function onGetUserPermissionsErrors( $title, $user, $action, &$result ) {
+		$manifest = "/GatherCollections.json";
+		$isProtectedAction = $action === 'edit' || $action === 'move';
+		$titleText = $title->getText();
+		if ( $title->getNamespace() === NS_USER && $isProtectedAction &&
+				preg_match( "/\/GatherCollections\.json$/", $titleText ) === 1
+		) {
+			// we have a collection definition so check the user matches the title.
+			if ( preg_match( "/^" . $user->getName() . "\/GatherCollections.json$/", $titleText ) === 1 ) {
+				return true;
+			} else {
+				$result = false;
+				return false;
+			}
+		} else {
+			return true;
+		}
 	}
 }
