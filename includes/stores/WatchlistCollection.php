@@ -47,7 +47,13 @@ class WatchlistCollection implements Collection {
 		// Merge the data into models\CollectionItem
 		$items = array();
 		foreach ( $titles as $key=>$title ) {
-			$items[] = new models\CollectionItem( $title, $images[$key], $extracts[$key] );
+			// Check, if this page has a page image
+			if ( isset( $images[$title->getArticleId()] ) ) {
+				$image = $images[$title->getArticleId()];
+			} else {
+				$image = false;
+			}
+			$items[] = new models\CollectionItem( $title, $image, $extracts[$key] );
 		}
 
 		// Grab first image available for the collection
