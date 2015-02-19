@@ -76,4 +76,15 @@ class CollectionItem implements WithImage {
 	public function getFile() {
 		return $this->file;
 	}
+
+	/**
+	 * Serialise to JSON
+	 */
+	public function toJSON() {
+		return array(
+			'title' => $this->title,
+			'extract' => $this->extract,
+		);
+	}
+
 }

@@ -43,6 +43,8 @@ $autoloadClasses = array(
 	'Gather\Hooks' => 'Gather.hooks',
 
 	'Gather\models\CollectionItem' => 'models/CollectionItem',
+	'Gather\models\CollectionBase' => 'models/CollectionBase',
+	'Gather\models\CollectionInfo' => 'models/CollectionInfo',
 	'Gather\models\Collection' => 'models/Collection',
 	'Gather\models\WithImage' => 'models/WithImage',
 
