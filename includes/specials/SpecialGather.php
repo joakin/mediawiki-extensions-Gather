@@ -91,8 +91,7 @@ class SpecialGather extends SpecialPage {
 	 * @param User $user owner of collections
 	 */
 	public function renderUserCollectionsList( User $user ) {
-		// FIXME: Substitute with proper storage class
-		$collectionsListStore = new stores\DumbWatchlistOnlyCollectionsList(
+		$collectionsListStore = new stores\UserPageCollectionsList(
 			$user, $this->isOwner( $user )
 		);
 		$this->render( new views\CollectionsList( $collectionsListStore->getLists() ) );

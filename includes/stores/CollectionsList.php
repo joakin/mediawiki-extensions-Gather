@@ -21,7 +21,7 @@ abstract class CollectionsList {
 	protected $user;
 
 	/**
-	 * @var models\Collection[] Internal list of collections.
+	 * @var models\CollectionInfo[] Internal list of collections.
 	 */
 	protected $lists = array();
 
@@ -39,16 +39,11 @@ abstract class CollectionsList {
 	public function __construct( User $user, $includePrivate = false ) {
 		$this->user = $user;
 		$this->includePrivate = $includePrivate;
-		$collections = $this->loadCollections();
-		foreach ( $collections as $collection ) {
-			$this->add( $collection );
-		}
+		$this->loadCollections();
 	}
 
 	/**
 	 * Load collections of the user
-	 *
-	 * @return CollectionItem[] titles
 	 */
 	abstract public function loadCollections();
 
@@ -57,9 +52,9 @@ abstract class CollectionsList {
 	 * If the collection to add is private, and this collection list does not include
 	 * private items, the collection won't be added
 	 *
-	 * @param models\Collection $collection
+	 * @param models\CollectionInfo $collection
 	 */
-	public function add( models\Collection $collection ) {
+	public function add( models\CollectionInfo $collection ) {
 		if ( $this->includePrivate ||
 			( !$this->includePrivate && $collection->isPublic() ) ) {
 			$this->lists[] = $collection;

@@ -52,6 +52,7 @@ $autoloadClasses = array(
 	'Gather\stores\WatchlistCollection' => 'stores/WatchlistCollection',
 	'Gather\stores\CollectionsList' => 'stores/CollectionsList',
 	'Gather\stores\DumbWatchlistOnlyCollectionsList' => 'stores/DumbWatchlistOnlyCollectionsList',
+	'Gather\stores\UserPageCollectionsList' => 'stores/UserPageCollectionsList',
 	'Gather\stores\ItemExtracts' => 'stores/ItemExtracts',
 	'Gather\stores\ItemImages' => 'stores/ItemImages',
 
