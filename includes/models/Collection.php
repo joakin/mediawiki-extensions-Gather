@@ -6,7 +6,6 @@
 
 namespace Gather\models;
 
-use Gather\stores;
 use \User;
 use \Title;
 use \IteratorAggregate;
