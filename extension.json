@@ -34,6 +34,7 @@
 		"Gather\\stores\\WatchlistCollection": "includes/stores/WatchlistCollection.php",
 		"Gather\\stores\\CollectionsList": "includes/stores/CollectionsList.php",
 		"Gather\\stores\\DumbWatchlistOnlyCollectionsList": "includes/stores/DumbWatchlistOnlyCollectionsList.php",
+		"Gather\\stores\\UserPageCollectionsList": "includes/stores/UserPageCollectionsList.php",
 		"Gather\\stores\\ItemExtracts": "includes/stores/ItemExtracts.php",
 		"Gather\\stores\\ItemImages": "includes/stores/ItemImages.php",
 		"Gather\\views\\View": "includes/views/View.php",

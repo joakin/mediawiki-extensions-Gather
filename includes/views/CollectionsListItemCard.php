@@ -14,9 +14,9 @@ use \Html;
 class CollectionsListItemCard extends View {
 
 	/**
-	 * @param models\Collection $collection
+	 * @param models\CollectionInfo $collection
 	 */
-	public function __construct( models\Collection $collection ) {
+	public function __construct( models\CollectionInfo $collection ) {
 		$this->collection = $collection;
 		$this->image = new ItemImage( $collection );
 	}
