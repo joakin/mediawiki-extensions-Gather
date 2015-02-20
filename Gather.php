@@ -79,6 +79,7 @@ $wgSpecialPages['Gather'] = 'Gather\SpecialGather';
 
 // Hooks
 $wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
+$wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
 
 // ResourceLoader modules
 require_once __DIR__ . "/includes/Resources.php";
