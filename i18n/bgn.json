@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Baloch Afghanistan"
+		]
+	},
+	"gather-watchlist-title": "واچلیست",
+	"gather-lists-title": "دسته",
+	"gather-read-more": "گیشتیر بوانیت",
+	"gather-private": "شخصی",
+	"gather-article-count": "$1 {{PLURAL:$1|مقاله|مقاله ئان}}",
+	"gather-empty": "هیچ چیری بئ مجموئه ئی تا تا انون..."
+}
