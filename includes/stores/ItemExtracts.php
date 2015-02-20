@@ -35,7 +35,11 @@ class ItemExtracts {
 
 		$extracts = array();
 		foreach ( $pages as $page ) {
-			$extracts[] = $page['extract']['*'];
+			if ( isset( $page['extract']['*'] ) ) {
+				$extracts[] = $page['extract']['*'];
+			} else {
+				$extracts[] = null;
+			}
 		}
 		return $extracts;
 	}
