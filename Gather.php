@@ -29,15 +29,6 @@ $wgExtensionCredits['other'][] = array(
 $wgMessagesDirs['Gather'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['GatherAlias'] = __DIR__ . "/Gather.alias.php";
 
-function efGatherExtensionSetup() {
-	// FIXME: This doesn't do anything as if mobilefrontend is not present
-	// The reported error is "This requires Gather."
-	if ( !defined( 'MOBILEFRONTEND' ) ) {
-		echo "Gather extension requires MobileFrontend.\n";
-		die( -1 );
-	}
-}
-
 // autoload extension classes
 $autoloadClasses = array(
 	'Gather\Hooks' => 'Gather.hooks',
@@ -73,11 +64,11 @@ foreach ( $autoloadClasses as $className => $classFilename ) {
 	$wgAutoloadClasses[$className] = __DIR__ . "/includes/$classFilename.php";
 }
 
-$wgExtensionFunctions[] = 'efGatherExtensionSetup';
 
 $wgSpecialPages['Gather'] = 'Gather\SpecialGather';
 
 // Hooks
+$wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
 $wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
 $wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
 

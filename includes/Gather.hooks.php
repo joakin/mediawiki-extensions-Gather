@@ -18,6 +18,14 @@ use \MobileContext;
  *	onRequestContextCreateSkin()
  */
 class Hooks {
+	public static function onExtensionSetup() {
+		// FIXME: This doesn't do anything as if mobilefrontend is not present
+		// The reported error is "This requires Gather."
+		if ( !defined( 'MOBILEFRONTEND' ) ) {
+			echo "Gather extension requires MobileFrontend.\n";
+			die( -1 );
+		}
+	}
 	/**
 	 * Add collections link in personal tools menu
 	 * @param array &$items Items array to be added to menu
