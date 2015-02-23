@@ -59,7 +59,8 @@ class UserPageCollectionsList extends CollectionsList {
 			User::newFromName( $json['owner'] ),
 			$json['title'],
 			$json['description'],
-			$json['public']
+			$json['public'],
+			wfFindFile( $json['image'] )
 		);
 		$collection->setCount( $json['count'] );
 		return $collection;

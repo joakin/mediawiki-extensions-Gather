@@ -65,8 +65,8 @@ class WatchlistCollection implements Collection {
 			$user,
 			wfMessage( 'gather-watchlist-title' ),
 			wfMessage( 'gather-watchlist-description' ),
-			$firstImage,
-			false
+			false,
+			$firstImage
 		);
 		$this->collection->batch( $items );
 	}

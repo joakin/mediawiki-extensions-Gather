@@ -47,18 +47,28 @@ abstract class CollectionBase implements WithImage {
 	protected $public;
 
 	/**
+	 * Image that represents the collection.
+	 *
+	 * @var File
+	 */
+	protected $image;
+
+	/**
 	 * @param int $id id of the collection. Null if not persisted yet
 	 * @param User $user User that owns the collection
 	 * @param string $title Title of the collection
 	 * @param string $description Description of the collection
 	 * @param boolean $public Whether the collection is public or private
+	 * @param File Image that represents the collection
 	 */
-	public function __construct( $id = null, User $user, $title = '', $description = '', $public = true ) {
+	public function __construct( $id = null, User $user, $title = '', $description = '',
+		$public = true, $image = null) {
 		$this->id = $id;
 		$this->owner = $user;
 		$this->title = $title;
 		$this->description = $description;
 		$this->public = $public;
+		$this->image = $image;
 	}
 
 	/**
@@ -99,13 +109,6 @@ abstract class CollectionBase implements WithImage {
 	}
 
 	/**
-	 * Image that represents the collection.
-	 *
-	 * @var File
-	 */
-	protected $image;
-
-	/**
 	 * Returns items count
 	 *
 	 * @return int count of items in collection
@@ -135,6 +138,7 @@ abstract class CollectionBase implements WithImage {
 			'title' => $this->title,
 			'description' => $this->description,
 			'public' => $this->public,
+			'image' => $this->image->getTitle()
 		);
 		return $data;
 	}
