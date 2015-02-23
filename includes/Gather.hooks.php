@@ -71,7 +71,7 @@ class Hooks {
 		$manifest = "/GatherCollections.json";
 		$isProtectedAction = $action === 'edit' || $action === 'move';
 		$titleText = $title->getText();
-		if ( $title->getNamespace() === NS_USER && $isProtectedAction &&
+		if ( $title->inNamespace( NS_USER ) && $isProtectedAction &&
 				preg_match( "/\/GatherCollections\.json$/", $titleText ) === 1
 		) {
 			// we have a collection definition so check the user matches the title.
@@ -84,5 +84,23 @@ class Hooks {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * Convert the content model of json files that are actually JSON to JSON.
+	 * This only affects validation and UI when saving and editing, not
+	 * loading the content.
+	 * @param $title Title
+	 * @param &$model string
+	 *
+	 * @return bool
+	 */
+	public static function onContentHandlerDefaultModelFor( $title, &$model ) {
+		$titleText = $title->getText();
+		if ( $title->inNamespace( NS_USER ) &&
+			preg_match( "/\/GatherCollections/", $titleText ) === 1 ) {
+			$model = CONTENT_MODEL_JSON;
+		}
+		return true;
 	}
 }

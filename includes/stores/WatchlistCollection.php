@@ -12,18 +12,7 @@ use \GenderCache;
  * Abstraction for watchlist storage.
  * FIXME: This should live in core and power Special:EditWatchlist
  */
-class WatchlistCollection implements Collection {
-	/**
-	 * @var models\Collection
-	 */
-	protected $collection;
-
-	/**
-	 * @inheritdoc
-	 */
-	public function getCollection() {
-		return $this->collection;
-	}
+class WatchlistCollection extends Collection {
 
 	/**
 	 * @inheritdoc
@@ -41,26 +30,13 @@ class WatchlistCollection implements Collection {
 	public function __construct( User $user ) {
 		// Load the different data we need
 		$titles = $this->loadTitles( $user );
-		$extracts = ItemExtracts::loadExtracts( $titles );
-		$images = ItemImages::loadImages( $titles );
-
-		// Merge the data into models\CollectionItem
-		$items = array();
-		foreach ( $titles as $key=>$title ) {
-			// Check, if this page has a page image
-			if ( isset( $images[$title->getArticleId()] ) ) {
-				$image = $images[$title->getArticleId()];
-			} else {
-				$image = false;
-			}
-			$items[] = new models\CollectionItem( $title, $image, $extracts[$key] );
-		}
+		$items = $this->getItemsFromTitles( $titles );
 
 		// Grab first image available for the collection
 		$firstImage = null;
-		foreach ( $images as $image ) {
-			if ( $image ) {
-				$firstImage = $image;
+		foreach ( $items as $item ) {
+			if ( $item->hasImage() ) {
+				$firstImage = $item->getFile();
 				break;
 			}
 		}

@@ -9,8 +9,6 @@ namespace Gather\stores;
 use Gather\models;
 use \User;
 use \Title;
-use \WikiPage;
-use \FormatJson;
 
 /**
  * Stores and retrieves collection lists from user pages
@@ -22,28 +20,16 @@ class UserPageCollectionsList extends CollectionsList {
 	 * @inherit
 	 */
 	public function loadCollections() {
-		$collectionsData = $this->getManifest();
+		$collectionsData = JSONPage::get( $this->getStorageTitle() );
 		foreach ( $collectionsData as $collectionData ) {
 			$this->add( $this->collectionFromJSON( $collectionData ) );
 		}
 	}
 
 	/**
-	 * Gets manifest json file
-	 */
-	private function getManifest() {
-		$page = WikiPage::factory( self::getStorageTitle() );
-		if ( $page->exists() ) {
-			$content = $page->getContent();
-			$data = FormatJson::decode( $content->getNativeData(), true );
-		} else {
-			$data = array();
-		}
-		return $data;
-	}
-
-	/**
 	 * Get formatted title of the page that contains the manifest
+	 *
+	 * @return Title
 	 */
 	private function getStorageTitle() {
 		$title = $this->user->getName() . '/' .UserPageCollectionsList::MANIFEST_FILE;
@@ -51,7 +37,10 @@ class UserPageCollectionsList extends CollectionsList {
 	}
 
 	/**
-	 * Get a models\CollectionInfo from json data in the manifest
+	 * Get a basic collection object with the metadata from json data in the manifest
+	 * @param array $json data to pull information from
+	 *
+	 * @return models\CollectionInfo
 	 */
 	private function collectionFromJSON( $json ) {
 		$collection = new models\CollectionInfo(

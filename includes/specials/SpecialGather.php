@@ -48,7 +48,7 @@ class SpecialGather extends SpecialPage {
 			$this->renderNotFoundError();
 		} else {
 			if ( isset( $args ) && isset( $args[1] ) ) {
-				$id = $args[1];
+				$id = intval( $args[1] );
 				$this->renderUserCollection( $user, $id );
 			} else {
 				$this->renderUserCollectionsList( $user );
@@ -80,8 +80,13 @@ class SpecialGather extends SpecialPage {
 				$this->renderNotFoundError();
 			}
 		} else {
-			// FIXME: Not rendering other collections yet. Render not found ATM.
-			$this->renderNotFoundError();
+			$collectionStore = new stores\UserPageCollection( $user, $id );
+			$collection = $collectionStore->getCollection();
+			if ( $collection !== null ) {
+				$this->render( new views\Collection( $collection ) );
+			} else {
+				$this->renderNotFoundError();
+			}
 		}
 	}
 

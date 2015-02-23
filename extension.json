@@ -28,7 +28,9 @@
 		"Gather\\models\\Collection": "includes/models/Collection.php",
 		"Gather\\models\\WithImage": "includes/models/WithImage.php",
 		"Gather\\stores\\Collection": "includes/stores/Collection.php",
+		"Gather\\stores\\JSONPage": "includes/stores/JSONPage.php",
 		"Gather\\stores\\WatchlistCollection": "includes/stores/WatchlistCollection.php",
+		"Gather\\stores\\UserPageCollection": "includes/stores/UserPageCollection.php",
 		"Gather\\stores\\CollectionsList": "includes/stores/CollectionsList.php",
 		"Gather\\stores\\UserPageCollectionsList": "includes/stores/UserPageCollectionsList.php",
 		"Gather\\stores\\ItemExtracts": "includes/stores/ItemExtracts.php",
@@ -82,6 +84,9 @@
 	"Hooks": {
 		"MobilePersonalTools": [
 			"Gather\\Hooks::onMobilePersonalTools"
+		],
+		"ContentHandlerDefaultModelFor": [
+			"Gather\\Hooks::onContentHandlerDefaultModelFor"
 		]
 	},
 	"config": {

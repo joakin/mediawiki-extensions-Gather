@@ -39,8 +39,10 @@ $autoloadClasses = array(
 	'Gather\models\Collection' => 'models/Collection',
 	'Gather\models\WithImage' => 'models/WithImage',
 
+	'Gather\stores\JSONPage' => 'stores/JSONPage',
 	'Gather\stores\Collection' => 'stores/Collection',
 	'Gather\stores\WatchlistCollection' => 'stores/WatchlistCollection',
+	'Gather\stores\UserPageCollection' => 'stores/UserPageCollection',
 	'Gather\stores\CollectionsList' => 'stores/CollectionsList',
 	'Gather\stores\UserPageCollectionsList' => 'stores/UserPageCollectionsList',
 	'Gather\stores\ItemExtracts' => 'stores/ItemExtracts',
@@ -71,6 +73,8 @@ $wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
 $wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
 $wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
 $wgHooks['getUserPermissionsErrors'][] = 'Gather\Hooks::onGetUserPermissionsErrors';
+$wgHooks['ContentHandlerDefaultModelFor'][] = 'Gather\Hooks::onContentHandlerDefaultModelFor';
+
 
 // ResourceLoader modules
 require_once __DIR__ . "/includes/Resources.php";
