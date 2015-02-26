@@ -45,7 +45,7 @@
 		"Gather\\SpecialGather": "includes/specials/SpecialGather.php"
 	},
 	"ResourceModules": {
-		"ext.collections.icons": {
+		"ext.gather.icons": {
 			"targets": [
 				"mobile",
 				"desktop"
@@ -54,8 +54,8 @@
 			"prefix": "mw-ui",
 			"images": {
 				"icon": {
-					"collections-read-more:before": "ext.collections.styles/images/icons/next.svg",
-					"collection-owner:before": "ext.collections.styles/images/icons/user.svg"
+					"collections-read-more:before": "ext.gather.icons/next.svg",
+					"collection-owner:before": "ext.gather.icons/user.svg"
 				}
 			}
 		},
@@ -65,13 +65,12 @@
 				"desktop"
 			],
 			"styles": [
-				"ext.collections.styles/icons.less",
-				"ext.collections.styles/collections.less"
+				"ext.gather.styles/collections.less"
 			],
 			"dependencies": [
 				"mediawiki.ui.anchor",
 				"mediawiki.ui.icon",
-				"ext.collections.icons"
+				"ext.gather.icons"
 			],
 			"position": "top",
 			"group": "other"

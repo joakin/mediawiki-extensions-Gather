@@ -51,27 +51,26 @@ $wgGatherMobileSpecialPageResourceBoilerplate = $wgGatherResourceBoilerplate + a
 
 $wgResourceModules = array_merge( $wgResourceModules, array(
 
-	'ext.collections.icons' => $wgGatherResourceFileModuleBoilerplate + array(
+	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
 		'class' => 'ResourceLoaderImageModule',
 		'prefix' => 'mw-ui',
 		'images' => array(
 			// FIXME: ':before' suffix should be configurable in image module.
 			'icon' => array(
-				'collections-read-more:before' => 'ext.collections.styles/images/icons/next.svg',
-				'collection-owner:before' => 'ext.collections.styles/images/icons/user.svg',
+				'collections-read-more:before' => 'ext.gather.icons/next.svg',
+				'collection-owner:before' => 'ext.gather.icons/user.svg',
 			),
 		),
 	),
 
-	'ext.collections.styles' => $wgGatherResourceFileModuleBoilerplate + array(
+	'ext.gather.styles' => $wgGatherResourceFileModuleBoilerplate + array(
 		'styles' => array(
-			'ext.collections.styles/icons.less',
-			'ext.collections.styles/collections.less',
+			'ext.gather.styles/collections.less',
 		),
 		'dependencies' => array(
 			'mediawiki.ui.anchor',
 			'mediawiki.ui.icon',
-			'ext.collections.icons',
+			'ext.gather.icons',
 		),
 		'position' => 'top',
 		'group' => 'other',
