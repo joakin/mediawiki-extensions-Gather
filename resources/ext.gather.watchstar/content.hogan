@@ -1,0 +1,10 @@
+{{{spinner}}}
+<h3>{{subheading}}</h3>
+<ul>
+{{#collections}}
+	<li data-collection-title="{{title}}" data-collection-id="{{id}}">
+		{{title}} {{^titleInCollection}}{{{iconDisabledButton}}}{{/titleInCollection}}
+		{{#titleInCollection}}{{{iconButton}}}{{/titleInCollection}}
+	</li>
+{{/collections}}
+</ul>

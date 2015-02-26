@@ -26,6 +26,20 @@ class Hooks {
 			die( -1 );
 		}
 	}
+
+	/**
+	 * Modify mobile frontend modules to hook into the watchstar
+	 * @param SkinMinerva $skin
+	 * @param array $modules Resource loader modules
+	 * @return boolean
+	 */
+	public static function onSkinMinervaDefaultModules( $skin, &$modules ) {
+		if ( MobileContext::singleton()->isAlphaGroupMember() ) {
+			$modules['watch'] = array( 'ext.gather.watchstar' );
+		}
+		return true;
+	}
+
 	/**
 	 * Add collections link in personal tools menu
 	 * @param array &$items Items array to be added to menu

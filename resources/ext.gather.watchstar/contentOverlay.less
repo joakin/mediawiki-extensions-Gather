@@ -1,0 +1,52 @@
+@import "minerva.variables";
+@import "minerva.mixins";
+
+.overlay.collection-overlay {
+	font-size: .9em;
+	text-align: left;
+	left: 3.4em;
+	right: 3.4em;
+	width: auto;
+	// No padding on the overlay to have the header stuck at the top, padding on
+	// the content goes on .overlay-content
+	padding: 0;
+
+	.overlay-header-container .overlay-header {
+		li {
+			// Make the heading row normal height
+			padding: 0;
+			margin: 0;
+		}
+	}
+
+	.overlay-content {
+		padding: 1em;
+
+		h3 {
+			margin-top: 0.5em;
+		}
+
+		li {
+			cursor: pointer;
+			border-top: solid 1px @grayLight;
+			font-size: 1.4em;
+			padding: 12px 0;
+			margin: 12px 0;
+
+			> div {
+				float: right;
+			}
+		}
+	}
+
+	&.content-overlay {
+		background: white;
+		color: @grayDark;
+		top: @headerHeight * 1.2;
+		bottom: @headerHeight * 1.2;
+		left: 2em;
+		right: 2em;
+		width: auto;
+	}
+
+}

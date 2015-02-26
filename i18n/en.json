@@ -2,6 +2,12 @@
 	"@metadata": {
 		"authors": []
 	},
+	"gather-collection-member": "Is member of collection.",
+	"gather-collection-non-member": "Is not member of collection.",
+	"gather-anon-cta": "Add this page to a collection that you can share with the world.",
+	"gather-add-to-existing": "Add to existing collection",
+	"gather-add-toast": "The page has been added to your \"$1\" collection.",
+	"gather-remove-toast": "The page has been removed from your \"$1\" collection.",
 	"gather-desc": "Component of Mobile Frontend allowing users to curate lists.",
 	"gather-anon-view-lists": "You need to be logged in to see your Collections.",
 	"gather-watchlist-title": "Watchlist",

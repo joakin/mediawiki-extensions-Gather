@@ -71,4 +71,43 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 		'group' => 'other',
 	),
 
+	'ext.gather.watchstar.icons' => $wgGatherResourceFileModuleBoilerplate + array(
+		'class' => 'ResourceLoaderImageModule',
+		'prefix' => 'mw-ui',
+		'images' => array(
+			// FIXME: ':before' suffix should be configurable in image module.
+			'icon' => array(
+				'tick-disabled:before' => 'ext.gather.watchstar.icons/grey_check.svg',
+				'tick:before' => 'ext.gather.watchstar.icons/green_check.svg',
+			),
+		),
+	),
+
+	'ext.gather.watchstar' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'mobile.watchstar',
+			'mobile.contentOverlays',
+			'ext.gather.watchstar.icons',
+		),
+		'styles' => array(
+			'ext.gather.watchstar/contentOverlay.less',
+		),
+		'messages' => array(
+			'gather-add-to-existing',
+			'gather-watchlist-title',
+			'gather-add-toast',
+			'gather-remove-toast',
+			'gather-anon-cta',
+			'gather-collection-member',
+			'gather-collection-non-member',
+		),
+		'templates' => array(
+			'content.hogan' => 'ext.gather.watchstar/content.hogan',
+		),
+		'scripts' => array(
+			'resources/ext.gather.watchstar/CollectionsContentOverlay.js',
+			'resources/ext.gather.watchstar/CollectionsWatchstar.js',
+			'resources/ext.gather.watchstar/init.js',
+		),
+	),
 ) );
