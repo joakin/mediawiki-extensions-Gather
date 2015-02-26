@@ -9,9 +9,6 @@
 	"descriptionmsg": "gather-desc",
 	"license-name": "GPL-2.0+",
 	"type": "other",
-	"ExtensionFunctions": [
-		"efGatherExtensionSetup"
-	],
 	"SpecialPages": {
 		"Gather": "Gather\\SpecialGather"
 	},
