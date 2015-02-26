@@ -106,7 +106,12 @@ class SpecialGather extends SpecialPage {
 		$out = $this->getOutput();
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
-		$out->addModules( array( 'ext.gather.styles' ) );
+		$out->addModuleStyles( array(
+			'mediawiki.ui.anchor',
+			'mediawiki.ui.icon',
+			'ext.gather.icons',
+			'ext.gather.styles',
+		) );
 		$out->setPageTitle( $view->getTitle() );
 		$view->render( $out );
 	}

@@ -67,11 +67,6 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 		'styles' => array(
 			'ext.gather.styles/collections.less',
 		),
-		'dependencies' => array(
-			'mediawiki.ui.anchor',
-			'mediawiki.ui.icon',
-			'ext.gather.icons',
-		),
 		'position' => 'top',
 		'group' => 'other',
 	),
