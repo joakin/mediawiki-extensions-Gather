@@ -1,0 +1,17 @@
+@chrome @en.m.wikipedia.beta.wmflabs.org
+Feature: Creating new collections
+
+  Background:
+    Given I am logged in
+      And I am using the mobile site
+      And I am in alpha mode
+      And I am on the "Selenium Gather test" page
+     When I click the watchstar
+
+  Scenario: New collection overlay interface visible
+    Then I see add to new collection button
+
+  Scenario: Inserting a new collection
+    When I type "My collection" into the new collection form
+     And I click the create collection button
+    Then I see a toast

@@ -99,6 +99,8 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 			'gather-remove-toast',
 			'gather-anon-cta',
 			'gather-collection-member',
+			'gather-create-new-button-label',
+			'gather-add-to-new',
 			'gather-collection-non-member',
 		),
 		'templates' => array(

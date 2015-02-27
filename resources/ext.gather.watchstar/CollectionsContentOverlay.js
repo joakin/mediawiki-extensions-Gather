@@ -25,7 +25,8 @@
 		/** @inheritdoc */
 		events: {
 			click: 'onClickInsideOverlay',
-			'click .overlay-content li': 'onSelectCollection'
+			'click .overlay-content li': 'onSelectCollection',
+			'submit form': 'onCreateNewCollection'
 		},
 		/** @inheritdoc */
 		hasFixedHeader: false,
@@ -43,6 +44,8 @@
 			} ).toHtmlString(),
 			title: mw.config.get( 'wgTitle' ),
 			spinner: icons.spinner().toHtmlString(),
+			createButtonLabel: mw.msg( 'gather-create-new-button-label' ),
+			subheadingNewCollection: mw.msg( 'gather-add-to-new' ),
 			subheading: mw.msg( 'gather-add-to-existing' ),
 			collections: []
 		},
@@ -54,6 +57,31 @@
 		/** @inheritdoc */
 		postRender: function () {
 			this.$( '.spinner' ).hide();
+		},
+		/**
+		 * Event handler for setting up a new collection
+		 * @param {jQuery.Event} ev
+		 */
+		onCreateNewCollection: function ( ev ) {
+			var self = this,
+				api = this.api,
+				page = M.getCurrentPage(),
+				title = $( ev.target ).find( 'input' ).val();
+
+			ev.preventDefault();
+
+			api.addCollection( title ).done( function ( collection ) {
+				api.addPageToCollection( collection.id, page ).done( function () {
+					toast.show( mw.msg( 'gather-add-toast', collection.title ), 'toast' );
+					self.hide();
+				} ).fail( function () {
+					toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );
+					// Hide since collection was created properly and list is outdated
+					self.hide();
+				} );
+			} ).fail( function () {
+				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast' );
+			} );
 		},
 		/**
 		 * Event handler for all clicks inside overlay.
