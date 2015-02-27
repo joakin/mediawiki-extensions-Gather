@@ -5,6 +5,7 @@
 
 namespace Gather\views;
 
+use Gather\models;
 use \Html;
 
 /**
@@ -12,7 +13,7 @@ use \Html;
  */
 class CollectionsList extends View {
 	/**
-	 * @param Collection[] $collectionsList
+	 * @param models\Collection[] $collectionsList
 	 */
 	public function __construct( $collectionsList ) {
 		$this->collectionsList = $collectionsList;
@@ -20,9 +21,7 @@ class CollectionsList extends View {
 
 	/**
 	 * Returns the html for the collections in a list
-	 *
-	 * @param Collection[]
-	 *
+	 * @param models\Collection[]
 	 * @return string Html
 	 */
 	public static function getListItemsHtml( $collectionsList ) {

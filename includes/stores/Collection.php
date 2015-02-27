@@ -4,21 +4,13 @@ namespace Gather\stores;
 
 use Gather\models;
 
+use \User;
+use \Title;
+
 /**
  * Abstraction for collection storage.
  */
 abstract class Collection {
-	/**
-	 * @var models\Collection
-	 */
-	protected $collection;
-
-	/**
-	 * Get Collection model of the current collection.
-	 */
-	public function getCollection() {
-		return $this->collection;
-	}
 
 	/**
 	 * Get collection items from a list of titles
@@ -26,7 +18,7 @@ abstract class Collection {
 	 *
 	 * @return models\CollectionItem[]
 	 */
-	public function getItemsFromTitles( $titles ) {
+	public static function getItemsFromTitles( $titles ) {
 		$extracts = ItemExtracts::loadExtracts( $titles );
 		$images = ItemImages::loadImages( $titles );
 

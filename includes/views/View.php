@@ -25,7 +25,7 @@ abstract class View {
 	 * @private
 	 * @return string Html
 	 */
-	abstract protected function getTitle();
+	abstract public function getTitle();
 
 	/**
 	 * Adds HTML of the view to the OutputPage.

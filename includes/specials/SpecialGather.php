@@ -70,23 +70,13 @@ class SpecialGather extends SpecialPage {
 	 * @param int $id collection id
 	 */
 	public function renderUserCollection( User $user, $id ) {
-		// Watchlist lives at id 0
-		if ( (int)$id === 0 ) {
-			if ( $this->isOwner( $user ) ) {
-				$watchlistStore = new stores\WatchlistCollection( $user );
-				$this->render( new views\Collection( $watchlistStore->getCollection() ) );
-			} else {
-				// FIXME: No permissions to visit this. Showing not found ATM.
-				$this->renderNotFoundError();
-			}
+		$collection = stores\UserPageCollection::newFromUserAndId( $user, $id );
+		if ( $collection === null ||
+			( !$collection->isPublic() && !$this->isOwner( $user ) ) ) {
+			// FIXME: No permissions to visit this. Showing not found ATM.
+			$this->renderNotFoundError();
 		} else {
-			$collectionStore = new stores\UserPageCollection( $user, $id );
-			$collection = $collectionStore->getCollection();
-			if ( $collection !== null ) {
-				$this->render( new views\Collection( $collection ) );
-			} else {
-				$this->renderNotFoundError();
-			}
+			$this->render( new views\Collection( $collection ) );
 		}
 	}
 
@@ -105,7 +95,7 @@ class SpecialGather extends SpecialPage {
 	/**
 	 * Render the special page using CollectionView and given collection
 	 *
-	 * @param View $view
+	 * @param views\View $view
 	 */
 	public function render( $view ) {
 		$out = $this->getOutput();

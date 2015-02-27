@@ -11,32 +11,38 @@ use \Title;
  * Abstraction for json collection storage on user pages.
  * FIXME: This should live in core and power Special:EditWatchlist
  */
-class UserPageCollection extends Collection {
+class UserPageCollection extends Collection implements CollectionStorage {
 	const FOLDER = 'GatherCollections';
 
 	/**
-	 * Initialise UserPageCollection from user page
-	 *
-	 * @param User $user owner of the collection
+	 * Get Collection model with an id of a user
+	 * @param User $owner of the collection
 	 * @param int $id of the collection
+	 * @return models\Collection
 	 */
-	public function __construct( User $user, $id ) {
-		$this->user = $user;
-		$this->id = $id;
-		$collectionData = JSONPage::get( $this->getStorageTitle() );
-		if ( isset( $collectionData['id'] ) ) {
-			// Only set the collection if it exists
-			$this->collection = $this->collectionFromJSON( $collectionData );
+	public static function newFromUserAndId( $owner, $id ) {
+		if ( $id !== 0 ) {
+			$collectionData = JSONPage::get( self::getStorageTitle( $owner, $id ) );
+			if ( isset( $collectionData['id'] ) ) {
+				return self::collectionFromJSON( $collectionData );
+			} else {
+				return null;
+			}
+		} else {
+			// id 0 is the watchlist. Which loads differently
+			return WatchlistCollection::newFromUser( $owner );
 		}
 	}
 
 	/**
 	 * Get the url for the collection
+	 * @param User $owner of the collection
+	 * @param int $id of the collection
 	 *
 	 * @return Title
 	 */
-	private function getStorageTitle() {
-		$title = $this->user->getName() . '/' . UserPageCollection::FOLDER . '/' . $this->id . '.json';
+	public static function getStorageTitle( $owner, $id ) {
+		$title = $owner->getName() . '/' . self::FOLDER . '/' . $id . '.json';
 		return Title::makeTitleSafe( NS_USER, $title );
 	}
 
@@ -46,7 +52,7 @@ class UserPageCollection extends Collection {
 	 *
 	 * @return models\Collection
 	 */
-	private function collectionFromJSON( $json ) {
+	public static function collectionFromJSON( $json ) {
 		$collection = new models\Collection(
 			$json['id'],
 			User::newFromName( $json['owner'] ),
@@ -61,7 +67,7 @@ class UserPageCollection extends Collection {
 			foreach ( $json['items'] as $title ) {
 				$titles[] = Title::newFromText( $title );
 			}
-			$collection->batch( $this->getItemsFromTitles( $titles ) );
+			$collection->batch( self::getItemsFromTitles( $titles ) );
 		}
 		return $collection;
 	}

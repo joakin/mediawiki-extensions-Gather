@@ -15,22 +15,13 @@ use \GenderCache;
 class WatchlistCollection extends Collection {
 
 	/**
-	 * @inheritdoc
+	 * Get a watchlist by user
+	 * @param User $user to lookup watchlist for
+	 * @return models\Collection
 	 */
-	public function getId() {
-		// Watchlist has hardcoded id of 0
-		return 0;
-	}
-
-	/**
-	 * Initialise WatchlistCollection from database
-	 *
-	 * @param User $user to lookup watchlist members for
-	 */
-	public function __construct( User $user ) {
-		// Load the different data we need
-		$titles = $this->loadTitles( $user );
-		$items = $this->getItemsFromTitles( $titles );
+	public static function newFromUser( User $user ) {
+		$titles = self::loadTitles( $user );
+		$items = self::getItemsFromTitles( $titles );
 
 		// Grab first image available for the collection
 		$firstImage = null;
@@ -41,24 +32,26 @@ class WatchlistCollection extends Collection {
 			}
 		}
 
-		// Construct the internal models\Collection
-		$this->collection = new models\Collection(
-			$this->getId(),
+		// Construct the models\Collection
+		$collection = new models\Collection(
+			0, // Watchlist has a hardcoded id of 0
 			$user,
 			wfMessage( 'gather-watchlist-title' ),
 			wfMessage( 'gather-watchlist-description' ),
-			false,
+			false, // Watchlist is private
 			$firstImage
 		);
-		$this->collection->batch( $items );
+		$collection->batch( $items );
+
+		return $collection;
 	}
 
 	/**
 	 * Load titles of the watchlist
-	 *
+	 * @param User $user
 	 * @return Title[]
 	 */
-	private function loadTitles( $user ) {
+	private static function loadTitles( $user ) {
 		$list = array();
 		$dbr = wfGetDB( DB_SLAVE );
 

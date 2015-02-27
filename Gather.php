@@ -43,6 +43,7 @@ $autoloadClasses = array(
 	'Gather\stores\JSONPage' => 'stores/JSONPage',
 	'Gather\stores\Collection' => 'stores/Collection',
 	'Gather\stores\WatchlistCollection' => 'stores/WatchlistCollection',
+	'Gather\stores\CollectionStorage' => 'stores/CollectionStorage',
 	'Gather\stores\UserPageCollection' => 'stores/UserPageCollection',
 	'Gather\stores\CollectionsList' => 'stores/CollectionsList',
 	'Gather\stores\UserPageCollectionsList' => 'stores/UserPageCollectionsList',
