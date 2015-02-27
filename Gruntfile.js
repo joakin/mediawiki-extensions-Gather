@@ -33,8 +33,7 @@ module.exports = function ( grunt ) {
 			},
 			tests: '<%= files.jsTests %>',
 			sources: [
-				'<%= files.js %>',
-				'!<%= files.jsExternals %>'
+				'<%= files.js %>'
 			]
 		},
 		jscs: {
