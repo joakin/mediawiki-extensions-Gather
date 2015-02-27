@@ -2,6 +2,7 @@ Feature: Anonymous users accessing private pages
 
   Background:
     Given I am not logged in
+      And I am using the mobile site
 
   Scenario:
     When I visit the Gather page
