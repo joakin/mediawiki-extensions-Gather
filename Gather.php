@@ -38,6 +38,7 @@ $autoloadClasses = array(
 	'Gather\models\CollectionInfo' => 'models/CollectionInfo',
 	'Gather\models\Collection' => 'models/Collection',
 	'Gather\models\WithImage' => 'models/WithImage',
+	'Gather\models\ArraySerializable' => 'models/ArraySerializable',
 
 	'Gather\stores\JSONPage' => 'stores/JSONPage',
 	'Gather\stores\Collection' => 'stores/Collection',
@@ -59,6 +60,9 @@ $autoloadClasses = array(
 	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
 
 	'Gather\SpecialGather' => 'specials/SpecialGather',
+
+	'Gather\api\CollectionsListApi' => 'api/CollectionsListApi',
+
 );
 
 foreach ( $autoloadClasses as $className => $classFilename ) {
@@ -75,6 +79,9 @@ $wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
 $wgHooks['getUserPermissionsErrors'][] = 'Gather\Hooks::onGetUserPermissionsErrors';
 $wgHooks['ContentHandlerDefaultModelFor'][] = 'Gather\Hooks::onContentHandlerDefaultModelFor';
 $wgHooks['SkinMinervaDefaultModules'][] = 'Gather\Hooks::onSkinMinervaDefaultModules';
+
+// Api
+$wgAPIModules['gather'] = 'Gather\api\CollectionsListApi';
 
 // ResourceLoader modules
 require_once __DIR__ . "/resources/Resources.php";

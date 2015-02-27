@@ -66,14 +66,12 @@ class Collection extends CollectionBase implements IteratorAggregate {
 		return count( $this->items );
 	}
 
-	/**
-	 * Serialise to JSON
-	 */
-	public function toJSON() {
-		$data = parent::toJSON();
+	/** @inheritdoc */
+	public function toArray() {
+		$data = parent::toArray();
 		$data['items'] = array();
 		foreach ( $this as $item ) {
-			$data['items'][] = $item->toJSON();
+			$data['items'][] = $item->toArray();
 		}
 		return $data;
 	}

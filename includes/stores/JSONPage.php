@@ -6,6 +6,7 @@
 
 namespace Gather\stores;
 
+use \Title;
 use \WikiPage;
 use \FormatJson;
 

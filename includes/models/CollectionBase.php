@@ -13,7 +13,7 @@ use \SpecialPage;
 /**
  * Base model for a Collection.
  */
-abstract class CollectionBase implements WithImage {
+abstract class CollectionBase implements WithImage, ArraySerializable {
 
 	/**
 	 * The internal id of a collection
@@ -128,17 +128,15 @@ abstract class CollectionBase implements WithImage {
 			->getLocalURL();
 	}
 
-	/**
-	 * Serialise to JSON
-	 */
-	public function toJSON() {
+	/** @inheritdoc */
+	public function toArray() {
 		$data = array(
 			'id' => $this->id,
 			'owner' => $this->owner->getName(),
 			'title' => $this->title,
 			'description' => $this->description,
 			'public' => $this->public,
-			'image' => $this->image->getTitle()
+			'image' => $this->image ? $this->image->getTitle()->getText() : null
 		);
 		return $data;
 	}
@@ -147,7 +145,7 @@ abstract class CollectionBase implements WithImage {
 	 * @inheritdoc
 	 */
 	public function hasImage() {
-		return $this->image ? true : false;
+		return (bool)$this->image;
 	}
 
 	/**

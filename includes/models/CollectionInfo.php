@@ -32,11 +32,9 @@ class CollectionInfo extends CollectionBase {
 		return $this->count;
 	}
 
-	/**
-	 * Serialise to JSON
-	 */
-	public function toJSON() {
-		$data = parent::toJSON();
+	/** @inheritdoc */
+	public function toArray() {
+		$data = parent::toArray();
 		$data['count'] = $this->count;
 		return $data;
 	}

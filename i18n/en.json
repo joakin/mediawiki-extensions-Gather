@@ -17,5 +17,9 @@
 	"gather-private": "Private",
 	"gather-article-count": "$1 {{PLURAL:$1|article|articles}}",
 	"gather-empty": "Nothing in this collection yet...",
-	"gather-empty-footer": "I don't know how you got here but this is a sad place."
+	"gather-empty-footer": "I don't know how you got here but this is a sad place.",
+	"apihelp-gather-description": "List and edit gather collections.",
+	"apihelp-gather-param-gather": "Action to perform on collections.",
+	"apihelp-gather-param-owner": "Owner of the collections to search for. If omitted, defaults to current user.",
+	"apihelp-gather-example-1": "List the collections for user <kbd>john</kbd>."
 }

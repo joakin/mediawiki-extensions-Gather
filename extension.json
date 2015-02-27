@@ -27,6 +27,7 @@
 		"Gather\\models\\CollectionInfo": "includes/models/CollectionInfo.php",
 		"Gather\\models\\Collection": "includes/models/Collection.php",
 		"Gather\\models\\WithImage": "includes/models/WithImage.php",
+		"Gather\\models\\ArraySerializable": "includes/models/ArraySerializable.php",
 		"Gather\\stores\\Collection": "includes/stores/Collection.php",
 		"Gather\\stores\\JSONPage": "includes/stores/JSONPage.php",
 		"Gather\\stores\\WatchlistCollection": "includes/stores/WatchlistCollection.php",
@@ -43,7 +44,8 @@
 		"Gather\\views\\CollectionsList": "includes/views/CollectionsList.php",
 		"Gather\\views\\CollectionsListItemCard": "includes/views/CollectionsListItemCard.php",
 		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
-		"Gather\\SpecialGather": "includes/specials/SpecialGather.php"
+		"Gather\\SpecialGather": "includes/specials/SpecialGather.php",
+		"Gather\\api\\CollectionsListApi": "includes/api/CollectionsListApi.php"
 	},
 	"ResourceModules": {
 		"ext.gather.icons": {

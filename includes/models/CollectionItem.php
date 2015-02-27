@@ -12,7 +12,7 @@ use \Title;
  * An item of a Collection. Similar to a Page and MobilePage, but with some
  * extra information like the extract and image.
  */
-class CollectionItem implements WithImage {
+class CollectionItem implements WithImage, ArraySerializable {
 
 	/**
 	 * @var Title: Title for page
@@ -20,21 +20,21 @@ class CollectionItem implements WithImage {
 	private $title;
 
 	/**
-	 * @var File Associated page image file (see PageImages extension)
+	 * @var File|null Associated page image file (see PageImages extension)
 	 */
 	private $file;
 
 	/**
-	 * @var string Page extract
+	 * @var string|null Page extract
 	 */
 	private $extract;
 
 	/**
 	 * @param Title $title
-	 * @param File|bool $file
-	 * @param string|bool $extract
+	 * @param File $file
+	 * @param string $extract
 	 */
-	public function __construct( Title $title, $file = false, $extract = false ) {
+	public function __construct( Title $title, $file, $extract ) {
 		$this->title = $title;
 		$this->file = $file;
 		$this->extract = $extract;
@@ -44,7 +44,7 @@ class CollectionItem implements WithImage {
 	 * @inheritdoc
 	 */
 	public function hasImage() {
-		return $this->file ? true : false;
+		return (bool)$this->file;
 	}
 
 	/**
@@ -53,7 +53,7 @@ class CollectionItem implements WithImage {
 	 * @return Boolean
 	 */
 	public function hasExtract() {
-		return $this->extract ? true : false;
+		return $this->extract !== null && $this->extract !== '';
 	}
 
 	/**
@@ -77,14 +77,9 @@ class CollectionItem implements WithImage {
 		return $this->file;
 	}
 
-	/**
-	 * Serialise to JSON
-	 */
-	public function toJSON() {
-		return array(
-			'title' => $this->title,
-			'extract' => $this->extract,
-		);
+	/** @inheritdoc */
+	public function toArray() {
+		return $this->title->getText();
 	}
 
 }

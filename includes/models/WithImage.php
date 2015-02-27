@@ -20,7 +20,7 @@ interface WithImage {
 	public function hasImage();
 
 	/**
-	 * @return File|bool Get the file from this item
+	 * @return File Get the file from this item
 	 */
 	public function getFile();
 }
