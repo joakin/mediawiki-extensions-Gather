@@ -52,7 +52,6 @@ class WatchlistCollection extends Collection {
 	 * @return Title[]
 	 */
 	private static function loadTitles( $user ) {
-		$list = array();
 		$dbr = wfGetDB( DB_SLAVE );
 
 		$res = $dbr->select(

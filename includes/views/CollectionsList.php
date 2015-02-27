@@ -13,7 +13,7 @@ use \Html;
  */
 class CollectionsList extends View {
 	/**
-	 * @param models\Collection[] $collectionsList
+	 * @param models\CollectionsList $collectionsList
 	 */
 	public function __construct( $collectionsList ) {
 		$this->collectionsList = $collectionsList;
@@ -21,7 +21,7 @@ class CollectionsList extends View {
 
 	/**
 	 * Returns the html for the collections in a list
-	 * @param models\Collection[]
+	 * @param models\CollectionsList
 	 * @return string Html
 	 */
 	public static function getListItemsHtml( $collectionsList ) {

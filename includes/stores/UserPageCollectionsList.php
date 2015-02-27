@@ -13,26 +13,31 @@ use \Title;
 /**
  * Stores and retrieves collection lists from user pages
  */
-class UserPageCollectionsList extends CollectionsList {
+class UserPageCollectionsList implements CollectionsListStorage {
 	const MANIFEST_FILE = 'GatherCollections.json';
 
 	/**
-	 * @inherit
+	 * Get list of collections by user
+	 * @param User $user collection list owner
+	 * @param boolean $includePrivate if the list should show private collections or not
+	 * @return models\CollectionsList List of collections.
 	 */
-	public function loadCollections() {
-		$collectionsData = JSONPage::get( $this->getStorageTitle() );
+	public static function newFromUser( User $user, $includePrivate = false ) {
+		$collectionsData = JSONPage::get( self::getStorageTitle( $user ) );
+		$collectionsList = new models\CollectionsList( $includePrivate );
 		foreach ( $collectionsData as $collectionData ) {
-			$this->add( $this->collectionFromJSON( $collectionData ) );
+			$collectionsList->add( self::collectionFromJSON( $collectionData ) );
 		}
+		return $collectionsList;
 	}
 
 	/**
 	 * Get formatted title of the page that contains the manifest
-	 *
+	 * @param User $user
 	 * @return Title
 	 */
-	private function getStorageTitle() {
-		$title = $this->user->getName() . '/' .UserPageCollectionsList::MANIFEST_FILE;
+	public static function getStorageTitle( User $user ) {
+		$title = $user->getName() . '/' . self::MANIFEST_FILE;
 		return Title::makeTitleSafe( NS_USER, $title );
 	}
 
@@ -42,7 +47,7 @@ class UserPageCollectionsList extends CollectionsList {
 	 *
 	 * @return models\CollectionInfo
 	 */
-	private function collectionFromJSON( $json ) {
+	public static function collectionFromJSON( $json ) {
 		$collection = new models\CollectionInfo(
 			$json['id'],
 			User::newFromName( $json['owner'] ),

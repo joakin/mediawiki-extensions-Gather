@@ -37,6 +37,7 @@ $autoloadClasses = array(
 	'Gather\models\CollectionBase' => 'models/CollectionBase',
 	'Gather\models\CollectionInfo' => 'models/CollectionInfo',
 	'Gather\models\Collection' => 'models/Collection',
+	'Gather\models\CollectionsList' => 'models/CollectionsList',
 	'Gather\models\WithImage' => 'models/WithImage',
 	'Gather\models\ArraySerializable' => 'models/ArraySerializable',
 
@@ -45,7 +46,7 @@ $autoloadClasses = array(
 	'Gather\stores\WatchlistCollection' => 'stores/WatchlistCollection',
 	'Gather\stores\CollectionStorage' => 'stores/CollectionStorage',
 	'Gather\stores\UserPageCollection' => 'stores/UserPageCollection',
-	'Gather\stores\CollectionsList' => 'stores/CollectionsList',
+	'Gather\stores\CollectionsListStorage' => 'stores/CollectionsListStorage',
 	'Gather\stores\UserPageCollectionsList' => 'stores/UserPageCollectionsList',
 	'Gather\stores\ItemExtracts' => 'stores/ItemExtracts',
 	'Gather\stores\ItemImages' => 'stores/ItemImages',

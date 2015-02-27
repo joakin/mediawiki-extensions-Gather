@@ -59,8 +59,7 @@ class CollectionsListApi extends ApiBase {
 	 */
 	protected function getCollectionsList( $owner ) {
 		$ownsCollection = $this->getUser()->getName() === $owner->getName();
-		$collectionsListStore = new stores\UserPageCollectionsList( $owner, $ownsCollection );
-		return $collectionsListStore->getLists();
+		return stores\UserPageCollectionsList::newFromUser( $owner, $ownsCollection );
 	}
 
 	/**

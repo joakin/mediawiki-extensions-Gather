@@ -86,10 +86,8 @@ class SpecialGather extends SpecialPage {
 	 * @param User $user owner of collections
 	 */
 	public function renderUserCollectionsList( User $user ) {
-		$collectionsListStore = new stores\UserPageCollectionsList(
-			$user, $this->isOwner( $user )
-		);
-		$this->render( new views\CollectionsList( $collectionsListStore->getLists() ) );
+		$collectionsList = stores\UserPageCollectionsList::newFromUser( $user, $this->isOwner( $user ) );
+		$this->render( new views\CollectionsList( $collectionsList ) );
 	}
 
 	/**
