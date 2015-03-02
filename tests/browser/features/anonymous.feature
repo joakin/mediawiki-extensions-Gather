@@ -1,3 +1,4 @@
+@chrome @en.m.wikipedia.beta.wmflabs.org
 Feature: Anonymous users accessing private pages
 
   Background:
