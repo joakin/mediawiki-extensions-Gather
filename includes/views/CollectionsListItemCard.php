@@ -41,6 +41,14 @@ class CollectionsListItemCard extends View {
 	}
 
 	/**
+	 * Gets the privacy message
+	 */
+	public function getPrivacyMsg() {
+		$status = $this->collection->isPublic() ? 'gather-public' : 'gather-private';
+		return wfMessage( $status )->text();
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function getHtml() {
@@ -48,8 +56,7 @@ class CollectionsListItemCard extends View {
 			'gather-article-count',
 			$this->collection->getCount()
 		)->text();
-		// FIXME: should consider privacy in collection
-		$followingMsg = wfMessage( 'gather-private' )->text();
+		$followingMsg = $this->getPrivacyMsg();
 		$collectionUrl = $this->collection->getUrl();
 		$hasImage = $this->collection->hasImage();
 
@@ -66,7 +73,7 @@ class CollectionsListItemCard extends View {
 			Html::element( 'a', array( 'href' => $collectionUrl ), $this->getTitle() ) .
 			Html::closeElement( 'div' ) .
 			Html::element( 'span', array( 'class' => 'collection-card-following' ), $followingMsg ) .
-			Html::element( 'span', array( 'class' => 'collection-card-following' ), '•' ) .
+			Html::element( 'span', array(), '•' ) .
 			Html::element( 'span', array( 'class' => 'collectoin-card-article-count' ), $articleCountMsg ) .
 			Html::closeElement( 'div' ) .
 			Html::closeElement( 'div' );
