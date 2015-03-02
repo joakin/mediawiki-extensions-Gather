@@ -23,3 +23,8 @@ $specialPageAliases['ar'] = array(
 $specialPageAliases['de'] = array(
 	'Gather' => array( 'Sammeln' ),
 );
+
+/** Macedonian (македонски) */
+$specialPageAliases['mk'] = array(
+	'Gather' => array( 'Собирање' ),
+);
