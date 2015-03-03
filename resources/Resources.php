@@ -29,8 +29,8 @@ if ( !defined( 'MEDIAWIKI' ) ) {
  * Agnostic to whether desktop or mobile specific.
  */
 $wgGatherResourceBoilerplate = array(
-	'localBasePath' => __DIR__ . '/../resources',
-	'remoteExtPath' => 'Gather',
+	'localBasePath' => __DIR__,
+	'remoteExtPath' => 'Gather/resources',
 );
 
 /**
@@ -105,9 +105,9 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 			'content.hogan' => 'ext.gather.watchstar/content.hogan',
 		),
 		'scripts' => array(
-			'resources/ext.gather.watchstar/CollectionsContentOverlay.js',
-			'resources/ext.gather.watchstar/CollectionsWatchstar.js',
-			'resources/ext.gather.watchstar/init.js',
+			'ext.gather.watchstar/CollectionsContentOverlay.js',
+			'ext.gather.watchstar/CollectionsWatchstar.js',
+			'ext.gather.watchstar/init.js',
 		),
 	),
 ) );

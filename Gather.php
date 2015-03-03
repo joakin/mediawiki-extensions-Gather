@@ -77,5 +77,5 @@ $wgHooks['ContentHandlerDefaultModelFor'][] = 'Gather\Hooks::onContentHandlerDef
 $wgHooks['SkinMinervaDefaultModules'][] = 'Gather\Hooks::onSkinMinervaDefaultModules';
 
 // ResourceLoader modules
-require_once __DIR__ . "/includes/Resources.php";
+require_once __DIR__ . "/resources/Resources.php";
 
