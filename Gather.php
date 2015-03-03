@@ -81,6 +81,7 @@ $wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
 $wgHooks['getUserPermissionsErrors'][] = 'Gather\Hooks::onGetUserPermissionsErrors';
 $wgHooks['ContentHandlerDefaultModelFor'][] = 'Gather\Hooks::onContentHandlerDefaultModelFor';
 $wgHooks['SkinMinervaDefaultModules'][] = 'Gather\Hooks::onSkinMinervaDefaultModules';
+$wgHooks['MakeGlobalVariablesScript'][] = 'Gather\Hooks::onMakeGlobalVariablesScript';
 
 // Api
 $wgAPIModules['gather'] = 'Gather\api\CollectionsListApi';

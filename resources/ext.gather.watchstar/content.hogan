@@ -3,10 +3,13 @@
 <form>
 	<input class="mw-ui-input mw-ui-input-inline"><button class='mw-ui-button mw-ui-constructive'>{{createButtonLabel}}</button>
 </form>
+<hr/>
 <h3>{{subheading}}</h3>
 <ul>
 {{#collections}}
-	<li data-collection-title="{{title}}" data-collection-id="{{id}}">
+	<li data-collection-title="{{title}}" data-collection-id="{{id}}"
+		data-collection-is-watchlist="{{isWatchlist}}"
+		data-collection-is-member="{{titleInCollection}}">
 		{{title}} {{^titleInCollection}}{{{iconDisabledButton}}}{{/titleInCollection}}
 		{{#titleInCollection}}{{{iconButton}}}{{/titleInCollection}}
 	</li>

@@ -94,6 +94,9 @@
 		],
 		"ContentHandlerDefaultModelFor": [
 			"Gather\\Hooks::onContentHandlerDefaultModelFor"
+		],
+		"MakeGlobalVariablesScript": [
+			"Gather\\Hooks::onMakeGlobalVariablesScript"
 		]
 	},
 	"config": {

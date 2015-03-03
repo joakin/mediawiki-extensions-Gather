@@ -16,15 +16,9 @@
 		if ( !page.inNamespace( 'special' ) ) {
 			new CollectionsWatchstar( {
 				el: $container,
-				collections: [
-					{
-						id: 0,
-						title: mw.msg( 'gather-watchlist-title' ),
-						titleInCollection: page.isWatched()
-					}
-				],
 				page: page,
 				isAnon: user.isAnon(),
+				collections: mw.config.get( 'wgGatherCollections' ),
 				isNewlyAuthenticatedUser: util.query.article_action === 'add_to_collection'
 			} );
 		}
