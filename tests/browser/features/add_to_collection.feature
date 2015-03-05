@@ -7,11 +7,11 @@ Feature: Add to a collection
       And I am in alpha mode
       And I am on the "Selenium Gather test" page
 
-  Scenario:
+  Scenario: Check the default watchstar has been replaced
     When I click the watchstar
     Then I see the collection dialog
 
-  Scenario:
+  Scenario: Adding item to existing collection.
     When I click the watchstar
      And I select a collection
     Then I see a toast
