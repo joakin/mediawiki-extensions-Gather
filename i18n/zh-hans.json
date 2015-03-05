@@ -4,6 +4,12 @@
 			"Liuxinyu970226"
 		]
 	},
+	"gather-collection-member": "在收藏中。",
+	"gather-collection-non-member": "不在收藏中。",
+	"gather-anon-cta": "将此页面添加至一个您可以与世界分享的收藏中。",
+	"gather-add-to-existing": "添加至现有收藏",
+	"gather-add-toast": "页面已添加至您的“$1”收藏中。",
+	"gather-remove-toast": "页面已从您的“$1”收藏中移除。",
 	"gather-desc": "允许用户管理列表的移动前端组件。",
 	"gather-anon-view-lists": "您需要登录后查看您的收藏。",
 	"gather-watchlist-title": "监视列表",
@@ -13,5 +19,8 @@
 	"gather-private": "私有的",
 	"gather-article-count": "$1篇条目",
 	"gather-empty": "此收藏中尚无任何条目……",
-	"gather-empty-footer": "我不知道您是怎么到这里的，但这里是一个伤心之处。"
+	"gather-empty-footer": "我不知道您是怎么到这里的，但这里是一个伤心之处。",
+	"apihelp-gather-description": "列举并编辑聚集收藏。",
+	"apihelp-gather-param-gather": "在收藏中执行的操作。",
+	"apihelp-gather-example-1": "列出用于用户<kbd>john</kbd>的收藏。"
 }
