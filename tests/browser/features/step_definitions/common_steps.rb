@@ -7,6 +7,11 @@ Given(/^I am using the mobile site$/) do
   end
 end
 
+Given(/^I am logged into the mobile website$/) do
+  step 'I am using the mobile site'
+  visit(LoginPage).login_with(ENV['MEDIAWIKI_USER'], ENV['MEDIAWIKI_PASSWORD'], false)
+end
+
 Given(/^I am in alpha mode$/) do
   on(MainPage) do |page|
     page.goto
