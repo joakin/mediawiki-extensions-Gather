@@ -86,7 +86,7 @@
 		"remoteExtPath": "Gather"
 	},
 	"Hooks": {
-		"onSkinMinervaDefaultModules": [
+		"SkinMinervaDefaultModules": [
 			"Gather\\Hooks::onSkinMinervaDefaultModules"
 		],
 		"MobilePersonalTools": [
