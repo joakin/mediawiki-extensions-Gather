@@ -4,7 +4,7 @@
 		icons = M.require( 'icons' ),
 		toast = M.require( 'toast' ),
 		Icon = M.require( 'Icon' ),
-		WatchstarApi = M.require( 'modules/watchstar/WatchstarApi' ),
+		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
 		ContentOverlay = M.require( 'modules/tutorials/ContentOverlay' );
 
 	/**
@@ -48,7 +48,7 @@
 		},
 		/** @inheritdoc */
 		initialize: function () {
-			this.api = new WatchstarApi();
+			this.api = new CollectionsApi();
 			ContentOverlay.prototype.initialize.apply( this, arguments );
 		},
 		/** @inheritdoc */

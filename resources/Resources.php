@@ -105,6 +105,7 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 			'content.hogan' => 'ext.gather.watchstar/content.hogan',
 		),
 		'scripts' => array(
+			'ext.gather.watchstar/CollectionsApi.js',
 			'ext.gather.watchstar/CollectionsContentOverlay.js',
 			'ext.gather.watchstar/CollectionsWatchstar.js',
 			'ext.gather.watchstar/init.js',
