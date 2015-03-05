@@ -58,6 +58,22 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	}
 
 	/**
+	 * Whether collection has a given title as a member
+	 *
+	 * @param Title $title
+	 *
+	 * @return boolean [description]
+	 */
+	public function hasMember( $title ) {
+		foreach ( $this->items as $item ) {
+			if ( $item->getTitle()->getFullText() === $title->getFullText() ) {
+				return true;
+			}
+			return false;
+		}
+	}
+
+	/**
 	 * Returns items count
 	 *
 	 * @return int count of items in collection
