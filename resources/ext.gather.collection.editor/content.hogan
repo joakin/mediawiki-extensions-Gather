@@ -1,0 +1,14 @@
+<div class="content">
+	{{#collection}}
+	<label>{{nameLabel}}</label>
+	<input class="mw-ui-input title" value="{{title}}">
+	<label>{{descriptionLabel}}</label>
+	<input class="mw-ui-input description" value="{{description}}">
+	<hr>
+	<div class="mw-ui-checkbox">
+	  <input type="checkbox" id="collection-editor-privacy"
+		{{^isPublic}}checked{{/isPublic}} {{#isWatchlist}}disabled{{/isWatchlist}} />
+	  <label for="collection-editor-privacy">{{privateLabel}}</label>
+	</div>
+	{{/collection}}
+</div>

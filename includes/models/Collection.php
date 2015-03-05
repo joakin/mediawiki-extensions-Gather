@@ -8,6 +8,7 @@ namespace Gather\models;
 
 use \IteratorAggregate;
 use \ArrayIterator;
+use \User;
 
 /**
  * A collection with a list of items, which are represented by the CollectionItem class.

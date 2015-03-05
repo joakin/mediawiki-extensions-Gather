@@ -2,6 +2,13 @@
 	"@metadata": {
 		"authors": []
 	},
+	"gather-edit-collection-heading": "Edit collection",
+	"gather-edit-collection-label-name": "Name",
+	"gather-edit-collection-label-description": "Description",
+	"gather-edit-collection-label-privacy": "Private collection",
+	"gather-edit-collection-save-label": "Done",
+	"gather-edit-collection-failed-error": "There was a problem saving the changes.",
+	"gather-error-unknown-collection": "Cannot find the requested collection to edit.",
 	"gather-collection-member": "Is member of collection.",
 	"gather-collection-non-member": "Is not member of collection.",
 	"gather-anon-cta": "Add this page to a collection that you can share with the world.",
@@ -22,6 +29,7 @@
 	"gather-article-count": "$1 {{PLURAL:$1|article|articles}}",
 	"gather-empty": "Nothing in this collection yet...",
 	"gather-empty-footer": "I don't know how you got here but this is a sad place.",
+	"gather-edit-button": "Edit",
 	"apihelp-gather-description": "List and edit gather collections.",
 	"apihelp-gather-param-gather": "Action to perform on collections.",
 	"apihelp-gather-param-owner": "Owner of the collections to search for. If omitted, defaults to current user.",

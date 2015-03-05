@@ -16,8 +16,16 @@ use \SpecialPage;
  */
 class SpecialGather extends SpecialPage {
 
+	/** ResourceLoader modules to add */
+	protected $modules;
+
 	public function __construct() {
 		parent::__construct( 'Gather' );
+		$this->getOutput()->addModules(
+			array(
+				'ext.gather.special',
+			)
+		);
 	}
 
 	/**
@@ -76,7 +84,8 @@ class SpecialGather extends SpecialPage {
 			// FIXME: No permissions to visit this. Showing not found ATM.
 			$this->renderNotFoundError();
 		} else {
-			$this->render( new views\Collection( $collection ) );
+			$this->modules[] = 'ext.gather.edit';
+			$this->render( new views\Collection( $this->getUser(), $collection ) );
 		}
 	}
 
@@ -105,6 +114,9 @@ class SpecialGather extends SpecialPage {
 			'ext.gather.icons',
 			'ext.gather.styles',
 		) );
+		if ( count( $this->modules ) > 0 ) {
+			$out->addModules( $this->modules );
+		}
 		$out->setPageTitle( $view->getTitle() );
 		$view->render( $out );
 	}

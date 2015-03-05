@@ -155,4 +155,13 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 		return $this->image;
 	}
 
+	/**
+	 * Returns if the user is the owner of the collection/list
+	 * @param User $user user to check if it is the owner
+	 * @return boolean
+	 */
+	public function isOwner( User $user ) {
+		return $this->owner->getName() == $user->getName();
+	}
+
 }
