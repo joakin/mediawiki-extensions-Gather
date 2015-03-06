@@ -9,8 +9,14 @@
 	"descriptionmsg": "gather-desc",
 	"license-name": "GPL-2.0+",
 	"type": "other",
+	"ExtensionFunctions": [
+		"Gather\\Hooks::onExtensionSetup"
+	],
 	"SpecialPages": {
 		"Gather": "Gather\\SpecialGather"
+	},
+	"APIModules": {
+		"gather": "Gather\\api\\CollectionsListApi"
 	},
 	"MessagesDirs": {
 		"Gather": [
@@ -29,8 +35,8 @@
 		"Gather\\models\\CollectionsList": "includes/models/CollectionsList.php",
 		"Gather\\models\\WithImage": "includes/models/WithImage.php",
 		"Gather\\models\\ArraySerializable": "includes/models/ArraySerializable.php",
-		"Gather\\stores\\Collection": "includes/stores/Collection.php",
 		"Gather\\stores\\JSONPage": "includes/stores/JSONPage.php",
+		"Gather\\stores\\Collection": "includes/stores/Collection.php",
 		"Gather\\stores\\WatchlistCollection": "includes/stores/WatchlistCollection.php",
 		"Gather\\stores\\CollectionStorage": "includes/stores/CollectionStorage.php",
 		"Gather\\stores\\UserPageCollection": "includes/stores/UserPageCollection.php",
@@ -64,7 +70,7 @@
 				}
 			}
 		},
-		"ext.collections.styles": {
+		"ext.gather.styles": {
 			"targets": [
 				"mobile",
 				"desktop"
@@ -72,13 +78,107 @@
 			"styles": [
 				"ext.gather.styles/collections.less"
 			],
-			"dependencies": [
-				"mediawiki.ui.anchor",
-				"mediawiki.ui.icon",
-				"ext.gather.icons"
-			],
 			"position": "top",
 			"group": "other"
+		},
+		"ext.gather.watchstar.icons": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"class": "ResourceLoaderImageModule",
+			"prefix": "mw-ui",
+			"images": {
+				"icon": {
+					"tick-disabled:before": "ext.gather.watchstar.icons/grey_check.svg",
+					"tick:before": "ext.gather.watchstar.icons/green_check.svg"
+				}
+			}
+		},
+		"ext.gather.api": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.watchstar",
+				"mobile.editor.api"
+			],
+			"scripts": [
+				"ext.gather.watchstar/CollectionsApi.js"
+			]
+		},
+		"ext.gather.watchstar": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.watchstar",
+				"ext.gather.api",
+				"mobile.contentOverlays",
+				"ext.gather.watchstar.icons"
+			],
+			"styles": [
+				"ext.gather.watchstar/contentOverlay.less"
+			],
+			"messages": [
+				"gather-add-to-existing",
+				"gather-watchlist-title",
+				"gather-add-toast",
+				"gather-remove-toast",
+				"gather-anon-cta",
+				"gather-collection-member",
+				"gather-create-new-button-label",
+				"gather-add-to-new",
+				"gather-collection-non-member"
+			],
+			"templates": {
+				"content.hogan": "ext.gather.watchstar/content.hogan"
+			},
+			"scripts": [
+				"ext.gather.watchstar/CollectionsContentOverlay.js",
+				"ext.gather.watchstar/CollectionsWatchstar.js",
+				"ext.gather.watchstar/init.js"
+			]
+		},
+		"ext.gather.collection.editor": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.overlays",
+				"mobile.toast",
+				"ext.gather.api"
+			],
+			"messages": [
+				"gather-edit-collection-label-name",
+				"gather-edit-collection-label-description",
+				"gather-edit-collection-label-privacy",
+				"gather-edit-collection-save-label"
+			],
+			"templates": {
+				"content.hogan": "ext.gather.collection.editor/content.hogan"
+			},
+			"scripts": [
+				"ext.gather.collection.editor/CollectionEditOverlay.js"
+			],
+			"styles": [
+				"ext.gather.collection.editor/editOverlay.less"
+			]
+		},
+		"ext.gather.special": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.collection.editor"
+			],
+			"scripts": [
+				"ext.gather.special/init.js"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -86,17 +186,26 @@
 		"remoteExtPath": "Gather"
 	},
 	"Hooks": {
-		"SkinMinervaDefaultModules": [
-			"Gather\\Hooks::onSkinMinervaDefaultModules"
-		],
 		"MobilePersonalTools": [
 			"Gather\\Hooks::onMobilePersonalTools"
+		],
+		"UnitTestsList": [
+			"Gather\\Hooks::onUnitTestsList"
+		],
+		"getUserPermissionsErrors": [
+			"Gather\\Hooks::onGetUserPermissionsErrors"
 		],
 		"ContentHandlerDefaultModelFor": [
 			"Gather\\Hooks::onContentHandlerDefaultModelFor"
 		],
+		"SkinMinervaDefaultModules": [
+			"Gather\\Hooks::onSkinMinervaDefaultModules"
+		],
 		"MakeGlobalVariablesScript": [
 			"Gather\\Hooks::onMakeGlobalVariablesScript"
+		],
+		"ResourceLoaderTestModules": [
+			"Gather\\Hooks::onResourceLoaderTestModules"
 		]
 	},
 	"config": {

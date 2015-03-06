@@ -19,7 +19,6 @@ use \MobileContext;
  *	onRequestContextCreateSkin()
  */
 class Hooks {
-
 	public static function onExtensionSetup() {
 		// FIXME: This doesn't do anything as if mobilefrontend is not present
 		// The reported error is "This requires Gather."
@@ -81,9 +80,32 @@ class Hooks {
 	}
 
 	/**
+	 * Register QUnit tests.
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderTestModules
+	 *
+	 * @param array $files
+	 * @return bool
+	 */
+	public static function onResourceLoaderTestModules( &$modules, &$rl ) {
+		$boilerplate = array(
+			'localBasePath' => dirname( __FILE__ ) . '/../tests/qunit/',
+			'remoteExtPath' => 'Gather/tests/qunit',
+			'targets' => array( 'desktop', 'mobile' ),
+		);
+
+		$modules['qunit']['ext.gather.watchstar.tests'] = $boilerplate + array(
+			'scripts' => array(
+				'ext.gather.watchstar/test_CollectionsContentOverlay.js',
+			),
+			'dependencies' => array( 'ext.gather.watchstar' ),
+		);
+		return true;
+	}
+
+	/**
 	 * Disallow moving or editing gather page json files
 	 */
-	public static function onGetUserPermissionsErrors( $title, $user, $action, &$result ) {
+	public static function onGetUserPermissionsErrors( $title, $user, $action, $result ) {
 		$manifest = "/GatherCollections.json";
 		$isProtectedAction = $action === 'edit' || $action === 'move';
 		$titleText = $title->getText();

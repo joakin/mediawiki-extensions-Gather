@@ -9,8 +9,12 @@
 
 	QUnit.module( 'Gather', {
 		setup: function () {
-			var d = $.Deferred().resolve();
-			this.sandbox.stub( CollectionsApi.prototype, 'addPageToCollection' ).returns( d );
+			var d = $.Deferred().resolve( {
+					id: 2
+				} ),
+				d2 = $.Deferred().resolve();
+			this.sandbox.stub( CollectionsApi.prototype, 'addCollection' ).returns( d );
+			this.sandbox.stub( CollectionsApi.prototype, 'addPageToCollection' ).returns( d2 );
 			this.watchlist = {
 				id: 0,
 				title: 'Watchlist',

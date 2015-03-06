@@ -70,8 +70,8 @@ class Collection extends CollectionBase implements IteratorAggregate {
 			if ( $item->getTitle()->getFullText() === $title->getFullText() ) {
 				return true;
 			}
-			return false;
 		}
+		return false;
 	}
 
 	/**

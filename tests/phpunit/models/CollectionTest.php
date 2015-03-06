@@ -19,7 +19,7 @@ class CollectionTest extends MediaWikiTestCase {
 			array(
 				false,
 				array( 'foo', 'bar', 'baz' ),
-				'baz',
+				'jon',
 			),
 		);
 	}
@@ -29,11 +29,11 @@ class CollectionTest extends MediaWikiTestCase {
 	 *
 	 */
 	public function testHasMember( $expected, $items, $member ) {
-		$collection = new models\Collection();
+		$collection = new Gather\models\Collection( 0, User::newFromName( 'test' ) );
 		foreach ( $items as $item ) {
-			$collection->add( new models\CollectionItem( Title::newFromText( $title ), false, 'Test' ) );
+			$collection->add( new Gather\models\CollectionItem( Title::newFromText( $item ),
+				false, 'Test' ) );
 		}
-
 		$this->assertEquals( $expected, $collection->hasMember( Title::newFromText( $member ) ) );
 	}
 }
