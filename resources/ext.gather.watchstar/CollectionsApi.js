@@ -47,6 +47,22 @@
 				id: 99,
 				title: title
 			} );
+		},
+		/**
+		 * Edits a collection
+		 * FIXME: This is currently smoke and mirrors. Doesn't save to server.
+		 * @method
+		 * @param {Number} unique identifier of collection
+		 * @param {String} title of collection
+		 * @param {String} description of collection
+		 */
+		editCollection: function ( id, title, description ) {
+			var d = $.Deferred();
+			return d.resolve( {
+				id: id,
+				title: title,
+				description: description
+			} );
 		}
 	} );
 
