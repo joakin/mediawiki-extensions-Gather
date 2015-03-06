@@ -40,15 +40,6 @@ $wgGatherResourceFileModuleBoilerplate = $wgGatherResourceBoilerplate + array(
 	'targets' => array( 'mobile', 'desktop' ),
 );
 
-/**
- * A boilerplate containing common properties for all RL modules served to mobile site special pages
- * Restricted to mobile site.
- */
-$wgGatherMobileSpecialPageResourceBoilerplate = $wgGatherResourceBoilerplate + array(
-	'targets' => 'mobile',
-	'group' => 'other',
-);
-
 $wgResourceModules = array_merge( $wgResourceModules, array(
 
 	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
