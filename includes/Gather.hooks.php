@@ -113,14 +113,16 @@ class Hooks {
 			foreach ( $collectionsList as $collectionInfo ) {
 				$id = $collectionInfo->getId();
 				$collection = stores\UserPageCollection::newFromUserAndId( $user, $id );
-				$gatherCollections[] = array(
-					'id' => $id,
-					'isWatchlist' => $id === 0,
-					'isPublic' => $collection->isPublic(),
-					'title' => $collectionInfo->getTitle(),
-					'description' => $collectionInfo->getDescription(),
-					'titleInCollection' => $collection->hasMember( $out->getTitle() ),
-				);
+				if ( $collection !== null ) {
+					$gatherCollections[] = array(
+						'id' => $id,
+						'isWatchlist' => $id === 0,
+						'isPublic' => $collectionInfo->isPublic(),
+						'title' => $collectionInfo->getTitle(),
+						'description' => $collectionInfo->getDescription(),
+						'titleInCollection' => $collection->hasMember( $out->getTitle() ),
+					);
+				}
 			}
 			$vars['wgGatherCollections'] = $gatherCollections;
 		}

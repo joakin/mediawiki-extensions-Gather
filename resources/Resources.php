@@ -86,6 +86,7 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 	'ext.gather.api' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'mobile.watchstar',
+			'mobile.editor.api',
 		),
 		'scripts' => array(
 			'ext.gather.watchstar/CollectionsApi.js',
