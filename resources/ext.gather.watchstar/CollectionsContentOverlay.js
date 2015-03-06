@@ -63,25 +63,11 @@
 		 * @param {jQuery.Event} ev
 		 */
 		onCreateNewCollection: function ( ev ) {
-			var self = this,
-				api = this.api,
-				page = M.getCurrentPage(),
+			var page = M.getCurrentPage(),
 				title = $( ev.target ).find( 'input' ).val();
 
 			ev.preventDefault();
-
-			api.addCollection( title ).done( function ( collection ) {
-				api.addPageToCollection( collection.id, page ).done( function () {
-					toast.show( mw.msg( 'gather-add-toast', collection.title ), 'toast' );
-					self.hide();
-				} ).fail( function () {
-					toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );
-					// Hide since collection was created properly and list is outdated
-					self.hide();
-				} );
-			} ).fail( function () {
-				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast' );
-			} );
+			this.addCollection( title, page );
 		},
 		/**
 		 * Event handler for all clicks inside overlay.
@@ -95,40 +81,99 @@
 		 * @param {jQuery.Event} ev
 		 */
 		onSelectCollection: function ( ev ) {
-			var self = this,
-				api = this.api,
-				collection,
+			var collection,
 				$target = $( ev.target ),
 				page = M.getCurrentPage();
 
 			collection = {
 				title: $target.data( 'collection-title' ),
-				id:  $target.data( 'collection-id' )
+				id:  $target.data( 'collection-id' ),
+				isWatchlist: $target.data( 'collection-is-watchlist' )
 			};
-			api.toggleStatus( page ).done( function () {
-				var msg, page = M.getCurrentPage();
-				// update current page
-				page.options.isWatched = api.isWatchedPage( page );
-				// show toast
-				msg = api.isWatchedPage( page ) ? 'gather-add-toast' : 'gather-remove-toast';
-				toast.show( mw.msg( msg, collection.title ), 'toast' );
-				self.hide();
-				if ( page.options.isWatched ) {
-					/**
-					 * @event watch
-					 * Fired when the watch star is changed to watched status
-					 */
-					self.emit( 'watch' );
-				} else {
-					/**
-					 * @event unwatch
-					 * Fired when the watch star is changed to unwatched status
-					 */
-					self.emit( 'unwatch' );
+			this.$( '.spinner' ).show();
+			if ( $target.data( 'collection-is-member' ) ) {
+				this.removeFromCollection( collection, page );
+			} else {
+				this.addToCollection( collection, page );
+			}
+			ev.stopPropagation();
+		},
+		/**
+		 * Internal event for updating existing known states of users collections.
+		 * @private
+		 * @param {Object} collection
+		 * @param {Boolean} currentPageIsMember whether the current page is in this collection
+		 */
+		_collectionStateChange: function ( collection, currentPageIsMember ) {
+			var isNew = true;
+			// update the stored state of the collection
+			$.each( this.options.collections, function () {
+				if ( this.id === collection.id ) {
+					isNew = false;
+					this.titleInCollection = currentPageIsMember;
 				}
 			} );
-			this.$( '.spinner' ).show();
-			ev.stopPropagation();
+			// push the newly created collection
+			if ( isNew ) {
+				// by default this will be true.
+				collection.titleInCollection = true;
+				this.options.collections.push( collection );
+			}
+			// refresh the ui
+			this.render();
+			// update UI
+			this.$( '.spinner' ).hide();
+			this.hide();
+
+			if ( currentPageIsMember ) {
+				this.emit( 'collection-watch', collection );
+				// show toast
+				toast.show( mw.msg( 'gather-add-toast', collection.title ), 'toast' );
+			} else {
+				this.emit( 'collection-unwatch', collection );
+				toast.show( mw.msg( 'gather-remove-toast', collection.title ), 'toast' );
+			}
+		},
+		/**
+		 * Communicate with API to remove page from collection
+		 * @param {Object} collection to update
+		 * @param {Page} page to remove from collection
+		 */
+		removeFromCollection: function ( collection, page ) {
+			return this.api.removePageFromCollection( collection.id, page ).done(
+				$.proxy( this, '_collectionStateChange', collection, false )
+			);
+		},
+		/**
+		 * Communicate with API to add page to collection
+		 * @param {Object} collection to update
+		 * @param {Page} page to add to collection
+		 */
+		addToCollection: function ( collection, page ) {
+			return this.api.addPageToCollection( collection.id, page ).done(
+				$.proxy( this, '_collectionStateChange', collection, true )
+			);
+		},
+		/**
+		 * Communicate with API to create a collection
+		 * @param {String} title of collection
+		 * @param {Page} page to add to collection
+		 */
+		addCollection: function ( title, page ) {
+			var self = this,
+				api = this.api;
+
+			return api.addCollection( title ).done( function ( collection ) {
+				api.addPageToCollection( collection.id, page ).done(
+					$.proxy( self, '_collectionStateChange', collection, true )
+				).fail( function () {
+					toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );
+					// Hide since collection was created properly and list is outdated
+					self.hide();
+				} );
+			} ).fail( function () {
+				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast' );
+			} );
 		}
 	} );
 	M.define( 'ext.gather.watchstar/CollectionsContentOverlay', CollectionsContentOverlay );

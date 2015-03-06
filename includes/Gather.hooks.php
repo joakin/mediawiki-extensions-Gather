@@ -6,6 +6,7 @@
 namespace Gather;
 
 use \SpecialPage;
+use Gather\stores;
 use Gather\views\helpers\CSS;
 use \MobileContext;
 
@@ -18,6 +19,7 @@ use \MobileContext;
  *	onRequestContextCreateSkin()
  */
 class Hooks {
+
 	public static function onExtensionSetup() {
 		// FIXME: This doesn't do anything as if mobilefrontend is not present
 		// The reported error is "This requires Gather."
@@ -98,6 +100,29 @@ class Hooks {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * Load user collections
+	 */
+	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
+		$user = $out->getUser();
+		if ( !$user->isAnon() ) {
+			$collectionsList = stores\UserPageCollectionsList::newFromUser( $user, true );
+			$gatherCollections = array();
+			foreach ( $collectionsList as $collectionInfo ) {
+				$id = $collectionInfo->getId();
+				$collection = stores\UserPageCollection::newFromUserAndId( $user, $id );
+				$gatherCollections[] = array(
+					'id' => $id,
+					'isWatchlist' => $id === 0,
+					'title' => $collectionInfo->getTitle(),
+					'titleInCollection' => $collection->hasMember( $out->getTitle() ),
+				);
+			}
+			$vars['wgGatherCollections'] = $gatherCollections;
+		}
+		return true;
 	}
 
 	/**

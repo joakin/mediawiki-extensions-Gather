@@ -3,6 +3,16 @@
 
 	var CollectionsWatchstar,
 		CollectionsContentOverlay = M.require( 'ext.gather.watchstar/CollectionsContentOverlay' ),
+		Icon = M.require( 'Icon' ),
+		// FIXME: MobileFrontend code duplication
+		watchIcon = new Icon( {
+			name: 'watch',
+			additionalClassNames: 'icon-32px watch-this-article'
+		} ),
+		watchedIcon = new Icon( {
+			name: 'watched',
+			additionalClassNames: 'icon-32px watch-this-article'
+		} ),
 		Watchstar = M.require( 'modules/watchstar/Watchstar' );
 
 	/**
@@ -22,15 +32,20 @@
 		/**
 		 * @inheritdoc
 		 * @cfg {Object} defaults Default options hash.
+		 * @cfg {Number} defaults.inCollections number of collections the current page appears in
 		 * @cfg {Object} defaults.collections definitions of the users existing collections
 		 */
-		defaults: $.extend( {}, Watchstar.prototype.defaults, {
+		defaults: $.extend( {}, Watchstar.defaults, {
+			page: M.getCurrentPage(),
+			inCollections: 0,
 			collections: []
 		} ),
 		/** @inheritdoc */
 		postRender: function ( options ) {
-			var $el = this.$el;
-			Watchstar.prototype.postRender.apply( this, arguments );
+			var $el = this.$el,
+				unwatchedClass = watchIcon.getGlyphClassName(),
+				watchedClass = watchedIcon.getGlyphClassName();
+
 			// For newly authenticated users via CTA force dialog to open.
 			if ( options.isNewlyAuthenticatedUser ) {
 				setTimeout( function () {
@@ -38,25 +53,42 @@
 				}, 500 );
 				delete options.isNewlyAuthenticatedUser;
 			}
+			if ( options.isWatched ) {
+				$el.addClass( watchedClass ).removeClass( unwatchedClass );
+			} else {
+				$el.addClass( unwatchedClass ).removeClass( watchedClass );
+			}
+			$el.removeClass( 'hidden' );
 		},
 		/** @inheritdoc */
 		onStatusToggle: function ( ev ) {
 			// Open the collections content overlay to deal with this.
-			var self = this,
-				overlay = new CollectionsContentOverlay( {
+			var overlay = this.overlay,
+				self = this;
+
+			if ( !overlay ) {
+				// cache it so state changes internally for this session
+				this.overlay = overlay = new CollectionsContentOverlay( {
 					collections: this.options.collections
 				} );
-			overlay.on( 'watch', function () {
-				self.newStatus( true );
+			}
+
+			overlay.on( 'collection-watch', function ( collection ) {
+				if ( collection.isWatchlist ) {
+					self.newStatus( true );
+				}
 			} );
-			overlay.on( 'unwatch', function () {
-				self.newStatus( false );
+			overlay.on( 'collection-unwatch', function ( collection ) {
+				if ( collection.isWatchlist ) {
+					self.newStatus( true );
+				}
 			} );
 			overlay.show();
 			ev.stopPropagation();
 		},
 		/**
-		 * Sets a new status on the watchstar
+		 * Sets a new status on the watchstar.
+		 * Only executed for the special Watchlist collection.
 		 * @param {bool} newStatus
 		 */
 		newStatus: function ( newStatus ) {
