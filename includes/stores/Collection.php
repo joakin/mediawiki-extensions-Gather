@@ -19,8 +19,10 @@ abstract class Collection {
 	 * @return models\CollectionItem[]
 	 */
 	public static function getItemsFromTitles( $titles ) {
-		$extracts = ItemExtracts::loadExtracts( $titles );
-		$images = ItemImages::loadImages( $titles );
+		if ( count( $titles ) > 0 ) {
+			$extracts = ItemExtracts::loadExtracts( $titles );
+			$images = ItemImages::loadImages( $titles );
+		}
 
 		// Merge the data into models\CollectionItem
 		$items = array();
