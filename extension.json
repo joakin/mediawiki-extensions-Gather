@@ -81,11 +81,10 @@
 				"mobile",
 				"desktop"
 			],
+			"group": "other",
 			"styles": [
 				"ext.gather.styles/collections.less"
-			],
-			"position": "top",
-			"group": "other"
+			]
 		},
 		"ext.gather.watchstar.icons": {
 			"targets": [
@@ -179,6 +178,7 @@
 				"mobile",
 				"desktop"
 			],
+			"group": "other",
 			"dependencies": [
 				"ext.gather.collection.editor"
 			],

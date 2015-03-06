@@ -40,6 +40,13 @@ $wgGatherResourceFileModuleBoilerplate = $wgGatherResourceBoilerplate + array(
 	'targets' => array( 'mobile', 'desktop' ),
 );
 
+/**
+ * A ResourceLoaderFileModule template for special pages
+ */
+$wgGatherMobileSpecialPageResourceBoilerplate = $wgGatherResourceFileModuleBoilerplate + array(
+	'group' => 'other',
+);
+
 $wgResourceModules += array(
 
 	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
@@ -54,12 +61,10 @@ $wgResourceModules += array(
 		),
 	),
 
-	'ext.gather.styles' => $wgGatherResourceFileModuleBoilerplate + array(
+	'ext.gather.styles' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'styles' => array(
 			'ext.gather.styles/collections.less',
 		),
-		'position' => 'top',
-		'group' => 'other',
 	),
 
 	'ext.gather.watchstar.icons' => $wgGatherResourceFileModuleBoilerplate + array(
@@ -138,7 +143,7 @@ $wgResourceModules += array(
 		),
 	),
 
-	'ext.gather.special' => $wgGatherResourceFileModuleBoilerplate + array(
+	'ext.gather.special' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.collection.editor',
 		),
@@ -149,7 +154,7 @@ $wgResourceModules += array(
 
 );
 
-$wgResourceModuleSkinStyles['vector'] = $wgGatherResourceFileModuleBoilerplate + array(
+$wgResourceModuleSkinStyles['vector'] = $wgGatherMobileSpecialPageResourceBoilerplate + array(
 	'ext.gather.styles' => array(
 		'ext.gather.styles/vector.less',
 	),
@@ -157,3 +162,4 @@ $wgResourceModuleSkinStyles['vector'] = $wgGatherResourceFileModuleBoilerplate +
 
 unset( $wgGatherResourceFileModuleBoilerplate );
 unset( $wgGatherResourceBoilerplate );
+unset( $wgGatherMobileSpecialPageResourceBoilerplate );
