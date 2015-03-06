@@ -55,11 +55,15 @@
 		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
 		"Gather\\SpecialGather": "includes/specials/SpecialGather.php",
 		"Gather\\api\\ApiEditList": "includes/api/ApiEditList.php",
+		"Gather\\api\\ApiQueryLists": "includes/api/ApiQueryLists.php",
 		"Gather\\api\\CollectionsListApi": "includes/api/CollectionsListApi.php"
 	},
 	"APIModules": {
 		"editlist": "Gather\\api\\ApiEditList",
 		"gather": "Gather\\api\\CollectionsListApi"
+	},
+	"APIListModules": {
+		"lists": "Gather\\api\\ApiQueryLists"
 	},
 	"ResourceModules": {
 		"ext.gather.icons": {
