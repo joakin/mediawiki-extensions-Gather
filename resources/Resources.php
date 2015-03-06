@@ -157,3 +157,9 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 	),
 
 ) );
+
+$wgResourceModuleSkinStyles['vector'] = $wgGatherResourceFileModuleBoilerplate + array(
+	'ext.gather.styles' => array(
+		'ext.gather.styles/vector.less',
+	),
+);
