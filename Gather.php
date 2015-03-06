@@ -63,6 +63,7 @@ $autoloadClasses = array(
 
 	'Gather\SpecialGather' => 'specials/SpecialGather',
 
+	'Gather\api\ApiEditCollection' => 'api/ApiEditCollection',
 	'Gather\api\CollectionsListApi' => 'api/CollectionsListApi',
 
 );
@@ -85,6 +86,7 @@ $wgHooks['MakeGlobalVariablesScript'][] = 'Gather\Hooks::onMakeGlobalVariablesSc
 
 // Api
 $wgAPIModules['gather'] = 'Gather\api\CollectionsListApi';
+$wgAPIModules['editcollection'] = 'Gather\api\ApiEditCollection';
 
 // ResourceLoader modules
 require_once __DIR__ . "/resources/Resources.php";
