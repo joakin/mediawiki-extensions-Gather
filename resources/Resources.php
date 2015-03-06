@@ -40,7 +40,7 @@ $wgGatherResourceFileModuleBoilerplate = $wgGatherResourceBoilerplate + array(
 	'targets' => array( 'mobile', 'desktop' ),
 );
 
-$wgResourceModules = array_merge( $wgResourceModules, array(
+$wgResourceModules += array(
 
 	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
 		'class' => 'ResourceLoaderImageModule',
@@ -147,10 +147,13 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 		),
 	),
 
-) );
+);
 
 $wgResourceModuleSkinStyles['vector'] = $wgGatherResourceFileModuleBoilerplate + array(
 	'ext.gather.styles' => array(
 		'ext.gather.styles/vector.less',
 	),
 );
+
+unset( $wgGatherResourceFileModuleBoilerplate );
+unset( $wgGatherResourceBoilerplate );

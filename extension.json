@@ -207,25 +207,5 @@
 		"ResourceLoaderTestModules": [
 			"Gather\\Hooks::onResourceLoaderTestModules"
 		]
-	},
-	"config": {
-		"GatherResourceBoilerplate": {
-			"localBasePath": "resources",
-			"remoteExtPath": "Gather"
-		},
-		"GatherResourceFileModuleBoilerplate": {
-			"localBasePath": "resources",
-			"remoteExtPath": "Gather",
-			"targets": [
-				"mobile",
-				"desktop"
-			]
-		},
-		"GatherMobileSpecialPageResourceBoilerplate": {
-			"localBasePath": "resources",
-			"remoteExtPath": "Gather",
-			"targets": "mobile",
-			"group": "other"
-		}
 	}
 }
