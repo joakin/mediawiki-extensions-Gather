@@ -54,16 +54,18 @@
 		"Gather\\views\\CollectionsListItemCard": "includes/views/CollectionsListItemCard.php",
 		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
 		"Gather\\SpecialGather": "includes/specials/SpecialGather.php",
+		"Gather\\api\\CollectionsListApi": "includes/api/CollectionsListApi.php",
 		"Gather\\api\\ApiEditList": "includes/api/ApiEditList.php",
 		"Gather\\api\\ApiQueryLists": "includes/api/ApiQueryLists.php",
-		"Gather\\api\\CollectionsListApi": "includes/api/CollectionsListApi.php"
+		"Gather\\api\\ApiQueryListPages": "includes/api/ApiQueryListPages.php"
 	},
 	"APIModules": {
 		"editlist": "Gather\\api\\ApiEditList",
 		"gather": "Gather\\api\\CollectionsListApi"
 	},
 	"APIListModules": {
-		"lists": "Gather\\api\\ApiQueryLists"
+		"lists": "Gather\\api\\ApiQueryLists",
+		"listpages": "Gather\\api\\ApiQueryListPages"
 	},
 	"ResourceModules": {
 		"ext.gather.icons": {
