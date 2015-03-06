@@ -21,9 +21,16 @@ class Collection extends View {
 	protected $collection;
 
 	/**
+	 * @var User $user viewing the collection
+	 */
+	protected $user;
+
+	/**
+	 * @param User $user that is viewing the collection
 	 * @param models\Collection $collection
 	 */
-	public function __construct( models\Collection $collection ) {
+	public function __construct( $user, models\Collection $collection ) {
+		$this->user = $user;
 		$this->collection = $collection;
 	}
 
@@ -41,6 +48,7 @@ class Collection extends View {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-header' ) ) .
 			Html::element( 'div', array( 'class' => 'collection-description' ), $description ) .
 			$this->getOwnerHtml( $owner ) .
+			$this->getActionButtonsHtml() .
 			Html::closeElement( 'div' );
 
 		return $html;
@@ -61,6 +69,37 @@ class Collection extends View {
 				'class' => CSS::iconClass( 'collection-owner', 'before', 'collection-owner-icon' ) ) ) .
 			$owner->getName() .
 			Html::closeElement( 'a' );
+	}
+
+	/**
+	 * Get action buttons of the header
+	 * @return string Html
+	 */
+	public function getActionButtonsHtml() {
+		return Html::openElement( 'div',
+				array(
+					'class' => 'collection-actions',
+					// FIXME: This should work without JavaScript
+					'style' => 'display:none;',
+				)
+			) .
+			$this->getEditButtonHtml() .
+			Html::closeElement( 'div' );
+	}
+
+	/**
+	 * Get the edit button html if user should edit
+	 */
+	public function getEditButtonHtml() {
+		if ( $this->collection->isOwner( $this->user ) ) {
+			return Html::element( 'a', array(
+				// FIXME: This should work without JavaScript
+				'href' => '#/collection/edit/' . $this->collection->getId(),
+				'class' => CSS::buttonClass( 'progressive', 'collection-action-button edit-collection' )
+			), wfMessage( 'gather-edit-button' ) );
+		} else {
+			return '';
+		}
 	}
 
 	/**

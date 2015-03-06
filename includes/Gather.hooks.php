@@ -116,7 +116,9 @@ class Hooks {
 				$gatherCollections[] = array(
 					'id' => $id,
 					'isWatchlist' => $id === 0,
+					'isPublic' => $collection->isPublic(),
 					'title' => $collectionInfo->getTitle(),
+					'description' => $collectionInfo->getDescription(),
 					'titleInCollection' => $collection->hasMember( $out->getTitle() ),
 				);
 			}

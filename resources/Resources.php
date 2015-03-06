@@ -83,9 +83,19 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 		),
 	),
 
+	'ext.gather.api' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'mobile.watchstar',
+		),
+		'scripts' => array(
+			'ext.gather.watchstar/CollectionsApi.js',
+		),
+	),
+
 	'ext.gather.watchstar' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'mobile.watchstar',
+			'ext.gather.api',
 			'mobile.contentOverlays',
 			'ext.gather.watchstar.icons',
 		),
@@ -107,10 +117,42 @@ $wgResourceModules = array_merge( $wgResourceModules, array(
 			'content.hogan' => 'ext.gather.watchstar/content.hogan',
 		),
 		'scripts' => array(
-			'ext.gather.watchstar/CollectionsApi.js',
 			'ext.gather.watchstar/CollectionsContentOverlay.js',
 			'ext.gather.watchstar/CollectionsWatchstar.js',
 			'ext.gather.watchstar/init.js',
 		),
 	),
+
+	'ext.gather.collection.editor' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'mobile.overlays',
+			'mobile.toast',
+			'ext.gather.api',
+		),
+		'messages' => array(
+			'gather-edit-collection-label-name',
+			'gather-edit-collection-label-description',
+			'gather-edit-collection-label-privacy',
+			'gather-edit-collection-save-label',
+		),
+		'templates' => array(
+			'content.hogan' => 'ext.gather.collection.editor/content.hogan',
+		),
+		'scripts' => array(
+			'ext.gather.collection.editor/CollectionEditOverlay.js',
+		),
+		'styles' => array(
+			'ext.gather.collection.editor/editOverlay.less',
+		),
+	),
+
+	'ext.gather.special' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.collection.editor',
+		),
+		'scripts' => array(
+			'ext.gather.special/init.js',
+		),
+	),
+
 ) );
