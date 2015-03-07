@@ -69,6 +69,11 @@
 			if ( !overlay ) {
 				// cache it so state changes internally for this session
 				this.overlay = overlay = new CollectionsContentOverlay( {
+					page: this.options.page,
+					// FIXME: Should be retrievable from Page
+					description: mw.config.get( 'wgMFDescription' ),
+					// FIXME: Should be retrievable from Page
+					pageImageUrl: mw.config.get( 'wgGatherPageImageThumbnail' ),
 					collections: this.options.collections
 				} );
 			}

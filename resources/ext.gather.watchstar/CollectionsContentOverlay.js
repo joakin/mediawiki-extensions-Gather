@@ -32,6 +32,7 @@
 		hasFixedHeader: false,
 		/** @inheritdoc */
 		defaults: {
+			page: undefined,
 			/** @inheritdoc */
 			fixedHeader: false,
 			iconButton: new Icon( {

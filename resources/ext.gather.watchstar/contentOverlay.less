@@ -20,9 +20,47 @@
 	}
 
 	.overlay-content {
-		padding: 1em;
+		// FIXME: Should this be OOJS UI / an icon?! Should use same asset.
+		.background-size(auto, 40px);
+		background-position: center top;
+		background-repeat: no-repeat;
+		.background-image('images/watchstar.svg');
+		margin-top: .5em;
+		padding: 4em 1em 1em;
+
+		.snapshot {
+			margin-bottom: 32px;
+			border: solid 1px @grayLightest;
+			padding: .3em;
+			border-radius: 3px;
+
+			.thumbnail {
+				float: left;
+				height: 72px;
+				width: 72px;
+				margin-right: 8px;
+
+				&.missing {
+					// FIXME: Duplicates work in MobileFrontend extension.
+					background-position: center center;
+					background-repeat: no-repeat;
+					.background-image-svg-quick('images/noimage');
+				}
+			}
+
+			strong {
+				font-size: 1.1em;
+				display: block;
+			}
+
+			hr {
+				margin: 0;
+				clear: both;
+			}
+		}
 
 		h3 {
+			clear: both;
 			margin-top: 0.5em;
 		}
 

@@ -1,4 +1,17 @@
 {{{spinner}}}
+{{{watchIcon}}}
+<div class="snapshot">
+{{#page}}
+	<div class="thumbnail{{^pageImageUrl}} missing{{/pageImageUrl}}">
+		{{#pageImageUrl}}
+		<img src="{{pageImageUrl}}" alt="{{title}}">
+		{{/pageImageUrl}}
+	</div>
+	<strong>{{title}}</strong>
+	{{description}}
+{{/page}}
+<hr>
+</div>
 <h3>{{subheadingNewCollection}}</h3>
 <form>
 	<input class="mw-ui-input mw-ui-input-inline"><button class='mw-ui-button mw-ui-constructive'>{{createButtonLabel}}</button>
