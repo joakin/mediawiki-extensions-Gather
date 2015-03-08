@@ -4,6 +4,11 @@
 			"Robby"
 		]
 	},
+	"gather-edit-collection-label-name": "Numm",
+	"gather-edit-collection-label-description": "Beschreiwung",
+	"gather-edit-collection-save-label": "Fäerdeg",
+	"gather-edit-collection-failed-error": "Et gouf e Problem beim Späichere vun den Ännerungen.",
+	"gather-create-new-button-label": "Uleeën",
 	"gather-watchlist-title": "Iwwerwaachungslëscht",
 	"gather-watchlist-description": "Eng Lëscht vu Säiten un deenen ech interesséiert sinn.",
 	"gather-lists-title": "Sammlungen",
@@ -11,5 +16,6 @@
 	"gather-private": "Privat",
 	"gather-article-count": "{{PLURAL:$1|Een Artikel|$1 Artikelen}}",
 	"gather-empty": "Nach näischt an dëser Sammlung...",
-	"gather-empty-footer": "Ech weess net wéi Dir heihi kommt sidd awer et ass eng traureg Plaz."
+	"gather-empty-footer": "Ech weess net wéi Dir heihi kommt sidd awer et ass eng traureg Plaz.",
+	"gather-edit-button": "Änneren"
 }

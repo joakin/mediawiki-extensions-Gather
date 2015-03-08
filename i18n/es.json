@@ -3,9 +3,15 @@
 		"authors": [
 			"Macofe",
 			"Awesomecat5",
-			"Fitoschido"
+			"Fitoschido",
+			"Laurenslimb"
 		]
 	},
+	"gather-edit-collection-heading": "Editar elementos",
+	"gather-edit-collection-label-name": "Nombre",
+	"gather-edit-collection-label-description": "Descripción",
+	"gather-edit-collection-save-label": "Hecho",
+	"gather-error-unknown-collection": "No se puede encontrar la colección solicitada para editar.",
 	"gather-desc": "Componente de Mobile Frontend que permite a los usuarios crear listas curadas.",
 	"gather-anon-view-lists": "Debes iniciar sesión para ver tus colecciones.",
 	"gather-watchlist-title": "Lista de seguimiento",
@@ -15,5 +21,6 @@
 	"gather-private": "Privada",
 	"gather-article-count": "$1 {{PLURAL:$1|artículo|artículos}}",
 	"gather-empty": "Aún no hay nada en esta colección.",
-	"gather-empty-footer": "No sé cómo llegaste aquí, pero este es un lugar triste."
+	"gather-empty-footer": "No sé cómo llegaste aquí, pero este es un lugar triste.",
+	"gather-edit-button": "Editar"
 }

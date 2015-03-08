@@ -4,6 +4,10 @@
 			"Caliburn"
 		]
 	},
+	"gather-edit-collection-label-name": "Name",
+	"gather-edit-collection-save-label": "Done",
+	"gather-create-new-button-label": "Create",
 	"gather-watchlist-title": "Watchlist",
-	"gather-read-more": "Read more"
+	"gather-read-more": "Read more",
+	"gather-edit-button": "Edit"
 }

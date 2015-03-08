@@ -4,9 +4,15 @@
 			"Ahmed-Najib-Biabani-Ibrahimkhel"
 		]
 	},
+	"gather-edit-collection-heading": "ټولگه سمول",
+	"gather-edit-collection-label-name": "نوم",
+	"gather-edit-collection-label-description": "څرگندونه",
+	"gather-edit-collection-save-label": "ترسره شو",
+	"gather-create-new-button-label": "جوړول",
 	"gather-watchlist-title": "کتنلړ",
 	"gather-lists-title": "غونډونه",
 	"gather-read-more": "نور لوستل",
 	"gather-private": "ځاني",
-	"gather-article-count": "$1 {{PLURAL:$1|ليکنه|ليکنې}}"
+	"gather-article-count": "$1 {{PLURAL:$1|ليکنه|ليکنې}}",
+	"gather-edit-button": "سمول"
 }

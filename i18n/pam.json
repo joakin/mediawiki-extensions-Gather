@@ -4,10 +4,21 @@
 			"Leeheonjin"
 		]
 	},
+	"gather-edit-collection-heading": "Alilan ing koleksyun",
+	"gather-edit-collection-label-name": "Lagyu",
+	"gather-edit-collection-label-description": "Pamilarawan (deskripsyun)",
+	"gather-edit-collection-label-privacy": "Pribadung koleksyun",
+	"gather-edit-collection-save-label": "Meyari na",
+	"gather-edit-collection-failed-error": "Ating problema king pamag-save kareng mengayalili.",
+	"gather-collection-non-member": "E kasapi ning koleksyun.",
+	"gather-create-new-button-label": "Maglalang",
+	"gather-add-to-new": "Idagdag king bayung koleksyun",
 	"gather-watchlist-title": "Deng babanten",
 	"gather-lists-title": "Deng koleksyun",
 	"gather-read-more": "Mamasa pa",
 	"gather-private": "Pribadu",
 	"gather-empty": "Ala yu pa king koleksyung ini...",
-	"gather-empty-footer": "E ku balu nung katnamu ka miparas keni peru malungkut ya ing lugal a ini."
+	"gather-empty-footer": "E ku balu nung katnamu ka miparas keni peru malungkut ya ing lugal a ini.",
+	"gather-edit-button": "Alilan/I-edit",
+	"apihelp-gather-example-1": "Ilista reng koleksyun para king talagamit <kbd>john</kbd>."
 }

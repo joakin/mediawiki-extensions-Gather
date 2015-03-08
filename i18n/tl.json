@@ -4,9 +4,25 @@
 			"Leeheonjin"
 		]
 	},
+	"gather-edit-collection-heading": "Ibahin ang kalipulan",
+	"gather-edit-collection-label-name": "Pangalan",
+	"gather-edit-collection-label-description": "Paglalarawan",
+	"gather-edit-collection-label-privacy": "Pribadong kalipulan",
+	"gather-edit-collection-save-label": "Nagawa na",
+	"gather-edit-collection-failed-error": "Nagkaroon ng problema sa pagse-save ng mga pagbabago.",
+	"gather-collection-member": "Ay kasapi ng kalipulan.",
+	"gather-collection-non-member": "Ay hindi kasapi ng kalipulan.",
+	"gather-anon-cta": "Idagdag itong pahina sa kalipulang maaari mong ipamahagi sa mundo.",
+	"gather-create-new-button-label": "Lumikha/Mag-lalang",
+	"gather-add-to-new": "Idagdag sa bagong kalipulan",
+	"gather-add-to-existing": "Idagdag sa umiiral na kalipulan",
+	"gather-add-toast": "Naidagdag na ang pahina sa iyong kalipulang pang-$1.",
+	"gather-remove-toast": "Itinanggal na ang pahina mula sa iyong kalipulang pang-$1.",
 	"gather-watchlist-title": "Talaan ng mga binabantayan",
 	"gather-lists-title": "Mga kalipunan",
 	"gather-read-more": "Magbasa pa",
 	"gather-private": "Pansarili/Pribado",
-	"gather-empty-footer": "Hindi ko alam kung paano ka nakarating dito ngunit malungkot ang kinalalagyang ito."
+	"gather-empty-footer": "Hindi ko alam kung paano ka nakarating dito ngunit malungkot ang kinalalagyang ito.",
+	"gather-edit-button": "Baguhin",
+	"apihelp-gather-param-gather": "Kilos na isasagawa sa mga kalipulan"
 }

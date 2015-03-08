@@ -4,11 +4,22 @@
 			"Bjankuloski06"
 		]
 	},
+	"gather-edit-collection-heading": "Уреди збирка",
+	"gather-edit-collection-label-name": "Име",
+	"gather-edit-collection-label-description": "Опис",
+	"gather-edit-collection-label-privacy": "Приватна збирка",
+	"gather-edit-collection-save-label": "Готово",
+	"gather-edit-collection-failed-error": "Се јави проблем при зачувувањето на промените.",
+	"gather-error-unknown-collection": "Не можам да ја пронајдам побараната збирка за уредување.",
 	"gather-collection-member": "Членува во збирка.",
 	"gather-collection-non-member": "Не членува во збирка.",
 	"gather-anon-cta": "Додајте ја страницава во збирка што можете да ја споделите со светот!",
+	"gather-create-new-button-label": "Создај",
+	"gather-add-to-new": "Додај во нова збирка",
 	"gather-add-to-existing": "Додај во постоечка збирка",
 	"gather-add-toast": "Страницата е додадена во вашата збирка „$1“.",
+	"gather-new-collection-failed-toast": "Се јави проблем при создавањето на вашата збирка „$1“.",
+	"gather-add-failed-toast": "Се јави проблем при додавањето на ставката во вашата збирка „$1“.",
 	"gather-remove-toast": "Страницата е отстранета од вашата збирка „$1“.",
 	"gather-desc": "Дел од мобилниот посредник што им овозможува на корисниците да кустосуваат со списоци.",
 	"gather-anon-view-lists": "Треба да сте најавени за да можете да ги видите вашите збирки.",
@@ -19,5 +30,10 @@
 	"gather-private": "Приватна",
 	"gather-article-count": "$1 {{PLURAL:$1|статија|статии}}",
 	"gather-empty": "Досега немате ништо во збиркава...",
-	"gather-empty-footer": "Не знам како стасавте тука, но ова е тажно место."
+	"gather-empty-footer": "Не знам како стасавте тука, но ова е тажно место.",
+	"gather-edit-button": "Уреди",
+	"apihelp-gather-description": "Испис и уредување на насобрани збирки",
+	"apihelp-gather-param-gather": "Дејство што треба да се изврши врз збирките.",
+	"apihelp-gather-param-owner": "Сопственикот на збирките што се пребаруваат. Ако се изостави, се подразбира тековниот корисник.",
+	"apihelp-gather-example-1": "Испиши ги збирките за корисникот <kbd>митко</kbd>."
 }

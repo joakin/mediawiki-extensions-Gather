@@ -5,11 +5,22 @@
 			"Purodha"
 		]
 	},
+	"gather-edit-collection-heading": "Sammlung bearbeiten",
+	"gather-edit-collection-label-name": "Name",
+	"gather-edit-collection-label-description": "Beschreibung",
+	"gather-edit-collection-label-privacy": "Private Sammlung",
+	"gather-edit-collection-save-label": "Fertig",
+	"gather-edit-collection-failed-error": "Es gab ein Problem beim Speichern der Änderungen.",
+	"gather-error-unknown-collection": "Die angeforderte Sammlung, die bearbeitet werden soll, konnte nicht gefunden werden.",
 	"gather-collection-member": "Ist Mitglied der Sammlung.",
 	"gather-collection-non-member": "Ist kein Mitglied der Sammlung.",
 	"gather-anon-cta": "Fügt diese Seite zu einer Sammlung hinzu, die du mit der Welt teilen kannst.",
+	"gather-create-new-button-label": "Erstellen",
+	"gather-add-to-new": "Zu neuer Sammlung hinzufügen",
 	"gather-add-to-existing": "Zu vorhandener Sammlung hinzufügen",
 	"gather-add-toast": "Die Seite wurde zu deiner Sammlung „$1“ hinzugefügt.",
+	"gather-new-collection-failed-toast": "Es gab ein Problem beim Erstellen deiner Sammlung „$1“.",
+	"gather-add-failed-toast": "Es gab ein Problem beim Hinzufügen des Objekts zu deiner Sammlung „$1“.",
 	"gather-remove-toast": "Die Seite wurde von deiner Sammlung „$1“ entfernt.",
 	"gather-desc": "Komponente des mobilen Frontends, die es Benutzern ermöglicht, Listen zu kuratieren",
 	"gather-anon-view-lists": "Du musst angemeldet sein, um deine Sammlungen anzusehen.",
@@ -20,5 +31,6 @@
 	"gather-private": "Privat",
 	"gather-article-count": "{{PLURAL:$1|Ein Artikel|$1 Artikel}}",
 	"gather-empty": "Noch nichts in dieser Sammlung …",
-	"gather-empty-footer": "Ich weiß nicht, wie du hierher gekommen bist, aber dies ist ein schlechter Ort."
+	"gather-empty-footer": "Ich weiß nicht, wie du hierher gekommen bist, aber dies ist ein schlechter Ort.",
+	"gather-edit-button": "Bearbeiten"
 }

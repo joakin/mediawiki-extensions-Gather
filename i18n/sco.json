@@ -4,5 +4,7 @@
 			"Caliburn"
 		]
 	},
-	"gather-watchlist-title": "Watchleet"
+	"gather-edit-collection-save-label": "Duin",
+	"gather-watchlist-title": "Watchleet",
+	"gather-edit-button": "Eedit"
 }
