@@ -46,6 +46,7 @@
 		"Gather\\stores\\ItemImages": "includes/stores/ItemImages.php",
 		"Gather\\views\\View": "includes/views/View.php",
 		"Gather\\views\\NotFound": "includes/views/NotFound.php",
+		"Gather\\views\\NoPublic": "includes/views/NoPublic.php",
 		"Gather\\views\\Collection": "includes/views/Collection.php",
 		"Gather\\views\\CollectionItemCard": "includes/views/CollectionItemCard.php",
 		"Gather\\views\\Image": "includes/views/Image.php",

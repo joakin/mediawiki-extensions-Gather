@@ -58,6 +58,14 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 		return new ArrayIterator( $this->collections );
 	}
 
+	/**
+	 * Gets the amount of collections in list
+	 * @returns int
+	 */
+	public function getCount() {
+		return count( $this->collections );
+	}
+
 	/** @inheritdoc */
 	public function toArray() {
 		$arr = array();
