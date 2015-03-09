@@ -168,7 +168,8 @@
 				"gather-edit-collection-label-name",
 				"gather-edit-collection-label-description",
 				"gather-edit-collection-label-privacy",
-				"gather-edit-collection-save-label"
+				"gather-edit-collection-save-label",
+				"gather-error-unknown-collection"
 			],
 			"templates": {
 				"content.hogan": "ext.gather.collection.editor/content.hogan"
@@ -180,6 +181,36 @@
 				"ext.gather.collection.editor/editOverlay.less"
 			]
 		},
+		"ext.gather.collection.delete": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.overlays",
+				"mobile.toast",
+				"ext.gather.api",
+				"mediawiki.util"
+			],
+			"messages": [
+				"gather-delete-collection-confirm",
+				"gather-delete-collection-heading",
+				"gather-delete-collection-delete-label",
+				"gather-delete-collection-cancel-label",
+				"gather-delete-collection-success",
+				"gather-delete-collection-failed-error",
+				"gather-error-unknown-collection"
+			],
+			"templates": {
+				"content.hogan": "ext.gather.collection.delete/content.hogan"
+			},
+			"scripts": [
+				"ext.gather.collection.delete/CollectionDeleteOverlay.js"
+			],
+			"styles": [
+				"ext.gather.collection.delete/deleteOverlay.less"
+			]
+		},
 		"ext.gather.special": {
 			"targets": [
 				"mobile",
@@ -187,7 +218,8 @@
 			],
 			"group": "other",
 			"dependencies": [
-				"ext.gather.collection.editor"
+				"ext.gather.collection.editor",
+				"ext.gather.collection.delete"
 			],
 			"scripts": [
 				"ext.gather.special/init.js"

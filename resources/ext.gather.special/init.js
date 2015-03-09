@@ -1,11 +1,12 @@
 ( function ( M, $ ) {
 
 	var CollectionEditOverlay = M.require( 'ext.gather.edit/CollectionEditOverlay' ),
+		CollectionDeleteOverlay = M.require( 'ext.gather.delete/CollectionDeleteOverlay' ),
 		overlayManager = M.require( 'overlayManager' );
 
-	/** Add routes to the overlay manager */
-	function addOverlayManagerEditing() {
-		overlayManager.add( /^\/collection\/edit\/(.*)$/, function ( id ) {
+	/** Add routes for editing and deleting to the overlay manager */
+	function addOverlayManagerRoutes() {
+		overlayManager.add( /^\/collection\/(.*)\/(.*)$/, function ( action, id ) {
 			id = parseInt( id, 10 );
 			var collection;
 			$.each( mw.config.get( 'wgGatherCollections' ), function () {
@@ -14,15 +15,23 @@
 				}
 			} );
 			if ( collection ) {
-				return new CollectionEditOverlay( {
-					collection: collection
-				} );
+				if ( action === 'edit' ) {
+					return new CollectionEditOverlay( {
+						collection: collection
+					} );
+				} else if ( action === 'delete' ) {
+					return new CollectionDeleteOverlay( {
+						collection: collection
+					} );
+				}
+			} else {
+				return null;
 			}
 		} );
 	}
 
 	$( function () {
-		addOverlayManagerEditing();
+		addOverlayManagerRoutes();
 		$( '.collection-actions' ).show();
 	} );
 }( mw.mobileFrontend, jQuery ) );

@@ -84,6 +84,7 @@ class Collection extends View {
 				)
 			) .
 			$this->getEditButtonHtml() .
+			$this->getDeleteButtonHtml() .
 			Html::closeElement( 'div' );
 	}
 
@@ -99,6 +100,24 @@ class Collection extends View {
 				'href' => '#/collection/edit/' . $id,
 				'class' => CSS::buttonClass( 'progressive', 'collection-action-button edit-collection' )
 			), wfMessage( 'gather-edit-button' )->text() );
+		} else {
+			return '';
+		}
+	}
+
+
+	/**
+	 * Gets the delete button html if the user can delete
+	 * Restricted to collection owner and does not apply to watchlist
+	 */
+	public function getDeleteButtonHtml() {
+		$id = $this->collection->getId();
+		if ( $this->collection->isOwner( $this->user ) && $id !== 0 ) {
+			return Html::element( 'a', array(
+				// FIXME: This should work without JavaScript
+				'href' => '#/collection/delete/' . $id,
+				'class' => CSS::buttonClass( 'destructive', 'collection-action-button delete-collection' )
+			), wfMessage( 'gather-delete-button' )->text()  );
 		} else {
 			return '';
 		}
