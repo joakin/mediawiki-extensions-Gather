@@ -23,6 +23,8 @@
 	"gather-add-failed-toast": "Message displayed when adding an item to a collection fails. Parameters:\n* $1 - Name of collection.",
 	"gather-remove-toast": "Message displayed when you remove an item from a collection. Parameters:\n* $1 - Name of collection.",
 	"gather-desc": "{{desc|name=Gather|url=https://www.mediawiki.org/wiki/Extension:Gather}}",
+	"gather-no-public-lists-title": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n  The title of the view shown when there are no public collections for a user",
+	"gather-no-public-lists-description": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n  The descriptive text explaining that there are no public collections for a user.",
 	"gather-anon-view-lists": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Text shown when trying to see your own collections on [[Special:Gather]] but the user is not logged in.",
 	"gather-watchlist-title": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Title used for special casing the Watchlist collection on the [[Special:Gather]] page.\n{{Identical|Watchlist}}",
 	"gather-watchlist-description": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Default description for special casing the Watchlist collection on the [[Special:Gather]] page.",

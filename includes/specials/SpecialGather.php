@@ -53,7 +53,7 @@ class SpecialGather extends SpecialPage {
 
 		if ( !( $user && $user->getId() ) ) {
 			// Invalid user
-			$this->renderNotFoundError();
+			$this->renderError( new views\NotFound() );
 		} else {
 			if ( isset( $args ) && isset( $args[1] ) ) {
 				$id = intval( $args[1] );
@@ -65,10 +65,12 @@ class SpecialGather extends SpecialPage {
 	}
 
 	/**
-	 * Render an error when the user was not found
+	 * Render an error to the special page
+	 *
+	 * @param View $view View of error to render
 	 */
-	public function renderNotFoundError() {
-		$this->render( new views\NotFound() );
+	public function renderError( $view ) {
+		$this->render( $view );
 	}
 
 	/**
@@ -82,7 +84,7 @@ class SpecialGather extends SpecialPage {
 		if ( $collection === null ||
 			( !$collection->isPublic() && !$this->isOwner( $user ) ) ) {
 			// FIXME: No permissions to visit this. Showing not found ATM.
-			$this->renderNotFoundError();
+			$this->renderError( new views\NotFound() );
 		} else {
 			$this->modules[] = 'ext.gather.edit';
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
@@ -96,7 +98,11 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function renderUserCollectionsList( User $user ) {
 		$collectionsList = stores\UserPageCollectionsList::newFromUser( $user, $this->isOwner( $user ) );
-		$this->render( new views\CollectionsList( $collectionsList ) );
+		if ( $collectionsList->getCount() > 0 ) {
+			$this->render( new views\CollectionsList( $collectionsList ) );
+		} else {
+			$this->renderError( new views\NoPublic() );
+		}
 	}
 
 	/**

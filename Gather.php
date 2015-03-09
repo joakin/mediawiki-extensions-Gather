@@ -53,6 +53,7 @@ $autoloadClasses = array(
 
 	'Gather\views\View' => 'views/View',
 	'Gather\views\NotFound' => 'views/NotFound',
+	'Gather\views\NoPublic' => 'views/NoPublic',
 	'Gather\views\Collection' => 'views/Collection',
 	'Gather\views\CollectionItemCard' => 'views/CollectionItemCard',
 	'Gather\views\Image' => 'views/Image',
