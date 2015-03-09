@@ -10,6 +10,9 @@ class ArticlePage
   # toast
   div(:toast, class: 'toast')
 
+  # cta
+  div(:cta, css: '.drawer.visible')
+
   # collections
   div(:collections_overlay, css: '.collection-overlay')
   li(:collections_overlay_collection_one, css: '.collection-overlay ul li', index: 0)

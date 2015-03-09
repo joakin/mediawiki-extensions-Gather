@@ -61,7 +61,7 @@
 			$el.removeClass( 'hidden' );
 		},
 		/** @inheritdoc */
-		onStatusToggle: function ( ev ) {
+		onStatusToggleUser: function ( ev ) {
 			// Open the collections content overlay to deal with this.
 			var overlay = this.overlay,
 				self = this;

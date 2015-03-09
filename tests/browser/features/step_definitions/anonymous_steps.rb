@@ -17,3 +17,6 @@ Then(/^I see the error page$/) do
   expect(on(NotFoundPage).title_element).to exist
 end
 
+Then(/^I see the anonymous CTA$/) do
+  expect(on(ArticlePage).cta_element.when_present).to be_visible
+end
