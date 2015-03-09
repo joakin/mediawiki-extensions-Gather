@@ -23,8 +23,21 @@ class UserPageCollectionsList implements CollectionsListStorage {
 	 * @return models\CollectionsList List of collections.
 	 */
 	public static function newFromUser( User $user, $includePrivate = false ) {
-		$collectionsData = JSONPage::get( self::getStorageTitle( $user ) );
 		$collectionsList = new models\CollectionsList( $includePrivate );
+		// Add watchlist
+		$watchlist = WatchlistCollection::newFromUser( $user );
+		$watchlistInfo = new models\CollectionInfo(
+			$watchlist->getId(),
+			$watchlist->getOwner(),
+			$watchlist->getTitle(),
+			$watchlist->getDescription(),
+			$watchlist->isPublic(),
+			$watchlist->getFile()
+		);
+		$watchlistInfo->setCount( $watchlist->getCount() );
+		$collectionsList->add( $watchlistInfo );
+		// Add collections
+		$collectionsData = JSONPage::get( self::getStorageTitle( $user ) );
 		foreach ( $collectionsData as $collectionData ) {
 			$collectionsList->add( self::collectionFromJSON( $collectionData ) );
 		}

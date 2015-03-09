@@ -36,8 +36,8 @@ class WatchlistCollection extends Collection {
 		$collection = new models\Collection(
 			0, // Watchlist has a hardcoded id of 0
 			$user,
-			wfMessage( 'gather-watchlist-title' ),
-			wfMessage( 'gather-watchlist-description' ),
+			wfMessage( 'gather-watchlist-title' )->text(),
+			wfMessage( 'gather-watchlist-description' )->text(),
 			false, // Watchlist is private
 			$firstImage
 		);
