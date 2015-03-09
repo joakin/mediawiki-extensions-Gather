@@ -88,7 +88,7 @@ class Hooks {
 	 */
 	public static function onResourceLoaderTestModules( &$modules, &$rl ) {
 		$boilerplate = array(
-			'localBasePath' => dirname( __FILE__ ) . '/../tests/qunit/',
+			'localBasePath' => __DIR__ . '/../tests/qunit/',
 			'remoteExtPath' => 'Gather/tests/qunit',
 			'targets' => array( 'desktop', 'mobile' ),
 		);
