@@ -32,7 +32,8 @@
 			var d = $.Deferred();
 
 			this.getContent().done( function ( resp ) {
-				d.resolve( JSON.parse( resp ) );
+				var data = resp ? JSON.parse( resp ) : resp;
+				d.resolve( data );
 			} ).fail( function () {
 				d.reject();
 			} );
