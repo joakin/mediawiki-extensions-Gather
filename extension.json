@@ -28,6 +28,7 @@
 	},
 	"AutoloadClasses": {
 		"Gather\\Hooks": "includes/Gather.hooks.php",
+		"Gather\\UpdaterHooks": "schema/Updater.hooks.php",
 		"Gather\\models\\CollectionItem": "includes/models/CollectionItem.php",
 		"Gather\\models\\CollectionBase": "includes/models/CollectionBase.php",
 		"Gather\\models\\CollectionInfo": "includes/models/CollectionInfo.php",
@@ -218,6 +219,9 @@
 		],
 		"ResourceLoaderTestModules": [
 			"Gather\\Hooks::onResourceLoaderTestModules"
+		],
+		"LoadExtensionSchemaUpdates": [
+			"Gather\\UpdaterHooks::onLoadExtensionSchemaUpdates"
 		]
 	}
 }

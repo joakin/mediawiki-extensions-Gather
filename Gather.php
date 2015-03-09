@@ -32,6 +32,7 @@ $wgExtensionMessagesFiles['GatherAlias'] = __DIR__ . "/Gather.alias.php";
 // autoload extension classes
 $autoloadClasses = array(
 	'Gather\Hooks' => 'Gather.hooks',
+	'Gather\UpdaterHooks' => '../schema/Updater.hooks',
 
 	'Gather\models\CollectionItem' => 'models/CollectionItem',
 	'Gather\models\CollectionBase' => 'models/CollectionBase',
@@ -87,6 +88,9 @@ $wgHooks['ContentHandlerDefaultModelFor'][] = 'Gather\Hooks::onContentHandlerDef
 $wgHooks['SkinMinervaDefaultModules'][] = 'Gather\Hooks::onSkinMinervaDefaultModules';
 $wgHooks['MakeGlobalVariablesScript'][] = 'Gather\Hooks::onMakeGlobalVariablesScript';
 $wgHooks['ResourceLoaderTestModules'][] = 'Gather\Hooks::onResourceLoaderTestModules';
+
+// Maintenance Hooks
+$wgHooks['LoadExtensionSchemaUpdates'][] = 'Gather\UpdaterHooks::onLoadExtensionSchemaUpdates';
 
 // Api
 $wgAPIModules['gather'] = 'Gather\api\CollectionsListApi';
