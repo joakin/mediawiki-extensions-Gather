@@ -69,6 +69,17 @@
 			margin: 12px 0 0;
 		}
 
+		// Limit size for small resolutions so fits in one line
+		form {
+			input {
+				max-width: 150px;
+			}
+			button {
+				margin-left: 1px;
+				max-width: 80px;
+			}
+		}
+
 		li {
 			cursor: pointer;
 			border-top: solid 1px @grayLight;
