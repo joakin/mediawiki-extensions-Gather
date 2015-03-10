@@ -58,9 +58,23 @@
 		},
 		/** @inheritdoc */
 		postRender: function () {
+			this.hideSpinner();
+		},
+		/**
+		 * Reveal all interface elements and cancel the spinner.
+		 */
+		hideSpinner: function () {
+			this.$( '.overlay-content' ).children().show();
 			this.$( '.spinner' ).hide();
 			// For position absolute to work the parent must have a specified height
 			this.$el.parent().css( 'height', '100%' );
+		},
+		/**
+		 * Hide all interface elements and show spinner.
+		 */
+		showSpinner: function () {
+			this.$( '.overlay-content' ).children().hide();
+			this.$( '.spinner' ).show();
 		},
 		/**
 		 * Event handler for setting up a new collection
@@ -71,6 +85,7 @@
 				title = $( ev.target ).find( 'input' ).val();
 
 			ev.preventDefault();
+			this.showSpinner();
 			this.addCollection( title, page );
 		},
 		/**
@@ -94,7 +109,7 @@
 				id:  $target.data( 'collection-id' ),
 				isWatchlist: $target.data( 'collection-is-watchlist' )
 			};
-			this.$( '.spinner' ).show();
+			this.showSpinner();
 			if ( $target.data( 'collection-is-member' ) ) {
 				this.removeFromCollection( collection, page );
 			} else {
@@ -126,7 +141,7 @@
 			// refresh the ui
 			this.render();
 			// update UI
-			this.$( '.spinner' ).hide();
+			this.hideSpinner();
 			this.hide();
 
 			if ( currentPageIsMember ) {
