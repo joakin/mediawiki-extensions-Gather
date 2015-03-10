@@ -6,8 +6,11 @@
 
 namespace Gather\models;
 
+use \User;
 use Gather\models;
 use \ArrayIterator;
+use \ApiMain;
+use \FauxRequest;
 
 class CollectionsList implements \IteratorAggregate, ArraySerializable {
 
@@ -75,5 +78,34 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 		return $arr;
 	}
 
+	/**
+	 * Generate UserPageCollectionsList from api result
+	 * FIXME: $user parameter currently ignored
+	 * @param User $user collection list owner (currently ignored)
+	 * @param boolean $includePrivate if the list should show private collections or not
+	 * @return models\CollectionsList List of collections.
+	 */
+	public static function newFromApi( User $user, $includePrivate = false ) {
+		$collectionsList = new CollectionsList( $includePrivate );
+		$api = new ApiMain( new FauxRequest( array(
+			'action' => 'query',
+			'list' => 'lists',
+		) ) );
+		$api->execute();
+		$data = $api->getResultData();
+		if ( isset( $data['query']['lists'] ) ) {
+			$lists = $data['query']['lists'];
+			foreach ( $lists as $list ) {
+				if ( $list['isPublic'] || $includePrivate ) {
+					$info = new models\CollectionInfo( $list['id'], $user,
+						$list['label'], $list['description'], $list['isPublic'] );
+					// FIXME: API should return the number of items in each list
+					$info->setCount( -1 );
+					$collectionsList->add( $info );
+				}
+			}
+		}
+		return $collectionsList;
+	}
 }
 

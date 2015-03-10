@@ -100,8 +100,9 @@ class SpecialGather extends SpecialPage {
 	 * @param User $user owner of collections
 	 */
 	public function renderUserCollectionsList( User $user ) {
-		$collectionsList = stores\UserPageCollectionsList::newFromUser( $user, $this->isOwner( $user ) );
-		if ( $collectionsList->getCount() > 0 ) {
+		$collectionsList = models\CollectionsList::newFromApi( $user, $this->isOwner( $user ) );
+		// FIXME: Remove when CollectionsList::newFromApi supports access of other peoples lists
+		if ( $this->isOwner( $user ) && $collectionsList->getCount() > 0 ) {
 			$this->render( new views\CollectionsList( $collectionsList ) );
 		} else {
 			$this->renderError( new views\NoPublic() );

@@ -7,6 +7,7 @@ namespace Gather;
 
 use \SpecialPage;
 use Gather\stores;
+use Gather\models;
 use Gather\views\helpers\CSS;
 use \MobileContext;
 
@@ -130,7 +131,7 @@ class Hooks {
 	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
 		$user = $out->getUser();
 		if ( !$user->isAnon() ) {
-			$collectionsList = stores\UserPageCollectionsList::newFromUser( $user, true );
+			$collectionsList = models\CollectionsList::newFromApi( $user, true );
 			$gatherCollections = array();
 			foreach ( $collectionsList as $collectionInfo ) {
 				$id = $collectionInfo->getId();
