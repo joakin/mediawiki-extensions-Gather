@@ -16,16 +16,20 @@ use \SpecialPage;
  */
 class SpecialGather extends SpecialPage {
 
-	/** ResourceLoader modules to add */
-	protected $modules;
-
 	public function __construct() {
 		parent::__construct( 'Gather' );
-		$this->getOutput()->addModules(
+		$out = $this->getOutput();
+		$out->addModules(
 			array(
 				'ext.gather.special',
 			)
 		);
+		$out->addModuleStyles( array(
+			'mediawiki.ui.anchor',
+			'mediawiki.ui.icon',
+			'ext.gather.icons',
+			'ext.gather.styles',
+		) );
 	}
 
 	/**
@@ -86,7 +90,6 @@ class SpecialGather extends SpecialPage {
 			// FIXME: No permissions to visit this. Showing not found ATM.
 			$this->renderError( new views\NotFound() );
 		} else {
-			$this->modules[] = 'ext.gather.edit';
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
 		}
 	}
@@ -114,15 +117,6 @@ class SpecialGather extends SpecialPage {
 		$out = $this->getOutput();
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
-		$out->addModuleStyles( array(
-			'mediawiki.ui.anchor',
-			'mediawiki.ui.icon',
-			'ext.gather.icons',
-			'ext.gather.styles',
-		) );
-		if ( count( $this->modules ) > 0 ) {
-			$out->addModules( $this->modules );
-		}
 		$out->setPageTitle( $view->getTitle() );
 		$view->render( $out );
 	}
