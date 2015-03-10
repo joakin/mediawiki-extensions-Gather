@@ -22,6 +22,8 @@
 	"gather-add-failed-toast": "添加项目至您的“$1”收藏时出现问题。",
 	"gather-remove-toast": "页面已从您的“$1”收藏中移除。",
 	"gather-desc": "允许用户管理列表的移动前端组件。",
+	"gather-no-public-lists-title": "没有公开收藏",
+	"gather-no-public-lists-description": "此用户没有公开收藏。",
 	"gather-anon-view-lists": "您需要登录后查看您的收藏。",
 	"gather-watchlist-title": "监视列表",
 	"gather-watchlist-description": "我感兴趣的页面列表。",

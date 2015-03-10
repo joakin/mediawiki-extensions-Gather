@@ -23,6 +23,8 @@
 	"gather-add-failed-toast": "Es gab ein Problem beim Hinzufügen des Objekts zu deiner Sammlung „$1“.",
 	"gather-remove-toast": "Die Seite wurde von deiner Sammlung „$1“ entfernt.",
 	"gather-desc": "Komponente des mobilen Frontends, die es Benutzern ermöglicht, Listen zu kuratieren",
+	"gather-no-public-lists-title": "Keine öffentlichen Sammlungen",
+	"gather-no-public-lists-description": "Es gibt keine öffentlichen Sammlungen für diesen Benutzer.",
 	"gather-anon-view-lists": "Du musst angemeldet sein, um deine Sammlungen anzusehen.",
 	"gather-watchlist-title": "Beobachtungsliste",
 	"gather-watchlist-description": "Eine Liste mit Seiten, an denen ich interessiert bin.",

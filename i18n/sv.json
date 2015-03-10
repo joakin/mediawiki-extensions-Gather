@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jenniesarina"
+			"Jenniesarina",
+			"Dan Koehl"
 		]
 	},
 	"gather-desc": "Komponent av Mobila Gränssnitt som tillåter användare att sätta ihop listor.",
+	"gather-no-public-lists-title": "Inga offentliga samlingar",
+	"gather-no-public-lists-description": "Det finns inga offentliga samlingar för denna användare.",
 	"gather-anon-view-lists": "Du måste vara inloggad för att se dina samlingar.",
 	"gather-watchlist-title": "Bevakningslista",
 	"gather-watchlist-description": "En lista över sidor som jag är intresserad av.",
