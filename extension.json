@@ -54,11 +54,11 @@
 		"Gather\\views\\CollectionsListItemCard": "includes/views/CollectionsListItemCard.php",
 		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
 		"Gather\\SpecialGather": "includes/specials/SpecialGather.php",
-		"Gather\\api\\ApiEditCollection": "includes/api/ApiEditCollection.php",
+		"Gather\\api\\ApiEditList": "includes/api/ApiEditList.php",
 		"Gather\\api\\CollectionsListApi": "includes/api/CollectionsListApi.php"
 	},
 	"APIModules": {
-		"editcollection": "Gather\\api\\ApiEditCollection",
+		"editlist": "Gather\\api\\ApiEditList",
 		"gather": "Gather\\api\\CollectionsListApi"
 	},
 	"ResourceModules": {

@@ -64,7 +64,7 @@ $autoloadClasses = array(
 
 	'Gather\SpecialGather' => 'specials/SpecialGather',
 
-	'Gather\api\ApiEditCollection' => 'api/ApiEditCollection',
+	'Gather\api\ApiEditList' => 'api/ApiEditList',
 	'Gather\api\CollectionsListApi' => 'api/CollectionsListApi',
 
 );
@@ -88,7 +88,7 @@ $wgHooks['ResourceLoaderTestModules'][] = 'Gather\Hooks::onResourceLoaderTestMod
 
 // Api
 $wgAPIModules['gather'] = 'Gather\api\CollectionsListApi';
-$wgAPIModules['editcollection'] = 'Gather\api\ApiEditCollection';
+$wgAPIModules['editlist'] = 'Gather\api\ApiEditList';
 
 // ResourceLoader modules
 require_once __DIR__ . "/resources/Resources.php";
