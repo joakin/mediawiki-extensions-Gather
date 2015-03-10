@@ -29,6 +29,8 @@ namespace Gather\api;
 use ApiBase;
 use ApiQuery;
 use ApiQueryBase;
+use FormatJson;
+use stdClass;
 
 /**
  * Query module to enumerate all available lists
@@ -48,33 +50,44 @@ class ApiQueryLists extends ApiQueryBase {
 
 		$params = $this->extractRequestParams();
 
-		$limit = $params['limit'];
+		$db = $this->getDB();
+		$this->addTables( 'gather_list' );
+		$this->addFields( 'gl_id' );
+		$this->addFields( 'gl_label' );
+		$this->addWhereFld( 'gl_user', $user->getId() );
+
 		$continue = $params['continue'];
 		if ( $continue ) {
-			$c = intval( $continue );
-			$this->dieContinueUsageIf( strval( $c ) !== $continue );
-			$continue = $c;
+			$cont_from = $db->addQuotes( $continue );
+			$this->addWhere( "gl_label >= $cont_from" );
 		}
 
-		$prop = array_flip( $params['prop'] );
-		$fld_label = isset( $prop['label'] );
-		$fld_description = isset( $prop['description'] );
+		$fld_label = in_array( 'label', $params['prop'] );
+		$fld_description = in_array( 'description', $params['prop'] );
+		$fld_public = in_array( 'public', $params['prop'] );
+		$fld_image = in_array( 'image', $params['prop'] );
+		$useInfo = $fld_description || $fld_public || $fld_image;
 
-		$manifest = ApiEditList::loadManifest( $user );
-		// Create ID 0 (watchlist) if it doesn't exist
-		ApiEditList::findList( $manifest, 0, $user );
-		usort( $manifest, function ( $a, $b ) { return $a->id - $b->id; } );
+		$this->addFieldsIf( 'gl_info', $useInfo );
+
+		$limit = $params['limit'];
+		$this->addOption( 'LIMIT', $limit + 1 );
+		$this->addOption( 'ORDER BY', 'gl_label' );
 
 		$count = 0;
-		$result = $this->getResult();
 		$path = array( 'query', $this->getModuleName() );
-		foreach ( $manifest as $row ) {
 
-			if ( $continue ) {
-				if ( $row->id < $continue ) {
-					continue;
-				}
-				$continue = false;
+		// This closure will process one row, even if that row is fake watchlist
+		$processRow = function( $row ) use ( &$count, $limit, $fld_label, $useInfo,
+			$fld_description, $fld_public, $fld_image, $path
+		) {
+			if ( $row === null ) {
+				// Fake watchlist row
+				$row = (object) array(
+					'gl_id' => '0',
+					'gl_label' => '',
+					'gl_info' => '',
+				);
 			}
 
 			$count++;
@@ -82,29 +95,75 @@ class ApiQueryLists extends ApiQueryBase {
 			if ( $count > $limit ) {
 				// We've reached the one extra which shows that there are
 				// additional pages to be had. Stop here...
-				$this->setContinueEnumParameter( 'continue', $row->id );
-				break;
+				$this->setContinueEnumParameter( 'continue', $row->gl_label );
+				return false;
 			}
 
-			$data = array( 'id' => $row->id );
+			$data = array( 'id' => intval( $row->gl_id ) );
 			if ( $fld_label ) {
-				$data['label'] = $row->title;
+				// TODO: check if this is the right wfMessage to show
+				$data['label'] = $row->gl_label !== ''
+					? $row->gl_label
+					: wfMessage( 'watchlist' )->plain();
 			}
-			if ( $fld_description ) {
-				$data['description'] = $row->description;
-			} else {
-				$data['description'] = '';
-			}
-			$data['isPublic'] = $row->public;
 
-			$fit = $result->addValue( $path, null, $data );
+			if ( $useInfo ) {
+				if ( $row->gl_info ) {
+					$info = FormatJson::parse( $row->gl_info );
+					if ( !$info->isOK() ) {
+						wfLogWarning( 'Bad info ID=' . $row->gl_id );
+						return true;
+					}
+					$info = $info->getValue();
+				} else {
+					$info = new stdClass();
+				}
+				if ( $fld_description ) {
+					$data['description'] = property_exists( $info, 'description' ) ? $info->description : '';
+				}
+				if ( $fld_public ) {
+					$data['public'] = property_exists( $info, 'public' ) ? $info->public : '';
+				}
+				if ( $fld_image ) {
+					$data['image'] = property_exists( $info, 'image' ) ? $info->image : '';
+				}
+			}
+
+			$fit = $this->getResult()->addValue( $path, null, $data );
 			if ( !$fit ) {
-				$this->setContinueEnumParameter( 'continue', $row->id );
+				$this->setContinueEnumParameter( 'continue', $row->gl_label );
+				return false;
+			}
+			return true;
+		};
+
+		// Watchlist, having the label set to '', should always appear first
+		// If it doesn't, make sure to insert a fake one in the result
+		// $injectWatchlist is true if we should inject a fake watchlist row if its missing
+		// This code depends on the result ordered by label, and that watchlist label === ''
+		$injectWatchlist = !$continue;
+
+		foreach ( $this->select( __METHOD__ ) as $row ) {
+			if ( $injectWatchlist ) {
+				if ( $row->gl_label	) {
+					// The very first DB row already has a label, so inject a fake
+					if ( !$processRow( null ) ) {
+						break;
+					}
+				}
+				$injectWatchlist = false;
+			}
+			if ( !$processRow( $row ) ) {
 				break;
 			}
 		}
 
-		$result->setIndexedTagName_internal( $path, 'c' );
+		if ( $injectWatchlist ) {
+			// There are no records in the database, and we need to inject watchlist row
+			$processRow( null );
+		}
+
+		$this->getResult()->setIndexedTagName_internal( $path, 'c' );
 	}
 
 	public function getCacheMode( $params ) {
@@ -118,7 +177,9 @@ class ApiQueryLists extends ApiQueryBase {
 				ApiBase::PARAM_ISMULTI => true,
 				ApiBase::PARAM_TYPE => array(
 					'label',
-					'description'
+					'description',
+					'public',
+					'image',
 				)
 			),
 			'limit' => array(

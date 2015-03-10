@@ -90,15 +90,17 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'list' => 'lists',
+			'lstprop' => 'label|description|public',
+			'continue' => '',
 		) ) );
 		$api->execute();
 		$data = $api->getResultData();
 		if ( isset( $data['query']['lists'] ) ) {
 			$lists = $data['query']['lists'];
 			foreach ( $lists as $list ) {
-				if ( $list['isPublic'] || $includePrivate ) {
+				if ( $list['public'] || $includePrivate ) {
 					$info = new models\CollectionInfo( $list['id'], $user,
-						$list['label'], $list['description'], $list['isPublic'] );
+						$list['label'], $list['description'], $list['public'] );
 					// FIXME: API should return the number of items in each list
 					$info->setCount( -1 );
 					$collectionsList->add( $info );
