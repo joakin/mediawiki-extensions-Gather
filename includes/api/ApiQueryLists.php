@@ -92,7 +92,10 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 			if ( $fld_description ) {
 				$data['description'] = $row->description;
+			} else {
+				$data['description'] = '';
 			}
+			$data['isPublic'] = $row->public;
 
 			$fit = $result->addValue( $path, null, $data );
 			if ( !$fit ) {
