@@ -7,9 +7,17 @@
 	left: 3.4em;
 	right: 3.4em;
 	width: auto;
+	overflow: hidden;
 	// No padding on the overlay to have the header stuck at the top, padding on
 	// the content goes on .overlay-content
 	padding: 0;
+	// FIXME: Override content overlay default on MoblieFrontend
+	background: none;
+	// FIXME: Should this be OOJS UI / an icon?! Should use same asset.
+	.background-size(auto, 40px);
+	background-position: center 0.75em;
+	background-repeat: no-repeat;
+	.background-image('images/watchstar.svg');
 
 	.overlay-header-container .overlay-header {
 		li {
@@ -20,13 +28,10 @@
 	}
 
 	.overlay-content {
-		// FIXME: Should this be OOJS UI / an icon?! Should use same asset.
-		.background-size(auto, 40px);
-		background-position: center top;
-		background-repeat: no-repeat;
-		.background-image('images/watchstar.svg');
-		margin-top: .5em;
-		padding: 4em 1em 1em;
+		margin-top: 4em;
+		padding: 0 1em 1em;
+		overflow: scroll;
+		height: 90%;
 
 		.snapshot {
 			margin-bottom: 32px;
@@ -91,7 +96,7 @@
 	}
 
 	&.content-overlay {
-		background: white;
+		background-color: white;
 		color: @grayDark;
 		top: @headerHeight * 1.2;
 		bottom: @headerHeight * 1.2;
