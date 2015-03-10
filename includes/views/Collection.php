@@ -96,7 +96,7 @@ class Collection extends View {
 				// FIXME: This should work without JavaScript
 				'href' => '#/collection/edit/' . $this->collection->getId(),
 				'class' => CSS::buttonClass( 'progressive', 'collection-action-button edit-collection' )
-			), wfMessage( 'gather-edit-button' ) );
+			), wfMessage( 'gather-edit-button' )->text() );
 		} else {
 			return '';
 		}
@@ -110,9 +110,9 @@ class Collection extends View {
 	private function getEmptyCollectionMessage() {
 		// FIXME: i18n this messagesinclude 'Collection.php';
 		return Html::openElement( 'div', array( 'class' => 'collection-empty' ) ) .
-			Html::element( 'h3', array(), wfMessage( 'gather-empty' ) ) .
+			Html::element( 'h3', array(), wfMessage( 'gather-empty' )->text() ) .
 			Html::element( 'div', array(),
-				wfMessage( 'gather-empty-footer' ) ) .
+				wfMessage( 'gather-empty-footer' )->text() ) .
 			Html::closeElement( 'div' );
 	}
 
