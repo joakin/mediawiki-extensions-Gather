@@ -22,6 +22,7 @@
 		templatePartials: {
 			content: mw.template.get( 'ext.gather.watchstar', 'content.hogan' )
 		},
+		appendTo: 'body',
 		/** @inheritdoc */
 		events: {
 			click: 'onClickInsideOverlay',
@@ -58,6 +59,8 @@
 		/** @inheritdoc */
 		postRender: function () {
 			this.$( '.spinner' ).hide();
+			// For position absolute to work the parent must have a specified height
+			this.$el.parent().css( 'height', '100%' );
 		},
 		/**
 		 * Event handler for setting up a new collection
