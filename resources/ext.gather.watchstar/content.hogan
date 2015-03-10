@@ -1,5 +1,4 @@
 {{{spinner}}}
-{{{watchIcon}}}
 <div class="snapshot">
 {{#page}}
 	<div class="thumbnail{{^pageImageUrl}} missing{{/pageImageUrl}}">
