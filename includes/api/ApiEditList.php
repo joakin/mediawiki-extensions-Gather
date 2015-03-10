@@ -40,11 +40,11 @@ use WatchAction;
 use WikiPage;
 
 /**
- * API module to allow users to manage collections
+ * API module to allow users to manage lists
  *
  * @ingroup API
  */
-class ApiEditCollection extends ApiBase {
+class ApiEditList extends ApiBase {
 	private $mPageSet = null;
 
 	/**
@@ -64,10 +64,10 @@ class ApiEditCollection extends ApiBase {
 		$user = $this->getUser(); // TBD: We might want to allow other users with getWatchlistUser()
 
 		if ( !$user->isLoggedIn() ) {
-			$this->dieUsage( 'You must be logged-in to have a collection', 'notloggedin' );
+			$this->dieUsage( 'You must be logged-in to have a list', 'notloggedin' );
 		}
 		if ( !$user->isAllowed( 'editmywatchlist' ) ) {
-			$this->dieUsage( 'You don\'t have permission to edit your collection',
+			$this->dieUsage( 'You don\'t have permission to edit your list',
 				'permissiondenied' );
 		}
 
@@ -78,20 +78,20 @@ class ApiEditCollection extends ApiBase {
 		$id = $params['id'];
 		$isNew = $id === null;
 
-		// Validate 'deletecollection' parameters
-		if ( $params['deletecollection'] ) {
+		// Validate 'deletelist' parameters
+		if ( $params['deletelist'] ) {
 
 			// ID == 0 is a watchlist
 			if ( $id === 0 ) {
-				$this->dieUsage( "Collection #0 (watchlist) may not be deleted", 'badid' );
+				$this->dieUsage( "List #0 (watchlist) may not be deleted", 'badid' );
 			}
 			if ( $isNew ) {
-				$this->dieUsage( "Collection must be identified with {$p}id when {$p}deletecollection is used", 'invalidparammix' );
+				$this->dieUsage( "List must be identified with {$p}id when {$p}deletelist is used", 'invalidparammix' );
 			}
 
-			// For deletecollection, disallow all parameters except those unset
+			// For deletelist, disallow all parameters except those unset
 			$tmp = $params + $pageSet->extractRequestParams();
-			unset( $tmp['deletecollection'] );
+			unset( $tmp['deletelist'] );
 			unset( $tmp['id'] );
 			unset( $tmp['token'] );
 			$extraParams =
@@ -99,25 +99,25 @@ class ApiEditCollection extends ApiBase {
 					return $x !== null && $x !== false;
 				} ) );
 			if ( $extraParams ) {
-				$this->dieUsage( "The parameter {$p}deletecollection must not be used with " .
+				$this->dieUsage( "The parameter {$p}deletelist must not be used with " .
 								 implode( ", ", $extraParams ), 'invalidparammix' );
 			}
 		}
 
 		$manifest = self::loadManifest( $user );
 
-		/** @var stdClass $collection */
-		$collection = null;
+		/** @var stdClass $list */
+		$list = null;
 
 		if ( $isNew ) {
 			if ( $remove ) {
-				$this->dieUsage( "Collection must be identified with {$p}id when {$p}remove is used", 'invalidparammix' );
+				$this->dieUsage( "List must be identified with {$p}id when {$p}remove is used", 'invalidparammix' );
 			}
 			if ( !$params['label'] ) {
-				$this->dieUsage( "Collection {$p}label must be given for new collections", 'invalidparammix' );
+				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
 			}
 
-			// ACTION: add new collection to manifest.
+			// ACTION: add new list to manifest.
 			// work out a new id
 			$id = 1;
 			if ( $manifest ) {
@@ -127,25 +127,25 @@ class ApiEditCollection extends ApiBase {
 					}
 				}
 			}
-			$collection = $this->createCollection( $id, $params, $user );
-			$manifest[] = $collection;
+			$list = $this->createList( $id, $params, $user );
+			$manifest[] = $list;
 		} else {
-			$collection = $this->findCollection( $manifest, $id, $user );
-			if ( $collection === null ) {
-				$this->dieUsage( "Collection {$p}id was not found", 'badid' );
+			$list = $this->findList( $manifest, $id, $user );
+			if ( $list === null ) {
+				$this->dieUsage( "List {$p}id was not found", 'badid' );
 			}
 
-			// ACTION: update existing collection
+			// ACTION: update existing list
 			if ( $params['label'] !== null ) {
-				$collection->title = $params['label'];
+				$list->title = $params['label'];
 			}
 			if ( $params['description'] !== null ) {
-				$collection->description = $params['description'];
+				$list->description = $params['description'];
 			}
 		}
 
-		if ( $params['deletecollection'] ) {
-			// ACTION: drop the collection from the manifest
+		if ( $params['deletelist'] ) {
+			// ACTION: drop the list from the manifest
 			$manifest = array_filter( $manifest, function ( $x ) use ( $id ) {
 				return $x->id !== $id;
 			} );
@@ -162,8 +162,8 @@ class ApiEditCollection extends ApiBase {
 				'interwikiTitles'
 			) );
 
-			// If 0, use user's watchlist instead of our temp collection
-			$col = $id === 0 ? null : $collection;
+			// If 0, use user's watchlist instead of our temp list
+			$col = $id === 0 ? null : $list;
 
 			foreach ( $pageSet->getMissingTitles() as $title ) {
 				$r = $this->watchTitle( $col, $title, $user, $remove );
@@ -179,21 +179,21 @@ class ApiEditCollection extends ApiBase {
 			$this->getResult()->addValue( $this->getModuleName(), 'pages', $res );
 			$this->getResult()->endContinuation();
 
-			$collection->count = count( $collection->items );
+			$list->count = count( $list->items );
 		}
 
 		self::save( $user, $manifest );
 	}
 
 	/**
-	 * @param null|stdClass $collection
+	 * @param null|stdClass $list
 	 * @param Title $title
 	 * @param User $user
 	 * @param bool $remove
 	 * @return array
 	 * @throws MWException
 	 */
-	private function watchTitle( $collection, Title $title, User $user, $remove ) {
+	private function watchTitle( $list, Title $title, User $user, $remove ) {
 		$titleStr = $title->getPrefixedText();
 
 		if ( !$title->isWatchable() ) {
@@ -202,15 +202,15 @@ class ApiEditCollection extends ApiBase {
 
 		$res = array( 'title' => $titleStr );
 
-		if ( $collection ) {
-			$key = array_search( $titleStr, $collection->items );
+		if ( $list ) {
+			$key = array_search( $titleStr, $list->items );
 			$status = Status::newGood();
 			if ( $remove && $key !== false ) {
-				unset( $collection->items[$key] );
+				unset( $list->items[$key] );
 				// Must reset keys, otherwise will get converted to an object on save
-				$collection->items = array_values( $collection->items );
+				$list->items = array_values( $list->items );
 			} elseif ( !$remove && $key === false ) {
-				$collection->items[] = $titleStr;
+				$list->items[] = $titleStr;
 			}
 		} else {
 			if ( $remove ) {
@@ -269,7 +269,7 @@ class ApiEditCollection extends ApiBase {
 				ApiBase::PARAM_TYPE => 'string',
 			),
 			'remove' => false,
-			'deletecollection' => false,
+			'deletelist' => false,
 			'continue' => array(
 				ApiBase::PARAM_HELP_MSG => 'api-help-param-continue',
 			),
@@ -284,7 +284,6 @@ class ApiEditCollection extends ApiBase {
 	public function getHelpUrls() {
 		return '//www.mediawiki.org/wiki/Extension:Gather';
 	}
-
 
 	/**
 	 * Temporary function to get data from a JSON blob stored on the user's page
@@ -315,14 +314,14 @@ class ApiEditCollection extends ApiBase {
 	/**
 	 * Temporary function to save data to the JSON blob stored on the user's page
 	 * @param User $user
-	 * @param Array $manifest representation of all the user's existing collections.
+	 * @param Array $manifest representation of all the user's existing lists.
 	 * @return Status
 	 */
 	private function save( User $user, $manifest ) {
 		$title = self::getStorageTitle( $user );
 		$page = WikiPage::factory( $title );
 		$content = new JsonContent( FormatJson::encode( $manifest, FormatJson::ALL_OK ) );
-		return $page->doEditContent( $content, 'ApiEditCollection.php' );
+		return $page->doEditContent( $content, 'ApiEditList.php' );
 	}
 
 	/**
@@ -336,35 +335,35 @@ class ApiEditCollection extends ApiBase {
 	}
 
 	/**
-	 * Returns representation of a new collection with the given id and parameters.
+	 * Returns representation of a new list with the given id and parameters.
 	 * @param Integer $id
 	 * @param Array $params
 	 * @param User $user
 	 * @return stdClass
 	 */
-	private static function createCollection( $id, array $params, User $user ) {
-		$collection = new stdClass();
-		$collection->id = $id;
-		$collection->owner = $user->getName();
-		$collection->title = $params['label'];
-		$collection->description = $params['description'];
-		$collection->public = true;
-		$collection->image = null;
-		$collection->items = array();
-		$collection->count = 0;
-		return $collection;
+	private static function createList( $id, array $params, User $user ) {
+		$list = new stdClass();
+		$list->id = $id;
+		$list->owner = $user->getName();
+		$list->title = $params['label'];
+		$list->description = $params['description'];
+		$list->public = true;
+		$list->image = null;
+		$list->items = array();
+		$list->count = 0;
+		return $list;
 	}
 
 	/**
-	 * Retrieve the collection from the manifest of all the users existing
-	 * collection using the given id, or null if not found.
+	 * Retrieve the list from the manifest of all the users existing
+	 * list using the given id, or null if not found.
 	 * @param Array $manifest
 	 * @param Integer $id
 	 * @param User $user
 	 * @return null|stdClass
 	 */
-	public static function findCollection( &$manifest, $id, User $user ) {
-		// Find the collection with the given id.
+	public static function findList( &$manifest, $id, User $user ) {
+		// Find the list with the given id.
 		foreach ( $manifest as $c ) {
 			if ( $c->id === $id ) {
 				return $c;
@@ -376,7 +375,7 @@ class ApiEditCollection extends ApiBase {
 				'label' => wfMessage( 'mywatchlist' )->text(),
 				'description' => '',
 			);
-			$c = self::createCollection( 0, $params, $user );
+			$c = self::createList( 0, $params, $user );
 			$manifest[] = $c;
 			return $c;
 		}
