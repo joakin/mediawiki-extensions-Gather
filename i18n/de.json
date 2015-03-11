@@ -34,5 +34,6 @@
 	"gather-article-count": "{{PLURAL:$1|Ein Artikel|$1 Artikel}}",
 	"gather-empty": "Noch nichts in dieser Sammlung …",
 	"gather-empty-footer": "Ich weiß nicht, wie du hierher gekommen bist, aber dies ist ein schlechter Ort.",
-	"gather-edit-button": "Bearbeiten"
+	"gather-edit-button": "Bearbeiten",
+	"apihelp-gather-example-1": "Die Sammlungen des Benutzers <kbd>john</kbd> auflisten."
 }

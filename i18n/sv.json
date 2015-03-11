@@ -5,6 +5,10 @@
 			"Dan Koehl"
 		]
 	},
+	"gather-edit-collection-label-name": "Namn",
+	"gather-edit-collection-label-description": "Beskrivning",
+	"gather-edit-collection-save-label": "Klart",
+	"gather-create-new-button-label": "Skapa",
 	"gather-desc": "Komponent av Mobila Gränssnitt som tillåter användare att sätta ihop listor.",
 	"gather-no-public-lists-title": "Inga offentliga samlingar",
 	"gather-no-public-lists-description": "Det finns inga offentliga samlingar för denna användare.",
@@ -16,5 +20,6 @@
 	"gather-private": "Privat",
 	"gather-article-count": "$1 {{PLURAL:$1|artikel|artiklar}}",
 	"gather-empty": "Ingenting i denna samling ännu...",
-	"gather-empty-footer": "Jag vet inte hur du kom hit, men det här är en sorglig plats."
+	"gather-empty-footer": "Jag vet inte hur du kom hit, men det här är en sorglig plats.",
+	"gather-edit-button": "Redigera"
 }
