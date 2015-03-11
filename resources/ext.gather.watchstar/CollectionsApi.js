@@ -1,56 +1,9 @@
 /*jshint unused:vars */
 ( function ( M, $ ) {
 
-	var CollectionsUserPageJSONApi,
-		WatchstarApi = M.require( 'modules/watchstar/WatchstarApi' ),
-		EditorApi = M.require( 'modules/editor/EditorApi' ),
+	var WatchstarApi = M.require( 'modules/watchstar/WatchstarApi' ),
 		user = M.require( 'user' ),
 		CollectionsApi;
-
-	CollectionsUserPageJSONApi = EditorApi.extend( {
-		/**
-		 * Init api
-		 * @param {Object} options
-		 *   {Number} options.id Id of collection. If ommited it will act on
-		 *   the index file
-		 */
-		initialize: function ( options ) {
-			var suffix, base;
-
-			options = options || {};
-			suffix = options.id ? '/' + options.id + '.json' : '.json';
-			base = 'User:' + user.getName() + '/GatherCollections';
-
-			options.title = base + suffix;
-			EditorApi.prototype.initialize.call( this, options );
-		},
-		/**
-		 * Get the json content of a page based on constructor arguments
-		 * @return {jQuery.Deferred}
-		 */
-		getJSONContent: function () {
-			var d = $.Deferred();
-
-			this.getContent().done( function ( resp ) {
-				var data = resp ? JSON.parse( resp ) : resp;
-				d.resolve( data );
-			} ).fail( function () {
-				d.reject();
-			} );
-			return d;
-		},
-		/**
-		 * Save json content to a page based on constructor arguments
-		 * @param {Object} object data to save
-		 * @return {jQuery.Deferred}
-		 */
-		saveJSONContent: function ( object ) {
-			this.setContent( JSON.stringify( object ) );
-			return this.save( {
-				summary: 'JSON Automagically saved by Extension:Gather CollectionsUserPageJSONApi'
-			} );
-		}
-	} );
 
 	/**
 	 * API for managing collection items
@@ -70,23 +23,6 @@
 			public: false
 		},
 		/**
-		 * Watch or unwatch a page. Used for interactions with the watchlist.
-		 * @param {Page} page
-		 * @param {bool} unwatch
-		 * @returns {jQuery.Deferred}
-		 */
-		_watchAction: function ( page, unwatch ) {
-			var data = {
-				action: 'watch',
-				title: page.getTitle()
-			};
-
-			if ( unwatch ) {
-				data.unwatch = true;
-			}
-			return this.postWithToken( 'watch', data );
-		},
-		/**
 		 * Add page to existing collection.
 		 * @method
 		 * @param {Number} id Identifier of collection
@@ -94,31 +30,11 @@
 		 * @return {jQuery.Deferred}
 		 */
 		addPageToCollection: function ( id, page ) {
-			if ( id === 0 ) {
-				return this._watchAction( page, false );
-			}
-
-			var d = $.Deferred(),
-				tempApi = new CollectionsUserPageJSONApi( {
-					id: id
-				} );
-
-			tempApi.getJSONContent().done( function ( collection ) {
-				collection = collection || {};
-				if ( !collection.items ) {
-					collection.items = [];
-				}
-				if ( $.inArray( page.title, collection.items ) === -1 ) {
-					collection.items.push( page.title );
-					tempApi.saveJSONContent( collection )
-						.done( $.proxy( d, 'resolve', {} ) )
-						.fail( $.proxy( d, 'reject' ) );
-				} else {
-					// If it is already there just resolve
-					d.resolve( {} );
-				}
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				id: id,
+				titles: [ page.getTitle() ]
 			} );
-			return d;
 		},
 		/**
 		 * Remove page from existing collection.
@@ -128,26 +44,12 @@
 		 * @return {jQuery.Deferred}
 		 */
 		removePageFromCollection: function ( id, page ) {
-			if ( id === 0 ) {
-				return this._watchAction( page, true );
-			}
-			var d = $.Deferred(),
-				tempApi = new CollectionsUserPageJSONApi( {
-					id: id
-				} );
-
-			tempApi.getJSONContent().done( function ( collection ) {
-				if ( $.inArray( page.title, collection.items ) > -1 ) {
-					// remove it.
-					collection.items.splice( collection.items.indexOf( page.title ), 1 );
-					tempApi.saveJSONContent( collection )
-						.done( $.proxy( d, 'resolve', {} ) )
-						.fail( $.proxy( d, 'reject' ) );
-				} else {
-					d.reject();
-				}
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				id: id,
+				remove: true,
+				titles: [ page.getTitle() ]
 			} );
-			return d;
 		},
 		/**
 		 * Create a new collection

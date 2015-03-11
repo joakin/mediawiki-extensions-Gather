@@ -12,7 +12,6 @@ use \Title;
  * FIXME: This should live in core and power Special:EditWatchlist
  */
 class UserPageCollection extends Collection implements CollectionStorage {
-	const FOLDER = 'GatherCollections';
 
 	/**
 	 * Get Collection model with an id of a user
@@ -22,24 +21,19 @@ class UserPageCollection extends Collection implements CollectionStorage {
 	 */
 	public static function newFromUserAndId( $owner, $id ) {
 		if ( $id !== 0 ) {
-			$collectionData = JSONPage::get( self::getStorageTitle( $owner, $id ) );
-			return self::collectionFromJSON( $collectionData );
+			$collectionListData = JSONPage::get( UserPageCollectionsList::getStorageTitle( $owner ) );
+			foreach ( $collectionListData as $collectionData ) {
+				if ( $id === $collectionData["id"] ) {
+					// find id in list.
+					return self::collectionFromJSON( $collectionData );
+				}
+			}
+			// id not there.
+			return null;
 		} else {
 			// id 0 is the watchlist. Which loads differently
 			return WatchlistCollection::newFromUser( $owner );
 		}
-	}
-
-	/**
-	 * Get the url for the collection
-	 * @param User $owner of the collection
-	 * @param int $id of the collection
-	 *
-	 * @return Title
-	 */
-	public static function getStorageTitle( $owner, $id ) {
-		$title = $owner->getName() . '/' . self::FOLDER . '/' . $id . '.json';
-		return Title::makeTitleSafe( NS_USER, $title );
 	}
 
 	/**

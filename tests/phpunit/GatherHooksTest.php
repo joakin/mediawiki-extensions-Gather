@@ -5,16 +5,17 @@
  */
 class GatherHooksTest extends MediaWikiTestCase {
 	public function provideGetUserPermissionsErrors() {
+		$manifest = Gather\stores\UserPageCollectionsList::MANIFEST_FILE;
 		return array(
 			// Edit
-			array( true, 'User:Jdlrobson/GatherCollections.json', 'Jdlrobson', 'edit' ),
-			array( false, 'User:Jdlrobson/GatherCollections.json', 'phudex', 'edit' ),
+			array( true, "User:Jdlrobson/$manifest", 'Jdlrobson', 'edit' ),
+			array( false, "User:Jdlrobson/$manifest", 'phudex', 'edit' ),
 			// View
-			array( true, 'User:Jdlrobson/GatherCollections.json', 'Jdlrobson', 'view' ),
-			array( true, 'User:Jdlrobson/GatherCollections.json', 'phudex', 'view' ),
+			array( true, "User:Jdlrobson/$manifest", 'Jdlrobson', 'view' ),
+			array( true, "User:Jdlrobson/$manifest", 'phudex', 'view' ),
 			// Move
-			array( true, 'User:Jdlrobson/GatherCollections.json', 'Jdlrobson', 'move' ),
-			array( false, 'User:Jdlrobson/GatherCollections.json', 'phuedx', 'move' ),
+			array( true, "User:Jdlrobson/$manifest", 'Jdlrobson', 'move' ),
+			array( false, "User:Jdlrobson/$manifest", 'phuedx', 'move' ),
 			// Normal page editing is not disrupted
 			array( true, 'User:JDLR', 'Jdlrobson', 'edit' ),
 			array( true, 'User:JDLR/Foo', 'Jdlrobson', 'edit' ),
