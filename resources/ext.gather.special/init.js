@@ -9,13 +9,17 @@
 			id = parseInt( id, 10 );
 			var collection;
 			$.each( mw.config.get( 'wgGatherCollections' ), function () {
-				if ( this.id === id ) {
+				if ( this.id === id && this.isWatchlist === false ) {
 					collection = this;
 				}
 			} );
-			return new CollectionEditOverlay( {
-				collection: collection
-			} );
+			if ( collection ) {
+				return new CollectionEditOverlay( {
+					collection: collection
+				} );
+			} else {
+				return null;
+			}
 		} );
 	}
 
