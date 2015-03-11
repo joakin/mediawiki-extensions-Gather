@@ -84,7 +84,12 @@ class SpecialGather extends SpecialPage {
 	 * @param int $id collection id
 	 */
 	public function renderUserCollection( User $user, $id ) {
-		$collection = stores\UserPageCollection::newFromUserAndId( $user, $id );
+		$collection = null;
+		// FIXME: It should be possible to view public lists by other user. Limitation with API stops this.
+		if ( $this->isOwner( $user ) ) {
+			$collection = models\Collection::newFromApi( $id, $user );
+		}
+
 		if ( $collection === null ||
 			( !$collection->isPublic() && !$this->isOwner( $user ) ) ) {
 			// FIXME: No permissions to visit this. Showing not found ATM.
