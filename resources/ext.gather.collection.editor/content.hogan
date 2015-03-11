@@ -3,8 +3,8 @@
 	<label>{{nameLabel}}</label>
 	<input class="mw-ui-input title" value="{{title}}">
 	<label>{{descriptionLabel}}</label>
-	<input class="mw-ui-input description" value="{{description}}">
-	<hr>
+	<textarea class="mw-ui-input description"
+		rows='2'>{{description}}</textarea>
 	<div class="mw-ui-checkbox">
 	  <input type="checkbox" id="collection-editor-privacy"
 		{{^isPublic}}checked{{/isPublic}} {{#isWatchlist}}disabled{{/isWatchlist}} />

@@ -91,10 +91,12 @@ class Collection extends View {
 	 * Get the edit button html if user should edit
 	 */
 	public function getEditButtonHtml() {
-		if ( $this->collection->isOwner( $this->user ) ) {
+		$id = $this->collection->getId();
+		// Do not edit watchlist
+		if ( $id !== 0 && $this->collection->isOwner( $this->user ) ) {
 			return Html::element( 'a', array(
 				// FIXME: This should work without JavaScript
-				'href' => '#/collection/edit/' . $this->collection->getId(),
+				'href' => '#/collection/edit/' . $id,
 				'class' => CSS::buttonClass( 'progressive', 'collection-action-button edit-collection' )
 			), wfMessage( 'gather-edit-button' )->text() );
 		} else {

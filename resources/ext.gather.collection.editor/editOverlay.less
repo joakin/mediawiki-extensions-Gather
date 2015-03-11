@@ -3,16 +3,21 @@
 
 .overlay.collection-editor-overlay {
 	.content {
-		hr {
-			visibility: hidden;
-		}
-
 		label {
 			font-weight: bold;
+			// Spacing between label and input
+			margin-bottom: 0.5em;
+			display: block;
 		}
 
-		.mw-ui-input {
-			margin-bottom: 1em;
+		// Spacing between form fields
+		label, .mw-ui-checkbox {
+			margin-top: 2em;
+		}
+
+		.description {
+			// 2 Rows. Default is 8em (4 rows)
+			min-height: 4em;
 		}
 	}
 }
