@@ -23,11 +23,7 @@ class UserPageCollection extends Collection implements CollectionStorage {
 	public static function newFromUserAndId( $owner, $id ) {
 		if ( $id !== 0 ) {
 			$collectionData = JSONPage::get( self::getStorageTitle( $owner, $id ) );
-			if ( isset( $collectionData['id'] ) ) {
-				return self::collectionFromJSON( $collectionData );
-			} else {
-				return null;
-			}
+			return self::collectionFromJSON( $collectionData );
 		} else {
 			// id 0 is the watchlist. Which loads differently
 			return WatchlistCollection::newFromUser( $owner );
@@ -48,28 +44,42 @@ class UserPageCollection extends Collection implements CollectionStorage {
 
 	/**
 	 * Fill a collection object from json data
+	 * Returns null if there is not enough information to fill it up.
 	 * @param array $json data to pull information from
 	 *
-	 * @return models\Collection
+	 * @return models\Collection|null
 	 */
 	public static function collectionFromJSON( $json ) {
-		$collection = new models\Collection(
-			$json['id'],
-			User::newFromName( $json['owner'] ),
-			$json['title'],
-			$json['description'],
-			$json['public'],
-			wfFindFile( $json['image'] )
-		);
-		if ( isset( $json['items'] ) ) {
-			// Make titles
-			$titles = array();
-			foreach ( $json['items'] as $title ) {
-				$titles[] = Title::newFromText( $title );
+		try {
+			if ( !isset($json['id']) ||
+				!isset($json['owner']) ||
+				!isset($json['title']) ) {
+				return null;
 			}
-			$collection->batch( self::getItemsFromTitles( $titles ) );
+
+			$collection = new models\Collection(
+				$json['id'],
+				User::newFromName( $json['owner'] ),
+				$json['title'],
+				$json['description'],
+				$json['public'],
+				wfFindFile( $json['image'] )
+			);
+			if ( isset( $json['items'] ) ) {
+				// Make titles
+				$titles = array();
+				foreach ( $json['items'] as $title ) {
+					if ( is_string( $title ) && isset( $title ) ) {
+						$titles[] = Title::newFromText( $title );
+					}
+				}
+				$collection->batch( self::getItemsFromTitles( $titles ) );
+			}
+			return $collection;
+		} catch (Exception $e) {
+			// Invalid json
+			return null;
 		}
-		return $collection;
 	}
 
 }

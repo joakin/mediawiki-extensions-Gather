@@ -29,11 +29,12 @@ class UserPageCollectionsList implements CollectionsListStorage {
 		$collectionsData = JSONPage::get( self::getStorageTitle( $user ) );
 		foreach ( $collectionsData as $collectionData ) {
 			$collection = self::collectionFromJSON( $collectionData );
-			$collectionsList->add( $collection );
-
-			// If the added collection is a watchlist make a record of it
-			if ( $collection->getId() === 0 ) {
-				$includesWatchlist = true;
+			if ( $collection ) {
+				$collectionsList->add( $collection );
+				// If the added collection is a watchlist make a record of it
+				if ( $collection->getId() === 0 ) {
+					$includesWatchlist = true;
+				}
 			}
 		}
 
@@ -67,21 +68,33 @@ class UserPageCollectionsList implements CollectionsListStorage {
 
 	/**
 	 * Get a basic collection object with the metadata from json data in the manifest
+	 * Returns null if there is not enough info to create the object.
 	 * @param array $json data to pull information from
 	 *
-	 * @return models\CollectionInfo
+	 * @return models\CollectionInfo|null
 	 */
 	public static function collectionFromJSON( $json ) {
-		$collection = new models\CollectionInfo(
-			$json['id'],
-			User::newFromName( $json['owner'] ),
-			$json['title'],
-			$json['description'],
-			$json['public'],
-			wfFindFile( $json['image'] )
-		);
-		$collection->setCount( $json['count'] );
-		return $collection;
+		try {
+			if ( !isset( $json['id'] ) ||
+				!isset( $json['owner'] ) ||
+				!isset( $json['title'] ) ) {
+				return null;
+			}
+
+			$collection = new models\CollectionInfo(
+				$json['id'],
+				User::newFromName( $json['owner'] ),
+				$json['title'],
+				$json['description'],
+				$json['public'],
+				wfFindFile( $json['image'] )
+			);
+			$collection->setCount( $json['count'] );
+			return $collection;
+		} catch (Exception $e) {
+			// Invalid json
+			return null;
+		}
 	}
 
 }
