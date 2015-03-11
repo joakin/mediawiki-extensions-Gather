@@ -155,48 +155,22 @@
 		 * @param {String} title of collection
 		 */
 		addCollection: function ( title ) {
-			var newCollection,
-				self = this,
-				d = $.Deferred(),
-				indexApi = new CollectionsUserPageJSONApi();
-
-			indexApi.getJSONContent().done( function ( collections ) {
-				var newId = 0;
-				// If it doesn't exist, initialize with the watchlist
-				if ( !collections || !collections.length ) {
-					collections = [ $.extend( {}, self.boilerplate, {
-						isWatchlist: true
-					} ) ];
-				}
-				// Compute a new id (biggest id on list +1)
-				$.each( collections, function () {
-					if ( this.id >= newId ) {
-						newId = this.id + 1;
-					}
-				} );
-				// Create the new collection meta and add it to the index.
-				newCollection = $.extend( {}, self.boilerplate, {
-					id: newId,
+			var self = this;
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				label: title
+			} ).then( function ( data ) {
+				data = data.editlist;
+				return $.extend( {}, self.boilerplate, {
+					id: data.id,
 					title: title,
+					// FIXME: this value should come from UI
 					owner: user.getName(),
+					items: data.pages,
+					// FIXME: this value should come from UI
 					public: true
 				} );
-				collections.push( newCollection );
-				// Update collections list with new list
-				indexApi.saveJSONContent( collections ).done( function () {
-					// Once the index is updated, we'll save the collection itself
-					var collectionApi = new CollectionsUserPageJSONApi( {
-						id: newId
-					} );
-					// Setup empty collection (items instead of count)
-					delete newCollection.count;
-					newCollection.items = [];
-					collectionApi.saveJSONContent( newCollection )
-						.done( $.proxy( d, 'resolve', newCollection ) )
-						.fail( $.proxy( d, 'reject' ) );
-				} ).fail( $.proxy( d, 'reject' ) );
 			} );
-			return d;
 		},
 		/**
 		 * Edits a collection
