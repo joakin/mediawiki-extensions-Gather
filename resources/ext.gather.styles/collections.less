@@ -17,21 +17,32 @@
 }
 
 // FIXME: Bad special page styling defaults.
-#section_0 {
-	padding-bottom: 0;
+// Top spacing
+.mw-mf-special #content_wrapper {
+	padding-top: 1em;
 }
+// Page heading won't have bottom spacing (to allow possible content to stay
+// close to title if necessary, like a description of the title)
+.mw-mf-special #content_wrapper .pre-content #section_0 {
+	padding-bottom: 0em;
+}
+// Spacing between title and content is defined by the content so that it can
+// be customized
+.content {
+	margin-top: 1.5em;
+}
+// END FIXME: Bad special page styling defaults.
 
+/*
+ *  Collection page
+ */
 .collection {
 
-	// Push the content up to be close to the title
-	// FIXME: Bad special page styling defaults.
 	&.content {
-		padding-top: 0;
+		// No spacing between title and content (we want meta info of collection
+		// close to title
+		margin-top: 0;
 	}
-
-	/*
-	 *  Collection page
-	 */
 
 	.collection-header {
 		text-align: center;
@@ -52,6 +63,7 @@
 				vertical-align: top;
 				width: 1.7em;
 				min-width: 1.7em;
+				margin-top: 1px;
 			}
 		}
 
@@ -130,11 +142,13 @@
 			}
 		}
 	}
+}
 
 
-	/*
-	 *  List of collections
-	 */
+/*
+ *  List of collections
+ */
+.collections-list {
 
 	@overlayHeight: 6em;
 
