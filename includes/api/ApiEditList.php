@@ -119,16 +119,30 @@ class ApiEditList extends ApiBase {
 
 			// ACTION: add new list to manifest.
 			// work out a new id
-			$id = 1;
+			$id = 0;
 			if ( $manifest ) {
 				foreach ( $manifest as $c ) {
+					if ( $c->title === $params['label'] ) {
+						// already exists, update
+						$id = $c->id;
+						$isNew = false;
+						break;
+					}
 					if ( $c->id > $id ) {
 						$id = $c->id + 1;
 					}
 				}
 			}
+		}
+
+		if ( $isNew ) {
+			$id += 1;
 			$list = $this->createList( $id, $params, $user );
 			$manifest[] = $list;
+			$this->getResult()->addValue( null, $this->getModuleName(), array(
+				'status' => 'updated',
+				'id' => $id,
+			) );
 		} else {
 			$list = $this->findList( $manifest, $id, $user );
 			if ( $list === null ) {
@@ -142,6 +156,10 @@ class ApiEditList extends ApiBase {
 			if ( $params['description'] !== null ) {
 				$list->description = $params['description'];
 			}
+			$this->getResult()->addValue( null, $this->getModuleName(), array(
+				'status' => 'updated',
+				'id' => $id,
+			) );
 		}
 
 		if ( $params['deletelist'] ) {
@@ -149,6 +167,9 @@ class ApiEditList extends ApiBase {
 			$manifest = array_filter( $manifest, function ( $x ) use ( $id ) {
 				return $x->id !== $id;
 			} );
+			$this->getResult()->addValue( null, $this->getModuleName(), array(
+				'status' => 'deleted',
+			) );
 		} else {
 
 			$this->getResult()->beginContinuation( $params['continue'], array(), array() );
