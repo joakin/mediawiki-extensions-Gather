@@ -290,7 +290,11 @@ class ApiEditList extends ApiBase {
 		}
 		if ( $update ) {
 			// ACTION: update list record
-			$dbw->update( 'gather_list', $update, array( 'gl_id' => $row->gl_id ), __METHOD__ );
+			$dbw->update( 'gather_list', $update, array( 'gl_id' => $row->gl_id ), __METHOD__, 'IGNORE' );
+			if ( $dbw->affectedRows() === 0 ) {
+				// update failed due to the duplicate label restriction. Report
+				$this->dieUsage( 'A list with this label already exists', 'duplicatelabel' );
+			}
 			$this->getResult()->addValue( null, $this->getModuleName(), array(
 				'status' => 'updated',
 			) );
