@@ -17,8 +17,6 @@
 				return new CollectionEditOverlay( {
 					collection: collection
 				} );
-			} else {
-				return null;
 			}
 		} );
 	}
