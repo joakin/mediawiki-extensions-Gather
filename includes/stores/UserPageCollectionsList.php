@@ -14,7 +14,7 @@ use \Title;
  * Stores and retrieves collection lists from user pages
  */
 class UserPageCollectionsList implements CollectionsListStorage {
-	const MANIFEST_FILE = 'GatherCollections.json';
+	const MANIFEST_FILE = 'GatherCollectionsV2.json';
 
 	/**
 	 * Get list of collections by user

@@ -106,14 +106,14 @@ class Hooks {
 	 * Disallow moving or editing gather page json files
 	 */
 	public static function onGetUserPermissionsErrors( $title, $user, $action, $result ) {
-		$manifest = "/GatherCollections.json";
+		$manifest = stores\UserPageCollectionsList::MANIFEST_FILE;
 		$isProtectedAction = $action === 'edit' || $action === 'move';
 		$titleText = $title->getText();
 		if ( $title->inNamespace( NS_USER ) && $isProtectedAction &&
-				preg_match( "/\/GatherCollections\.json$/", $titleText ) === 1
+			strpos( $titleText, $manifest ) !== false
 		) {
 			// we have a collection definition so check the user matches the title.
-			if ( preg_match( "/^" . $user->getName() . "\/GatherCollections.json$/", $titleText ) === 1 ) {
+			if ( strpos( $titleText, $user->getName() . '/' . $manifest ) !== false ) {
 				return true;
 			} else {
 				$result = false;
@@ -174,8 +174,9 @@ class Hooks {
 	 */
 	public static function onContentHandlerDefaultModelFor( $title, &$model ) {
 		$titleText = $title->getText();
+		$manifest = stores\UserPageCollectionsList::MANIFEST_FILE;
 		if ( $title->inNamespace( NS_USER ) &&
-			preg_match( "/\/GatherCollections/", $titleText ) === 1 ) {
+			strpos( $titleText, $manifest ) !== false ) {
 			$model = CONTENT_MODEL_JSON;
 		}
 		return true;

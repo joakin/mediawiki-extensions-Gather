@@ -38,6 +38,7 @@ use User;
 use ApiPageSet;
 use WatchAction;
 use WikiPage;
+use \Gather\stores;
 
 /**
  * API module to allow users to manage lists
@@ -86,7 +87,10 @@ class ApiEditList extends ApiBase {
 				$this->dieUsage( "List #0 (watchlist) may not be deleted", 'badid' );
 			}
 			if ( $isNew ) {
-				$this->dieUsage( "List must be identified with {$p}id when {$p}deletelist is used", 'invalidparammix' );
+				$this->dieUsage(
+					"List must be identified with {$p}id when {$p}deletelist is used",
+					'invalidparammix'
+				);
 			}
 
 			// For deletelist, disallow all parameters except those unset
@@ -94,13 +98,14 @@ class ApiEditList extends ApiBase {
 			unset( $tmp['deletelist'] );
 			unset( $tmp['id'] );
 			unset( $tmp['token'] );
-			$extraParams =
-				array_keys( array_filter( $tmp, function ( $x ) {
-					return $x !== null && $x !== false;
-				} ) );
+			$extraParams = array_keys( array_filter( $tmp, function ( $x ) {
+				return $x !== null && $x !== false;
+			} ) );
 			if ( $extraParams ) {
-				$this->dieUsage( "The parameter {$p}deletelist must not be used with " .
-								 implode( ", ", $extraParams ), 'invalidparammix' );
+				$this->dieUsage(
+					"The parameter {$p}deletelist must not be used with " .  implode( ", ", $extraParams ),
+					'invalidparammix'
+				);
 			}
 		}
 
@@ -111,7 +116,10 @@ class ApiEditList extends ApiBase {
 
 		if ( $isNew ) {
 			if ( $remove ) {
-				$this->dieUsage( "List must be identified with {$p}id when {$p}remove is used", 'invalidparammix' );
+				$this->dieUsage(
+					"List must be identified with {$p}id when {$p}remove is used",
+					'invalidparammix'
+				);
 			}
 			if ( !$params['label'] ) {
 				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
@@ -323,7 +331,10 @@ class ApiEditList extends ApiBase {
 				$status = FormatJson::parse( $content->getNativeData() );
 			}
 			if ( !$status->isOK() ) {
-				throw new MWException( 'Internal error in ' . __METHOD__ . ' loading ' . $title->getFullText() . ' : ' . $status->getMessage() );
+				throw new MWException(
+					'Internal error in ' . __METHOD__ .
+					' loading ' . $title->getFullText() . ' : ' . $status->getMessage()
+				);
 			}
 			return $status->getValue();
 		} else {
@@ -351,8 +362,7 @@ class ApiEditList extends ApiBase {
 	 * @return Title
 	 */
 	private static function getStorageTitle( User $user ) {
-		$title = $user->getName() . '/GatherCollections.json';
-		return Title::makeTitleSafe( NS_USER, $title );
+		return stores\UserPageCollectionsList::getStorageTitle( $user );
 	}
 
 	/**
