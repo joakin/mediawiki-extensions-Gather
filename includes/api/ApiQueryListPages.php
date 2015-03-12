@@ -33,7 +33,6 @@ use ApiQueryBase;
 use ApiQueryGeneratorBase;
 use MWException;
 use Title;
-use User;
 
 /**
  * Query module to enumerate all available lists
@@ -54,18 +53,114 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 		$this->run( $resultPageSet );
 	}
 
+	/**
+	 * @param ApiPageSet $resultPageSet
+	 * @throws MWException
+	 * @throws \UsageException
+	 */
 	private function run( $resultPageSet = null ) {
 
 		$params = $this->extractRequestParams();
-		$user = $this->getWatchlistUser( $params );
 
-		if ( $params['id'] ) {
-			// Runs this code whenever ID is given and is not 0 (watchlist)
-			// Will be removed once DB storage is implemented
-			$this->tempProcessCollectionFromJson( $resultPageSet, $params, $user );
-			return;
+		// If not given (or equals to 0), uses legacy watchlist of the current user
+		$legacy = !$params['id'];
+		$isGenerator = $resultPageSet !== null;
+
+		if ( !$legacy ) {
+			$db = $this->getDB();
+			$listRow = $db->selectRow( 'gather_list', array( 'gl_label', 'gl_user', 'gl_info' ),
+				array( 'gl_id' => $params['id'] ), __METHOD__ );
+			if ( $listRow === false ) {
+				$this->dieUsage( "List does not exist", 'badid' );
+			}
+			$user = $this->getUser();
+			if ( $user->isLoggedIn() ) {
+				// Allow watchlist delegation - another user can view it
+				$user = $this->getWatchlistUser( $params );
+			}
+			$allowed = $user->isLoggedIn() && strval( $user->getId() ) === $listRow->gl_user;
+			if ( $allowed && !$listRow->gl_label ) {
+				// This is actually a watchlist, and the user is allowed to see it
+				// Proceed as if id was given as 0
+				$titles = $this->queryLegacyWatchlist( $params, $isGenerator );
+			} else {
+				if ( !$allowed ) {
+					// Check if the list is public
+					$info = ApiEditList::parseListInfo( $listRow->gl_info, $params['id'] );
+					$allowed = property_exists( $info, 'public' ) && $info->public;
+				}
+				if ( !$allowed ) {
+					$this->dieUsage( "You have no rights to see this list", 'badid' );
+				}
+				$titles = $this->queryListItems( $params, $isGenerator );
+			}
+		} else {
+			$titles = $this->queryLegacyWatchlist( $params, $isGenerator );
 		}
 
+		if ( !$isGenerator ) {
+			$this->getResult()->setIndexedTagName_internal( $this->getModuleName(), 'wr' );
+		} else {
+			$resultPageSet->populateFromTitles( $titles );
+		}
+	}
+
+	/**
+	 * @param array $params
+	 * @param $isGenerator
+	 * @return array
+	 */
+	private function queryListItems( array $params, $isGenerator ) {
+		$this->addTables( 'gather_list_item' );
+		$this->addFields( array( 'gli_namespace', 'gli_title', 'gli_order' ) );
+		$this->addWhereFld( 'gli_gl_id', $params['id'] );
+		$this->addWhereFld( 'wl_namespace', $params['namespace'] );
+
+		if ( isset( $params['continue'] ) ) {
+			$cont = $params['continue'];
+			$this->dieContinueUsageIf( strval( floatval( $cont ) ) !== $cont );
+			$cont = $this->getDB()->addQuotes( $cont );
+			$op = $params['dir'] == 'ascending' ? '>=' : '<=';
+			$this->addWhere( "gli_order $op $cont" );
+		}
+		$sort = ( $params['dir'] == 'descending' ? ' DESC' : '' );
+		$this->addOption( 'ORDER BY', 'gli_order' . $sort );
+
+		$this->addOption( 'LIMIT', $params['limit'] + 1 );
+		$res = $this->select( __METHOD__ );
+
+		$titles = array();
+		$count = 0;
+		foreach ( $res as $row ) {
+			if ( ++$count > $params['limit'] ) {
+				// We've reached the one extra which shows that there are
+				// additional pages to be had. Stop here...
+				$this->setContinueEnumParameter( 'continue', $row->gli_order );
+				break;
+			}
+			$t = Title::makeTitle( $row->gli_namespace, $row->gli_title );
+			if ( !$isGenerator ) {
+				$vals = array();
+				ApiQueryBase::addTitleInfo( $vals, $t );
+				$fit = $this->getResult()->addValue( $this->getModuleName(), null, $vals );
+				if ( !$fit ) {
+					$this->setContinueEnumParameter( 'continue', $row->gli_order );
+					break;
+				}
+			} else {
+				$titles[] = $t;
+			}
+		}
+		return $titles;
+	}
+
+	/**
+	 * @param array $params
+	 * @param bool $isGenerator
+	 * @return array
+	 */
+	private function queryLegacyWatchlist( array $params, $isGenerator ) {
+		$user = $this->getWatchlistUser( $params );
 		$this->selectNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
 		$this->addTables( 'watchlist' );
 		$this->addFields( array( 'wl_namespace', 'wl_title' ) );
@@ -95,6 +190,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				'wl_title' . $sort
 			) );
 		}
+
 		$this->addOption( 'LIMIT', $params['limit'] + 1 );
 		$res = $this->select( __METHOD__ );
 
@@ -108,8 +204,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				break;
 			}
 			$t = Title::makeTitle( $row->wl_namespace, $row->wl_title );
-
-			if ( is_null( $resultPageSet ) ) {
+			if ( !$isGenerator ) {
 				$vals = array();
 				ApiQueryBase::addTitleInfo( $vals, $t );
 				$fit = $this->getResult()->addValue( $this->getModuleName(), null, $vals );
@@ -121,96 +216,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				$titles[] = $t;
 			}
 		}
-		if ( is_null( $resultPageSet ) ) {
-			$this->getResult()->setIndexedTagName_internal( $this->getModuleName(), 'wr' );
-		} else {
-			$resultPageSet->populateFromTitles( $titles );
-		}
-	}
-
-	/**
-	 * Temporary workaround until DB table is implemented. Loads and filters pages (items) data
-	 * from the JSON manifest page.
-	 * @param ApiPageSet $resultPageSet
-	 * @param array $params
-	 * @param User $user
-	 * @throws MWException
-	 */
-	private function tempProcessCollectionFromJson( $resultPageSet, array $params, User $user ) {
-		$manifest = ApiEditList::loadManifest( $user );
-		$list = ApiEditList::findList( $manifest, $params['id'], $user );
-		if ( !$list ) {
-			$this->dieUsageMsg( 'unknown-list-id' );
-		}
-
-		$limit = $params['limit'];
-		$isAscending = $params['dir'] === 'ascending';
-		if ( isset( $params['continue'] ) ) {
-			$cont = explode( '|', $params['continue'] );
-			$this->dieContinueUsageIf( count( $cont ) != 2 );
-			$continueNs = intval( $cont[0] );
-			$this->dieContinueUsageIf( strval( $continueNs ) !== $cont[0] );
-			$continue = $cont[1];
-		} else {
-			$continue = false;
-			$continueNs = false;
-		}
-
-		$items = array_map( function( $v ) {
-			return Title::newFromText( $v );
-		}, $list->items );
-
-		$items = array_filter( $items, function( Title $v ) use ( $params ) {
-			return !$params['namespace'] || in_array( $v->getNamespace(), $params['namespace'] );
-		} );
-
-		usort( $items, function( Title $a, Title $b ) use ( $isAscending ) {
-			$d = $a->getNamespace() - $b->getNamespace();
-			if ( $d === 0 ) {
-				$d = strcmp( $a->getText(), $b->getText() );
-			}
-			return $isAscending ? $d : -$d;
-		} );
-
-		$count = 0;
-		$titles = array();
-		foreach ( $items as $row ) {
-			if ( $continue !== false ) {
-				/** @var Title $row */
-				$ns = $row->getNamespace();
-				if ( $isAscending ? $ns < $continueNs : $ns > $continueNs  ) {
-					continue;
-				}
-				if ( $ns === $continueNs ) {
-					$cmp = strcmp( $row->getText(), $continue );
-					if ( $isAscending ? $cmp < 0 : $cmp > 0 ) {
-						continue;
-					}
-				}
-				$continue = false;
-			}
-			$count++;
-			if ( $count > $limit ) {
-				$this->setContinueEnumParameter( 'continue', $row->getNamespace() . '|' . $row->getText() );
-				break;
-			}
-			if ( is_null( $resultPageSet ) ) {
-				$vals = array();
-				ApiQueryBase::addTitleInfo( $vals, $row );
-				$fit = $this->getResult()->addValue( $this->getModuleName(), null, $vals );
-				if ( !$fit ) {
-					$this->setContinueEnumParameter( 'continue', $row->getNamespace() . '|' . $row->getText() );
-					break;
-				}
-			} else {
-				$titles[] = $row;
-			}
-		}
-		if ( is_null( $resultPageSet ) ) {
-			$this->getResult()->setIndexedTagName_internal( $this->getModuleName(), 'wr' );
-		} else {
-			$resultPageSet->populateFromTitles( $titles );
-		}
+		return $titles;
 	}
 
 	public function getCacheMode( $params ) {

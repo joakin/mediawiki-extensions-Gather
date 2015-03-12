@@ -104,7 +104,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	 */
 	public static function newFromApi( $id, User $user ) {
 		// Work out meta data for this collection
-		$cl = CollectionsList::newFromApi( $user );
+		$cl = CollectionsList::newFromApi( $user, true );
 		$collection = null;
 		foreach ( $cl as $c ) {
 			if ( $c->getId() === $id ) {

@@ -27,18 +27,18 @@
 namespace Gather\api;
 
 use ApiBase;
+use AppendIterator;
+use ArrayIterator;
+use DatabaseBase;
 use FormatJson;
-use JsonContent;
+use LinkBatch;
 use MWException;
-use Status;
 use stdClass;
 use Title;
 use UnwatchAction;
 use User;
 use ApiPageSet;
 use WatchAction;
-use WikiPage;
-use \Gather\stores;
 
 /**
  * API module to allow users to manage lists
@@ -75,22 +75,20 @@ class ApiEditList extends ApiBase {
 		$pageSet = $this->getPageSet();
 		$p = $this->getModulePrefix();
 
-		$remove = $params['remove'];
-		$id = $params['id'];
-		$isNew = $id === null;
+		$isDeletingList = $params['deletelist'];
+		$listId = $params['id'];
+		$isNew = $listId === null;
+		$isWatchlist = $listId === 0;
 
 		// Validate 'deletelist' parameters
-		if ( $params['deletelist'] ) {
+		if ( $isDeletingList ) {
 
 			// ID == 0 is a watchlist
-			if ( $id === 0 ) {
+			if ( $isWatchlist ) {
 				$this->dieUsage( "List #0 (watchlist) may not be deleted", 'badid' );
 			}
 			if ( $isNew ) {
-				$this->dieUsage(
-					"List must be identified with {$p}id when {$p}deletelist is used",
-					'invalidparammix'
-				);
+				$this->dieUsage( "List must be identified with {$p}id when {$p}deletelist is used", 'invalidparammix' );
 			}
 
 			// For deletelist, disallow all parameters except those unset
@@ -98,168 +96,68 @@ class ApiEditList extends ApiBase {
 			unset( $tmp['deletelist'] );
 			unset( $tmp['id'] );
 			unset( $tmp['token'] );
-			$extraParams = array_keys( array_filter( $tmp, function ( $x ) {
-				return $x !== null && $x !== false;
-			} ) );
+			$extraParams =
+				array_keys( array_filter( $tmp, function ( $x ) {
+					return $x !== null && $x !== false;
+				} ) );
 			if ( $extraParams ) {
-				$this->dieUsage(
-					"The parameter {$p}deletelist must not be used with " .  implode( ", ", $extraParams ),
-					'invalidparammix'
-				);
+				$this->dieUsage( "The parameter {$p}deletelist must not be used with " .
+								 implode( ", ", $extraParams ), 'invalidparammix' );
 			}
-		}
-
-		$manifest = self::loadManifest( $user );
-
-		/** @var stdClass $list */
-		$list = null;
-
-		if ( $isNew ) {
-			if ( $remove ) {
-				$this->dieUsage(
-					"List must be identified with {$p}id when {$p}remove is used",
-					'invalidparammix'
-				);
+		} elseif ( $isNew ) {
+			if ( $params['remove'] ) {
+				$this->dieUsage( "List must be identified with {$p}id when {$p}remove is used",
+					'invalidparammix' );
 			}
 			if ( !$params['label'] ) {
 				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
 			}
-
-			// ACTION: add new list to manifest.
-			// work out a new id
-			$id = 0;
-			if ( $manifest ) {
-				foreach ( $manifest as $c ) {
-					if ( $c->title === $params['label'] ) {
-						// already exists, update
-						$id = $c->id;
-						$isNew = false;
-						break;
-					}
-					if ( $c->id > $id ) {
-						$id = $c->id + 1;
-					}
-				}
-			}
+		}
+		if ( $isWatchlist && $params['label'] ) {
+			$this->dieUsage( "List {$p}label may not be set for the id==0", 'invalidparammix' );
 		}
 
-		if ( $isNew ) {
-			$id += 1;
-			$list = $this->createList( $id, $params, $user );
-			$manifest[] = $list;
+		$dbw = wfGetDB( DB_MASTER, 'api' );
+
+		if ( $isNew || $isWatchlist ) {
+			// ACTION: create a new list
+			$listId = $this->createRow( $dbw, $user, $params, $isWatchlist );
 			$this->getResult()->addValue( null, $this->getModuleName(), array(
 				'status' => 'updated',
-				'id' => $id,
+				'id' => $listId,
 			) );
 		} else {
-			$list = $this->findList( $manifest, $id, $user );
-			if ( $list === null ) {
+			// Find existing list
+			$row = $dbw->selectRow( 'gather_list',
+				array( 'gl_id', 'gl_user', 'gl_label', 'gl_info' ), array( 'gl_id' => $listId ),
+				__METHOD__
+			);
+			if ( $row === false ) {
+				// No database record with the given ID
 				$this->dieUsage( "List {$p}id was not found", 'badid' );
 			}
-
-			// ACTION: update existing list
-			if ( $params['label'] !== null ) {
-				$list->title = $params['label'];
-			}
-			if ( $params['description'] !== null ) {
-				$list->description = $params['description'];
-			}
-			$this->getResult()->addValue( null, $this->getModuleName(), array(
-				'status' => 'updated',
-				'id' => $id,
-			) );
-		}
-
-		if ( $params['deletelist'] ) {
-			// ACTION: drop the list from the manifest
-			$manifest = array_filter( $manifest, function ( $x ) use ( $id ) {
-				return $x->id !== $id;
-			} );
-			$this->getResult()->addValue( null, $this->getModuleName(), array(
-				'status' => 'deleted',
-			) );
-		} else {
-
-			$this->getResult()->beginContinuation( $params['continue'], array(), array() );
-
-			$pageSet->execute();
-			$res = $pageSet->getInvalidTitlesAndRevisions( array(
-				'invalidTitles',
-				'special',
-				'missingIds',
-				'missingRevIds',
-				'interwikiTitles'
-			) );
-
-			// If 0, use user's watchlist instead of our temp list
-			$col = $id === 0 ? null : $list;
-
-			foreach ( $pageSet->getMissingTitles() as $title ) {
-				$r = $this->watchTitle( $col, $title, $user, $remove );
-				$r['missing'] = 1;
-				$res[] = $r;
-			}
-
-			foreach ( $pageSet->getGoodTitles() as $title ) {
-				$r = $this->watchTitle( $col, $title, $user, $remove );
-				$res[] = $r;
-			}
-			$this->getResult()->setIndexedTagName( $res, 'w' );
-			$this->getResult()->addValue( $this->getModuleName(), 'pages', $res );
-			$this->getResult()->endContinuation();
-
-			$list->count = count( $list->items );
-		}
-
-		self::save( $user, $manifest );
-	}
-
-	/**
-	 * @param null|stdClass $list
-	 * @param Title $title
-	 * @param User $user
-	 * @param bool $remove
-	 * @return array
-	 * @throws MWException
-	 */
-	private function watchTitle( $list, Title $title, User $user, $remove ) {
-		$titleStr = $title->getPrefixedText();
-
-		if ( !$title->isWatchable() ) {
-			return array( 'title' => $titleStr, 'watchable' => 0 );
-		}
-
-		$res = array( 'title' => $titleStr );
-
-		if ( $list ) {
-			$key = array_search( $titleStr, $list->items );
-			$status = Status::newGood();
-			if ( $remove && $key !== false ) {
-				unset( $list->items[$key] );
-				// Must reset keys, otherwise will get converted to an object on save
-				$list->items = array_values( $list->items );
-			} elseif ( !$remove && $key === false ) {
-				$list->items[] = $titleStr;
-			}
-		} else {
-			if ( $remove ) {
-				$status = UnwatchAction::doUnwatch( $title, $user );
+			if ( !$isDeletingList ) {
+				$this->updateListDb( $dbw, $params, $row );
 			} else {
-				$status = WatchAction::doWatch( $title, $user );
+				// Check again - we didn't know it was a watchlist until DB query
+				if ( !$row->gl_label ) {
+					$this->dieUsage( "Watchlist may not be deleted", 'badid' );
+				}
+				if ( strval( $row->gl_user ) !== strval( $user->getId() ) ) {
+					$this->dieUsage( "List {$p}id does not belong to current user", 'permissiondenied' );
+				}
+				// ACTION: deleting list
+				$dbw->delete( 'gather_list', array( 'gl_id' => $row->gl_id ), __METHOD__ );
+				$this->getResult()->addValue( null, $this->getModuleName(), array(
+					'status' => 'deleted',
+				) );
 			}
 		}
 
-		if ( $status->isOK() ) {
-			$res[$remove ? 'removed' : 'added'] = '';
-			$res['message'] = $this->msg(
-				$remove ? 'removedwatchtext' : 'addedwatchtext',
-				$title->getPrefixedText()
-			)->title( $title )->parseAsBlock();
-		} else {
-			$res['error'] = $this->getErrorFromStatus( $status );
+		if ( !$isDeletingList ) {
+			// Add the titles to the list (or subscribe with the legacy watchlist)
+			$this->processTitles( $params, $user, $listId, $dbw, $isWatchlist );
 		}
-
-		return $res;
 	}
 
 	/**
@@ -315,101 +213,228 @@ class ApiEditList extends ApiBase {
 	}
 
 	/**
-	 * Temporary function to get data from a JSON blob stored on the user's page
+	 * Given an info object, update it with arguments from params, and return JSON str if changed
+	 * @param stdClass $v
+	 * @param Array $params
+	 * @return string JSON encoded info object in case it changed, or NULL if update is not needed
+	 */
+	private static function updateInfo( stdClass $v, array $params ) {
+		$updated = false;
+		if ( !property_exists( $v, 'description' ) || $v->description !== $params['description'] ) {
+			$v->description = $params['description'];
+			$updated = true;
+		}
+		if ( !property_exists( $v, 'public' ) || $v->public !== true ) {
+			$v->public = true; // TODO: should be a parameter
+			$updated = true;
+		}
+		if ( !property_exists( $v, 'image' ) || $v->image !== null ) {
+			$v->image = null; // TODO: should be a parameter
+			$updated = true;
+		}
+
+		return $updated ? FormatJson::encode( $v, false, FormatJson::ALL_OK ) : false;
+	}
+
+	/**
+	 * Create a new database entry
+	 * @param DatabaseBase $dbw
 	 * @param User $user
+	 * @param array $params
+	 * @param $isWatchlist
+	 * @return int
+	 */
+	private function createRow( DatabaseBase $dbw, User $user, array $params, &$isWatchlist ) {
+		$id = $dbw->nextSequenceValue( 'gather_list_gl_id_seq' );
+		$label = $isWatchlist ? '' : $params['label'];
+		$dbw->insert( 'gather_list', array(
+			'gl_id' => $id,
+			'gl_user' => $user->getId(),
+			'gl_label' => $label,
+			'gl_info' => $this->updateInfo( new stdClass(), $params ),
+		), __METHOD__, 'IGNORE' );
+		$id = $dbw->insertId();
+		if ( $id === 0 ) {
+			// Already exists, update instead
+			$row = $dbw->selectRow( 'gather_list',
+				array( 'gl_id', 'gl_user', 'gl_label', 'gl_info' ),
+				array( 'gl_user' => $user->getId(), 'gl_label' => $label ),
+				__METHOD__
+			);
+			if ( $row === false ) {
+				// If creation failed, the second query should have succeeded
+				$this->dieDebug( "List was not found", 'badid' );
+			}
+			$this->updateListDb( $dbw, $params, $row );
+			$id = intval( $row->gl_id );
+		}
+		return $id;
+	}
+
+	/**
+	 * Update List in the database with the new data from the user params
+	 * @param DatabaseBase $dbw
+	 * @param array $params User params
+	 * @param stdClass $row The db row as it is stored right now
+	 * @throws MWException
+	 */
+	private function updateListDb( DatabaseBase $dbw, array $params, $row ) {
+		$update = array();
+		if ( $params['label'] && $row->gl_label !== $params['label'] ) {
+			$update['gl_label'] = $params['label'];
+		}
+		$info = self::parseListInfo( $row->gl_info, $row->gl_id );
+		$json = self::updateInfo( $info, $params );
+		if ( $json ) {
+			$update['gl_info'] = $json;
+		}
+		if ( $update ) {
+			// ACTION: update list record
+			$dbw->update( 'gather_list', $update, array( 'gl_id' => $row->gl_id ), __METHOD__ );
+			$this->getResult()->addValue( null, $this->getModuleName(), array(
+				'status' => 'updated',
+			) );
+		}
+	}
+
+	/**
+	 * Add titles to the list/watchlist (or remove them from the list/watchlist)
+	 * @param array $params API params
+	 * @param User $user For legacy watchlist only, current user
+	 * @param int $listId
+	 * @param DatabaseBase $dbw
+	 * @param bool $isWatchlist If true, this is a legacy watchlist
+	 * @throws MWException
+	 * @throws \DBUnexpectedError
+	 */
+	private function processTitles( array $params, User $user, $listId, DatabaseBase $dbw, $isWatchlist ) {
+
+		$this->getResult()->beginContinuation( $params['continue'], array(), array() );
+
+		$pageSet = $this->getPageSet();
+		$pageSet->execute();
+		$res = $pageSet->getInvalidTitlesAndRevisions( array(
+			'invalidTitles',
+			'special',
+			'missingIds',
+			'missingRevIds',
+			'interwikiTitles'
+		) );
+
+		$titles = new AppendIterator();
+		$titles->append( new ArrayIterator( $pageSet->getGoodTitles() ) );
+		$titles->append( new ArrayIterator( $pageSet->getMissingTitles() ) );
+
+		$isRemoving =$params['remove'];
+		if ( $isWatchlist ) {
+			// Legacy watchlist - watch/unwatch
+			foreach ( $titles as $title ) {
+				$res[] = $this->watchTitle( $title, $user, $isRemoving );
+			}
+		} elseif ( !$isRemoving ) {
+			// Insert titles into the list
+			// For now, insert at the end.
+			// TODO: support "insertafter=title" parameter
+			$order =
+				$dbw->selectField( 'gather_list_item', 'max(gli_order)',
+					array( 'gli_gl_id' => $listId ), __METHOD__ );
+			if ( $order === false ) {
+				$this->dieDebug( __METHOD__, "max(gli_order) failed for id $listId" );
+			}
+			$order = !$order ? 1 : $order + 1;
+
+			$rows = array();
+			foreach ( $titles as $title ) {
+				$r = array( 'title' => $title->getPrefixedText() );
+				if ( !$title->isWatchable() ) {
+					$r['watchable'] = 0;
+				} else {
+					$r['added'] = '';
+					$rows[] = array(
+						'gli_gl_id' => $listId,
+						'gli_namespace' => $title->getNamespace(),
+						'gli_title' => $title->getDBkey(),
+						'gli_order' => $order,
+					);
+					$order += 1;
+				}
+				$res[] = $r;
+			}
+			$dbw->insert( 'gather_list_item', $rows, __METHOD__, 'IGNORE' );
+		} else {
+			// Remove titles from the list
+			$linkBatch = new LinkBatch();
+			foreach ( $titles as $title ) {
+				$r = array( 'title' => $title->getPrefixedText() );
+				if ( !$title->isWatchable() ) {
+					$r['watchable'] = 0;
+				} else {
+					$r['removed'] = '';
+					$linkBatch->addObj( $title );
+				}
+				$res[] = $r;
+			}
+			$set = $linkBatch->constructSet( 'gli', $dbw );
+			if ( $set ) {
+				$dbw->delete( 'gather_list_item', array(
+					'gli_gl_id' => $listId,
+					$set
+				) );
+			}
+		}
+
+		$this->getResult()->setIndexedTagName( $res, 'w' );
+		$this->getResult()->addValue( $this->getModuleName(), 'pages', $res );
+		$this->getResult()->endContinuation();
+	}
+
+	/**
+	 * @param Title $title
+	 * @param User $user
+	 * @param bool $remove
 	 * @return array
 	 * @throws MWException
 	 */
-	public static function loadManifest( $user ) {
-		$title = self::getStorageTitle( $user );
-		$page = WikiPage::factory( $title );
-		if ( $page->exists() ) {
-			$content = $page->getContent();
-			if ( method_exists( $content, 'getData' ) ) {
-				$status = $content->getData();
-			} else {
-				$status = FormatJson::parse( $content->getNativeData() );
-			}
-			if ( !$status->isOK() ) {
-				throw new MWException(
-					'Internal error in ' . __METHOD__ .
-					' loading ' . $title->getFullText() . ' : ' . $status->getMessage()
-				);
-			}
-			return $status->getValue();
+	private function watchTitle( Title $title, User $user, $remove ) {
+		$prefixedText = $title->getPrefixedText();
+		$res = array( 'title' => $prefixedText );
+
+		if ( !$title->isWatchable() ) {
+			$res['watchable'] = 0;
 		} else {
-			// Page doesn't exist, return empty data
-			return array();
-		}
-	}
-
-	/**
-	 * Temporary function to save data to the JSON blob stored on the user's page
-	 * @param User $user
-	 * @param Array $manifest representation of all the user's existing lists.
-	 * @return Status
-	 */
-	private function save( User $user, $manifest ) {
-		$title = self::getStorageTitle( $user );
-		$page = WikiPage::factory( $title );
-		$content = new JsonContent( FormatJson::encode( $manifest, FormatJson::ALL_OK ) );
-		return $page->doEditContent( $content, 'ApiEditList.php' );
-	}
-
-	/**
-	 * Get formatted title of the page that contains the manifest
-	 * @param User $user
-	 * @return Title
-	 */
-	private static function getStorageTitle( User $user ) {
-		return stores\UserPageCollectionsList::getStorageTitle( $user );
-	}
-
-	/**
-	 * Returns representation of a new list with the given id and parameters.
-	 * @param Integer $id
-	 * @param Array $params
-	 * @param User $user
-	 * @return stdClass
-	 */
-	private static function createList( $id, array $params, User $user ) {
-		$list = new stdClass();
-		$list->id = $id;
-		$list->owner = $user->getName();
-		$list->title = $params['label'];
-		$list->description = $params['description'];
-		$list->public = true;
-		$list->image = null;
-		$list->items = array();
-		$list->count = 0;
-		return $list;
-	}
-
-	/**
-	 * Retrieve the list from the manifest of all the users existing
-	 * list using the given id, or null if not found.
-	 * @param Array $manifest
-	 * @param Integer $id
-	 * @param User $user
-	 * @return null|stdClass
-	 */
-	public static function findList( &$manifest, $id, User $user ) {
-		// Find the list with the given id.
-		foreach ( $manifest as $c ) {
-			if ( $c->id === $id ) {
-				return $c;
+			if ( $remove ) {
+				$status = UnwatchAction::doUnwatch( $title, $user );
+			} else {
+				$status = WatchAction::doWatch( $title, $user );
+			}
+			if ( $status->isOK() ) {
+				$res[$remove ? 'removed' : 'added'] = '';
+				$res['message'] =
+					$this->msg( $remove ? 'removedwatchtext' : 'addedwatchtext', $prefixedText )
+						->title( $title )
+						->parseAsBlock();
+			} else {
+				$res['error'] = $this->getErrorFromStatus( $status );
 			}
 		}
-		if ( $id === 0 ) {
-			// watchlist metadata should always exist
-			$params = array(
-				'label' => wfMessage( 'mywatchlist' )->text(),
-				'description' => '',
-			);
-			$c = self::createList( 0, $params, $user );
-			$manifest[] = $c;
-			return $c;
+		return $res;
+	}
+
+	/**
+	 * Parse Info blob string into a stdClass
+	 * @param string $infoBlob
+	 * @param int $listId
+	 * @return stdClass
+	 * @throws MWException
+	 */
+	public static function parseListInfo( $infoBlob, $listId ) {
+		if ( $infoBlob ) {
+			$info = FormatJson::parse( $infoBlob );
+			if ( !$info->isOK() ) {
+				throw new MWException( 'Unable to parse ID=' . $listId );
+			}
+			return $info->getValue();
 		}
-		return null;
+		return new stdClass();
 	}
 }
