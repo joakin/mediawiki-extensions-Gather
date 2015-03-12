@@ -135,7 +135,7 @@ class Hooks {
 			$gatherCollections = array();
 			foreach ( $collectionsList as $collectionInfo ) {
 				$id = $collectionInfo->getId();
-				$collection = stores\UserPageCollection::newFromUserAndId( $user, $id );
+				$collection = models\Collection::newFromApi( $id, $user );
 				if ( $collection !== null ) {
 					$gatherCollections[] = array(
 						'id' => $id,
