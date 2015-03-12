@@ -1,9 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fisterraeomar"
+			"Fisterraeomar",
+			"Banjo"
 		]
 	},
+	"gather-edit-collection-heading": "Editar colección",
+	"gather-edit-collection-label-name": "Nome",
+	"gather-edit-collection-label-description": "Descrición",
+	"gather-edit-collection-label-privacy": "Colección privada",
+	"gather-edit-collection-save-label": "Feito",
+	"gather-edit-collection-failed-error": "Ocorreu un problema ao gardar os cambios.",
+	"gather-error-unknown-collection": "Non se atopa a colección solicitada para a súa edición.",
+	"gather-collection-member": "É membro da colección.",
+	"gather-collection-non-member": "Non é membro da colección.",
+	"gather-create-new-button-label": "Crear",
+	"gather-add-to-new": "Engadir a unha nova colección",
+	"gather-add-to-existing": "Engadir a unha colección existente",
 	"gather-desc": "Compoñente da extensión Mobile Frontend que permite aos usuarios xestionar listas.",
 	"gather-anon-view-lists": "Debe iniciar sesión para ver as súas coleccións.",
 	"gather-watchlist-title": "Lista de vixilancia",
@@ -12,5 +25,6 @@
 	"gather-read-more": "Seguir lendo",
 	"gather-private": "Privado",
 	"gather-empty": "Colección aínda baleira.",
-	"gather-empty-footer": "Non sei como chegou aquí, pero este é un lugar triste."
+	"gather-empty-footer": "Non sei como chegou aquí, pero este é un lugar triste.",
+	"gather-edit-button": "Editar"
 }
