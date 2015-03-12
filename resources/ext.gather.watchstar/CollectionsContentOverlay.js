@@ -101,7 +101,7 @@
 		 */
 		onSelectCollection: function ( ev ) {
 			var collection,
-				$target = $( ev.target ),
+				$target = $( ev.currentTarget ),
 				page = M.getCurrentPage();
 
 			collection = {
