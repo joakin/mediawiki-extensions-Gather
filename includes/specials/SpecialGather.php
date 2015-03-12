@@ -6,7 +6,6 @@
 namespace Gather;
 
 use Gather\models;
-use Gather\stores;
 use Gather\views;
 use \User;
 use \SpecialPage;
@@ -85,7 +84,7 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function renderUserCollection( User $user, $id ) {
 		$collection = null;
-		// FIXME: It should be possible to view public lists by other user. Limitation with API stops this.
+		// FIXME: It should be possible to view public lists by other user. Limitated by API.
 		if ( $this->isOwner( $user ) ) {
 			$collection = models\Collection::newFromApi( $id, $user );
 		}

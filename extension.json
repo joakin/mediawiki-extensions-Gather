@@ -33,15 +33,6 @@
 		"Gather\\models\\CollectionsList": "includes/models/CollectionsList.php",
 		"Gather\\models\\WithImage": "includes/models/WithImage.php",
 		"Gather\\models\\ArraySerializable": "includes/models/ArraySerializable.php",
-		"Gather\\stores\\JSONPage": "includes/stores/JSONPage.php",
-		"Gather\\stores\\Collection": "includes/stores/Collection.php",
-		"Gather\\stores\\WatchlistCollection": "includes/stores/WatchlistCollection.php",
-		"Gather\\stores\\CollectionStorage": "includes/stores/CollectionStorage.php",
-		"Gather\\stores\\UserPageCollection": "includes/stores/UserPageCollection.php",
-		"Gather\\stores\\CollectionsListStorage": "includes/stores/CollectionsListStorage.php",
-		"Gather\\stores\\UserPageCollectionsList": "includes/stores/UserPageCollectionsList.php",
-		"Gather\\stores\\ItemExtracts": "includes/stores/ItemExtracts.php",
-		"Gather\\stores\\ItemImages": "includes/stores/ItemImages.php",
 		"Gather\\views\\View": "includes/views/View.php",
 		"Gather\\views\\NotFound": "includes/views/NotFound.php",
 		"Gather\\views\\NoPublic": "includes/views/NoPublic.php",
@@ -199,12 +190,6 @@
 		],
 		"UnitTestsList": [
 			"Gather\\Hooks::onUnitTestsList"
-		],
-		"getUserPermissionsErrors": [
-			"Gather\\Hooks::onGetUserPermissionsErrors"
-		],
-		"ContentHandlerDefaultModelFor": [
-			"Gather\\Hooks::onContentHandlerDefaultModelFor"
 		],
 		"SkinMinervaDefaultModules": [
 			"Gather\\Hooks::onSkinMinervaDefaultModules"

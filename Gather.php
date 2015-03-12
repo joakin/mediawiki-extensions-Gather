@@ -42,16 +42,6 @@ $autoloadClasses = array(
 	'Gather\models\WithImage' => 'models/WithImage',
 	'Gather\models\ArraySerializable' => 'models/ArraySerializable',
 
-	'Gather\stores\JSONPage' => 'stores/JSONPage',
-	'Gather\stores\Collection' => 'stores/Collection',
-	'Gather\stores\WatchlistCollection' => 'stores/WatchlistCollection',
-	'Gather\stores\CollectionStorage' => 'stores/CollectionStorage',
-	'Gather\stores\UserPageCollection' => 'stores/UserPageCollection',
-	'Gather\stores\CollectionsListStorage' => 'stores/CollectionsListStorage',
-	'Gather\stores\UserPageCollectionsList' => 'stores/UserPageCollectionsList',
-	'Gather\stores\ItemExtracts' => 'stores/ItemExtracts',
-	'Gather\stores\ItemImages' => 'stores/ItemImages',
-
 	'Gather\views\View' => 'views/View',
 	'Gather\views\NotFound' => 'views/NotFound',
 	'Gather\views\NoPublic' => 'views/NoPublic',
@@ -82,8 +72,6 @@ $wgSpecialPages['Gather'] = 'Gather\SpecialGather';
 $wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
 $wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
 $wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
-$wgHooks['getUserPermissionsErrors'][] = 'Gather\Hooks::onGetUserPermissionsErrors';
-$wgHooks['ContentHandlerDefaultModelFor'][] = 'Gather\Hooks::onContentHandlerDefaultModelFor';
 $wgHooks['SkinMinervaDefaultModules'][] = 'Gather\Hooks::onSkinMinervaDefaultModules';
 $wgHooks['MakeGlobalVariablesScript'][] = 'Gather\Hooks::onMakeGlobalVariablesScript';
 $wgHooks['ResourceLoaderTestModules'][] = 'Gather\Hooks::onResourceLoaderTestModules';
