@@ -206,48 +206,12 @@
 		 * @param {String} description of collection
 		 */
 		editCollection: function ( id, title, description ) {
-			var d = $.Deferred(),
-				indexApi = new CollectionsUserPageJSONApi();
-
-			indexApi.getJSONContent().done( function ( collections ) {
-				var updated = null;
-				// Update the index entry
-				$.each( collections, function ( i, coll ) {
-					if ( this.id === id ) {
-						updated = coll;
-						this.title = title || coll.title;
-						this.description = description || coll.description;
-					}
-				} );
-				// Save the collections list
-				if ( updated ) {
-					indexApi.saveJSONContent( collections ).done( function () {
-						// If watchlist there is no json to save
-						if ( id === 0 ) {
-							d.resolve( updated );
-						} else {
-							var collectionApi = new CollectionsUserPageJSONApi( {
-								id: id
-							} );
-							// we also have to update the existing collection
-							collectionApi.getJSONContent().done( function ( collection ) {
-								if ( collection ) {
-									collection.title = title || collection.title;
-									collection.description = description || collection.description;
-									collectionApi.saveJSONContent( collection )
-										.done( $.proxy( d, 'resolve', collection ) )
-										.fail( $.proxy( d, 'reject' ) );
-								} else {
-									d.reject();
-								}
-							} ).fail( d, 'reject' );
-						}
-					} ).fail( d, 'reject' );
-				} else {
-					d.reject();
-				}
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				id: id,
+				label: title,
+				description: description
 			} );
-			return d;
 		}
 	} );
 
