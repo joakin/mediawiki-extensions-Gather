@@ -1,6 +1,8 @@
 @import "minerva.variables";
 @import "minerva.mixins";
 
+@backgroundHeight: 2.8em;
+@backgroundYOffset: 0.75em;
 .overlay.collection-overlay {
 	font-size: .9em;
 	text-align: left;
@@ -14,8 +16,8 @@
 	// FIXME: Override content overlay default on MoblieFrontend
 	background: none;
 	// FIXME: Should this be OOJS UI / an icon?! Should use same asset.
-	.background-size(auto, 40px);
-	background-position: center 0.75em;
+	.background-size(auto, @backgroundHeight);
+	background-position: center @backgroundYOffset;
 	background-repeat: no-repeat;
 	.background-image('images/watchstar.svg');
 
@@ -28,7 +30,7 @@
 	}
 
 	.overlay-content {
-		margin-top: 4em;
+		margin-top: ( @backgroundYOffset * 4) + @backgroundHeight;
 		padding: 0 1em 1em;
 		overflow: scroll;
 		height: 90%;
@@ -117,5 +119,10 @@
 		left: 2em;
 		right: 2em;
 		width: auto;
+
+		&.compact {
+			top: 1px;
+			bottom: 1px;
+		}
 	}
 }

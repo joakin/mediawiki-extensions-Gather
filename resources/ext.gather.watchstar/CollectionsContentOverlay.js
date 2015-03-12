@@ -1,5 +1,4 @@
 ( function ( M, $ ) {
-
 	var CollectionsContentOverlay,
 		icons = M.require( 'icons' ),
 		toast = M.require( 'toast' ),
@@ -26,6 +25,8 @@
 		/** @inheritdoc */
 		events: {
 			click: 'onClickInsideOverlay',
+			'focus input': 'onFocusInput',
+			'blur input': 'onBlurInput',
 			'click .overlay-content li': 'onSelectCollection',
 			'submit form': 'onCreateNewCollection'
 		},
@@ -75,6 +76,24 @@
 		showSpinner: function () {
 			this.$( '.overlay-content' ).children().hide();
 			this.$( '.spinner' ).show();
+		},
+		/**
+		 * Event handler for focusing input
+		 * @param {jQuery.Event} ev
+		 */
+		onFocusInput: function ( ev ) {
+			// switch to compact mode if space is limited.
+			if ( $( window ).height() < 600 ) {
+				this.$el.addClass( 'compact' );
+			}
+			ev.currentTarget.scrollIntoView();
+		},
+		/**
+		 * Event handler for blurring input
+		 * @param {jQuery.Event} ev
+		 */
+		onBlurInput: function () {
+			this.$el.removeClass( 'compact' );
 		},
 		/**
 		 * Event handler for setting up a new collection
