@@ -61,41 +61,59 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 	private function run( $resultPageSet = null ) {
 
 		$params = $this->extractRequestParams();
+		$p = $this->getModulePrefix();
 
-		// If not given (or equals to 0), uses legacy watchlist of the current user
-		$legacy = !$params['id'];
+		$useOwner = $params['owner'] !== null;
+		if ( $useOwner !== ( $params['token'] !== null ) ) {
+			$this->dieUsage( "Both {$p}owner and {$p}token must be given or missing",
+				'invalidparammix' );
+		}
+
 		$isGenerator = $resultPageSet !== null;
 
-		if ( !$legacy ) {
+		if ( !$params['id'] ) {
+			// If id is not given (or equals to 0), permissions the same as watchlistraw access
+			$user = $this->getWatchlistUser( $params );
+			$titles = $this->queryLegacyWatchlist( $params, $isGenerator, $user->getId() );
+		} else {
+			// Id was given, this could be public or private list, legacy watchlist or regular
+			// Allow access to any public list/watchlist, and to private with proper owner/self
 			$db = $this->getDB();
 			$listRow = $db->selectRow( 'gather_list', array( 'gl_label', 'gl_user', 'gl_info' ),
 				array( 'gl_id' => $params['id'] ), __METHOD__ );
 			if ( $listRow === false ) {
 				$this->dieUsage( "List does not exist", 'badid' );
 			}
-			$user = $this->getUser();
-			if ( $user->isLoggedIn() ) {
-				// Allow watchlist delegation - another user can view it
+			if ( $useOwner ) {
+				// Caller supplied token: treat them as trusted, someone who could see even private
+				// At the same time, owner param must match list's owner
+				// TODO: if we allow non-matching owner, we could treat it as public-only,
+				// but that might be unexpected behavior
 				$user = $this->getWatchlistUser( $params );
-			}
-			$allowed = $user->isLoggedIn() && strval( $user->getId() ) === $listRow->gl_user;
-			if ( $allowed && !$listRow->gl_label ) {
-				// This is actually a watchlist, and the user is allowed to see it
-				// Proceed as if id was given as 0
-				$titles = $this->queryLegacyWatchlist( $params, $isGenerator );
-			} else {
-				if ( !$allowed ) {
-					// Check if the list is public
-					$info = ApiEditList::parseListInfo( $listRow->gl_info, $params['id'] );
-					$allowed = property_exists( $info, 'public' ) && $info->public;
+				if ( strval( $user->getId() ) !== $listRow->gl_user ) {
+					$this->dieUsage( 'The owner supplied does not match the list\'s owner', 'permissiondenied' );
 				}
-				if ( !$allowed ) {
+				$showPrivate = true;
+			} else {
+				$user = $this->getUser();
+				$showPrivate = $user->isLoggedIn() && strval( $user->getId() ) === $listRow->gl_user &&
+					$user->isAllowed( 'viewmywatchlist' );
+			}
+
+			// Check if this is a public list (if required)
+			if ( !$showPrivate ) {
+				$info = ApiEditList::parseListInfo( $listRow->gl_info, $params['id'], false );
+				if ( !ApiEditList::isPublic( $info ) ) {
 					$this->dieUsage( "You have no rights to see this list", 'badid' );
 				}
+			}
+
+			if ( !$listRow->gl_label ) {
+				// This is actually a watchlist, and it is either public or belongs to current user
+				$titles = $this->queryLegacyWatchlist( $params, $isGenerator, $listRow->gl_user );
+			} else {
 				$titles = $this->queryListItems( $params, $isGenerator );
 			}
-		} else {
-			$titles = $this->queryLegacyWatchlist( $params, $isGenerator );
 		}
 
 		if ( !$isGenerator ) {
@@ -155,16 +173,17 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 	}
 
 	/**
+	 * Query legacy watchlist without any permission checks
 	 * @param array $params
 	 * @param bool $isGenerator
+	 * @param int $userId
 	 * @return array
 	 */
-	private function queryLegacyWatchlist( array $params, $isGenerator ) {
-		$user = $this->getWatchlistUser( $params );
+	private function queryLegacyWatchlist( array $params, $isGenerator, $userId ) {
 		$this->selectNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
 		$this->addTables( 'watchlist' );
 		$this->addFields( array( 'wl_namespace', 'wl_title' ) );
-		$this->addWhereFld( 'wl_user', $user->getId() );
+		$this->addWhereFld( 'wl_user', $userId );
 		$this->addWhereFld( 'wl_namespace', $params['namespace'] );
 
 		if ( isset( $params['continue'] ) ) {
