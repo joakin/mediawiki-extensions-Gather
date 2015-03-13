@@ -29,6 +29,7 @@ namespace Gather\api;
 use ApiBase;
 use ApiQuery;
 use ApiQueryBase;
+use ApiResult;
 use User;
 
 /**
@@ -43,7 +44,6 @@ class ApiQueryLists extends ApiQueryBase {
 
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$currUserId = strval( $this->getUser()->getId() );
 		$ids = $params['ids'];
 
 		/** @var User $owner */
@@ -84,6 +84,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 		$count = 0;
 		$path = array( 'query', $this->getModuleName() );
+		$currUserId = strval( $this->getUser()->getId() );
 
 		// This closure will process one row, even if that row is fake watchlist
 		$processRow = function( $row ) use ( &$count, $limit, $fld_label, $useInfo,
@@ -175,6 +176,8 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 
 		$this->getResult()->setIndexedTagName_internal( $path, 'c' );
+
+		$this->updateCounts( $params, $owner ? $owner->getId() : $this->getUser()->getId() );
 	}
 
 	public function getCacheMode( $params ) {
@@ -191,6 +194,7 @@ class ApiQueryLists extends ApiQueryBase {
 					'description',
 					'public',
 					'image',
+					'count',
 				)
 			),
 			'ids' => array(
@@ -239,19 +243,17 @@ class ApiQueryLists extends ApiQueryBase {
 	private function calcPermissions( array $params, $ids ) {
 		if ( $params['owner'] !== null && $params['token'] !== null ) {
 			// Caller supplied token - treat them as trusted, someone who could see even private
-			// bypass 'viewmywatchlist' rights check
 			return array( $this->getWatchlistUser( $params ), true );
 		}
 
 		if ( $params['owner'] !== null ) {
-			// Caller supplied owner only - treat them as untrusted except if owner == currentUser
-			// This code was adapted from ApiBase::getWatchlistUser()
+			// Caller supplied owner only - treat them as untrusted, except
+			// if owner == currentUser, allow private
 			$owner = User::newFromName( $params['owner'], false );
 			if ( !( $owner && $owner->getId() ) ) {
 				// Note: keep original "bad_wlowner" error code for consistency
 				$this->dieUsage( 'Specified user does not exist', 'bad_wlowner' );
 			}
-			// If owner matches currently logged in user, allow private
 			$showPrivate = $owner->getId() === $this->getUser()->getId();
 		} elseif ( !$ids ) {
 			// neither ids nor owner parameter is given - shows all lists of the current user
@@ -271,12 +273,69 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 		}
 		if ( $showPrivate !== false ) {
-			// Both null and true may be converted to false here
+			// Both 'null' and 'true' may be changed to 'false' here
 			// Private is treated the same as 'viewmywatchlist' right
 			if ( !$this->getUser()->isAllowed( 'viewmywatchlist' ) ) {
 				$showPrivate = false;
 			}
 		}
 		return array( $owner, $showPrivate );
+	}
+
+	/**
+	 * Update result lists with their page counts
+	 * @param $params
+	 * @param int $userId
+	 */
+	private function updateCounts( $params, $userId ) {
+		if ( !in_array( 'count', $params['prop'] ) ) {
+			return;
+		}
+		$data = $this->getResult()->getData();
+		if ( !isset( $data['query'] ) || !isset( $data['query'][$this->getModuleName()] ) ) {
+			return;
+		}
+		$data = $data['query'][$this->getModuleName()];
+
+		$ids = array();
+		$wlListId = false;
+		$wlUserId = false;
+		foreach ( $data as $page ) {
+			if ( $page['id'] === 0 || isset( $page['watchlist'] ) ) {
+				$wlListId = $page['id'];
+				$wlUserId = $userId;
+			} else {
+				$ids[] = $page['id'];
+			}
+		}
+
+		$counts = array();
+		if ( $wlListId !== false ) {
+			// TODO: estimateRowCount() might be much faster, TBD if ok
+			$db = $this->getQuery()->getNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
+			$counts[$wlListId] =
+				$db->selectRowCount( 'watchlist', '*', array( 'wl_user' => $wlUserId ),
+					__METHOD__ );
+		}
+		if ( count( $ids ) > 0 ) {
+			$db = $this->getDB();
+			$sql =
+				$db->select( 'gather_list_item',
+					array( 'id' => 'gli_gl_id', 'cnt' => 'COUNT(*)' ),
+					array( 'gli_gl_id' => $ids ), __METHOD__,
+					array( 'GROUP BY' => 'gli_gl_id' ) );
+
+			foreach ( $sql as $row ) {
+				$counts[intval( $row->id )] = intval( $row->cnt );
+			}
+		}
+
+		foreach ( $data as &$page ) {
+			$id = $page['id'];
+			$page['count'] = isset( $counts[$id] ) ? $counts[$id] : 0;
+		}
+		// Replace result with the results with counts
+		$this->getResult()->addValue( 'query', $this->getModuleName(), $data,
+			ApiResult::OVERRIDE | ApiResult::NO_SIZE_CHECK );
 	}
 }

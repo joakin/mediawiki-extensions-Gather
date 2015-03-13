@@ -90,7 +90,7 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'list' => 'lists',
-			'lstprop' => 'label|description|public',
+			'lstprop' => 'label|description|public|count',
 			'continue' => '',
 		) ) );
 		$api->execute();
@@ -101,8 +101,7 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 				if ( $list['public'] || $includePrivate ) {
 					$info = new models\CollectionInfo( $list['id'], $user,
 						$list['label'], $list['description'], $list['public'] );
-					// FIXME: API should return the number of items in each list
-					$info->setCount( -1 );
+					$info->setCount( $list['count'] );
 					$collectionsList->add( $info );
 				}
 			}
