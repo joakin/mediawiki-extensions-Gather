@@ -37,6 +37,7 @@
 	"gather-lists-title": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Title for [[Special:Gather]] when displaying user curated lists.\n{{Identical|Collection}}",
 	"gather-read-more": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Label for the read more link used on [[Special:Gather]].\n{{Identical|Read more}}",
 	"gather-private": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Label for a collection when it is not publicly visible\n{{Identical|Private}}",
+	"gather-public": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Label for a collection when it is publicly visible\n{{Identical|Public}}",
 	"gather-article-count": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Expression of the number of articles in a collection. Parameter:\n* $1 - number of articles in the collection\n{{Identical|Article}}",
 	"gather-empty": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Message shown on an empty rendered collection on [[Special:Gather]].",
 	"gather-empty-footer": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Footnote shown on an empty rendered collection on [[Special:Gather]].",
