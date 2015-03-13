@@ -60,6 +60,7 @@
 			var self = this;
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
+				perm: 'public',
 				label: title
 			} ).then( function ( data ) {
 				data = data.editlist;
