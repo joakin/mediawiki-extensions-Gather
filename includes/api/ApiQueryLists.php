@@ -29,8 +29,7 @@ namespace Gather\api;
 use ApiBase;
 use ApiQuery;
 use ApiQueryBase;
-use FormatJson;
-use stdClass;
+use User;
 
 /**
  * Query module to enumerate all available lists
@@ -43,18 +42,24 @@ class ApiQueryLists extends ApiQueryBase {
 	}
 
 	public function execute() {
-		$user = $this->getUser();
-		if ( !$user->isLoggedIn() ) {
-			$this->dieUsage( 'You must be logged-in to have a list', 'notloggedin' );
-		}
-
 		$params = $this->extractRequestParams();
+		$currUserId = strval( $this->getUser()->getId() );
+		$ids = $params['ids'];
+
+		/** @var User $owner */
+		list( $owner, $showPrivate ) = $this->calcPermissions( $params, $ids );
 
 		$db = $this->getDB();
 		$this->addTables( 'gather_list' );
 		$this->addFields( 'gl_id' );
 		$this->addFields( 'gl_label' );
-		$this->addWhereFld( 'gl_user', $user->getId() );
+		$this->addFieldsIf( 'gl_user', $showPrivate === null ); // won't know if private until later
+		if ( $owner ) {
+			$this->addWhereFld( 'gl_user', $owner->getId() );
+		}
+		if ( $ids ) {
+			$this->addWhereFld( 'gl_id', $ids );
+		}
 
 		$continue = $params['continue'];
 		if ( $continue ) {
@@ -66,12 +71,15 @@ class ApiQueryLists extends ApiQueryBase {
 		$fld_description = in_array( 'description', $params['prop'] );
 		$fld_public = in_array( 'public', $params['prop'] );
 		$fld_image = in_array( 'image', $params['prop'] );
-		$useInfo = $fld_description || $fld_public || $fld_image;
+
+		// If we need it for privacy checks or we need to return a prop field
+		$useInfo = $showPrivate !== true || $fld_description || $fld_public || $fld_image;
 
 		$this->addFieldsIf( 'gl_info', $useInfo );
 
 		$limit = $params['limit'];
-		$this->addOption( 'LIMIT', $limit + 1 );
+		// TODO: Disabling this until we stop skipping rows in processing
+		// $this->addOption( 'LIMIT', $limit + 1 );
 		$this->addOption( 'ORDER BY', 'gl_label' );
 
 		$count = 0;
@@ -79,15 +87,26 @@ class ApiQueryLists extends ApiQueryBase {
 
 		// This closure will process one row, even if that row is fake watchlist
 		$processRow = function( $row ) use ( &$count, $limit, $fld_label, $useInfo,
-			$fld_description, $fld_public, $fld_image, $path
+			$fld_description, $fld_public, $fld_image, $path, $showPrivate, $currUserId
 		) {
 			if ( $row === null ) {
 				// Fake watchlist row
 				$row = (object) array(
 					'gl_id' => '0',
 					'gl_label' => '',
+					'gl_user' => false,
 					'gl_info' => '',
 				);
+			}
+
+			$info = $useInfo ?
+				ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false ) : null;
+
+			// Determine if this gather_list row is viewable by the current user
+			if ( $showPrivate === false && !ApiEditList::isPublic( $info ) ) {
+				return true;
+			} elseif ( $showPrivate === null && $row->gl_user === $currUserId ) {
+				return true;
 			}
 
 			$count++;
@@ -99,30 +118,22 @@ class ApiQueryLists extends ApiQueryBase {
 				return false;
 			}
 
+			$isWatchlist = $row->gl_label === '';
+
 			$data = array( 'id' => intval( $row->gl_id ) );
+			if ( $isWatchlist ) {
+				$data['watchlist'] = '1';
+			}
 			if ( $fld_label ) {
 				// TODO: check if this is the right wfMessage to show
-				$data['label'] = $row->gl_label !== ''
-					? $row->gl_label
-					: wfMessage( 'watchlist' )->plain();
+				$data['label'] = !$isWatchlist ? $row->gl_label : wfMessage( 'watchlist' )->plain();
 			}
-
 			if ( $useInfo ) {
-				if ( $row->gl_info ) {
-					$info = FormatJson::parse( $row->gl_info );
-					if ( !$info->isOK() ) {
-						wfLogWarning( 'Bad info ID=' . $row->gl_id );
-						return true;
-					}
-					$info = $info->getValue();
-				} else {
-					$info = new stdClass();
-				}
 				if ( $fld_description ) {
 					$data['description'] = property_exists( $info, 'description' ) ? $info->description : '';
 				}
 				if ( $fld_public ) {
-					$data['public'] = property_exists( $info, 'public' ) ? $info->public : '';
+					$data['public'] = ApiEditList::isPublic( $info );
 				}
 				if ( $fld_image ) {
 					$data['image'] = property_exists( $info, 'image' ) ? $info->image : '';
@@ -182,6 +193,16 @@ class ApiQueryLists extends ApiQueryBase {
 					'image',
 				)
 			),
+			'ids' => array(
+				ApiBase::PARAM_ISMULTI => true,
+				ApiBase::PARAM_TYPE => 'integer',
+			),
+			'owner' => array(
+				ApiBase::PARAM_TYPE => 'user',
+			),
+			'token' => array(
+				ApiBase::PARAM_TYPE => 'string'
+			),
 			'limit' => array(
 				ApiBase::PARAM_DFLT => 10,
 				ApiBase::PARAM_TYPE => 'limit',
@@ -203,5 +224,59 @@ class ApiQueryLists extends ApiQueryBase {
 
 	public function getHelpUrls() {
 		return '//www.mediawiki.org/wiki/Extension:Gather';
+	}
+
+	/**
+	 * Determine what the user may or may not see based on api parameters
+	 * Returns the user (owner) non-anonymous object to filter by (if needed)
+	 * Returns a bool|null if private list should be hidden
+	 * The second returned val is null if each list ID should be checked against current user
+	 * @param array $params must contain owner and token values
+	 * @param bool $ids true if the user supplied specific list ID(s)
+	 * @return array [Owner user object, true|false|null]
+	 * @throws \UsageException
+	 */
+	private function calcPermissions( array $params, $ids ) {
+		if ( $params['owner'] !== null && $params['token'] !== null ) {
+			// Caller supplied token - treat them as trusted, someone who could see even private
+			// bypass 'viewmywatchlist' rights check
+			return array( $this->getWatchlistUser( $params ), true );
+		}
+
+		if ( $params['owner'] !== null ) {
+			// Caller supplied owner only - treat them as untrusted except if owner == currentUser
+			// This code was adapted from ApiBase::getWatchlistUser()
+			$owner = User::newFromName( $params['owner'], false );
+			if ( !( $owner && $owner->getId() ) ) {
+				// Note: keep original "bad_wlowner" error code for consistency
+				$this->dieUsage( 'Specified user does not exist', 'bad_wlowner' );
+			}
+			// If owner matches currently logged in user, allow private
+			$showPrivate = $owner->getId() === $this->getUser()->getId();
+		} elseif ( !$ids ) {
+			// neither ids nor owner parameter is given - shows all lists of the current user
+			$owner = $this->getUser();
+			if ( !$owner->isLoggedIn() ) {
+				$this->dieUsage( 'You must be logged-in or use owner and/or ids parameters',
+					'notloggedin' );
+			}
+			$showPrivate = true;
+		} else {
+			// ids given - will need to validate each id to belong to the current user for privacy
+			$owner = false;
+			if ( !$this->getUser()->isLoggedIn() ) {
+				$showPrivate = false;
+			} else {
+				$showPrivate = null; // check each id against $currUserId
+			}
+		}
+		if ( $showPrivate !== false ) {
+			// Both null and true may be converted to false here
+			// Private is treated the same as 'viewmywatchlist' right
+			if ( !$this->getUser()->isAllowed( 'viewmywatchlist' ) ) {
+				$showPrivate = false;
+			}
+		}
+		return array( $owner, $showPrivate );
 	}
 }

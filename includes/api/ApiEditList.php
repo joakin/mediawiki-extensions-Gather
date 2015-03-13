@@ -88,7 +88,9 @@ class ApiEditList extends ApiBase {
 				$this->dieUsage( "List #0 (watchlist) may not be deleted", 'badid' );
 			}
 			if ( $isNew ) {
-				$this->dieUsage( "List must be identified with {$p}id when {$p}deletelist is used", 'invalidparammix' );
+				$this->dieUsage(
+					"List must be identified with {$p}id when {$p}deletelist is used", 'invalidparammix'
+				);
 			}
 
 			// For deletelist, disallow all parameters except those unset
@@ -102,7 +104,7 @@ class ApiEditList extends ApiBase {
 				} ) );
 			if ( $extraParams ) {
 				$this->dieUsage( "The parameter {$p}deletelist must not be used with " .
-								 implode( ", ", $extraParams ), 'invalidparammix' );
+					implode( ", ", $extraParams ), 'invalidparammix' );
 			}
 		} elseif ( $isNew ) {
 			if ( $params['remove'] ) {
@@ -121,11 +123,7 @@ class ApiEditList extends ApiBase {
 
 		if ( $isNew || $isWatchlist ) {
 			// ACTION: create a new list
-			$listId = $this->createRow( $dbw, $user, $params, $isWatchlist );
-			$this->getResult()->addValue( null, $this->getModuleName(), array(
-				'status' => 'updated',
-				'id' => $listId,
-			) );
+			$this->createRow( $dbw, $user, $params, $isWatchlist );
 		} else {
 			// Find existing list
 			$row = $dbw->selectRow( 'gather_list',
@@ -192,6 +190,13 @@ class ApiEditList extends ApiBase {
 			'label' => array(
 				ApiBase::PARAM_TYPE => 'string',
 			),
+			'perm' => array(
+				ApiBase::PARAM_DFLT => 'private',
+				ApiBase::PARAM_TYPE => array(
+					'public',
+					'private',
+				),
+			),
 			'description' => array(
 				ApiBase::PARAM_TYPE => 'string',
 			),
@@ -224,8 +229,8 @@ class ApiEditList extends ApiBase {
 			$v->description = $params['description'];
 			$updated = true;
 		}
-		if ( !property_exists( $v, 'public' ) || $v->public !== true ) {
-			$v->public = true; // TODO: should be a parameter
+		if ( !property_exists( $v, 'perm' ) || $v->perm!== $params['perm'] ) {
+			$v->perm = $params['perm'];
 			$updated = true;
 		}
 		if ( !property_exists( $v, 'image' ) || $v->image !== null ) {
@@ -237,12 +242,24 @@ class ApiEditList extends ApiBase {
 	}
 
 	/**
+	 * Check if the info is a public list
+	 * @param stdClass $info
+	 * @return bool
+	 */
+	public static function isPublic( $info ) {
+		if ( $info && property_exists( $info, 'perm' ) ) {
+			return $info->perm === 'public';
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * Create a new database entry
 	 * @param DatabaseBase $dbw
 	 * @param User $user
 	 * @param array $params
 	 * @param $isWatchlist
-	 * @return int
 	 */
 	private function createRow( DatabaseBase $dbw, User $user, array $params, &$isWatchlist ) {
 		$id = $dbw->nextSequenceValue( 'gather_list_gl_id_seq' );
@@ -266,9 +283,12 @@ class ApiEditList extends ApiBase {
 				$this->dieDebug( "List was not found", 'badid' );
 			}
 			$this->updateListDb( $dbw, $params, $row );
-			$id = intval( $row->gl_id );
+		} else {
+			$this->getResult()->addValue( null, $this->getModuleName(), array(
+				'status' => 'created',
+				'id' => $id,
+			) );
 		}
-		return $id;
 	}
 
 	/**
@@ -283,7 +303,7 @@ class ApiEditList extends ApiBase {
 		if ( $params['label'] && $row->gl_label !== $params['label'] ) {
 			$update['gl_label'] = $params['label'];
 		}
-		$info = self::parseListInfo( $row->gl_info, $row->gl_id );
+		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
 		$json = self::updateInfo( $info, $params );
 		if ( $json ) {
 			$update['gl_info'] = $json;
@@ -295,10 +315,14 @@ class ApiEditList extends ApiBase {
 				// update failed due to the duplicate label restriction. Report
 				$this->dieUsage( 'A list with this label already exists', 'duplicatelabel' );
 			}
-			$this->getResult()->addValue( null, $this->getModuleName(), array(
-				'status' => 'updated',
-			) );
+			$status = 'updated';
+		} else {
+			$status = 'nochanges';
 		}
+		$this->getResult()->addValue( null, $this->getModuleName(), array(
+			'status' => $status,
+			'id' => intval( $row-> gl_id ),
+		) );
 	}
 
 	/**
@@ -311,7 +335,8 @@ class ApiEditList extends ApiBase {
 	 * @throws MWException
 	 * @throws \DBUnexpectedError
 	 */
-	private function processTitles( array $params, User $user, $listId, DatabaseBase $dbw, $isWatchlist ) {
+	private function processTitles( array $params, User $user, $listId, DatabaseBase $dbw,
+		$isWatchlist ) {
 
 		$this->getResult()->beginContinuation( $params['continue'], array(), array() );
 
@@ -428,16 +453,19 @@ class ApiEditList extends ApiBase {
 	 * Parse Info blob string into a stdClass
 	 * @param string $infoBlob
 	 * @param int $listId
+	 * @param bool $throwOnError
 	 * @return stdClass
 	 * @throws MWException
 	 */
-	public static function parseListInfo( $infoBlob, $listId ) {
-		if ( $infoBlob ) {
+	public static function parseListInfo( $infoBlob, $listId, $throwOnError ) {
+		if ( $infoBlob !== null && $infoBlob !== '' ) {
 			$info = FormatJson::parse( $infoBlob );
-			if ( !$info->isOK() ) {
+			if ( $info->isOK() ) {
+				return $info->getValue();
+			}
+			if ( $throwOnError ) {
 				throw new MWException( 'Unable to parse ID=' . $listId );
 			}
-			return $info->getValue();
 		}
 		return new stdClass();
 	}
