@@ -122,6 +122,9 @@ class Collection extends CollectionBase implements IteratorAggregate {
 				'exintro' => true,
 				'exchars' => self::EXTRACTS_CHAR_LIMIT,
 				'exlimit' => 50,
+				'pilimit' => 50,
+				// TODO: Pagination
+				'continue' => '',
 			) ) );
 			try {
 				$api->execute();
@@ -134,7 +137,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 						if ( isset( $page['pageimage'] ) ) {
 							$pi = wfFindFile( $page['pageimage'] );
 						}
-						$extract = isset( $page['extract'][0] ) ? $page['extract'][0] : '';
+						$extract = isset( $page['extract'] ) ? $page['extract'] : '';
 						$collection->add( new CollectionItem( $title, $pi, $extract ) );
 					}
 				}
