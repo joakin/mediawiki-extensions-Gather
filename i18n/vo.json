@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Malafaya"
+		]
+	},
+	"gather-edit-collection-label-name": "Nem",
+	"gather-delete-collection-delete-label": "Moükön",
+	"gather-create-new-button-label": "Jafön",
+	"gather-delete-button": "Moükön"
+}
