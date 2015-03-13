@@ -11,13 +11,14 @@ use \ArrayIterator;
 use \User;
 use \ApiMain;
 use \FauxRequest;
-use \Gather\stores\ItemExtracts;
 use \Title;
 
 /**
  * A collection with a list of items, which are represented by the CollectionItem class.
  */
 class Collection extends CollectionBase implements IteratorAggregate {
+	const EXTRACTS_CHAR_LIMIT = 140;
+
 	/**
 	 * The internal collection of items.
 	 *
@@ -119,7 +120,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 				'glspid' => $id,
 				'explaintext' => true,
 				'exintro' => true,
-				'exchars' => ItemExtracts::CHAR_LIMIT,
+				'exchars' => self::EXTRACTS_CHAR_LIMIT,
 				'exlimit' => 50,
 			) ) );
 			try {

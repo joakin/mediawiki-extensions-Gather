@@ -6,7 +6,6 @@
 namespace Gather;
 
 use \SpecialPage;
-use Gather\stores;
 use Gather\models;
 use Gather\views\helpers\CSS;
 use \MobileContext;
@@ -104,28 +103,6 @@ class Hooks {
 	}
 
 	/**
-	 * Disallow moving or editing gather page json files
-	 */
-	public static function onGetUserPermissionsErrors( $title, $user, $action, $result ) {
-		$manifest = stores\UserPageCollectionsList::MANIFEST_FILE;
-		$isProtectedAction = $action === 'edit' || $action === 'move';
-		$titleText = $title->getText();
-		if ( $title->inNamespace( NS_USER ) && $isProtectedAction &&
-			strpos( $titleText, $manifest ) !== false
-		) {
-			// we have a collection definition so check the user matches the title.
-			if ( strpos( $titleText, $user->getName() . '/' . $manifest ) !== false ) {
-				return true;
-			} else {
-				$result = false;
-				return false;
-			}
-		} else {
-			return true;
-		}
-	}
-
-	/**
 	 * Load user collections
 	 */
 	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
@@ -160,25 +137,6 @@ class Hooks {
 					$vars['wgGatherPageImageThumbnail'] = $thumb->getUrl();
 				}
 			}
-		}
-		return true;
-	}
-
-	/**
-	 * Convert the content model of json files that are actually JSON to JSON.
-	 * This only affects validation and UI when saving and editing, not
-	 * loading the content.
-	 * @param $title Title
-	 * @param &$model string
-	 *
-	 * @return bool
-	 */
-	public static function onContentHandlerDefaultModelFor( $title, &$model ) {
-		$titleText = $title->getText();
-		$manifest = stores\UserPageCollectionsList::MANIFEST_FILE;
-		if ( $title->inNamespace( NS_USER ) &&
-			strpos( $titleText, $manifest ) !== false ) {
-			$model = CONTENT_MODEL_JSON;
 		}
 		return true;
 	}

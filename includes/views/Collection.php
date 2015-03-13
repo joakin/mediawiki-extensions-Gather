@@ -160,8 +160,8 @@ class Collection extends View {
 				$html .= $view->getHtml();
 			}
 		}
-		// FIXME: Pagination(??) Note the stores\WatchlistCollection
-		// limits the size of the collection to 50.
+		// FIXME: Pagination(??) currently we
+		// limit the size of the collection
 		// Pagination may or may not be needed.
 		$html .= Html::closeElement( 'div' );
 		return $html;
