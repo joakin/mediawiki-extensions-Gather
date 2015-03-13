@@ -191,13 +191,15 @@ class ApiEditList extends ApiBase {
 				ApiBase::PARAM_TYPE => 'string',
 			),
 			'perm' => array(
-				ApiBase::PARAM_DFLT => 'private',
 				ApiBase::PARAM_TYPE => array(
 					'public',
 					'private',
 				),
 			),
 			'description' => array(
+				ApiBase::PARAM_TYPE => 'string',
+			),
+			'image' => array(
 				ApiBase::PARAM_TYPE => 'string',
 			),
 			'remove' => false,
@@ -223,18 +225,41 @@ class ApiEditList extends ApiBase {
 	 * @param Array $params
 	 * @return string JSON encoded info object in case it changed, or NULL if update is not needed
 	 */
-	private static function updateInfo( stdClass $v, array $params ) {
+	private function updateInfo( stdClass $v, array $params ) {
 		$updated = false;
-		if ( !property_exists( $v, 'description' ) || $v->description !== $params['description'] ) {
+
+		//
+		// Set default
+		if ( !property_exists( $v, 'description' ) ) {
+			$v->description = '';
+		}
+		if ( !property_exists( $v, 'perm' ) ) {
+			$v->perm = 'private';
+		}
+		if ( !property_exists( $v, 'image' ) ) {
+			$v->image = '';
+		}
+
+		//
+		// Update from api parameters
+		if ( $params['description'] !== null && $v->description !== $params['description'] ) {
 			$v->description = $params['description'];
 			$updated = true;
 		}
-		if ( !property_exists( $v, 'perm' ) || $v->perm!== $params['perm'] ) {
+		if ( $params['perm'] !== null && $v->perm !== $params['perm'] ) {
 			$v->perm = $params['perm'];
 			$updated = true;
 		}
-		if ( !property_exists( $v, 'image' ) || $v->image !== null ) {
-			$v->image = null; // TODO: should be a parameter
+		if ( $params['image'] !== null && $v->image !== $params['image'] ) {
+			if ( $params['image'] === '' ) {
+				$v->image = '';
+			} else {
+				$file = wfFindFile( $params['image'] );
+				if ( !$file ) {
+					$this->dieUsage( 'Bad image parameter', 'badimage' );
+				}
+				$v->image = $file->getTitle()->getDBkey();
+			}
 			$updated = true;
 		}
 
@@ -304,7 +329,7 @@ class ApiEditList extends ApiBase {
 			$update['gl_label'] = $params['label'];
 		}
 		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
-		$json = self::updateInfo( $info, $params );
+		$json = $this->updateInfo( $info, $params );
 		if ( $json ) {
 			$update['gl_info'] = $json;
 		}

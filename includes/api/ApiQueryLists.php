@@ -123,7 +123,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 			$data = array( 'id' => intval( $row->gl_id ) );
 			if ( $isWatchlist ) {
-				$data['watchlist'] = '1';
+				$data['watchlist'] = true;
 			}
 			if ( $fld_label ) {
 				// TODO: check if this is the right wfMessage to show
@@ -137,7 +137,19 @@ class ApiQueryLists extends ApiQueryBase {
 					$data['public'] = ApiEditList::isPublic( $info );
 				}
 				if ( $fld_image ) {
-					$data['image'] = property_exists( $info, 'image' ) ? $info->image : '';
+					if ( property_exists( $info, 'image' ) && $info->image ) {
+						$data['image'] = $info->image;
+						$file = wfFindFile( $info->image );
+						if ( !$file ) {
+							$data['badimage'] = true;
+						} else {
+							$data['imageurl'] = $file->getFullUrl();
+							$data['imagewidth'] = intval( $file->getWidth() );
+							$data['imageheight'] = intval( $file->getHeight() );
+						}
+					} else {
+						$data['image'] = false;
+					}
 				}
 			}
 
@@ -313,9 +325,10 @@ class ApiQueryLists extends ApiQueryBase {
 		if ( $wlListId !== false ) {
 			// TODO: estimateRowCount() might be much faster, TBD if ok
 			$db = $this->getQuery()->getNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
-			$counts[$wlListId] =
+			// Must divide in two because of duplicate talk pages (same as the special page)
+			$counts[$wlListId] = floor(
 				$db->selectRowCount( 'watchlist', '*', array( 'wl_user' => $wlUserId ),
-					__METHOD__ );
+					__METHOD__ ) / 2 );
 		}
 		if ( count( $ids ) > 0 ) {
 			$db = $this->getDB();
