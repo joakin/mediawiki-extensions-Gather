@@ -4,14 +4,14 @@
 		toast = M.require( 'toast' ),
 		Icon = M.require( 'Icon' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
-		ContentOverlay = M.require( 'modules/tutorials/ContentOverlay' );
+		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' );
 
 	/**
 	 * A clickable watchstar for managing collections
 	 * @class CollectionsContentOverlay
-	 * @extends ContentOverlay
+	 * @extends CollectionsContentOverlayBase
 	 */
-	CollectionsContentOverlay = ContentOverlay.extend( {
+	CollectionsContentOverlay = CollectionsContentOverlayBase.extend( {
 		/**
 		 * FIXME: re-evaluate content overlay default classes/css.
 		 * @inheritdoc
@@ -55,7 +55,7 @@
 		/** @inheritdoc */
 		initialize: function () {
 			this.api = new CollectionsApi();
-			ContentOverlay.prototype.initialize.apply( this, arguments );
+			CollectionsContentOverlayBase.prototype.initialize.apply( this, arguments );
 		},
 		/** @inheritdoc */
 		postRender: function () {

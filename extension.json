@@ -106,6 +106,21 @@
 				"ext.gather.watchstar/CollectionsApi.js"
 			]
 		},
+		"ext.gather.collection.base": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.contentOverlays",
+				"mobile.toast",
+				"ext.gather.api",
+				"mediawiki.util"
+			],
+			"scripts": [
+				"ext.gather.collection.base/CollectionsContentOverlayBase.js"
+			]
+		},
 		"ext.gather.watchstar": {
 			"targets": [
 				"mobile",
@@ -114,7 +129,7 @@
 			"dependencies": [
 				"mobile.watchstar",
 				"ext.gather.api",
-				"mobile.contentOverlays",
+				"ext.gather.collection.base",
 				"ext.gather.watchstar.icons"
 			],
 			"styles": [
@@ -173,7 +188,7 @@
 				"desktop"
 			],
 			"dependencies": [
-				"mobile.overlays",
+				"ext.gather.collection.base",
 				"mobile.toast",
 				"ext.gather.api",
 				"mediawiki.util"

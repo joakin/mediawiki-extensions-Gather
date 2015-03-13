@@ -54,6 +54,7 @@
 		 */
 		onSaveClick: function () {
 			// disable button and inputs
+			this.showSpinner();
 			this.$( '.mw-ui-input, .save' ).prop( 'disabled', true );
 			this.api.editCollection(
 				this.id, this.$( '.title' ).val(), this.$( '.description' ).val()

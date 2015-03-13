@@ -89,11 +89,23 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.collection.base' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'mobile.contentOverlays',
+			'mobile.toast',
+			'ext.gather.api',
+			'mediawiki.util'
+		),
+		'scripts' => array(
+			'ext.gather.collection.base/CollectionsContentOverlayBase.js',
+		),
+	),
+
 	'ext.gather.watchstar' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'mobile.watchstar',
 			'ext.gather.api',
-			'mobile.contentOverlays',
+			'ext.gather.collection.base',
 			'ext.gather.watchstar.icons',
 		),
 		'styles' => array(
@@ -146,7 +158,7 @@ $wgResourceModules += array(
 
 	'ext.gather.collection.delete' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
-			'mobile.overlays',
+			'ext.gather.collection.base',
 			'mobile.toast',
 			'ext.gather.api',
 			'mediawiki.util'

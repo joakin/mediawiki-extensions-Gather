@@ -4,20 +4,18 @@
 		toast = M.require( 'toast' ),
 		icons = M.require( 'icons' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
-		ContentOverlay = M.require( 'modules/tutorials/ContentOverlay' );
+		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' );
 
 	/**
 	 * Overlay for deleting a collection
-	 * @extends ContentOverlay
+	 * @extends CollectionsContentOverlayBase
 	 * @class CollectionDeleteOverlay
 	 */
-	CollectionDeleteOverlay = ContentOverlay.extend( {
+	CollectionDeleteOverlay = CollectionsContentOverlayBase.extend( {
 		/** @inheritdoc */
 		className: 'collection-delete-overlay content-overlay position-fixed',
 		/** @inheritdoc */
-		hasFixedHeader: false,
-		/** @inheritdoc */
-		defaults: $.extend( {}, ContentOverlay.prototype.defaults, {
+		defaults: $.extend( {}, CollectionsContentOverlayBase.prototype.defaults, {
 			fixedHeader: false,
 			collection: null,
 			spinner: icons.spinner().toHtmlString(),
@@ -30,12 +28,12 @@
 			cancelButtonLabel: mw.msg( 'gather-delete-collection-cancel-label' )
 		} ),
 		/** @inheritdoc */
-		events: $.extend( {}, ContentOverlay.prototype.events, {
+		events: $.extend( {}, CollectionsContentOverlayBase.prototype.events, {
 			'click .delete-collection': 'onDeleteClick',
 			'click .cancel-delete': 'onCancelClick'
 		} ),
 		/** @inheritdoc */
-		templatePartials: $.extend( {}, ContentOverlay.prototype.templatePartials, {
+		templatePartials: $.extend( {}, CollectionsContentOverlayBase.prototype.templatePartials, {
 			content: mw.template.get( 'ext.gather.collection.delete', 'content.hogan' )
 		} ),
 		/** @inheritdoc */
@@ -47,18 +45,15 @@
 			} else {
 				this.id = collection.id;
 				this.api = new CollectionsApi();
-				ContentOverlay.prototype.initialize.apply( this, arguments );
+				CollectionsContentOverlayBase.prototype.initialize.apply( this, arguments );
 			}
-		},
-		postRender: function () {
-			this.$( '.spinner' ).hide();
 		},
 		/**
 		 * Event handler when the save button is clicked.
 		 */
 		onDeleteClick: function () {
 			var self = this;
-			this.$( '.spinner' ).show();
+			this.showSpinner();
 			// disable button and inputs
 			this.$( '.delete-collection, .cancel-delete' ).prop( 'disabled', true );
 			this.api.removeCollection( this.id ).done( function () {
