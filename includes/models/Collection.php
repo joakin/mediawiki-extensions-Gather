@@ -124,8 +124,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 				'exchars' => self::EXTRACTS_CHAR_LIMIT,
 				'exlimit' => 50,
 				'pilimit' => 50,
-				// TODO: Pagination
-				'continue' => '',
+				'continue' => '', // TODO: Pagination
 			) ) );
 			try {
 				$api->execute();
@@ -138,7 +137,14 @@ class Collection extends CollectionBase implements IteratorAggregate {
 						if ( isset( $page['pageimage'] ) ) {
 							$pi = wfFindFile( $page['pageimage'] );
 						}
-						$extract = isset( $page['extract'] ) ? $page['extract'] : '';
+						$extract = '';
+						// See https://phabricator.wikimedia.org/T92673
+						if ( isset( $page['extract'] ) ) {
+							$extract = $page['extract'];
+							if ( isset( $extract['*'] ) ) {
+								$extract = $extract['*'];
+							}
+						}
 						$collection->add( new CollectionItem( $title, $pi, $extract ) );
 					}
 				}
