@@ -90,8 +90,9 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'list' => 'lists',
-			'lstprop' => 'label|description|public|count',
+			'lstprop' => 'label|description|public|image|count',
 			'continue' => '',
+			'lstowner' => $user->getName(),
 		) ) );
 		$api->execute();
 		$data = $api->getResultData();

@@ -83,18 +83,14 @@ class SpecialGather extends SpecialPage {
 	 * @param int $id collection id
 	 */
 	public function renderUserCollection( User $user, $id ) {
-		$collection = null;
-		// FIXME: It should be possible to view public lists by other user. Limitated by API.
-		if ( $this->isOwner( $user ) ) {
-			$collection = models\Collection::newFromApi( $id, $user );
-		}
+		$collection = models\Collection::newFromApi( $id, $user );
 
 		if ( $collection === null ||
 			( !$collection->isPublic() && !$this->isOwner( $user ) ) ) {
 			// FIXME: No permissions to visit this. Showing not found ATM.
 			$this->renderError( new views\NotFound() );
 		} else {
-			$this->render( new views\Collection( $this->getUser(), $collection ) );
+			$this->render( new views\Collection( $user, $collection ) );
 		}
 	}
 
@@ -105,8 +101,7 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function renderUserCollectionsList( User $user ) {
 		$collectionsList = models\CollectionsList::newFromApi( $user, $this->isOwner( $user ) );
-		// FIXME: Remove when CollectionsList::newFromApi supports access of other peoples lists
-		if ( $this->isOwner( $user ) && $collectionsList->getCount() > 0 ) {
+		if ( $collectionsList->getCount() > 0 ) {
 			$this->render( new views\CollectionsList( $collectionsList ) );
 		} else {
 			$this->renderError( new views\NoPublic() );

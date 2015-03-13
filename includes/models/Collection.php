@@ -112,6 +112,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 				$collection = self::newFromCollectionInfo( $c );
 			}
 		}
+
 		if ( $collection ) {
 			$api = new ApiMain( new FauxRequest( array(
 				'action' => 'query',
