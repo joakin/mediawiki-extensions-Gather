@@ -75,6 +75,18 @@
 			} );
 		},
 		/**
+		 * Removes a collection
+		 * @method
+		 * @param {Number} id unique identifier of collection
+		 */
+		removeCollection: function( id ) {
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				deletelist: 1,
+				id: id
+			} );
+		},
+		/**
 		 * Edits a collection
 		 * @method
 		 * @param {Number} id unique identifier of collection

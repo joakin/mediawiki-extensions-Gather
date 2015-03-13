@@ -131,6 +131,7 @@ $wgResourceModules += array(
 			'gather-edit-collection-label-description',
 			'gather-edit-collection-label-privacy',
 			'gather-edit-collection-save-label',
+			'gather-error-unknown-collection',
 		),
 		'templates' => array(
 			'content.hogan' => 'ext.gather.collection.editor/content.hogan',
@@ -143,9 +144,37 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.collection.delete' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'mobile.overlays',
+			'mobile.toast',
+			'ext.gather.api',
+			'mediawiki.util'
+		),
+		'messages' => array(
+			'gather-delete-collection-confirm',
+			'gather-delete-collection-heading',
+			'gather-delete-collection-delete-label',
+			'gather-delete-collection-cancel-label',
+			'gather-delete-collection-success',
+			'gather-delete-collection-failed-error',
+			'gather-error-unknown-collection',
+		),
+		'templates' => array(
+			'content.hogan' => 'ext.gather.collection.delete/content.hogan',
+		),
+		'scripts' => array(
+			'ext.gather.collection.delete/CollectionDeleteOverlay.js',
+		),
+		'styles' => array(
+			'ext.gather.collection.delete/deleteOverlay.less',
+		),
+	),
+
 	'ext.gather.special' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.collection.editor',
+			'ext.gather.collection.delete',
 		),
 		'scripts' => array(
 			'ext.gather.special/init.js',

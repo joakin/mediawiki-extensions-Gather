@@ -1,0 +1,9 @@
+{{{spinner}}}
+<div class="delete-collection-content">
+	<h3>{{subheadingDeleteCollection}}</h3>
+	<span>{{confirmMessage}}</span>
+	<div class="collection-delete-actions">
+		<button class='mw-ui-button mw-ui-destructive delete-collection'>{{deleteButtonLabel}}</button>
+		<button class='mw-ui-button mw-ui-progressive cancel-delete'>{{cancelButtonLabel}}</button>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+@import "minerva.variables";
+@import "minerva.mixins";
+
+.content-overlay.collection-delete-overlay {
+	font-size: .9em;
+	text-align: center;
+
+	h3 {
+		padding: 0.25em;
+	}
+
+	span {
+		display: block;
+		padding: 0.5em;
+	}
+
+	.collection-delete-actions {
+		padding: 0.5em;
+	}
+
+	&.content-overlay {
+		background-color: white;
+		top: @headerHeight * 1.2;
+		color: @grayDark;
+		width: auto;
+	}
+}
