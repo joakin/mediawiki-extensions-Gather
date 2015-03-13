@@ -130,8 +130,10 @@ class Collection extends CollectionBase implements IteratorAggregate {
 					$pages = $data['query']['pages'];
 					foreach ( $pages as $page ) {
 						$title = Title::newFromText( $page['title'], $page['ns'] );
-						// FIXME: Make use of the page image
 						$pi = false;
+						if ( isset( $page['pageimage'] ) ) {
+							$pi = wfFindFile( $page['pageimage'] );
+						}
 						$extract = isset( $page['extract'][0] ) ? $page['extract'][0] : '';
 						$collection->add( new CollectionItem( $title, $pi, $extract ) );
 					}
