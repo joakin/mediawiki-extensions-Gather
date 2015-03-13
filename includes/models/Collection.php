@@ -104,54 +104,58 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	 * @return models\Collections a collection
 	 */
 	public static function newFromApi( $id, User $user ) {
-		// Work out meta data for this collection
-		$cl = CollectionsList::newFromApi( $user, true );
 		$collection = null;
-		foreach ( $cl as $c ) {
-			if ( $c->getId() === $id ) {
-				$collection = self::newFromCollectionInfo( $c );
-			}
-		}
-
-		if ( $collection ) {
-			$api = new ApiMain( new FauxRequest( array(
-				'action' => 'query',
-				'prop' => 'pageimages|extracts',
-				'generator' => 'listpages',
-				'glspid' => $id,
-				'glsplimit' => 50,
-				'explaintext' => true,
-				'exintro' => true,
-				'exchars' => self::EXTRACTS_CHAR_LIMIT,
-				'exlimit' => 50,
-				'pilimit' => 50,
-				'continue' => '', // TODO: Pagination
-			) ) );
-			try {
-				$api->execute();
-				$data = $api->getResultData();
-				if ( isset( $data['query']['pages'] ) ) {
-					$pages = $data['query']['pages'];
-					foreach ( $pages as $page ) {
-						$title = Title::newFromText( $page['title'], $page['ns'] );
-						$pi = false;
-						if ( isset( $page['pageimage'] ) ) {
-							$pi = wfFindFile( $page['pageimage'] );
-						}
-						$extract = '';
-						// See https://phabricator.wikimedia.org/T92673
-						if ( isset( $page['extract'] ) ) {
-							$extract = $page['extract'];
-							if ( isset( $extract['*'] ) ) {
-								$extract = $extract['*'];
-							}
-						}
-						$collection->add( new CollectionItem( $title, $pi, $extract ) );
+		$api = new ApiMain( new FauxRequest( array(
+			'action' => 'query',
+			'list' => 'lists',
+			'lstprop' => 'label|description|public|image',
+			'prop' => 'pageimages|extracts',
+			'generator' => 'listpages',
+			'glspid' => $id,
+			'explaintext' => true,
+			'exintro' => true,
+			'exchars' => self::EXTRACTS_CHAR_LIMIT,
+			'glsplimit' => 50,
+			'exlimit' => 50,
+			'pilimit' => 50,
+			// TODO: Pagination
+			'continue' => '',
+		) ) );
+		try {
+			$api->execute();
+			$data = $api->getResultData();
+			if ( isset( $data['query']['lists'] ) ) {
+				$lists = $data['query']['lists'];
+				// FIXME: Use lstids=$id in the query lists when bug T92865 is resolved
+				foreach ( $lists as $list ) {
+					if ( $list['id'] === $id ) {
+						$collection = new Collection( $id, $user, $list['label'], $list['description'],
+							$list['public'], $list['image'] );
 					}
 				}
-			} catch ( Exception $e ) {
-				// just return collection
 			}
+
+			if ( isset( $data['query']['pages'] ) ) {
+				$pages = $data['query']['pages'];
+				foreach ( $pages as $page ) {
+					$title = Title::newFromText( $page['title'], $page['ns'] );
+					$pi = false;
+					if ( isset( $page['pageimage'] ) ) {
+						$pi = wfFindFile( $page['pageimage'] );
+					}
+					$extract = '';
+					// See https://phabricator.wikimedia.org/T92673
+					if ( isset( $page['extract'] ) ) {
+						$extract = $page['extract'];
+						if ( isset( $extract['*'] ) ) {
+							$extract = $extract['*'];
+						}
+					}
+					$collection->add( new CollectionItem( $title, $pi, $extract ) );
+				}
+			}
+		} catch ( Exception $e ) {
+			// just return collection
 		}
 
 		return $collection;
