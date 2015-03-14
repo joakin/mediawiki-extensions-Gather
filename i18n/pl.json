@@ -8,10 +8,12 @@
 	"gather-edit-collection-label-description": "Opis",
 	"gather-edit-collection-label-privacy": "Kolekcja prywatna",
 	"gather-edit-collection-save-label": "Gotowe",
+	"gather-delete-collection-cancel-label": "Anuluj",
 	"gather-create-new-button-label": "Utwórz",
 	"gather-watchlist-title": "Obserwowane",
 	"gather-watchlist-description": "Lista stron, które mnie interesują.",
 	"gather-read-more": "Czytaj więcej",
 	"gather-article-count": "$1 {{PLURAL:$1|artykuł|artykuły|artykułów}}",
-	"gather-edit-button": "Edytuj"
+	"gather-edit-button": "Edytuj",
+	"gather-delete-button": "Usuń"
 }
