@@ -30,6 +30,7 @@ use ApiBase;
 use ApiQuery;
 use ApiQueryBase;
 use ApiResult;
+use Title;
 use User;
 
 /**
@@ -58,6 +59,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 		/** @var User $owner */
 		list( $owner, $showPrivate ) = $this->calcPermissions( $params, $ids );
+		$userId = $owner ? $owner->getId() : $this->getUser()->getId();
 
 		$db = $this->getDB();
 		$this->addTables( 'gather_list' );
@@ -84,6 +86,28 @@ class ApiQueryLists extends ApiQueryBase {
 			$this->addWhere( "gl_label >= $cont_from" );
 		}
 
+		$title = $params['title'];
+		if ( $title ) {
+			$title = Title::newFromText( $title );
+			if ( !$title ) {
+				$this->dieUsage( 'Invalid title parameter', 'bad_title' );
+			}
+
+			if ( $ids || !$findWatchlist ) {
+				$cond = array(
+					'gli_namespace' => $title->getNamespace(),
+					'gli_title' => $title->getDBkey(),
+					'gl_id = gli_gl_id',
+				);
+				$subsql = $db->selectSQLText( 'gather_list_item', 'gli_gl_id', $cond, __METHOD__ );
+				$subsql = "($subsql)";
+				$this->addFields( array( 'isIn' => $subsql ) );
+			} else {
+				// Avoid subquery because there would be no results - searching for watchlist
+				$this->addFields( array( 'isIn' => 'NULL' ) );
+			}
+		}
+
 		$fld_label = in_array( 'label', $params['prop'] );
 		$fld_description = in_array( 'description', $params['prop'] );
 		$fld_public = in_array( 'public', $params['prop'] );
@@ -104,8 +128,8 @@ class ApiQueryLists extends ApiQueryBase {
 		$currUserId = strval( $this->getUser()->getId() );
 
 		// This closure will process one row, even if that row is fake watchlist
-		$processRow = function( $row ) use ( &$count, $limit, $fld_label, $useInfo,
-			$fld_description, $fld_public, $fld_image, $path, $showPrivate, $currUserId
+		$processRow = function( $row ) use ( &$count, $limit, $fld_label, $useInfo, $title,
+			$fld_description, $fld_public, $fld_image, $path, $showPrivate, $currUserId, $userId
 		) {
 			if ( $row === null ) {
 				// Fake watchlist row
@@ -151,6 +175,13 @@ class ApiQueryLists extends ApiQueryBase {
 				// TODO: check if this is the right wfMessage to show
 				$data['label'] = !$isWatchlist ? $row->gl_label : wfMessage( 'watchlist' )->plain();
 			}
+			if ( $title ) {
+				if ( $isWatchlist ) {
+					$data['title'] = $this->isTitleInWatchlist( $userId, $title );
+				} else {
+					$data['title'] = $row->isIn !== null;
+				}
+			}
 			if ( $useInfo ) {
 				if ( $fld_description ) {
 					$data['description'] = property_exists( $info, 'description' ) ? $info->description : '';
@@ -191,7 +222,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 		foreach ( $this->select( __METHOD__ ) as $row ) {
 			if ( $injectWatchlist ) {
-				if ( $row->gl_label	) {
+				if ( $row->gl_label !== '' ) {
 					// The very first DB row already has a label, so inject a fake
 					if ( !$processRow( null ) ) {
 						break;
@@ -211,7 +242,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 		$this->getResult()->setIndexedTagName_internal( $path, 'c' );
 
-		$this->updateCounts( $params, $owner ? $owner->getId() : $this->getUser()->getId() );
+		$this->updateCounts( $params, $userId );
 	}
 
 	public function getCacheMode( $params ) {
@@ -234,6 +265,9 @@ class ApiQueryLists extends ApiQueryBase {
 			'ids' => array(
 				ApiBase::PARAM_ISMULTI => true,
 				ApiBase::PARAM_TYPE => 'integer',
+			),
+			'title' => array(
+				ApiBase::PARAM_TYPE => 'string',
 			),
 			'owner' => array(
 				ApiBase::PARAM_TYPE => 'user',
@@ -372,5 +406,20 @@ class ApiQueryLists extends ApiQueryBase {
 		// Replace result with the results with counts
 		$this->getResult()->addValue( 'query', $this->getModuleName(), $data,
 			ApiResult::OVERRIDE | ApiResult::NO_SIZE_CHECK );
+	}
+
+	/**
+	 * @param int $userId
+	 * @param Title $title
+	 * @return bool
+	 * @throws \DBUnexpectedError
+	 */
+	private function isTitleInWatchlist( $userId, $title ) {
+		$db = $this->getQuery()->getNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
+		return (bool)$db->selectField( 'watchlist', '1', array(
+			'wl_user' => $userId,
+			'wl_namespace' => $title->getNamespace(),
+			'wl_title' => $title->getDBkey(),
+		), __METHOD__ );
 	}
 }

@@ -215,12 +215,19 @@ class ApiQueryLists extends ApiQueryTestBase {
 		$this->assertListNoId( 'nc-a3', $res,
 			'[{"id":0,"watchlist":true,"count":0,"label":"Watchlist","description":"","public":false}]'
 		);
+		$res = $this->callApi( 'nc-a4', '{ "list": "lists", "lsttitle": "Missing" }', $u );
+		$this->assertListNoId( 'nc-a4', $res,
+			'[{"id":0,"watchlist":true,"label":"Watchlist","title":false}]' );
 
 		//
 		// Add page to watchlist
 		$this->legacyAddToWatchlist( 'nc-b0', 'Gather-ListW', $u, $token );
 		$res = $this->callApi( 'nc-b0', '{ "list": "lists", "lstprop": "count" }', $u );
 		$this->assertListNoId( 'nc-b0', $res, '[{"id": 0, "watchlist":true, "count": 1}]' );
+
+		$res = $this->callApi( 'nc-b1', '{ "list": "lists", "lsttitle": "Gather-ListW" }', $u );
+		$this->assertListNoId( 'nc-b1', $res,
+			'[{"id":0,"watchlist":true,"label":"Watchlist","title":true}]' );
 
 		//
 		// Re-add the same page, using action=editlist & id=0
@@ -237,6 +244,15 @@ class ApiQueryLists extends ApiQueryTestBase {
 
 		$res = $this->callApi( 'nc-c3', '{ "list": "lists", "lstprop": "count" }', $u );
 		$this->assertListNoId( 'nc-c3', $res, '[{"id":0, "watchlist":true, "count": 1}]' );
+
+		$res = $this->callApi( 'nc-c4', '{ "list": "lists", "lsttitle": "Gather-ListW" }', $u );
+		$this->assertListNoId( 'nc-c4', $res,
+			'[{"id":0,"watchlist":true,"label":"Watchlist","title":true}]' );
+
+		$res = $this->callApi( 'nc-c5',
+			'{ "list": "lists", "lstids": 0, "lsttitle": "Gather-ListW" }', $u );
+		$this->assertListNoId( 'nc-c5', $res,
+			'[{"id":0,"watchlist":true,"label":"Watchlist","title":true}]' );
 
 		//
 		// What can others see from this user
@@ -274,6 +290,10 @@ class ApiQueryLists extends ApiQueryTestBase {
 		$this->assertListsEquals( 'nc-f4', $res,
 			'[{"id":' . $id .
 			',"watchlist":true,"count":1,"label":"Watchlist","description":"aa","public":false}]' );
+
+		$res = $this->callApi( 'nc-f5', '{ "list": "lists", "lsttitle": "Gather-ListW" }', $u );
+		$this->assertListsEquals( 'nc-f5', $res, '[{"id":' . $id .
+			',"watchlist":true,"label":"Watchlist","title":true}]' );
 
 		//
 		// Others still can't see the watchlist
