@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Element303"
+			"Element303",
+			"Thibaut120094"
 		]
 	},
+	"gather-delete-collection-success": "La collection a été supprimée avec succès.",
 	"gather-desc": "Composant de l'Interface Mobile permettant aux utilisateurs d'organiser les listes.",
 	"gather-anon-view-lists": "Vous devez être connecté pour voir vos Collections.",
 	"gather-watchlist-title": "Liste de suivi",
@@ -11,7 +13,9 @@
 	"gather-lists-title": "Collections",
 	"gather-read-more": "En savoir plus",
 	"gather-private": "Privé",
+	"gather-public": "Public",
 	"gather-article-count": "$1 {{PLURAL:$1|article|articles}}",
 	"gather-empty": "Rien dans cette collection pour le moment...",
-	"gather-empty-footer": "Je ne sais pas comment vous êtes arrivé ici mais il s'agit d'un endroit triste."
+	"gather-empty-footer": "Je ne sais pas comment vous êtes arrivé ici mais il s'agit d'un endroit triste.",
+	"gather-delete-button": "Supprimer"
 }

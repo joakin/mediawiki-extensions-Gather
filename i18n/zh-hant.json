@@ -1,12 +1,21 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Wehwei"
 		]
 	},
+	"gather-delete-collection-confirm": "您確定要刪除此收藏？",
+	"gather-delete-collection-heading": "刪除收藏",
+	"gather-delete-collection-delete-label": "刪除",
+	"gather-delete-collection-cancel-label": "取消",
+	"gather-delete-collection-success": "收藏成功刪除了",
+	"gather-delete-collection-failed-error": "刪除收藏時出了問題。",
 	"gather-watchlist-title": "監視清單",
 	"gather-lists-title": "典藏",
 	"gather-read-more": "閱讀更多",
 	"gather-private": "私有",
-	"gather-article-count": "$1 個{{PLURAL:$1|條目}}"
+	"gather-public": "公開的",
+	"gather-article-count": "$1 個{{PLURAL:$1|條目}}",
+	"gather-delete-button": "刪除"
 }
