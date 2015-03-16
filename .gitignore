@@ -7,4 +7,5 @@ docs/
 composer.phar
 .DS_Store
 composer.lock
+vendor
 tests/report

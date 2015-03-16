@@ -48,7 +48,10 @@ class CollectionsList extends View {
 	 * @inheritdoc
 	 */
 	public function getHtml() {
-		$html = Html::openElement( 'div', array( 'class' => 'collections-list content view-border-box' ) );
+		$html = Html::openElement(
+			'div',
+			array( 'class' => 'collections-list content view-border-box' )
+		);
 		// Get items
 		$html .= $this->getListItemsHtml( $this->collectionsList );
 		$html .= Html::closeElement( 'div' );
