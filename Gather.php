@@ -84,5 +84,8 @@ $wgAPIModules['editlist'] = 'Gather\api\ApiEditList';
 $wgAPIListModules['lists'] = 'Gather\api\ApiQueryLists';
 $wgAPIListModules['listpages'] = 'Gather\api\ApiQueryListPages';
 
+// Configuration
+$wgGatherShouldShowTutorial = true;
+
 // ResourceLoader modules
 require_once __DIR__ . "/resources/Resources.php";

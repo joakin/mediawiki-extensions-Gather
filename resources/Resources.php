@@ -122,6 +122,9 @@ $wgResourceModules += array(
 			'gather-add-to-new',
 			'gather-collection-non-member',
 			'gather-add-new-placeholder',
+			'gather-add-to-collection-summary',
+			'gather-add-to-collection-confirm',
+			'gather-add-to-collection-cancel',
 		),
 		'templates' => array(
 			'content.hogan' => 'ext.gather.watchstar/content.hogan',
