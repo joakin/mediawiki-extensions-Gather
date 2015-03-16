@@ -107,28 +107,37 @@ class Hooks {
 	 */
 	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
 		$user = $out->getUser();
-		if ( !$user->isAnon() && !$out->getTitle()->isSpecialPage() ) {
-			$collectionsList = models\CollectionsList::newFromApi( $user, true );
+		$title = $out->getTitle();
+		if ( !$user->isAnon() ) {
+			$member = $title->getPrefixedText();
+			if ( $title->isSpecialPage() ) {
+				$collectionsList = models\CollectionsList::newFromApi( $user, true );
+			} else {
+				// also query if page is in watchlist.
+				$collectionsList = models\CollectionsList::newFromApi( $user, true, $member );
+			}
+
 			$gatherCollections = array();
 			foreach ( $collectionsList as $collectionInfo ) {
 				$id = $collectionInfo->getId();
-				$collection = models\Collection::newFromApi( $id, $user );
-				if ( $collection !== null ) {
-					$gatherCollections[] = array(
+				if ( $collectionInfo !== null ) {
+					$collection = array(
 						'id' => $id,
 						'isWatchlist' => $id === 0,
 						'isPublic' => $collectionInfo->isPublic(),
 						'title' => $collectionInfo->getTitle(),
 						'description' => $collectionInfo->getDescription(),
-						'titleInCollection' => $collection->hasMember( $out->getTitle() ),
 					);
+					if ( $member ) {
+						$collection['titleInCollection'] = $collectionInfo->isKnownMember( $member );
+					}
+					$gatherCollections[] = $collection;
 				}
 			}
 			$vars['wgGatherCollections'] = $gatherCollections;
 		}
 		// Expose page image.
 		// FIXME: Should probably be in PageImages extension
-		$title = $out->getTitle();
 		if ( defined( 'PAGE_IMAGES_INSTALLED' ) && $title->getNamespace() === NS_MAIN ) {
 			$pageImage = \PageImages::getPageImage( $title );
 			if ( $pageImage ) {
