@@ -119,6 +119,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 				'prop' => 'pageimages|extracts',
 				'generator' => 'listpages',
 				'glspid' => $id,
+				'glsplimit' => 50,
 				'explaintext' => true,
 				'exintro' => true,
 				'exchars' => self::EXTRACTS_CHAR_LIMIT,
