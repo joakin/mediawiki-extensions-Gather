@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cedric31"
+		]
+	},
+	"gather-edit-collection-label-name": "Nom",
+	"gather-edit-collection-label-description": "Descripcion",
+	"gather-edit-collection-save-label": "Fach",
+	"gather-delete-collection-delete-label": "Suprimir",
+	"gather-delete-collection-cancel-label": "Anullar",
+	"gather-create-new-button-label": "Crear",
+	"gather-public": "Public",
+	"gather-edit-button": "Modificar",
+	"gather-delete-button": "Suprimir"
+}

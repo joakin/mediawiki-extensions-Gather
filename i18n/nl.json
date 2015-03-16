@@ -1,13 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sjoerddebruin"
+			"Sjoerddebruin",
+			"JensRiskin"
 		]
 	},
+	"gather-delete-collection-cancel-label": "Annuleer",
 	"gather-watchlist-title": "Volglijst",
 	"gather-lists-title": "Verzamelingen",
 	"gather-read-more": "Meer lezen",
 	"gather-private": "Privé",
+	"gather-public": "Openbaar",
 	"gather-article-count": "$1 {{PLURAL:$1|artikel|artikelen}}",
-	"gather-empty": "Er zit nog niks in deze verzameling..."
+	"gather-empty": "Er zit nog niks in deze verzameling...",
+	"gather-delete-button": "Verwijder"
 }

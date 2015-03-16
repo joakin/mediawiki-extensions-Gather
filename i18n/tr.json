@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gokalpselamet"
+		]
+	},
+	"gather-delete-collection-delete-label": "Sil",
+	"gather-edit-button": "Düzenle",
+	"gather-delete-button": "Sil"
+}
