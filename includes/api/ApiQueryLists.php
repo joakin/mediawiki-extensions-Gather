@@ -44,7 +44,17 @@ class ApiQueryLists extends ApiQueryBase {
 
 	public function execute() {
 		$params = $this->extractRequestParams();
+
 		$ids = $params['ids'];
+		if ( $ids ) {
+			$findWatchlist = array_search( 0, $ids );
+			if ( $findWatchlist !== false) {
+				unset( $ids[$findWatchlist] );
+				$findWatchlist = true;
+			}
+		} else {
+			$findWatchlist = false;
+		}
 
 		/** @var User $owner */
 		list( $owner, $showPrivate ) = $this->calcPermissions( $params, $ids );
@@ -57,8 +67,15 @@ class ApiQueryLists extends ApiQueryBase {
 		if ( $owner ) {
 			$this->addWhereFld( 'gl_user', $owner->getId() );
 		}
-		if ( $ids ) {
-			$this->addWhereFld( 'gl_id', $ids );
+		if ( $ids || $findWatchlist ) {
+			$cond = array();
+			if ( $ids ) {
+				$cond['gl_id'] = $ids;
+			}
+			if ( $findWatchlist ) {
+				$cond['gl_label'] = '';
+			}
+			$this->addWhere( $db->makeList( $cond, LIST_OR ) );
 		}
 
 		$continue = $params['continue'];
@@ -106,7 +123,7 @@ class ApiQueryLists extends ApiQueryBase {
 			// Determine if this gather_list row is viewable by the current user
 			if ( $showPrivate === false && !ApiEditList::isPublic( $info ) ) {
 				return true;
-			} elseif ( $showPrivate === null && $row->gl_user === $currUserId ) {
+			} elseif ( $showPrivate === null && $row->gl_user !== $currUserId ) {
 				return true;
 			}
 
@@ -326,9 +343,9 @@ class ApiQueryLists extends ApiQueryBase {
 			// TODO: estimateRowCount() might be much faster, TBD if ok
 			$db = $this->getQuery()->getNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
 			// Must divide in two because of duplicate talk pages (same as the special page)
-			$counts[$wlListId] = floor(
+			$counts[$wlListId] = intval( floor(
 				$db->selectRowCount( 'watchlist', '*', array( 'wl_user' => $wlUserId ),
-					__METHOD__ ) / 2 );
+					__METHOD__ ) / 2 ) );
 		}
 		if ( count( $ids ) > 0 ) {
 			$db = $this->getDB();

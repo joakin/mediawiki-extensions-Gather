@@ -287,27 +287,43 @@ class ApiEditList extends ApiBase {
 	 * @param $isWatchlist
 	 */
 	private function createRow( DatabaseBase $dbw, User $user, array $params, &$isWatchlist ) {
-		$id = $dbw->nextSequenceValue( 'gather_list_gl_id_seq' );
 		$label = $isWatchlist ? '' : $params['label'];
-		$dbw->insert( 'gather_list', array(
-			'gl_id' => $id,
-			'gl_user' => $user->getId(),
-			'gl_label' => $label,
-			'gl_info' => $this->updateInfo( new stdClass(), $params ),
-		), __METHOD__, 'IGNORE' );
-		$id = $dbw->insertId();
+		$info = $this->updateInfo( new stdClass(), $params );
+		$createRow = !$isWatchlist || $info;
+
+		if ( $createRow ) {
+			$id = $dbw->nextSequenceValue( 'gather_list_gl_id_seq' );
+			$dbw->insert( 'gather_list', array(
+				'gl_id' => $id,
+				'gl_user' => $user->getId(),
+				'gl_label' => $label,
+				'gl_info' => $info,
+			), __METHOD__, 'IGNORE' );
+			$id = $dbw->insertId();
+		} else {
+			$id = 0;
+		}
+
 		if ( $id === 0 ) {
-			// Already exists, update instead
+			// List already exists, update instead, or might not need it
 			$row = $dbw->selectRow( 'gather_list',
 				array( 'gl_id', 'gl_user', 'gl_label', 'gl_info' ),
 				array( 'gl_user' => $user->getId(), 'gl_label' => $label ),
 				__METHOD__
 			);
 			if ( $row === false ) {
-				// If creation failed, the second query should have succeeded
-				$this->dieDebug( "List was not found", 'badid' );
+				if ( $createRow ) {
+					// If creation failed, the second query should have succeeded
+					$this->dieDebug( "List was not found", 'badid' );
+				}
+				$this->getResult()->addValue( null, $this->getModuleName(), array(
+					'status' => 'nochanges',
+					'id' => 0,
+				) );
+			} else {
+				$isWatchlist = $row->gl_label === '';
+				$this->updateListDb( $dbw, $params, $row );
 			}
-			$this->updateListDb( $dbw, $params, $row );
 		} else {
 			$this->getResult()->addValue( null, $this->getModuleName(), array(
 				'status' => 'created',
@@ -325,7 +341,7 @@ class ApiEditList extends ApiBase {
 	 */
 	private function updateListDb( DatabaseBase $dbw, array $params, $row ) {
 		$update = array();
-		if ( $params['label'] && $row->gl_label !== $params['label'] ) {
+		if ( $params['label'] !== null && $row->gl_label !== $params['label'] ) {
 			$update['gl_label'] = $params['label'];
 		}
 		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
