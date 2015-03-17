@@ -107,7 +107,7 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 			foreach ( $lists as $list ) {
 				if ( $list['public'] || $includePrivate ) {
 					$info = new models\CollectionInfo( $list['id'], $user,
-						$list['label'], $list['description'], $list['public'] );
+						$list['label'], $list['description'], $list['public'], wfFindFile( $list['image'] ) );
 					$info->setCount( $list['count'] );
 					if ( $memberTitle ) {
 						$info->setMember( $memberTitle, $list['title'] );
