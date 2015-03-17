@@ -1,137 +1,14 @@
 <?php
-/**
- * Extension Gather
- *
- * @file
- * @ingroup Extensions
- * @author Jon Robson
- * @author Joaquin Hernandez
- * @author Rob Moen
- * @author Yuri Astrakhan
- * @licence GNU General Public Licence 2.0 or later
- */
-
-// Needs to be called within MediaWiki; not standalone
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo "This is a MediaWiki extension and cannot run standalone.\n";
-	die( -1 );
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'Gather' );
+	// Keep i18n globals so mergeMessageFileList.php doesn't break
+	$wgMessagesDirs['Gather'] = __DIR__ . '/i18n';
+	$wgExtensionMessagesFiles['GatherAlias'] = __DIR__ . '/Gather.alias.php';
+	/* wfWarn(
+		'Deprecated PHP entry point used for Gather extension. Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	); */
+	return;
+} else {
+	die( 'This version of the Gather extension requires MediaWiki 1.25+' );
 }
-
-// Extension credits that will show up on Special:Version
-$wgExtensionCredits['other'][] = array(
-	'path' => __FILE__,
-	'name' => 'Gather',
-	'author' => array( 'Jon Robson', 'Joaquin Hernandez', 'Rob Moen', 'Yuri Astrakhan' ),
-	'descriptionmsg' => 'gather-desc',
-	'url' => 'https://www.mediawiki.org/wiki/Gather',
-	'license-name' => 'GPL-2.0+',
-);
-
-$wgMessagesDirs['Gather'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['GatherAlias'] = __DIR__ . "/Gather.alias.php";
-
-// autoload extension classes
-$autoloadClasses = array(
-	'Gather\Hooks' => 'Gather.hooks',
-	'Gather\UpdaterHooks' => '../schema/Updater.hooks',
-
-	'Gather\models\CollectionItem' => 'models/CollectionItem',
-	'Gather\models\CollectionBase' => 'models/CollectionBase',
-	'Gather\models\CollectionFeed' => 'models/CollectionFeed',
-	'Gather\models\CollectionFeedItem' => 'models/CollectionFeedItem',
-	'Gather\models\CollectionInfo' => 'models/CollectionInfo',
-	'Gather\models\Collection' => 'models/Collection',
-	'Gather\models\CollectionsList' => 'models/CollectionsList',
-	'Gather\models\WithImage' => 'models/WithImage',
-	'Gather\models\Image' => 'models/Image',
-	'Gather\models\ArraySerializable' => 'models/ArraySerializable',
-
-	'Gather\views\View' => 'views/View',
-	'Gather\views\NotFound' => 'views/NotFound',
-	'Gather\views\NoPublic' => 'views/NoPublic',
-	'Gather\views\CollectionFeed' => 'views/CollectionFeed',
-	'Gather\views\CollectionFeedItem' => 'views/CollectionFeedItem',
-	'Gather\views\Collection' => 'views/Collection',
-	'Gather\views\CollectionItemCard' => 'views/CollectionItemCard',
-	'Gather\views\Image' => 'views/Image',
-	'Gather\views\CollectionsList' => 'views/CollectionsList',
-	'Gather\views\CollectionsListItemCard' => 'views/CollectionsListItemCard',
-	'Gather\views\Pagination' => 'views/Pagination',
-	'Gather\views\ReportTableRow' => 'views/ReportTableRow',
-	'Gather\views\ReportTable' => 'views/ReportTable',
-
-	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
-	'Gather\views\helpers\Template' => 'views/helpers/Template',
-
-	'Gather\SpecialGather' => 'specials/SpecialGather',
-	'Gather\SpecialGatherLists' => 'specials/SpecialGatherLists',
-	'Gather\SpecialGatherEditFeed' => 'specials/SpecialGatherEditFeed',
-
-	'Gather\api\ApiMixinListAccess' => 'api/ApiMixinListAccess',
-	'Gather\api\ApiEditList' => 'api/ApiEditList',
-	'Gather\api\ApiQueryLists' => 'api/ApiQueryLists',
-	'Gather\api\ApiQueryListMembership' => 'api/ApiQueryListMembership',
-	'Gather\api\ApiQueryListPages' => 'api/ApiQueryListPages',
-
-);
-
-foreach ( $autoloadClasses as $className => $classFilename ) {
-	$wgAutoloadClasses[$className] = __DIR__ . "/includes/$classFilename.php";
-}
-
-
-$wgSpecialPages['Gather'] = 'Gather\SpecialGather';
-$wgSpecialPages['GatherLists'] = 'Gather\SpecialGatherLists';
-$wgSpecialPages['GatherEditFeed'] = 'Gather\SpecialGatherEditFeed';
-
-// Hooks
-$wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
-$wgHooks['BeforeCreateEchoEvent'][] = 'Gather\Hooks::onBeforeCreateEchoEvent';
-$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'Gather\Hooks::onEchoGetDefaultNotifiedUsers';
-$wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
-$wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
-$wgHooks['SkinMinervaDefaultModules'][] = 'Gather\Hooks::onSkinMinervaDefaultModules';
-$wgHooks['MakeGlobalVariablesScript'][] = 'Gather\Hooks::onMakeGlobalVariablesScript';
-$wgHooks['ResourceLoaderTestModules'][] = 'Gather\Hooks::onResourceLoaderTestModules';
-$wgHooks['EventLoggingRegisterSchemas'][] = 'Gather\Hooks::onEventLoggingRegisterSchemas';
-$wgHooks['ResourceLoaderRegisterModules'][] = 'Gather\Hooks::onResourceLoaderRegisterModules';
-$wgHooks['LoginFormValidErrorMessages'][] = 'Gather\Hooks::onLoginFormValidErrorMessages';
-$wgHooks['BeforePageDisplay'][] = 'Gather\Hooks::onBeforePageDisplay';
-$wgHooks['GetBetaFeaturePreferences'][] =  'Gather\Hooks::onGetBetaFeaturePreferences';
-
-
-// Maintenance Hooks
-$wgHooks['LoadExtensionSchemaUpdates'][] = 'Gather\UpdaterHooks::onLoadExtensionSchemaUpdates';
-
-// Api
-$wgAPIModules['editlist'] = 'Gather\api\ApiEditList';
-$wgAPIListModules['lists'] = 'Gather\api\ApiQueryLists';
-$wgAPIPropModules['listmembership'] = 'Gather\api\ApiQueryListMembership';
-$wgAPIListModules['listpages'] = 'Gather\api\ApiQueryListPages';
-
-// Configuration
-$wgGatherShouldShowTutorial = true;
-
-// For CheckUser
-$wgLogActionsHandlers['gather/action'] = 'Gather\api\ApiEditList::getGatherLogFormattedString';
-
-// Permissions
-$wgAvailableRights[] = 'gather-hidelist';
-$wgGroupPermissions['*']['gather-hidelist'] = false;
-$wgGroupPermissions['sysop']['gather-hidelist'] = true;
-
-/**
- * If true, user's watchlist can be made public
- */
-$wgGatherAllowPublicWatchlist = false;
-
-/**
- * Enable the Gather beta feature
- */
-$wgGatherEnableBetaFeature = false;
-
-// Set default user options for Echo notifications
-$wgDefaultUserOptions['echo-subscriptions-web-gather'] = true;
-
-// ResourceLoader modules
-require_once __DIR__ . "/resources/Resources.php";

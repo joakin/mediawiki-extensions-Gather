@@ -1,0 +1,648 @@
+{
+	"name": "Gather",
+	"author": [
+		"Jon Robson",
+		"Joaquin Hernandez",
+		"Rob Moen",
+		"Yuri Astrakhan"
+	],
+	"url": "https://www.mediawiki.org/wiki/Gather",
+	"descriptionmsg": "gather-desc",
+	"license-name": "GPL-2.0+",
+	"type": "other",
+	"DefaultUserOptions": {
+		"echo-subscriptions-web-gather": true
+	},
+	"GroupPermissions": {
+		"*": {
+			"gather-hidelist": false
+		},
+		"sysop": {
+			"gather-hidelist": true
+		}
+	},
+	"AvailableRights": [
+		"gather-hidelist"
+	],
+	"ExtensionFunctions": [
+		"Gather\\Hooks::onExtensionSetup"
+	],
+	"SpecialPages": {
+		"Gather": "Gather\\SpecialGather",
+		"GatherLists": "Gather\\SpecialGatherLists",
+		"GatherEditFeed": "Gather\\SpecialGatherEditFeed"
+	},
+	"LogActionsHandlers": {
+		"gather/action": "Gather\\api\\ApiEditList::getGatherLogFormattedString"
+	},
+	"APIModules": {
+		"editlist": "Gather\\api\\ApiEditList"
+	},
+	"APIPropModules": {
+		"listmembership": "Gather\\api\\ApiQueryListMembership"
+	},
+	"APIListModules": {
+		"lists": "Gather\\api\\ApiQueryLists",
+		"listpages": "Gather\\api\\ApiQueryListPages"
+	},
+	"MessagesDirs": {
+		"Gather": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"GatherAlias": "Gather.alias.php"
+	},
+	"AutoloadClasses": {
+		"Gather\\Hooks": "includes/Gather.hooks.php",
+		"Gather\\UpdaterHooks": "schema/Updater.hooks.php",
+		"Gather\\models\\CollectionItem": "includes/models/CollectionItem.php",
+		"Gather\\models\\CollectionBase": "includes/models/CollectionBase.php",
+		"Gather\\models\\CollectionFeed": "includes/models/CollectionFeed.php",
+		"Gather\\models\\CollectionFeedItem": "includes/models/CollectionFeedItem.php",
+		"Gather\\models\\CollectionInfo": "includes/models/CollectionInfo.php",
+		"Gather\\models\\Collection": "includes/models/Collection.php",
+		"Gather\\models\\CollectionsList": "includes/models/CollectionsList.php",
+		"Gather\\models\\WithImage": "includes/models/WithImage.php",
+		"Gather\\models\\Image": "includes/models/Image.php",
+		"Gather\\models\\ArraySerializable": "includes/models/ArraySerializable.php",
+		"Gather\\views\\View": "includes/views/View.php",
+		"Gather\\views\\NotFound": "includes/views/NotFound.php",
+		"Gather\\views\\NoPublic": "includes/views/NoPublic.php",
+		"Gather\\views\\CollectionFeed": "includes/views/CollectionFeed.php",
+		"Gather\\views\\CollectionFeedItem": "includes/views/CollectionFeedItem.php",
+		"Gather\\views\\Collection": "includes/views/Collection.php",
+		"Gather\\views\\CollectionItemCard": "includes/views/CollectionItemCard.php",
+		"Gather\\views\\Image": "includes/views/Image.php",
+		"Gather\\views\\CollectionsList": "includes/views/CollectionsList.php",
+		"Gather\\views\\CollectionsListItemCard": "includes/views/CollectionsListItemCard.php",
+		"Gather\\views\\Pagination": "includes/views/Pagination.php",
+		"Gather\\views\\ReportTableRow": "includes/views/ReportTableRow.php",
+		"Gather\\views\\ReportTable": "includes/views/ReportTable.php",
+		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
+		"Gather\\views\\helpers\\Template": "includes/views/helpers/Template.php",
+		"Gather\\SpecialGather": "includes/specials/SpecialGather.php",
+		"Gather\\SpecialGatherLists": "includes/specials/SpecialGatherLists.php",
+		"Gather\\SpecialGatherEditFeed": "includes/specials/SpecialGatherEditFeed.php",
+		"Gather\\api\\ApiMixinListAccess": "includes/api/ApiMixinListAccess.php",
+		"Gather\\api\\ApiEditList": "includes/api/ApiEditList.php",
+		"Gather\\api\\ApiQueryLists": "includes/api/ApiQueryLists.php",
+		"Gather\\api\\ApiQueryListMembership": "includes/api/ApiQueryListMembership.php",
+		"Gather\\api\\ApiQueryListPages": "includes/api/ApiQueryListPages.php"
+	},
+	"ResourceModules": {
+		"ext.gather.toastpanel": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"mobile.startup"
+			],
+			"templates": {
+				"ToastPanel.hogan": "resources/ext.gather.toastpanel/ToastPanel.hogan"
+			},
+			"styles": [
+				"resources/ext.gather.toastpanel/toastPanel.less"
+			],
+			"scripts": [
+				"resources/ext.gather.toastpanel/ToastPanel.js"
+			]
+		},
+		"ext.gather.menu.icon": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"position": "top",
+			"class": "ResourceLoaderImageModule",
+			"selector": ".mw-ui-icon-{name}:before",
+			"images": {
+				"collections-icon": "resources/ext.gather.menu.icon/plus.svg"
+			}
+		},
+		"ext.gather.icons": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"position": "top",
+			"class": "ResourceLoaderImageModule",
+			"selector": ".mw-ui-icon-{name}:before",
+			"images": {
+				"collections-read-more": "resources/ext.gather.icons/next.svg",
+				"collection-owner": "resources/ext.gather.icons/user.svg",
+				"collection-flag": "resources/ext.gather.icons/flag.svg",
+				"collection-hide": "resources/ext.gather.icons/suppress.svg"
+			}
+		},
+		"ext.gather.styles": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"position": "top",
+			"styles": [
+				"resources/ext.gather.styles/collections.less",
+				"resources/ext.gather.styles/lists.less",
+				"resources/ext.gather.styles/editfeed.less"
+			],
+			"skinStyles": {
+				"minerva": "resources/ext.gather.styles/minerva.less",
+				"vector": "resources/ext.gather.styles/vector.less"
+			}
+		},
+		"ext.gather.watchstar.icons": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"class": "ResourceLoaderImageModule",
+			"selector": ".mw-ui-icon-{name}:before",
+			"images": {
+				"tick-disabled": "resources/ext.gather.watchstar.icons/grey_check.svg",
+				"tick": "resources/ext.gather.watchstar.icons/green_check.svg"
+			}
+		},
+		"ext.gather.logging": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.startup",
+				"mobile.user",
+				"ext.gather.schema"
+			],
+			"scripts": [
+				"resources/ext.gather.logging/SchemaGather.js",
+				"resources/ext.gather.logging/SchemaGatherFlags.js"
+			]
+		},
+		"ext.gather.api": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.startup"
+			],
+			"scripts": [
+				"resources/ext.gather.api/CollectionsApi.js"
+			]
+		},
+		"ext.gather.collections.list": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.infiniteScroll",
+				"mobile.toast",
+				"ext.gather.api",
+				"ext.gather.menu.icon",
+				"ext.gather.collection.editor"
+			],
+			"styles": [],
+			"messages": [
+				"gather-lists-more-failed",
+				"gather-article-count",
+				"gather-public",
+				"gather-private",
+				"gather-hidden",
+				"gather-create-collection-button-label"
+			],
+			"templates": {
+				"CollectionsList.hogan": "templates/CollectionsList.mustache",
+				"CollectionsListItemCard.hogan": "templates/CollectionsListItemCard.mustache",
+				"CardImage.hogan": "templates/CardImage.mustache"
+			},
+			"scripts": [
+				"resources/ext.gather.collections.list/CreateCollectionButton.js",
+				"resources/ext.gather.collections.list/CollectionsList.js"
+			]
+		},
+		"ext.gather.collection.base": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.logging",
+				"mobile.contentOverlays",
+				"mobile.toast",
+				"ext.gather.toastpanel",
+				"ext.gather.api",
+				"mediawiki.util"
+			],
+			"scripts": [
+				"resources/ext.gather.collection.base/CollectionsContentOverlayBase.js"
+			]
+		},
+		"ext.gather.collection.confirm": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.collection.base"
+			],
+			"styles": [
+				"resources/ext.gather.collection.confirm/confirmationOverlay.less"
+			],
+			"skinStyles": {
+				"vector": "resources/ext.gather.collection.confirm/vector.less"
+			},
+			"messages": [
+				"gather-error-unknown-collection",
+				"gather-confirmation-cancel-button-label"
+			],
+			"templates": {
+				"confirmationOverlay.hogan": "resources/ext.gather.collection.confirm/confirmationOverlay.hogan"
+			},
+			"scripts": [
+				"resources/ext.gather.collection.confirm/ConfirmationOverlay.js"
+			]
+		},
+		"ext.gather.watchstar": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.routes",
+				"mediawiki.util",
+				"mobile.user",
+				"ext.gather.api",
+				"ext.gather.collection.base",
+				"mobile.settings",
+				"ext.gather.watchstar.icons",
+				"mobile.buttonWithSpinner"
+			],
+			"skinStyles": {
+				"vector": "resources/ext.gather.watchstar/vector.less"
+			},
+			"styles": [
+				"resources/ext.gather.watchstar/contentOverlay.less",
+				"resources/ext.gather.watchstar/tag.less"
+			],
+			"messages": [
+				"gather-remove-from-collection-failed-toast",
+				"gather-add-to-collection-failed-toast",
+				"gather-new-collection-failed-toast",
+				"gather-add-to-existing",
+				"gather-watchlist-title",
+				"gather-add-toast",
+				"gather-add-failed-toast",
+				"gather-add-title-invalid-toast",
+				"gather-remove-toast",
+				"gather-anon-cta",
+				"gather-collection-member",
+				"gather-create-new-button-label",
+				"gather-add-to-new",
+				"gather-collection-non-member",
+				"gather-add-new-placeholder",
+				"gather-add-to-collection-summary",
+				"gather-add-to-collection-confirm",
+				"gather-add-to-collection-cancel",
+				"gather-add-to-another",
+				"gather-watchstar-button-label",
+				"gather-view-collection"
+			],
+			"templates": {
+				"star.hogan": "resources/ext.gather.watchstar/star.hogan",
+				"content.hogan": "resources/ext.gather.watchstar/content.hogan",
+				"Tag.hogan": "resources/ext.gather.watchstar/Tag.hogan"
+			},
+			"scripts": [
+				"resources/ext.gather.watchstar/CollectionsContentOverlay.js",
+				"resources/ext.gather.watchstar/CollectionsWatchstar.js",
+				"resources/ext.gather.watchstar/WatchstarPageActionOverlay.js",
+				"resources/ext.gather.watchstar/Tag.js"
+			]
+		},
+		"ext.gather.desktop": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mediawiki.util"
+			],
+			"messages": [
+				"gather-lists-title"
+			],
+			"position": "top",
+			"skinStyles": {
+				"default": "resources/ext.gather.desktop/default.less",
+				"minerva": ""
+			},
+			"scripts": [
+				"resources/ext.gather.desktop/init.js"
+			]
+		},
+		"ext.gather.init": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.alerts.init",
+				"ext.gather.watchstar"
+			],
+			"messages": [
+				"gather-menu-guider"
+			],
+			"scripts": [
+				"resources/ext.gather.init/init.js"
+			],
+			"skinStyles": {
+				"vector": "resources/ext.gather.init/vector.less",
+				"minerva": "resources/ext.gather.init/minerva.less"
+			}
+		},
+		"ext.gather.collection.editor": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.page.search",
+				"ext.gather.logging",
+				"mobile.overlays",
+				"mobile.toast",
+				"ext.gather.api",
+				"ext.gather.collection.delete"
+			],
+			"messages": [
+				"gather-edit-collection-failed-error",
+				"gather-edit-collection-label-name",
+				"gather-edit-collection-label-description",
+				"gather-edit-collection-label-public",
+				"gather-edit-collection-save-label",
+				"gather-error-unknown-collection",
+				"gather-overlay-continue",
+				"gather-overlay-edit-button",
+				"gather-delete-button",
+				"gather-edit-collection-clear-label",
+				"gather-update-collection-success",
+				"gather-edit-collection-confirm",
+				"gather-overlay-search-empty"
+			],
+			"templates": {
+				"header.hogan": "resources/ext.gather.collection.editor/header.hogan",
+				"content.hogan": "resources/ext.gather.collection.editor/content.hogan"
+			},
+			"scripts": [
+				"resources/ext.gather.collection.editor/CollectionEditOverlay.js"
+			],
+			"styles": [
+				"resources/ext.gather.collection.editor/editOverlay.less"
+			]
+		},
+		"ext.gather.page.search": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.api",
+				"mobile.pagelist",
+				"mobile.search"
+			],
+			"messages": [
+				"gather-remove-toast",
+				"gather-add-toast",
+				"gather-overlay-search-empty",
+				"gather-overlay-search-new",
+				"gather-overlay-search-results-empty"
+			],
+			"templates": {
+				"CollectionSearchPanel.hogan": "resources/ext.gather.page.search/CollectionSearchPanel.hogan",
+				"item.hogan": "resources/ext.gather.page.search/item.hogan"
+			},
+			"styles": [
+				"resources/ext.gather.page.search/searchPanel.less"
+			],
+			"scripts": [
+				"resources/ext.gather.page.search/CollectionPageList.js",
+				"resources/ext.gather.page.search/CollectionSearchPanel.js"
+			]
+		},
+		"ext.gather.alerts.futureToasts": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.settings",
+				"mobile.toast"
+			],
+			"scripts": [
+				"resources/ext.gather.alerts/futureToasts.js"
+			]
+		},
+		"ext.gather.alerts.init": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.alerts.futureToasts"
+			],
+			"scripts": [
+				"resources/ext.gather.alerts/init.js"
+			]
+		},
+		"ext.gather.collection.delete": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.collection.confirm",
+				"mobile.toast",
+				"ext.gather.alerts.futureToasts",
+				"ext.gather.api",
+				"mediawiki.util"
+			],
+			"messages": [
+				"gather-delete-collection-confirm",
+				"gather-delete-collection-heading",
+				"gather-delete-collection-delete-label",
+				"gather-delete-collection-success",
+				"gather-delete-collection-failed-error"
+			],
+			"scripts": [
+				"resources/ext.gather.collection.delete/CollectionDeleteOverlay.js"
+			]
+		},
+		"ext.gather.collection.flag": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.collection.confirm",
+				"mobile.toast",
+				"ext.gather.api",
+				"mediawiki.util"
+			],
+			"messages": [
+				"gather-flag-collection-confirm",
+				"gather-flag-collection-heading",
+				"gather-flag-collection-flag-label",
+				"gather-flag-collection-success"
+			],
+			"scripts": [
+				"resources/ext.gather.collection.flag/CollectionFlagOverlay.js",
+				"resources/ext.gather.collection.flag/CollectionFlagButton.js"
+			]
+		},
+		"ext.gather.routes": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"ext.gather.api",
+				"mobile.toast",
+				"mobile.overlays"
+			],
+			"scripts": [
+				"resources/ext.gather.routes/routes.js"
+			],
+			"messages": [
+				"gather-no-such-action",
+				"gather-unknown-error"
+			]
+		},
+		"ext.gather.special.base": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"ext.gather.alerts.init",
+				"ext.gather.collection.editor",
+				"ext.gather.routes"
+			]
+		},
+		"ext.gather.special.usercollections": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"ext.gather.special.base",
+				"ext.gather.collections.list"
+			],
+			"scripts": [
+				"resources/ext.gather.special.usercollections/init.js"
+			]
+		},
+		"ext.gather.special.collection": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"ext.gather.special.base",
+				"ext.gather.collection.flag",
+				"ext.gather.moderation"
+			],
+			"scripts": [
+				"resources/ext.gather.special.collection/init.js"
+			]
+		},
+		"ext.gather.special": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"ext.gather.special.collection",
+				"ext.gather.special.usercollections"
+			]
+		},
+		"ext.gather.moderation": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"mobile.toast",
+				"ext.gather.api"
+			],
+			"messages": [
+				"gather-lists-hide-collection",
+				"gather-lists-hide-success-toast",
+				"gather-lists-hide-failure-toast",
+				"gather-lists-show-collection",
+				"gather-lists-show-success-toast",
+				"gather-lists-show-failure-toast"
+			],
+			"scripts": [
+				"resources/ext.gather.moderation/init.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "Gather"
+	},
+	"Hooks": {
+		"BeforeCreateEchoEvent": [
+			"Gather\\Hooks::onBeforeCreateEchoEvent"
+		],
+		"EchoGetDefaultNotifiedUsers": [
+			"Gather\\Hooks::onEchoGetDefaultNotifiedUsers"
+		],
+		"MobilePersonalTools": [
+			"Gather\\Hooks::onMobilePersonalTools"
+		],
+		"UnitTestsList": [
+			"Gather\\Hooks::onUnitTestsList"
+		],
+		"SkinMinervaDefaultModules": [
+			"Gather\\Hooks::onSkinMinervaDefaultModules"
+		],
+		"MakeGlobalVariablesScript": [
+			"Gather\\Hooks::onMakeGlobalVariablesScript"
+		],
+		"ResourceLoaderTestModules": [
+			"Gather\\Hooks::onResourceLoaderTestModules"
+		],
+		"EventLoggingRegisterSchemas": [
+			"Gather\\Hooks::onEventLoggingRegisterSchemas"
+		],
+		"ResourceLoaderRegisterModules": [
+			"Gather\\Hooks::onResourceLoaderRegisterModules"
+		],
+		"LoginFormValidErrorMessages": [
+			"Gather\\Hooks::onLoginFormValidErrorMessages"
+		],
+		"BeforePageDisplay": [
+			"Gather\\Hooks::onBeforePageDisplay"
+		],
+		"GetBetaFeaturePreferences": [
+			"Gather\\Hooks::onGetBetaFeaturePreferences"
+		],
+		"LoadExtensionSchemaUpdates": [
+			"Gather\\UpdaterHooks::onLoadExtensionSchemaUpdates"
+		]
+	},
+	"config": {
+		"GatherShouldShowTutorial": true,
+		"GatherAllowPublicWatchlist": false,
+		"GatherEnableBetaFeature": false
+	}
+}
