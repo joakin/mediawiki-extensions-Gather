@@ -107,7 +107,7 @@ class Hooks {
 	 */
 	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
 		$user = $out->getUser();
-		if ( !$user->isAnon() ) {
+		if ( !$user->isAnon() && !$out->getTitle()->isSpecialPage() ) {
 			$collectionsList = models\CollectionsList::newFromApi( $user, true );
 			$gatherCollections = array();
 			foreach ( $collectionsList as $collectionInfo ) {
