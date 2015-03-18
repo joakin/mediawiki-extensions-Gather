@@ -29,11 +29,16 @@
 		}
 	}
 
+	@topPadding: 1em;
 	.overlay-content {
-		margin-top: ( @backgroundYOffset * 4) + @backgroundHeight;
-		padding: 0 1em 1em;
-		overflow: scroll;
-		height: 90%;
+		margin-top: ( @backgroundYOffset * 4) + @backgroundHeight - @topPadding;
+		padding: @topPadding 1em 1em;
+		overflow-y: scroll;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		position: absolute;
 
 		.snapshot {
 			margin-bottom: 32px;
