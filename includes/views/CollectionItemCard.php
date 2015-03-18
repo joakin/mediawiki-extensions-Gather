@@ -8,6 +8,7 @@ namespace Gather\views;
 use Gather\models;
 use Gather\views\helpers\CSS;
 use \Html;
+use \Linker;
 
 /**
  * View for an item card in a mobile collection.
@@ -51,13 +52,17 @@ class CollectionItemCard extends View {
 			$this->image->getHtml() .
 			Html::closeElement( 'a' ) .
 			Html::openElement( 'h2', array( 'class' => 'collection-item-title' ) ) .
-			Html::element( 'a', array( 'href' => $title->getLocalUrl() ),
-				$this->getTitle()
-			) .
+			Linker::link( $title ) .
 			Html::closeElement( 'h2' );
-		if ( $item->hasExtract() ) {
+		// Handle excerpt for titles with an extract or unknown pages
+		if ( $item->hasExtract() || !$title->isKnown() ) {
+			if ( $item->hasExtract() ) {
+				$itemExcerpt = $item->getExtract();
+			} elseif ( !$title->isKnown() ) {
+				$itemExcerpt = wfMessage( 'gather-page-not-found' )->escaped();
+			}
 			$html .= Html::element(
-				'p', array( 'class' => 'collection-item-excerpt' ), $item->getExtract()
+				'p', array( 'class' => 'collection-item-excerpt' ), $itemExcerpt
 			);
 		}
 		$html .= Html::openElement( 'div', array( 'class' => 'collection-item-footer' ) )
