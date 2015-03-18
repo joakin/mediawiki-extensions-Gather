@@ -44,8 +44,17 @@ class ApiQueryLists extends ApiQueryBase {
 	}
 
 	public function execute() {
+		$p = $this->getModulePrefix();
 		$params = $this->extractRequestParams();
 		$continue = $params['continue'];
+		$mode = $params['mode'];
+		$modeAll = $mode === 'allpublic';
+		$ids = $params['ids'];
+		$title = $params['title'];
+		$fld_label = in_array( 'label', $params['prop'] );
+		$fld_description = in_array( 'description', $params['prop'] );
+		$fld_public = in_array( 'public', $params['prop'] );
+		$fld_image = in_array( 'image', $params['prop'] );
 
 		// Watchlist, having the label set to '', should always appear first
 		// If it doesn't, make sure to insert a fake one in the result
@@ -53,28 +62,42 @@ class ApiQueryLists extends ApiQueryBase {
 		// This code depends on the result ordered by label, and that watchlist label === ''
 		$injectWatchlist = !$continue;
 
-		$ids = $params['ids'];
-		if ( $ids ) {
-			$findWatchlist = array_search( 0, $ids );
-			if ( $findWatchlist !== false) {
-				unset( $ids[$findWatchlist] );
-				$findWatchlist = true;
-			} else {
-				// When specifying IDs, don't auto-include watchlist
-				$injectWatchlist = false;
+		if ( $modeAll ) {
+			if ( $ids !== null || $title !== null || $params['owner'] !== null ||
+				 $params['token'] !== null
+			) {
+				$this->dieUsage( "Parameters {$p}ids, {$p}title, {$p}owner, {$p}token " .
+					"not allowed with mode=allpublic",
+					'invalidparammix' );
 			}
-		} else {
+			$injectWatchlist = false;
 			$findWatchlist = false;
-		}
+			$owner = false;
+			$showPrivate = false;
+			$userId = 0;
+		} else {
+			if ( $ids ) {
+				$findWatchlist = array_search( 0, $ids );
+				if ( $findWatchlist !== false ) {
+					unset( $ids[$findWatchlist] );
+					$findWatchlist = true;
+				} else {
+					// When specifying IDs, don't auto-include watchlist
+					$injectWatchlist = false;
+				}
+			} else {
+				$findWatchlist = false;
+			}
 
-		/** @var User $owner */
-		list( $owner, $showPrivate ) = $this->calcPermissions( $params, $ids );
-		$userId = $owner ? $owner->getId() : $this->getUser()->getId();
+			/** @var User $owner */
+			list( $owner, $showPrivate ) = $this->calcPermissions( $params, $ids );
+			$userId = $owner ? $owner->getId() : $this->getUser()->getId();
+		}
 
 		$db = $this->getDB();
 		$this->addTables( 'gather_list' );
 		$this->addFields( 'gl_id' );
-		$this->addFields( 'gl_label' );
+		$this->addFieldsIf( 'gl_label', $fld_label || !$modeAll );
 		$this->addFieldsIf( 'gl_user', $showPrivate === null ); // won't know if private until later
 		if ( $owner ) {
 			$this->addWhereFld( 'gl_user', $owner->getId() );
@@ -91,11 +114,17 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 
 		if ( $continue ) {
-			$cont = $db->addQuotes( $continue );
-			$this->addWhere( "gl_label >= $cont" );
+			if ( $modeAll ) {
+				$cont = intval( $continue );
+				$this->dieContinueUsageIf( strval( $cont ) !== $continue );
+				$cont = $db->addQuotes( $cont );
+				$this->addWhere( "gl_id >= $cont" );
+			} else {
+				$cont = $db->addQuotes( $continue );
+				$this->addWhere( "gl_label >= $cont" );
+			}
 		}
 
-		$title = $params['title'];
 		if ( $title ) {
 			$title = Title::newFromText( $title );
 			if ( !$title ) {
@@ -117,11 +146,6 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 		}
 
-		$fld_label = in_array( 'label', $params['prop'] );
-		$fld_description = in_array( 'description', $params['prop'] );
-		$fld_public = in_array( 'public', $params['prop'] );
-		$fld_image = in_array( 'image', $params['prop'] );
-
 		// If we need it for privacy checks or we need to return a prop field
 		$useInfo = $showPrivate !== true || $fld_description || $fld_public || $fld_image;
 
@@ -130,15 +154,21 @@ class ApiQueryLists extends ApiQueryBase {
 		$limit = $params['limit'];
 		// TODO: Disabling this until we stop skipping rows in processing
 		// $this->addOption( 'LIMIT', $limit + 1 );
-		$this->addOption( 'ORDER BY', 'gl_label' );
+
+		if ( $modeAll ) {
+			$this->addOption( 'ORDER BY', 'gl_id' );
+		} else {
+			$this->addOption( 'ORDER BY', 'gl_user, gl_label' );
+		}
 
 		$count = 0;
 		$path = array( 'query', $this->getModuleName() );
 		$currUserId = strval( $this->getUser()->getId() );
 
 		// This closure will process one row, even if that row is fake watchlist
-		$processRow = function( $row ) use ( &$count, $limit, $fld_label, $useInfo, $title,
-			$fld_description, $fld_public, $fld_image, $path, $showPrivate, $currUserId, $userId
+		$processRow = function( $row ) use ( &$count, $modeAll, $limit,  $useInfo, $title,
+			$fld_label, $fld_description, $fld_public, $fld_image, $path, $showPrivate,
+			$currUserId, $userId
 		) {
 			if ( $row === null ) {
 				// Fake watchlist row
@@ -166,11 +196,12 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 
 			$count++;
+			$continueValue = $modeAll ? $row->gl_id : $row->gl_label;
 
 			if ( $count > $limit ) {
 				// We've reached the one extra which shows that there are
 				// additional pages to be had. Stop here...
-				$this->setContinueEnumParameter( 'continue', $row->gl_label );
+				$this->setContinueEnumParameter( 'continue', $continueValue );
 				return false;
 			}
 
@@ -217,7 +248,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 			$fit = $this->getResult()->addValue( $path, null, $data );
 			if ( !$fit ) {
-				$this->setContinueEnumParameter( 'continue', $row->gl_label );
+				$this->setContinueEnumParameter( 'continue', $continueValue );
 				return false;
 			}
 			return true;
@@ -254,6 +285,11 @@ class ApiQueryLists extends ApiQueryBase {
 
 	public function getAllowedParams() {
 		return array(
+			'mode' => array(
+				ApiBase::PARAM_TYPE => array(
+					'allpublic',
+				)
+			),
 			'prop' => array(
 				ApiBase::PARAM_DFLT => 'label',
 				ApiBase::PARAM_ISMULTI => true,
