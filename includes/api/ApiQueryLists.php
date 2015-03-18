@@ -45,6 +45,13 @@ class ApiQueryLists extends ApiQueryBase {
 
 	public function execute() {
 		$params = $this->extractRequestParams();
+		$continue = $params['continue'];
+
+		// Watchlist, having the label set to '', should always appear first
+		// If it doesn't, make sure to insert a fake one in the result
+		// $injectWatchlist is true if we should inject a fake watchlist row if its missing
+		// This code depends on the result ordered by label, and that watchlist label === ''
+		$injectWatchlist = !$continue;
 
 		$ids = $params['ids'];
 		if ( $ids ) {
@@ -52,6 +59,9 @@ class ApiQueryLists extends ApiQueryBase {
 			if ( $findWatchlist !== false) {
 				unset( $ids[$findWatchlist] );
 				$findWatchlist = true;
+			} else {
+				// When specifying IDs, don't auto-include watchlist
+				$injectWatchlist = false;
 			}
 		} else {
 			$findWatchlist = false;
@@ -80,10 +90,9 @@ class ApiQueryLists extends ApiQueryBase {
 			$this->addWhere( $db->makeList( $cond, LIST_OR ) );
 		}
 
-		$continue = $params['continue'];
 		if ( $continue ) {
-			$cont_from = $db->addQuotes( $continue );
-			$this->addWhere( "gl_label >= $cont_from" );
+			$cont = $db->addQuotes( $continue );
+			$this->addWhere( "gl_label >= $cont" );
 		}
 
 		$title = $params['title'];
@@ -213,12 +222,6 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 			return true;
 		};
-
-		// Watchlist, having the label set to '', should always appear first
-		// If it doesn't, make sure to insert a fake one in the result
-		// $injectWatchlist is true if we should inject a fake watchlist row if its missing
-		// This code depends on the result ordered by label, and that watchlist label === ''
-		$injectWatchlist = !$continue;
 
 		foreach ( $this->select( __METHOD__ ) as $row ) {
 			if ( $injectWatchlist ) {
