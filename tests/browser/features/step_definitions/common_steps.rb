@@ -7,6 +7,11 @@ Given(/^I am using the mobile site$/) do
   end
 end
 
+Given(/^I view one of my public collections$/) do
+  visit(GatherPage)
+  on(GatherPage).my_first_public_collection_element.click
+end
+
 Given(/^I am logged into the mobile website$/) do
   step 'I am using the mobile site'
   visit(LoginPage).login_with(ENV['MEDIAWIKI_USER'], ENV['MEDIAWIKI_PASSWORD'], false)
