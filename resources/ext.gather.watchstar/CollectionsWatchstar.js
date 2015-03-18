@@ -76,18 +76,17 @@
 					pageImageUrl: mw.config.get( 'wgGatherPageImageThumbnail' ),
 					collections: this.options.collections
 				} );
+				overlay.on( 'collection-watch', function ( collection ) {
+					if ( collection.isWatchlist ) {
+						self.newStatus( true );
+					}
+				} );
+				overlay.on( 'collection-unwatch', function ( collection ) {
+					if ( collection.isWatchlist ) {
+						self.newStatus( true );
+					}
+				} );
 			}
-
-			overlay.on( 'collection-watch', function ( collection ) {
-				if ( collection.isWatchlist ) {
-					self.newStatus( true );
-				}
-			} );
-			overlay.on( 'collection-unwatch', function ( collection ) {
-				if ( collection.isWatchlist ) {
-					self.newStatus( true );
-				}
-			} );
 			overlay.show();
 			ev.stopPropagation();
 		},
