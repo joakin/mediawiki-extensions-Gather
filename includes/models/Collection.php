@@ -12,6 +12,7 @@ use \User;
 use \ApiMain;
 use \FauxRequest;
 use \Title;
+use \Exception;
 
 /**
  * A collection with a list of items, which are represented by the CollectionItem class.
