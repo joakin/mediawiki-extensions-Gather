@@ -78,6 +78,7 @@ class Hooks {
 								'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
 								// FIXME: Temporarily watchlist icon
 								'class' => CSS::iconClass( 'watchlist', 'before' ),
+								'data-event-name' => 'collections',
 							),
 						),
 					),
