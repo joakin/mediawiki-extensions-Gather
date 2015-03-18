@@ -121,6 +121,7 @@ $wgResourceModules += array(
 			'gather-create-new-button-label',
 			'gather-add-to-new',
 			'gather-collection-non-member',
+			'gather-add-new-placeholder',
 		),
 		'templates' => array(
 			'content.hogan' => 'ext.gather.watchstar/content.hogan',

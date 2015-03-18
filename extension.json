@@ -137,6 +137,7 @@
 			],
 			"messages": [
 				"gather-add-to-existing",
+				"gather-add-new-placeholder",
 				"gather-watchlist-title",
 				"gather-add-toast",
 				"gather-remove-toast",

@@ -49,6 +49,7 @@
 			title: mw.config.get( 'wgTitle' ),
 			spinner: icons.spinner().toHtmlString(),
 			createButtonLabel: mw.msg( 'gather-create-new-button-label' ),
+			placeholder: mw.msg( 'gather-add-new-placeholder' ),
 			subheadingNewCollection: mw.msg( 'gather-add-to-new' ),
 			subheading: mw.msg( 'gather-add-to-existing' ),
 			collections: []

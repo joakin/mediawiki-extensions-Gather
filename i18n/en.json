@@ -19,6 +19,7 @@
 	"gather-collection-non-member": "Is not member of collection.",
 	"gather-anon-cta": "Add this page to a collection that you can share with the world.",
 	"gather-create-new-button-label": "Create",
+	"gather-add-new-placeholder": "Enter a new collection name",
 	"gather-add-to-new": "Add to new collection",
 	"gather-add-to-existing": "Add to existing collection",
 	"gather-add-toast": "The page has been added to your \"$1\" collection.",
