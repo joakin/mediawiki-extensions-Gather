@@ -12,6 +12,8 @@ namespace Gather\models;
  * Extends the base class with a count you can set.
  */
 class CollectionInfo extends CollectionBase {
+	/** @var array $knownMembers cache of known members in this collection */
+	protected $knownMembers = array();
 	/** @var int $count of items in the collection */
 	protected $count;
 
@@ -39,5 +41,21 @@ class CollectionInfo extends CollectionBase {
 		return $data;
 	}
 
+	/**
+	 * @param string $title
+	 * @param boolean $isMember whether this title is in the collection or not.
+	 */
+	public function setMember( $title, $isMember ) {
+		$this->knownMembers[$title] = $isMember;
+	}
+
+	/**
+	 * Returns whether the given title is a known member of the collection
+	 * @param string $title
+	 * @return boolean
+	 */
+	public function isKnownMember( $title ) {
+		return $this->knownMembers[$title];
+	}
 
 }

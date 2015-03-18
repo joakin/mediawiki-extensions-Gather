@@ -83,17 +83,22 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 	 * FIXME: $user parameter currently ignored
 	 * @param User $user collection list owner (currently ignored)
 	 * @param boolean $includePrivate if the list should show private collections or not
+	 * @param string $memberTitle title of member to check for
 	 * @return models\CollectionsList List of collections.
 	 */
-	public static function newFromApi( User $user, $includePrivate = false ) {
+	public static function newFromApi( User $user, $includePrivate = false, $memberTitle = false ) {
 		$collectionsList = new CollectionsList( $includePrivate );
-		$api = new ApiMain( new FauxRequest( array(
+		$query = array(
 			'action' => 'query',
 			'list' => 'lists',
 			'lstprop' => 'label|description|public|image|count',
 			'continue' => '',
 			'lstowner' => $user->getName(),
-		) ) );
+		);
+		if ( $memberTitle ) {
+			$query['lsttitle'] = $memberTitle;
+		}
+		$api = new ApiMain( new FauxRequest( $query ) );
 		$api->execute();
 		$data = $api->getResultData();
 		if ( isset( $data['query']['lists'] ) ) {
@@ -103,6 +108,9 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 					$info = new models\CollectionInfo( $list['id'], $user,
 						$list['label'], $list['description'], $list['public'] );
 					$info->setCount( $list['count'] );
+					if ( $memberTitle ) {
+						$info->setMember( $memberTitle, $list['title'] );
+					}
 					$collectionsList->add( $info );
 				}
 			}
