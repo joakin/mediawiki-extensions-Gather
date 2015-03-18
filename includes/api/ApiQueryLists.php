@@ -121,9 +121,14 @@ class ApiQueryLists extends ApiQueryBase {
 				ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false ) : null;
 
 			// Determine if this gather_list row is viewable by the current user
-			if ( $showPrivate === false && !ApiEditList::isPublic( $info ) ) {
-				return true;
-			} elseif ( $showPrivate === null && $row->gl_user !== $currUserId ) {
+			// TODO: this should be part of the SQL query once fields are cerated
+			$show = $showPrivate;
+			if ( $show === null && $row->gl_user === $currUserId ) {
+				$show = true;
+			} elseif ( $show !== true && ApiEditList::isPublic( $info ) ) {
+				$show = true;
+			}
+			if ( !$show ) {
 				return true;
 			}
 

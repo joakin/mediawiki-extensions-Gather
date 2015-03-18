@@ -33,23 +33,9 @@
  */
 class ApiQueryLists extends ApiQueryTestBase {
 	protected $exceptionFromAddDBData;
-	/** @var TestUser */
-	private static $noWlUser, $wlUser, $wlOnly;
 
-	static function initUsers() {
-		if ( !self::$wlUser ) {
-			self::$wlUser = new TestUser( 'GatherWL', 'GatherWL', 'GatherWL@example.com' );
-			self::$noWlUser = new TestUser( 'GatherNoWL', 'GatherNoWL', 'GatherNoWL@example.com' );
-			self::$wlOnly = new TestUser( 'GatherNoLst', 'GatherNoLst', 'GatherNoLst@example.com' );
-
-			User::createNew( self::$wlUser->getUser()->getName() );
-			User::createNew( self::$noWlUser->getUser()->getName() );
-			User::createNew( self::$wlOnly->getUser()->getName() );
-		}
-		self::$users['GatherWL'] = self::$wlUser;
-		self::$users['GatherNoWL'] = self::$noWlUser;
-		self::$users['GatherNoLst'] = self::$wlOnly;
-	}
+	/** @var TestUser[] */
+	private static $wlUsers = null;
 
 	/**
 	 * Create a set of pages. These must not change, otherwise the tests might give wrong results.
@@ -72,7 +58,13 @@ class ApiQueryLists extends ApiQueryTestBase {
 
 	protected function setUp() {
 		parent::setUp();
-		self::initUsers();
+		if ( !self::$wlUsers ) {
+			$users = array( 'GatherML', 'GatherML2', 'GatherWlOnly', 'GatherWlOnly2' );
+			foreach ( $users as $name ) {
+				self::$wlUsers[$name] = new TestUser( $name );
+			}
+		}
+		self::$users = array_merge( self::$users, self::$wlUsers );
 	}
 
 	public function testAnonymous() {
@@ -82,43 +74,145 @@ class ApiQueryLists extends ApiQueryTestBase {
 		$this->assertUsage( 'an-1', '{ "list": "lists", "lstids": 0 }', $a );
 	}
 
-	public function testProps() {
-		$wl = self::$wlUser->getUser();
+	public function testMultipleLists() {
+		$u = self::$users['GatherML']->getUser(); // User for this test
+		$n = $u->getName(); // Name of the user for this test
+		$a = User::newFromId( 0 ); // Anonymous user
+		$u2 = self::$users['GatherML2']->getUser(); // Second user for this test
 
-		$res = $this->callApi( 'p-a0', '{ "list": "lists" }', $wl );
-		$this->assertListsEquals( 'p-a0', $res, '[{"id":0, "watchlist":true, "label":"Watchlist"}]' );
+		$token = $this->getToken( $u );
 
-		$token = $this->getToken( $wl );
-		$this->legacyAddToWatchlist( 'p-a1', 'Gather-ListW|Gather-ListWA|Gather-ListWAB', $wl, $token );
-		$res = $this->callApi( 'p-a1', '{ "list": "lists" }', $wl );
-		$this->assertListsEquals( 'p-a1', $res, '[{"id":0, "watchlist":true, "label":"Watchlist"}]' );
+		// Add pages to various lists
+		$res = $this->updateList( 'p-a1',
+			'{"id":0,"titles":"Gather-ListW|Gather-ListWA|Gather-ListWAB"}', $u, $token );
+		$this->getVal( 'p-a1', '"status"', $res, 'nochanges' );
+		$this->getVal( 'p-a1', '"pages",0,"added"', $res, '' );
+		$this->getVal( 'p-a1', '"pages",1,"added"', $res, '' );
+		$this->getVal( 'p-a1', '"pages",2,"added"', $res, '' );
+		$this->getVal( 'p-a1', '"id"', $res, 0 );
 
-		$this->addToList( 'p-a2a', 'A', 'Gather-ListWA|Gather-ListWAB', $wl, $token );
-		$this->addToList( 'p-a2b', 'B', 'Gather-ListWAB', $wl, $token );
-		$res = $this->callApi( 'p-a2', '{ "list": "lists" }', $wl );
-		$this->assertListsEquals( 'p-a2', $res,
+		$res = $this->updateList( 'p-a2',
+			'{"label":"A","titles":"Gather-ListWA|Gather-ListWAB"}', $u, $token );
+		$this->getVal( 'p-a2', '"status"', $res, 'created' );
+		$this->getVal( 'p-a2', '"pages",0,"added"', $res, '' );
+		$this->getVal( 'p-a2', '"pages",1,"added"', $res, '' );
+		$idA = $this->getVal( 'p-a2', '"id"', $res );
+
+		$res = $this->updateList( 'p-a3',
+			'{"label":"B", "perm":"public", "titles":"Gather-ListWAB"}', $u, $token );
+		$this->getVal( 'p-a3', '"status"', $res, 'created' );
+		$this->getVal( 'p-a3', '"pages",0,"added"', $res, '' );
+		$idB = $this->getVal( 'p-a3', '"id"', $res );
+
+		$res = $this->callApi( 'p-b1', '{ "list": "lists" }', $u );
+		$this->assertListNoId( 'p-b1', $res,
 			'[{"id":0, "watchlist":true,"label":"Watchlist"}, {"label":"A"}, {"label":"B"}]' );
+		$this->getVal( 'p-b1', '"query","lists",1,"id"', $res, $idA );
+		$this->getVal( 'p-b1', '"query","lists",2,"id"', $res, $idB );
+
+		//
+		// Continuation
+		$request = $this->toApiParams( 'p-c1', '{ "list": "lists", "lstlimit": 1 }' );
+
+		$res = $this->callApi( 'p-c1', $request, $u );
+		$this->assertListNoId( 'p-c1a', $res,
+			'[{"id":0, "watchlist":true,"label":"Watchlist"}]' );
+		$continue = $this->getVal( 'p-c1b', '"continue"', $res );
+
+		$res = $this->callApi( 'p-c2', array_merge( $continue, $request ), $u );
+		$this->assertListNoId( 'p-c2a', $res, '[{"label":"A"}]' );
+		$continue = $this->getVal( 'p-c2b', '"continue"', $res );
+
+		$res = $this->callApi( 'p-c3', array_merge( $continue, $request ), $u );
+		$this->assertListNoId( 'p-c3a', $res, '[{"label":"B"}]' );
+		$this->assertArrayNotHasKey( 'continue', $res, 'p-c3c' );
+
+		//
+		// ids=A
+		$res = $this->callApi( 'p-d1', '{ "list": "lists", "lstids":' . $idA . ' }', $u );
+		$this->assertListNoId( 'p-d1', $res, '[{"label":"A"}]' );
+
+		// ids=A as anon user
+		$res = $this->callApi( 'p-d2', '{ "list": "lists", "lstids":' . $idA . ' }', $a );
+		$this->assertListNoId( 'p-d2', $res, '[]' );
+
+		// ids=A as another user
+		$res = $this->callApi( 'p-d3', '{ "list": "lists", "lstids":' . $idA . ' }', $u2 );
+		$this->assertListNoId( 'p-d3', $res, '[]' );
+
+		//
+		// ids=B
+		$res = $this->callApi( 'p-e1', '{ "list": "lists", "lstids":' . $idB . ' }', $u );
+		$this->assertListNoId( 'p-e1', $res, '[{"label":"B"}]' );
+
+		// ids=B as anon user
+		$res = $this->callApi( 'p-e2', '{ "list": "lists", "lstids":' . $idB . ' }', $a );
+		$this->assertListNoId( 'p-e2', $res, '[{"label":"B"}]' );
+
+		// ids=B as another user
+		$res = $this->callApi( 'p-e3', '{ "list": "lists", "lstids":' . $idB . ' }', $u2 );
+		$this->assertListNoId( 'p-e3', $res, '[{"label":"B"}]' );
+
+		//
+		// Use owner param
+		// user: get all with owner=user
+		$res = $this->callApi( 'p-i0', '{ "list": "lists", "lstowner": "' . $n . '" }', $u );
+		$this->assertListNoId( 'p-i0', $res,
+			'[{"id":0, "watchlist":true,"label":"Watchlist"}, {"label":"A"}, {"label":"B"}]' );
+
+		// anon: get all with owner=user
+		$res = $this->callApi( 'p-i1', '{ "list": "lists", "lstowner": "' . $n .
+									   '" }', $a );
+		$this->assertListNoId( 'p-i1', $res, '[{"label":"B"}]' );
+
+		// anon: get by idA with owner=user
+		$res = $this->callApi( 'p-i2', '{ "list": "lists", "lstowner": "' . $n .
+									   '", "lstids": ' . $idA . ' }', $a );
+		$this->assertListNoId( 'p-i2', $res, '[]' );
+
+		// anon: get by idB with owner=user
+		$res = $this->callApi( 'p-i3', '{ "list": "lists", "lstowner": "' . $n .
+									   '", "lstids": ' . $idB . ' }', $a );
+		$this->assertListNoId( 'p-i3', $res, '[{"label":"B"}]' );
+
+		// user2: get all with owner=user
+		$res = $this->callApi( 'p-i4', '{ "list": "lists", "lstowner": "' . $n . '" }', $u2 );
+		$this->assertListNoId( 'p-i4', $res, '[{"label":"B"}]' );
+
+		// user2: get by idA with owner=user
+		$res = $this->callApi( 'p-i5', '{ "list": "lists", "lstowner": "' . $n .
+									   '", "lstids": ' . $idA . ' }', $u2 );
+		$this->assertListNoId( 'p-i5', $res, '[]' );
+
+		// user2: get by idB with owner=user
+		$res = $this->callApi( 'p-i5', '{ "list": "lists", "lstowner": "' . $n .
+									   '", "lstids": ' . $idB . ' }', $u2 );
+		$this->assertListNoId( 'p-i5', $res, '[{"label":"B"}]' );
 	}
 
 	public function testWatchlistOnly() {
-		$u = self::$wlOnly->getUser();
+		$u = self::$users['GatherWlOnly']->getUser(); // User for this test
+		$n = $u->getName(); // Name of the user for this test
+		$a = User::newFromId( 0 ); // Anonymous user
+		$u2 = self::$users['GatherWlOnly2']->getUser(); // Second user for this test
+
 		$token = $this->getToken( $u );
 		$wlOnly = '[{"id":0, "watchlist":true, "label":"Watchlist"}]';
 
 		//
 		// Validate empty watchlist / lists
 		$res = $this->callApi( 'nc-a0', '{ "list": "lists" }', $u );
-		$this->assertListsEquals( 'nc-a0', $res, $wlOnly );
+		$this->assertListNoId( 'nc-a0', $res, $wlOnly );
 
 		$res = $this->callApi( 'nc-a1', '{ "list": "lists", "lstids": 0 }', $u );
-		$this->assertListsEquals( 'nc-a1', $res, $wlOnly );
+		$this->assertListNoId( 'nc-a1', $res, $wlOnly );
 
 		$res = $this->callApi( 'nc-a2', '{ "list": "lists", "lstlimit": 1 }', $u );
-		$this->assertListsEquals( 'nc-a2', $res, $wlOnly );
+		$this->assertListNoId( 'nc-a2', $res, $wlOnly );
 
 		$res = $this->callApi( 'nc-a3',
 			'{ "list": "lists", "lstprop": "label|description|public|count" }', $u );
-		$this->assertListsEquals( 'nc-a3', $res,
+		$this->assertListNoId( 'nc-a3', $res,
 			'[{"id":0,"watchlist":true,"count":0,"label":"Watchlist","description":"","public":false}]'
 		);
 
@@ -126,75 +220,103 @@ class ApiQueryLists extends ApiQueryTestBase {
 		// Add page to watchlist
 		$this->legacyAddToWatchlist( 'nc-b0', 'Gather-ListW', $u, $token );
 		$res = $this->callApi( 'nc-b0', '{ "list": "lists", "lstprop": "count" }', $u );
-		$this->assertListsEquals( 'nc-b0', $res, '[{"id": 0, "watchlist":true, "count": 1}]' );
+		$this->assertListNoId( 'nc-b0', $res, '[{"id": 0, "watchlist":true, "count": 1}]' );
 
 		//
 		// Re-add the same page, using action=editlist & id=0
-		$this->addToList( 'nc-c0', 0, 'Gather-ListW', $u, $token );
+		$res = $this->updateList( 'nc-c0', '{"id":0,"titles":"Gather-ListW"}', $u, $token );
+		$this->getVal( 'p-c0', '"status"', $res, 'nochanges' );
+		$this->getVal( 'p-c0', '"id"', $res, 0 );
+		$this->getVal( 'p-c0', '"pages",0,"added"', $res, '' );
+
 		$res = $this->callApi( 'nc-c0', '{ "list": "lists" }', $u );
-		$this->assertListsEquals( 'nc-c0', $res, $wlOnly );
+		$this->assertListNoId( 'nc-c0', $res, $wlOnly );
 
 		$res = $this->callApi( 'nc-c1', '{ "list": "lists", "lstids": 0 }', $u );
-		$this->assertListsEquals( 'nc-c1', $res, $wlOnly );
+		$this->assertListNoId( 'nc-c1', $res, $wlOnly );
 
 		$res = $this->callApi( 'nc-c3', '{ "list": "lists", "lstprop": "count" }', $u );
-		$this->assertListsEquals( 'nc-c3', $res, '[{"id":0, "watchlist":true, "count": 1}]' );
+		$this->assertListNoId( 'nc-c3', $res, '[{"id":0, "watchlist":true, "count": 1}]' );
 
 		//
 		// What can others see from this user
-		$n = $u->getName();
-		$u2 = self::$wlUser->getUser();
-
-		$res = $this->callApi( 'nc-e0', '{ "list": "lists", "lstowner": "' . $n . '" }', $u2 );
-		$this->assertListsEquals( 'nc-e0', $res, '[]' );
+		$res = $this->callApi( 'nc-e0', '{ "list": "lists", "lstowner": "' . $n . '" }', $a );
+		$this->assertListNoId( 'nc-e0', $res, '[]' );
 
 		$res = $this->callApi( 'nc-e1', '{ "list": "lists", "lstowner": "' . $n .
-			'", "lstids": 0 }', $u2 );
-		$this->assertListsEquals( 'nc-e1', $res, '[]' );
+			'", "lstids": 0 }', $a );
+		$this->assertListNoId( 'nc-e1', $res, '[]' );
+
+		$res = $this->callApi( 'nc-e2', '{ "list": "lists", "lstowner": "' . $n . '" }', $u2 );
+		$this->assertListNoId( 'nc-e2', $res, '[]' );
+
+		$res =  $this->callApi( 'nc-e3',
+			'{ "list": "lists", "lstowner": "' . $n . '", "lstids": 0 }', $u2 );
+		$this->assertListNoId( 'nc-e3', $res, '[]' );
 
 		//
 		// Create watchlist list DB record
 		$res = $this->updateList( 'nc-f0', '{ "id":0, "description":"aa" }', $u, $token );
-		$this->assertEquals( 'created', $res['status'], 'nc-f0' );
-		$this->assertNotEquals( 0, $res['id'], 'nc-f1' );
-		$id = $res['id'];
+		$this->getVal( 'nc-f0', '"status"', $res, 'created' );
+		$id = $this->getVal( 'nc-f0', '"id"', $res );
+		$this->assertNotEquals( 0, $id );
+
 		$wlOnly = array( array( 'id' => $id, 'watchlist' => true, 'label' => 'Watchlist' ) );
 
 		$res = $this->callApi( 'nc-f2', '{ "list": "lists" }', $u );
-		$this->assertListsEquals( 'nc-f2', $res, $wlOnly, false );
+		$this->assertListsEquals( 'nc-f2', $res, $wlOnly );
 
 		$res = $this->callApi( 'nc-f3', '{ "list": "lists", "lstids": 0 }', $u );
-		$this->assertListsEquals( 'nc-f3', $res, $wlOnly, false );
+		$this->assertListsEquals( 'nc-f3', $res, $wlOnly );
 
 		$res = $this->callApi( 'nc-f4',
 			'{ "list": "lists", "lstprop": "label|description|public|count" }', $u );
 		$this->assertListsEquals( 'nc-f4', $res,
 			'[{"id":' . $id .
-			',"watchlist":true,"count":1,"label":"Watchlist","description":"aa","public":false}]',
-			false );
+			',"watchlist":true,"count":1,"label":"Watchlist","description":"aa","public":false}]' );
 
 		//
 		// Others still can't see the watchlist
-		$res = $this->callApi( 'nc-g0', '{ "list": "lists", "lstowner": "' . $n . '" }', $u2 );
-		$this->assertListsEquals( 'nc-g0', $res, '[]' );
+		$res = $this->callApi( 'nc-g0', '{ "list": "lists", "lstowner": "' . $n . '" }', $a );
+		$this->assertListNoId( 'nc-g0', $res, '[]' );
 
 		$res = $this->callApi( 'nc-g1', '{ "list": "lists", "lstowner": "' . $n .
-			'", "lstids": 0 }', $u2 );
-		$this->assertListsEquals( 'nc-g1', $res, '[]' );
+			'", "lstids": 0 }', $a );
+		$this->assertListNoId( 'nc-g1', $res, '[]' );
 
-		$res = $this->callApi( 'nc-g2', '{ "list": "lists", "lstids": ' . $id . ' }', $u2 );
-		$this->assertListsEquals( 'nc-g2', $res, '[]' );
+		$res = $this->callApi( 'nc-g2', '{ "list": "lists", "lstids": ' . $id . ' }', $a );
+		$this->assertListNoId( 'nc-g2', $res, '[]' );
 
 		$res = $this->callApi( 'nc-g3', '{ "list": "lists", "lstowner": "' . $n . '", "lstids": ' .
-				$id . ' }', $u2 );
-		$this->assertListsEquals( 'nc-g3', $res, '[]' );
+				$id . ' }', $a );
+		$this->assertListNoId( 'nc-g3', $res, '[]' );
 
+		$res = $this->callApi( 'nc-h0', '{ "list": "lists", "lstowner": "' . $n . '" }', $u2 );
+		$this->assertListNoId( 'nc-h0', $res, '[]' );
+
+		$res = $this->callApi( 'nc-h1', '{ "list": "lists", "lstowner": "' . $n .
+			'", "lstids": 0 }', $u2 );
+		$this->assertListNoId( 'nc-h1', $res, '[]' );
+
+		$res = $this->callApi( 'nc-h2', '{ "list": "lists", "lstids": ' . $id . ' }', $u2 );
+		$this->assertListNoId( 'nc-h2', $res, '[]' );
+
+		$res = $this->callApi( 'nc-h3', '{ "list": "lists", "lstowner": "' . $n . '", "lstids": ' .
+				$id . ' }', $u2 );
+		$this->assertListNoId( 'nc-h3', $res, '[]' );
+
+		//
+		// Watchlist editing assertions
 		$this->assertUsage( 'nc-i0', '{ "action": "editlist", "id":0, "label":"bb" }', $u );
 		$this->assertUsage( 'nc-i1', '{ "action": "editlist", "id":' . $id . ', "label":"bb" }', $u );
 	}
 
-	private function assertListsEquals( $message, $actual, $expected, $removeIds = true ) {
-		$actual = $this->checkResult( $message, $message, '"query", "lists"', $actual );
+	private function assertListNoId( $message, $actual, $expected ) {
+		$this->assertListsEquals( $message, $actual, $expected, true );
+	}
+
+	private function assertListsEquals( $message, $actual, $expected, $removeIds = false ) {
+		$actual = $this->getVal( $message, '"query", "lists"', $actual );
 		$expected = $this->toArray( $message, $expected );
 		if ( $removeIds ) {
 			$actual = self::removeIds( $actual );
@@ -210,17 +332,9 @@ class ApiQueryLists extends ApiQueryTestBase {
 		if ( !isset( $params['token'] ) ) {
 			$params['token'] = $token;
 		}
-		return $this->callApi( $message, $params, $user, array( $params['action'] ) );
-	}
+		$res = $this->callApi( $message, $params, $user );
+		return $this->getVal( $message, array( $params['action'] ), $res );
 
-	private function addToList( $message, $label, $titles, $user, $token ) {
-		$params = array(
-			'action' => 'editlist',
-			'titles' => $titles,
-			'token' => $token,
-		);
-		$params[is_string( $label ) ? 'label' : 'id'] = $label;
-		$this->callApi( $message, $params, $user, '"editlist", "pages", 0, "added"' );
 	}
 
 	private function legacyAddToWatchlist( $message, $titles, $user, $token ) {
@@ -229,14 +343,17 @@ class ApiQueryLists extends ApiQueryTestBase {
 			'titles' => $titles,
 			'token' => $token,
 		);
-		$this->callApi( $message, $params, $user, '"watch", 0, "watched"' );
+		$res = $this->callApi( $message, $params, $user );
+		$this->getVal( $message, '"watch", 0, "watched"', $res );
 	}
 
 	private function getToken( User $user ) {
-		return $this->callApi( 'token-' . $user->getName(), array(
+		$message = 'token-' . $user->getName();
+		$res = $this->callApi( $message, array(
 			'meta' => 'tokens',
 			'type' => 'watch',
-		), $user, '"query", "tokens", "watchtoken"' );
+		), $user );
+		return $this->getVal( $message, '"query", "tokens", "watchtoken"', $res );
 	}
 
 	private function assertUsage( $message, $params, User $user = null ) {
@@ -251,10 +368,10 @@ class ApiQueryLists extends ApiQueryTestBase {
 		}
 	}
 
-	private function callApi( $message, $params, User $user = null, $path = '' ) {
+	private function callApi( $message, $params, User $user = null ) {
 		$params = $this->toApiParams( $message, $params );
-		$result = $this->doApiRequest( $params, null, false, $user );
-		return $path ? $this->checkResult( $message, $params, $path, $result ) : $result;
+		$res = $this->doApiRequest( $params, null, false, $user );
+		return $res[0];
 	}
 
 	private function toApiParams( $message, $params ) {
@@ -274,7 +391,6 @@ class ApiQueryLists extends ApiQueryTestBase {
 			$st = FormatJson::parse( $p, FormatJson::FORCE_ASSOC );
 			$this->assertTrue( $st->isOK(), 'invalid JSON value ' . $params, $message );
 			$params = $st->getValue();
-			return $params;
 		}
 		return $params;
 	}
@@ -295,20 +411,20 @@ class ApiQueryLists extends ApiQueryTestBase {
 		return $arr;
 	}
 
-	private function checkResult( $message, $params, $path, $result ) {
+	private function getVal( $message, $path, $result, $expectedValue = null ) {
 		$path = $this->toArray( $message, $path );
-		array_unshift( $path, 0 );
 		$res = $result;
 		foreach ( $path as $p ) {
 			if ( !array_key_exists( $p, $res ) ) {
-				$params = $this->toStr( $params );
 				$path = $this->toStr( $path );
-				$this->fail( "$message: Request $params has no key $p of $path in result\n" .
+				$this->fail( "$message: Request has no key $p of $path in result\n" .
 							 $this->toStr( $result, true ) );
 			}
 			$res = $res[$p];
 		}
-		$result = $res;
-		return $result;
+		if ( $expectedValue !== null ) {
+			$this->assertEquals( $expectedValue, $res, $message );
+		}
+		return $res;
 	}
 }
