@@ -2,6 +2,10 @@
 	"@metadata": {
 		"authors": []
 	},
+	"gather-lists-collection-owner": "Owner",
+	"gather-lists-collection-title": "Title",
+	"gather-lists-collection-description": "Description",
+	"gather-lists-collection-count": "Count",
 	"gather-edit-collection-heading": "Edit collection",
 	"gather-edit-collection-label-name": "Name",
 	"gather-edit-collection-label-description": "Description",

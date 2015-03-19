@@ -54,6 +54,7 @@ $autoloadClasses = array(
 	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
 
 	'Gather\SpecialGather' => 'specials/SpecialGather',
+	'Gather\SpecialGatherLists' => 'specials/SpecialGatherLists',
 
 	'Gather\api\ApiEditList' => 'api/ApiEditList',
 	'Gather\api\ApiQueryLists' => 'api/ApiQueryLists',
@@ -67,6 +68,7 @@ foreach ( $autoloadClasses as $className => $classFilename ) {
 
 
 $wgSpecialPages['Gather'] = 'Gather\SpecialGather';
+$wgSpecialPages['GatherLists'] = 'Gather\SpecialGatherLists';
 
 // Hooks
 $wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
