@@ -31,6 +31,7 @@
 	"gather-desc": "{{desc|name=Gather|url=https://www.mediawiki.org/wiki/Extension:Gather}}",
 	"gather-no-public-lists-title": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n  The title of the view shown when there are no public collections for a user",
 	"gather-no-public-lists-description": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n  The descriptive text explaining that there are no public collections for a user.",
+	"gather-page-not-found": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n  Text in place of the collection excerpt explaining that the page does not exist",
 	"gather-anon-view-lists": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Text shown when trying to see your own collections on [[Special:Gather]] but the user is not logged in.",
 	"gather-watchlist-title": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Title used for special casing the Watchlist collection on the [[Special:Gather]] page.\n{{Identical|Watchlist}}",
 	"gather-watchlist-description": "Note: Experimental feature. Messages and UI may change radically at any time. Translate at your own risk.\n Default description for special casing the Watchlist collection on the [[Special:Gather]] page.",
