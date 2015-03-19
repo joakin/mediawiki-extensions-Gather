@@ -108,26 +108,13 @@ class Hooks {
 	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
 		$user = $out->getUser();
 		$title = $out->getTitle();
-		if ( !$user->isAnon() ) {
+		if ( !$user->isAnon() && !$title->isSpecialPage() ) {
 			$member = $title->getPrefixedText();
-			if ( $title->isSpecialPage() ) {
-				$collectionsList = models\CollectionsList::newFromApi( $user, true );
-			} else {
-				// also query if page is in watchlist.
-				$collectionsList = models\CollectionsList::newFromApi( $user, true, $member );
-			}
-
+			$collectionsList = models\CollectionsList::newFromApi( $user, true, $member );
 			$gatherCollections = array();
 			foreach ( $collectionsList as $collectionInfo ) {
-				$id = $collectionInfo->getId();
 				if ( $collectionInfo !== null ) {
-					$collection = array(
-						'id' => $id,
-						'isWatchlist' => $id === 0,
-						'isPublic' => $collectionInfo->isPublic(),
-						'title' => $collectionInfo->getTitle(),
-						'description' => $collectionInfo->getDescription(),
-					);
+					$collection = $collectionInfo->toArray();
 					if ( $member ) {
 						$collection['titleInCollection'] = $collectionInfo->isKnownMember( $member );
 					}

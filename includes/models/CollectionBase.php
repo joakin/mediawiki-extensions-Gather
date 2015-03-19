@@ -69,6 +69,7 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 		$this->description = $description;
 		$this->public = $public;
 		$this->image = $image;
+		$this->isWatchlist = $this->id === 0;
 	}
 
 	/**
@@ -136,6 +137,7 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 			'title' => $this->title,
 			'description' => $this->description,
 			'public' => $this->public,
+			'isWatchlist' => $this->isWatchlist,
 			'image' => $this->image ? $this->image->getTitle()->getText() : null
 		);
 		return $data;
