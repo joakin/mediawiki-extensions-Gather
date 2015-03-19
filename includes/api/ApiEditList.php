@@ -223,9 +223,11 @@ class ApiEditList extends ApiBase {
 	 * Given an info object, update it with arguments from params, and return JSON str if changed
 	 * @param stdClass $v
 	 * @param Array $params
+	 * @param bool $isWatchlist
 	 * @return string JSON encoded info object in case it changed, or NULL if update is not needed
+	 * @throws \UsageException
 	 */
-	private function updateInfo( stdClass $v, array $params ) {
+	private function updateInfo( stdClass $v, array $params, $isWatchlist ) {
 		$updated = false;
 
 		//
@@ -247,6 +249,13 @@ class ApiEditList extends ApiBase {
 			$updated = true;
 		}
 		if ( $params['perm'] !== null && $v->perm !== $params['perm'] ) {
+			if ( $isWatchlist && $params['perm'] !== 'private' ) {
+				// Per team discussion, introducing artificial limitation for now
+				// until we establish that making watchlist public would cause no harm.
+				// This check can be deleted at any time since all other API code supports it.
+				$this->dieUsage( 'Making watchlist public is not supported for security reasons',
+					'publicwatchlist' );
+			}
 			$v->perm = $params['perm'];
 			$updated = true;
 		}
@@ -289,7 +298,7 @@ class ApiEditList extends ApiBase {
 	 */
 	private function createRow( DatabaseBase $dbw, User $user, array $params, &$isWatchlist ) {
 		$label = $isWatchlist ? '' : $params['label'];
-		$info = $this->updateInfo( new stdClass(), $params );
+		$info = $this->updateInfo( new stdClass(), $params, $isWatchlist );
 		$createRow = !$isWatchlist || $info;
 
 		if ( $createRow ) {
@@ -348,7 +357,7 @@ class ApiEditList extends ApiBase {
 			$update['gl_label'] = $params['label'];
 		}
 		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
-		$json = $this->updateInfo( $info, $params );
+		$json = $this->updateInfo( $info, $params, $row->gl_label === '' );
 		if ( $json ) {
 			$update['gl_info'] = $json;
 		}
