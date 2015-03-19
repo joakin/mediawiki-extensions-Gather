@@ -24,7 +24,7 @@ class NotFound extends View {
 	 */
 	public function getHtml() {
 		// FIXME: Showing generic not found error right now. Show user not found instead
-		$html = Html::openElement( 'div', array( 'class' => 'collection not-found' ) );
+		$html = Html::openElement( 'div', array( 'class' => 'collection not-found content' ) );
 		$html .= Html::element( 'span', array( 'class' => 'mw-ui-anchor mw-ui-destructive' ),
 			wfMessage( 'mobile-frontend-generic-404-desc' )->text() );
 		$html .= Html::closeElement( 'div' );

@@ -23,7 +23,7 @@ class NoPublic extends View {
 	 * @inheritdoc
 	 */
 	public function getHtml() {
-		$html = Html::openElement( 'div', array( 'class' => 'collection not-found' ) );
+		$html = Html::openElement( 'div', array( 'class' => 'collection not-found content' ) );
 		$html .= Html::element( 'span', array( 'class' => 'mw-ui-anchor mw-ui-destructive' ),
 			wfMessage( 'gather-no-public-lists-description' )->text() );
 		$html .= Html::closeElement( 'div' );
