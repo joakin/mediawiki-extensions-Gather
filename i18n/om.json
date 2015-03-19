@@ -4,13 +4,21 @@
 			"Tumsaa"
 		]
 	},
+	"gather-edit-collection-heading": "Kuusaa gulaali",
 	"gather-edit-collection-label-name": "Maqaa",
 	"gather-edit-collection-label-description": "Ibsa",
 	"gather-edit-collection-label-privacy": "Bu'ata dhuunfa",
 	"gather-edit-collection-save-label": "Xumurame",
+	"gather-delete-collection-confirm": "Dhuguma kuusaa kana balleessuu barbaaddaa?",
+	"gather-delete-collection-heading": "Kuusaa balleessi",
 	"gather-delete-collection-delete-label": "Balleessi",
 	"gather-delete-collection-cancel-label": "Dhiisi",
+	"gather-delete-collection-success": "Kuusan guutummaan balleeffameera.",
+	"gather-delete-collection-failed-error": "Kuusaa kana yeroo balleessuuf yaalu dogoggorri uummameera.",
+	"gather-collection-member": "Miseensa kuusa ti.",
+	"gather-collection-non-member": "Miseensa kuusaa miti",
 	"gather-create-new-button-label": "Uumi",
+	"gather-add-to-existing": "Kuusaa duraan jirutti dabali",
 	"gather-edit-button": "Gulaali",
 	"gather-delete-button": "Balleessi"
 }
