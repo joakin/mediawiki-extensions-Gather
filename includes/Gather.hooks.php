@@ -35,7 +35,7 @@ class Hooks {
 	 * @return boolean
 	 */
 	public static function onSkinMinervaDefaultModules( $skin, &$modules ) {
-		if ( MobileContext::singleton()->isAlphaGroupMember() ) {
+		if ( MobileContext::singleton()->isBetaGroupMember() ) {
 			$modules['watch'] = array( 'ext.gather.watchstar' );
 		}
 		return true;
