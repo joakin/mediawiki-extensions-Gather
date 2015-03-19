@@ -90,7 +90,7 @@ class SpecialGather extends SpecialPage {
 			// FIXME: No permissions to visit this. Showing not found ATM.
 			$this->renderError( new views\NotFound() );
 		} else {
-			$this->render( new views\Collection( $user, $collection ) );
+			$this->render( new views\Collection( $this->getUser(), $collection ) );
 		}
 	}
 
