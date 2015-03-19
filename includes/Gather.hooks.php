@@ -46,7 +46,7 @@ class Hooks {
 	 * @param array &$items Items array to be added to menu
 	 */
 	public static function onMobilePersonalTools( &$items ) {
-		if ( MobileContext::singleton()->isAlphaGroupMember() ) {
+		if ( MobileContext::singleton()->isBetaGroupMember() ) {
 			// Add collections link below watchlist
 			$itemArray = array_slice( $items, 0, 1, true ) +
 				array(
