@@ -98,7 +98,8 @@ class ApiQueryLists extends ApiQueryBase {
 		$this->addTables( 'gather_list' );
 		$this->addFields( 'gl_id' );
 		$this->addFieldsIf( 'gl_label', $fld_label || !$modeAll );
-		$this->addFieldsIf( 'gl_user', $showPrivate === null ); // won't know if private until later
+		// won't know if private until later
+		$this->addFieldsIf( 'gl_user', $showPrivate === null || $modeAll );
 		if ( $owner ) {
 			$this->addWhereFld( 'gl_user', $owner->getId() );
 		}
@@ -214,6 +215,9 @@ class ApiQueryLists extends ApiQueryBase {
 			if ( $fld_label ) {
 				// TODO: check if this is the right wfMessage to show
 				$data['label'] = !$isWatchlist ? $row->gl_label : wfMessage( 'watchlist' )->plain();
+			}
+			if ( $modeAll ) {
+				$data['owner'] = User::newFromId( $row->gl_user )->getName();
 			}
 			if ( $title ) {
 				if ( $isWatchlist ) {
