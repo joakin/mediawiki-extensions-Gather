@@ -27,6 +27,7 @@
 			click: 'onClickInsideOverlay',
 			'focus input': 'onFocusInput',
 			'blur input': 'onBlurInput',
+			'input input': 'onInput',
 			'click .overlay-content li': 'onSelectCollection',
 			'submit form': 'onCreateNewCollection'
 		},
@@ -94,6 +95,12 @@
 		 */
 		onBlurInput: function () {
 			this.$el.removeClass( 'compact' );
+		},
+		onInput: function ( ev ) {
+			var $input = $( ev.target ),
+				val = $input.val(),
+				$button = $input.next( 'button' );
+			$button.prop( 'disabled', val === '' );
 		},
 		/**
 		 * Event handler for setting up a new collection
