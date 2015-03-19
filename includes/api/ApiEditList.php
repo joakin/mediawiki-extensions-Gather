@@ -123,7 +123,7 @@ class ApiEditList extends ApiBase {
 
 		if ( $isNew || $isWatchlist ) {
 			// ACTION: create a new list
-			$this->createRow( $dbw, $user, $params, $isWatchlist );
+			$listId = $this->createRow( $dbw, $user, $params, $isWatchlist );
 		} else {
 			// Find existing list
 			$row = $dbw->selectRow( 'gather_list',
@@ -285,6 +285,7 @@ class ApiEditList extends ApiBase {
 	 * @param User $user
 	 * @param array $params
 	 * @param $isWatchlist
+	 * @return int
 	 */
 	private function createRow( DatabaseBase $dbw, User $user, array $params, &$isWatchlist ) {
 		$label = $isWatchlist ? '' : $params['label'];
@@ -321,6 +322,7 @@ class ApiEditList extends ApiBase {
 					'id' => 0,
 				) );
 			} else {
+				$id = $row->gl_id;
 				$isWatchlist = $row->gl_label === '';
 				$this->updateListDb( $dbw, $params, $row );
 			}
@@ -330,6 +332,7 @@ class ApiEditList extends ApiBase {
 				'id' => $id,
 			) );
 		}
+		return $id;
 	}
 
 	/**
@@ -395,7 +398,7 @@ class ApiEditList extends ApiBase {
 		$titles->append( new ArrayIterator( $pageSet->getGoodTitles() ) );
 		$titles->append( new ArrayIterator( $pageSet->getMissingTitles() ) );
 
-		$isRemoving =$params['remove'];
+		$isRemoving = $params['remove'];
 		if ( $isWatchlist ) {
 			// Legacy watchlist - watch/unwatch
 			foreach ( $titles as $title ) {
