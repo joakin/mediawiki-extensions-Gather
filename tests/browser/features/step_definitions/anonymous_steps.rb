@@ -20,3 +20,12 @@ end
 Then(/^I see the anonymous CTA$/) do
   expect(on(ArticlePage).cta_element.when_present).to be_visible
 end
+
+When(/^I visit a public collection$/) do
+  visit(GatherPublicPage)
+  on(GatherPublicPage).collection_link_element.click
+end
+
+Then(/^I can see items in the collection$/) do
+   expect(on(GatherPage).collection_items_element.when_present).to be_visible
+end

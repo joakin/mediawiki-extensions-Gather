@@ -18,3 +18,7 @@ Feature: Anonymous users
       And I am on the "Selenium Gather test" page
     When I click the watchstar
     Then I see the anonymous CTA
+
+  Scenario: Anons can see my public collection
+    When I visit a public collection
+    Then I can see items in the collection
