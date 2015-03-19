@@ -108,7 +108,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				}
 			}
 
-			if ( !$listRow->gl_label ) {
+			if ( $listRow->gl_label === '' ) {
 				// This is actually a watchlist, and it is either public or belongs to current user
 				$titles = $this->queryLegacyWatchlist( $params, $isGenerator, $listRow->gl_user );
 			} else {

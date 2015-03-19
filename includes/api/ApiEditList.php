@@ -138,7 +138,7 @@ class ApiEditList extends ApiBase {
 				$this->updateListDb( $dbw, $params, $row );
 			} else {
 				// Check again - we didn't know it was a watchlist until DB query
-				if ( !$row->gl_label ) {
+				if ( $row->gl_label === '' ) {
 					$this->dieUsage( "Watchlist may not be deleted", 'badid' );
 				}
 				if ( strval( $row->gl_user ) !== strval( $user->getId() ) ) {
