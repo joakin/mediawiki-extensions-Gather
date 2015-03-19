@@ -109,6 +109,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'list' => 'lists',
+			'lstids' => $id,
 			'lstprop' => 'label|description|public|image',
 			'prop' => 'pageimages|extracts',
 			'generator' => 'listpages',
@@ -122,17 +123,16 @@ class Collection extends CollectionBase implements IteratorAggregate {
 			// TODO: Pagination
 			'continue' => '',
 		) ) );
+
 		try {
 			$api->execute();
 			$data = $api->getResultData();
 			if ( isset( $data['query']['lists'] ) ) {
 				$lists = $data['query']['lists'];
-				// FIXME: Use lstids=$id in the query lists when bug T92865 is resolved
-				foreach ( $lists as $list ) {
-					if ( $list['id'] === $id ) {
-						$collection = new Collection( $id, $user, $list['label'], $list['description'],
-							$list['public'], $list['image'] );
-					}
+				if ( count( $lists ) === 1 ) {
+					$list = $lists[0];
+					$collection = new Collection( $id, $user, $list['label'], $list['description'],
+						$list['public'], $list['image'] );
 				}
 			}
 
