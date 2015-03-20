@@ -235,7 +235,7 @@ class ApiQueryLists extends ApiQueryBase {
 				}
 			}
 			if ( $fld_public ) {
-				$data['public'] = $row->gl_perm === 1;
+				$data['public'] = strval( $row->gl_perm ) === '1';
 			}
 			if ( $useInfo ) {
 				$info = ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false );

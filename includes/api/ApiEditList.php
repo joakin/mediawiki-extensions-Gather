@@ -57,67 +57,15 @@ class ApiEditList extends ApiBase {
 
 		if ( $params['label'] !== null ) {
 			$params['label'] = trim( $params['label'] );
-			if ( $params['label'] === '' ) {
-				$this->dieUsage( 'If given, label must not be empty', 'badlabel' );
-			}
 		}
+		$this->checkPermissions( $params );
 
-		$user = $this->getUser(); // TBD: We might want to allow other users with getWatchlistUser()
-
-		if ( !$user->isLoggedIn() ) {
-			$this->dieUsage( 'You must be logged-in to have a list', 'notloggedin' );
-		}
-		if ( !$user->isAllowed( 'editmywatchlist' ) ) {
-			$this->dieUsage( 'You don\'t have permission to edit your list',
-				'permissiondenied' );
-		}
-
-		$pageSet = $this->getPageSet();
 		$p = $this->getModulePrefix();
-
+		$user = $this->getUser(); // TBD: We might want to allow other users with getWatchlistUser()
 		$isDeletingList = $params['deletelist'];
 		$listId = $params['id'];
 		$isNew = $listId === null;
 		$isWatchlist = $listId === 0;
-
-		// Validate 'deletelist' parameters
-		if ( $isDeletingList ) {
-
-			// ID == 0 is a watchlist
-			if ( $isWatchlist ) {
-				$this->dieUsage( "List #0 (watchlist) may not be deleted", 'badid' );
-			}
-			if ( $isNew ) {
-				$this->dieUsage(
-					"List must be identified with {$p}id when {$p}deletelist is used", 'invalidparammix'
-				);
-			}
-
-			// For deletelist, disallow all parameters except those unset
-			$tmp = $params + $pageSet->extractRequestParams();
-			unset( $tmp['deletelist'] );
-			unset( $tmp['id'] );
-			unset( $tmp['token'] );
-			$extraParams =
-				array_keys( array_filter( $tmp, function ( $x ) {
-					return $x !== null && $x !== false;
-				} ) );
-			if ( $extraParams ) {
-				$this->dieUsage( "The parameter {$p}deletelist must not be used with " .
-					implode( ", ", $extraParams ), 'invalidparammix' );
-			}
-		} elseif ( $isNew ) {
-			if ( $params['remove'] ) {
-				$this->dieUsage( "List must be identified with {$p}id when {$p}remove is used",
-					'invalidparammix' );
-			}
-			if ( !$params['label'] ) {
-				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
-			}
-		}
-		if ( $isWatchlist && $params['label'] ) {
-			$this->dieUsage( "List {$p}label may not be set for the id==0", 'invalidparammix' );
-		}
 
 		$dbw = wfGetDB( DB_MASTER, 'api' );
 
@@ -126,25 +74,22 @@ class ApiEditList extends ApiBase {
 			$listId = $this->createRow( $dbw, $user, $params, $isWatchlist );
 		} else {
 			// Find existing list
-			$row = $this->getListRow( $dbw, array( 'gl_id' => $listId ) );
+			$row = $this->getListRow( $params, $dbw, array( 'gl_id' => $listId ) );
 			if ( $row === false ) {
 				// No database record with the given ID
 				$this->dieUsage( "List {$p}id was not found", 'badid' );
 			}
+			$isWatchlist = $row->gl_label === '';
 			if ( !$isDeletingList ) {
+				// ACTION: update list
 				$this->updateListDb( $dbw, $params, $row );
 			} else {
-				// Check again - we didn't know it was a watchlist until DB query
-				if ( $row->gl_label === '' ) {
-					$this->dieUsage( "Watchlist may not be deleted", 'badid' );
-				}
-				if ( strval( $row->gl_user ) !== strval( $user->getId() ) ) {
-					$this->dieUsage( "List {$p}id does not belong to current user", 'permissiondenied' );
-				}
-				// ACTION: deleting list
-				$dbw->delete( 'gather_list', array( 'gl_id' => $row->gl_id ), __METHOD__ );
+				// ACTION: delete list (items + list itself)
+				$dbw->delete( 'gather_list_item', array( 'gli_gl_id' => $listId ), __METHOD__ );
+				$dbw->delete( 'gather_list', array( 'gl_id' => $listId ), __METHOD__ );
 				$this->getResult()->addValue( null, $this->getModuleName(), array(
 					'status' => 'deleted',
+					'id' => $listId,
 				) );
 			}
 		}
@@ -152,6 +97,82 @@ class ApiEditList extends ApiBase {
 		if ( !$isDeletingList ) {
 			// Add the titles to the list (or subscribe with the legacy watchlist)
 			$this->processTitles( $params, $user, $listId, $dbw, $isWatchlist );
+		}
+	}
+
+	/**
+	 * This method should be called twice - once before accessing DB, and once when db row is found
+	 * @param array $params
+	 * @param stdClass $row
+	 * @throws \UsageException
+	 */
+	private function checkPermissions( array $params, $row = null ) {
+
+		if ( $row ) {
+			$isNew = false;
+			$isWatchlist = $row->gl_label === '';
+		} else {
+			$isNew = $params['id'] === null;
+			$isWatchlist = $params['id'] === 0;
+		}
+
+		$user = $this->getUser(); // TBD: We might want to allow other users with getWatchlistUser()
+		$p = $this->getModulePrefix();
+		$deleteList = $params['deletelist'];
+
+		if ( !$user->isLoggedIn() ) {
+			$this->dieUsage( 'You must be logged-in to edit a list', 'notloggedin' );
+		} elseif ( !$user->isAllowed( 'editmywatchlist' ) ) {
+			$this->dieUsage( 'You don\'t have permission to edit your list', 'permissiondenied' );
+		} elseif ( $params['label'] === '' ) {
+			$this->dieUsage( 'If given, label must not be empty', 'badlabel' );
+		}
+
+		if ( $isWatchlist ) {
+			if ( $params['label'] !== null ) {
+				$this->dieUsage( "{$p}label cannot be set for a watchlist", 'invalidparammix' );
+			} elseif ( $deleteList ) {
+				$this->dieUsage( "List #0 (watchlist) may not be deleted", 'badid' );
+			} elseif ( $params['perm'] === 'public' ) {
+				// Per team discussion, introducing artificial limitation for now
+				// until we establish that making watchlist public would cause no harm.
+				// This check can be deleted at any time since all other API code supports it.
+				$this->dieUsage( 'Making watchlist public is not supported for security reasons',
+					'publicwatchlist' );
+			}
+		}
+		if ( $isNew ) {
+			if ( $deleteList ) {
+				// This is more for safety - it shouldn't be possible to delete a list by label
+				$this->dieUsage( "List must be identified with {$p}id when {$p}deletelist is used",
+					'invalidparammix' );
+			} elseif ( $params['remove'] ) {
+				$this->dieUsage( "List must be identified with {$p}id when {$p}remove is used",
+					'invalidparammix' );
+			} elseif ( $params['label'] === null ) {
+				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
+			}
+		}
+		if ( $deleteList && !$row ) {
+			// For deletelist, disallow all parameters except those unset
+			// Minor optimization - don't validate on the second pass
+			$tmp = $params + $this->getPageSet()->extractRequestParams();
+			unset( $tmp['deletelist'] );
+			unset( $tmp['id'] );
+			unset( $tmp['token'] );
+			$extraParams = array_keys( array_filter( $tmp, function ( $x ) {
+				return $x !== null && $x !== false;
+			} ) );
+			if ( $extraParams ) {
+				$this->dieUsage( "The parameter {$p}deletelist must not be used with " .
+								 implode( ", ", $extraParams ), 'invalidparammix' );
+			}
+		}
+		if ( $row ) {
+			if ( strval( $row->gl_user ) !== strval( $user->getId() ) ) {
+				$this->dieUsage( "List {$p}id does not belong to the current user",
+					'permissiondenied' );
+			}
 		}
 	}
 
@@ -220,22 +241,12 @@ class ApiEditList extends ApiBase {
 	 * Given an info object, update it with arguments from params, and return JSON str if changed
 	 * @param stdClass $v
 	 * @param Array $params
-	 * @param bool $isWatchlist
 	 * @return string JSON encoded info object in case it changed, or NULL if update is not needed
 	 * @throws \UsageException
 	 */
-	private function updateInfo( stdClass $v, array $params, $isWatchlist ) {
+	private function updateInfo( stdClass $v, array $params ) {
 		$updated = false;
 
-		if ( $isWatchlist && $params['perm'] === 'public' ) {
-			// Per team discussion, introducing artificial limitation for now
-			// until we establish that making watchlist public would cause no harm.
-			// This check can be deleted at any time since all other API code supports it.
-			$this->dieUsage( 'Making watchlist public is not supported for security reasons',
-				'publicwatchlist' );
-		}
-
-		//
 		// Set default
 		if ( !property_exists( $v, 'description' ) ) {
 			$v->description = '';
@@ -244,7 +255,6 @@ class ApiEditList extends ApiBase {
 			$v->image = '';
 		}
 
-		//
 		// Update from api parameters
 		if ( $params['description'] !== null && $v->description !== $params['description'] ) {
 			$v->description = $params['description'];
@@ -310,22 +320,22 @@ class ApiEditList extends ApiBase {
 
 		if ( $id === 0 ) {
 			// List already exists, update instead, or might not need it
-			$row = $this->getListRow( $dbw, array(
+			$row = $this->getListRow( $params, $dbw, array(
 				'gl_user' => $user->getId(), 'gl_label' => $label
 			) );
-			if ( $row === false ) {
-				if ( $createRow ) {
-					// If creation failed, the second query should have succeeded
-					$this->dieDebug( "List was not found", 'badid' );
-				}
+			if ( $row !== false ) {
+				$id = $row->gl_id;
+				$isWatchlist = $row->gl_label === '';
+				$this->updateListDb( $dbw, $params, $row );
+			} elseif ( $createRow ) {
+				// If creation failed, the second query should have succeeded
+				$this->dieDebug( "List was not found", 'badid' );
+			} else {
+				// Watchlist, no changes
 				$this->getResult()->addValue( null, $this->getModuleName(), array(
 					'status' => 'nochanges',
 					'id' => 0,
 				) );
-			} else {
-				$id = $row->gl_id;
-				$isWatchlist = $row->gl_label === '';
-				$this->updateListDb( $dbw, $params, $row );
 			}
 		} else {
 			$this->getResult()->addValue( null, $this->getModuleName(), array(
@@ -345,19 +355,19 @@ class ApiEditList extends ApiBase {
 	 */
 	private function updateListDb( DatabaseBase $dbw, array $params, $row ) {
 		$update = array();
+		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
+		$info = $this->updateInfo( $info, $params, $row->gl_label === '' );
+		if ( $info ) {
+			$update['gl_info'] = $info;
+		}
 		if ( $params['label'] !== null && $row->gl_label !== $params['label'] ) {
 			$update['gl_label'] = $params['label'];
 		}
 		if ( $params['perm'] !== null ) {
-			$perm = $params['perm'] === 'public' ? 1 : 0;
-			if ( $row->gl_perm !== $perm ) {
+			$perm = $params['perm'] === 'public' ? '1' : '0';
+			if ( strval( $row->gl_perm ) !== $perm ) {
 				$update['gl_perm'] = $perm;
 			}
-		}
-		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
-		$json = $this->updateInfo( $info, $params, $row->gl_label === '' );
-		if ( $json ) {
-			$update['gl_info'] = $json;
 		}
 		if ( $update ) {
 			// ACTION: update list record
@@ -460,7 +470,7 @@ class ApiEditList extends ApiBase {
 				$dbw->delete( 'gather_list_item', array(
 					'gli_gl_id' => $listId,
 					$set
-				) );
+				), __METHOD__ );
 			}
 		}
 
@@ -523,14 +533,20 @@ class ApiEditList extends ApiBase {
 	}
 
 	/**
+	 * Get DB row and if found, validate it against user parameters
+	 * @param array $params
 	 * @param DatabaseBase $dbw
 	 * @param array $conds
 	 * @return bool|stdClass
 	 */
-	private function getListRow( DatabaseBase $dbw, $conds ) {
-		return $dbw->selectRow( 'gather_list',
+	private function getListRow( array $params, DatabaseBase $dbw, array $conds ) {
+		$row = $dbw->selectRow( 'gather_list',
 			array( 'gl_id', 'gl_user', 'gl_label', 'gl_perm', 'gl_info' ),
 			$conds,
 			__METHOD__ );
+		if ( $row ) {
+			$this->checkPermissions( $params, $row );
+		}
+		return $row;
 	}
 }
