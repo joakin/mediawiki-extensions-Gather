@@ -7,7 +7,7 @@
 		rows='2'>{{description}}</textarea>
 	<div class="mw-ui-checkbox">
 		<input type="checkbox" id="collection-editor-privacy"
-			{{^isPublic}}checked{{/isPublic}}
+			{{^public}}checked{{/public}}
 			disabled />
 		<label for="collection-editor-privacy">{{privateLabel}}</label>
 	</div>
