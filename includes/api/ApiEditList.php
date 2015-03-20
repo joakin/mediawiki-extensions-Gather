@@ -126,10 +126,7 @@ class ApiEditList extends ApiBase {
 			$listId = $this->createRow( $dbw, $user, $params, $isWatchlist );
 		} else {
 			// Find existing list
-			$row = $dbw->selectRow( 'gather_list',
-				array( 'gl_id', 'gl_user', 'gl_label', 'gl_info' ), array( 'gl_id' => $listId ),
-				__METHOD__
-			);
+			$row = $this->getListRow( $dbw, array( 'gl_id' => $listId ) );
 			if ( $row === false ) {
 				// No database record with the given ID
 				$this->dieUsage( "List {$p}id was not found", 'badid' );
@@ -230,13 +227,18 @@ class ApiEditList extends ApiBase {
 	private function updateInfo( stdClass $v, array $params, $isWatchlist ) {
 		$updated = false;
 
+		if ( $isWatchlist && $params['perm'] === 'public' ) {
+			// Per team discussion, introducing artificial limitation for now
+			// until we establish that making watchlist public would cause no harm.
+			// This check can be deleted at any time since all other API code supports it.
+			$this->dieUsage( 'Making watchlist public is not supported for security reasons',
+				'publicwatchlist' );
+		}
+
 		//
 		// Set default
 		if ( !property_exists( $v, 'description' ) ) {
 			$v->description = '';
-		}
-		if ( !property_exists( $v, 'perm' ) ) {
-			$v->perm = 'private';
 		}
 		if ( !property_exists( $v, 'image' ) ) {
 			$v->image = '';
@@ -246,17 +248,6 @@ class ApiEditList extends ApiBase {
 		// Update from api parameters
 		if ( $params['description'] !== null && $v->description !== $params['description'] ) {
 			$v->description = $params['description'];
-			$updated = true;
-		}
-		if ( $params['perm'] !== null && $v->perm !== $params['perm'] ) {
-			if ( $isWatchlist && $params['perm'] !== 'private' ) {
-				// Per team discussion, introducing artificial limitation for now
-				// until we establish that making watchlist public would cause no harm.
-				// This check can be deleted at any time since all other API code supports it.
-				$this->dieUsage( 'Making watchlist public is not supported for security reasons',
-					'publicwatchlist' );
-			}
-			$v->perm = $params['perm'];
 			$updated = true;
 		}
 		if ( $params['image'] !== null && $v->image !== $params['image'] ) {
@@ -279,6 +270,7 @@ class ApiEditList extends ApiBase {
 	 * Check if the info is a public list
 	 * @param stdClass $info
 	 * @return bool
+	 * @deprecated must use DB column instead (To be deleted once DB is updated)
 	 */
 	public static function isPublic( $info ) {
 		if ( $info && property_exists( $info, 'perm' ) ) {
@@ -308,6 +300,8 @@ class ApiEditList extends ApiBase {
 				'gl_user' => $user->getId(),
 				'gl_label' => $label,
 				'gl_info' => $info,
+				'gl_perm' => $params['perm'] === 'public' ? 1 : 0,
+				'gl_updated' => $dbw->timestamp( wfTimestampNow() ),
 			), __METHOD__, 'IGNORE' );
 			$id = $dbw->insertId();
 		} else {
@@ -316,11 +310,9 @@ class ApiEditList extends ApiBase {
 
 		if ( $id === 0 ) {
 			// List already exists, update instead, or might not need it
-			$row = $dbw->selectRow( 'gather_list',
-				array( 'gl_id', 'gl_user', 'gl_label', 'gl_info' ),
-				array( 'gl_user' => $user->getId(), 'gl_label' => $label ),
-				__METHOD__
-			);
+			$row = $this->getListRow( $dbw, array(
+				'gl_user' => $user->getId(), 'gl_label' => $label
+			) );
 			if ( $row === false ) {
 				if ( $createRow ) {
 					// If creation failed, the second query should have succeeded
@@ -356,6 +348,12 @@ class ApiEditList extends ApiBase {
 		if ( $params['label'] !== null && $row->gl_label !== $params['label'] ) {
 			$update['gl_label'] = $params['label'];
 		}
+		if ( $params['perm'] !== null ) {
+			$perm = $params['perm'] === 'public' ? 1 : 0;
+			if ( $row->gl_perm !== $perm ) {
+				$update['gl_perm'] = $perm;
+			}
+		}
 		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
 		$json = $this->updateInfo( $info, $params, $row->gl_label === '' );
 		if ( $json ) {
@@ -363,6 +361,7 @@ class ApiEditList extends ApiBase {
 		}
 		if ( $update ) {
 			// ACTION: update list record
+			$update['gl_updated'] = $dbw->timestamp( wfTimestampNow() );
 			$dbw->update( 'gather_list', $update, array( 'gl_id' => $row->gl_id ), __METHOD__, 'IGNORE' );
 			if ( $dbw->affectedRows() === 0 ) {
 				// update failed due to the duplicate label restriction. Report
@@ -521,5 +520,17 @@ class ApiEditList extends ApiBase {
 			}
 		}
 		return new stdClass();
+	}
+
+	/**
+	 * @param DatabaseBase $dbw
+	 * @param array $conds
+	 * @return bool|stdClass
+	 */
+	private function getListRow( DatabaseBase $dbw, $conds ) {
+		return $dbw->selectRow( 'gather_list',
+			array( 'gl_id', 'gl_user', 'gl_label', 'gl_perm', 'gl_info' ),
+			$conds,
+			__METHOD__ );
 	}
 }

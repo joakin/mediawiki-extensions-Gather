@@ -44,6 +44,7 @@ class ApiQueryLists extends ApiQueryBase {
 	}
 
 	public function execute() {
+		$self = $this; // php 5.3 support - closures can't access $this
 		$p = $this->getModulePrefix();
 		$params = $this->extractRequestParams();
 		$continue = $params['continue'];
@@ -55,6 +56,7 @@ class ApiQueryLists extends ApiQueryBase {
 		$fld_description = in_array( 'description', $params['prop'] );
 		$fld_public = in_array( 'public', $params['prop'] );
 		$fld_image = in_array( 'image', $params['prop'] );
+		$fld_updated = in_array( 'updated', $params['prop'] );
 
 		// Watchlist, having the label set to '', should always appear first
 		// If it doesn't, make sure to insert a fake one in the result
@@ -92,17 +94,23 @@ class ApiQueryLists extends ApiQueryBase {
 			/** @var User $owner */
 			list( $owner, $showPrivate ) = $this->calcPermissions( $params, $ids );
 			$userId = $owner ? $owner->getId() : $this->getUser()->getId();
+			if ( $showPrivate !== true ) {
+				$injectWatchlist = false;
+			}
 		}
 
 		$db = $this->getDB();
 		$this->addTables( 'gather_list' );
 		$this->addFields( 'gl_id' );
 		$this->addFieldsIf( 'gl_label', $fld_label || !$modeAll );
-		// won't know if private until later
-		$this->addFieldsIf( 'gl_user', $showPrivate === null || $modeAll );
+		$this->addFieldsIf( 'gl_updated', $fld_updated || $modeAll );
+		$this->addFieldsIf( 'gl_user', $modeAll );
+		$this->addFieldsIf( 'gl_perm', $fld_public );
+
 		if ( $owner ) {
 			$this->addWhereFld( 'gl_user', $owner->getId() );
 		}
+
 		if ( $ids || $findWatchlist ) {
 			$cond = array();
 			if ( $ids ) {
@@ -114,16 +122,41 @@ class ApiQueryLists extends ApiQueryBase {
 			$this->addWhere( $db->makeList( $cond, LIST_OR ) );
 		}
 
+		if ( $showPrivate !== true ) {
+			$cond = array( 'gl_perm' => 1 );
+			if ( $showPrivate === null ) {
+				$cond['gl_user'] = $this->getUser()->getId();
+			}
+			$this->addWhere( $db->makeList( $cond, LIST_OR ) );
+		}
+
 		if ( $continue ) {
 			if ( $modeAll ) {
-				$cont = intval( $continue );
-				$this->dieContinueUsageIf( strval( $cont ) !== $continue );
-				$cont = $db->addQuotes( $cont );
-				$this->addWhere( "gl_id >= $cont" );
+				$cont = explode( '|', $params['continue'] );
+				$this->dieContinueUsageIf( count( $cont ) != 2 );
+				$cont_upd = $db->addQuotes( $cont[0] );
+				$cont_id = intval( $cont[1] );
+				$this->dieContinueUsageIf( strval( $cont_id ) !== $cont[1] );
+				$cont_id = $db->addQuotes( $cont_id );
+				$this->addWhere( "gl_updated < $cont_upd OR " .
+								 "(gl_updated = $cont_upd AND gl_id <= $cont_id)" );
 			} else {
 				$cont = $db->addQuotes( $continue );
 				$this->addWhere( "gl_label >= $cont" );
 			}
+		}
+		if ( $modeAll ) {
+			// The ordering has to be unique so that we can safely
+			// continue iteration even if subsequent timestamps are the same
+			$this->addOption( 'ORDER BY', 'gl_perm, gl_updated DESC, gl_id DESC' );
+			$setContinue = function( $row ) use ( $self ) {
+				$self->setContinueEnumParameter( 'continue', "{$row->gl_updated}|{$row->gl_id}" );
+			};
+		} else {
+			$this->addOption( 'ORDER BY', 'gl_user, gl_label' );
+			$setContinue = function( $row ) use ( $self ) {
+				$self->setContinueEnumParameter( 'continue', $row->gl_label );
+			};
 		}
 
 		if ( $title ) {
@@ -147,29 +180,19 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 		}
 
-		// If we need it for privacy checks or we need to return a prop field
-		$useInfo = $showPrivate !== true || $fld_description || $fld_public || $fld_image;
-
+		$useInfo = $fld_description || $fld_image;
 		$this->addFieldsIf( 'gl_info', $useInfo );
 
 		$limit = $params['limit'];
-		// TODO: Disabling this until we stop skipping rows in processing
-		// $this->addOption( 'LIMIT', $limit + 1 );
-
-		if ( $modeAll ) {
-			$this->addOption( 'ORDER BY', 'gl_id' );
-		} else {
-			$this->addOption( 'ORDER BY', 'gl_user, gl_label' );
-		}
+		$this->addOption( 'LIMIT', $limit + 1 );
 
 		$count = 0;
 		$path = array( 'query', $this->getModuleName() );
-		$currUserId = strval( $this->getUser()->getId() );
 
 		// This closure will process one row, even if that row is fake watchlist
-		$processRow = function( $row ) use ( &$count, $modeAll, $limit,  $useInfo, $title,
-			$fld_label, $fld_description, $fld_public, $fld_image, $path, $showPrivate,
-			$currUserId, $userId
+		$processRow = function( $row ) use ( $self, &$count, $modeAll, $limit,  $useInfo, $title,
+			$fld_label, $fld_description, $fld_public, $fld_image, $fld_updated, $path, $userId,
+			$setContinue
 		) {
 			if ( $row === null ) {
 				// Fake watchlist row
@@ -177,32 +200,17 @@ class ApiQueryLists extends ApiQueryBase {
 					'gl_id' => '0',
 					'gl_label' => '',
 					'gl_user' => false,
+					'gl_perm' => 0,
+					'gl_updated' => '',
 					'gl_info' => '',
 				);
 			}
 
-			$info = $useInfo ?
-				ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false ) : null;
-
-			// Determine if this gather_list row is viewable by the current user
-			// TODO: this should be part of the SQL query once fields are cerated
-			$show = $showPrivate;
-			if ( $show === null && $row->gl_user === $currUserId ) {
-				$show = true;
-			} elseif ( $show !== true && ApiEditList::isPublic( $info ) ) {
-				$show = true;
-			}
-			if ( !$show ) {
-				return true;
-			}
-
 			$count++;
-			$continueValue = $modeAll ? $row->gl_id : $row->gl_label;
-
 			if ( $count > $limit ) {
 				// We've reached the one extra which shows that there are
 				// additional pages to be had. Stop here...
-				$this->setContinueEnumParameter( 'continue', $continueValue );
+				$setContinue( $row );
 				return false;
 			}
 
@@ -221,17 +229,18 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 			if ( $title ) {
 				if ( $isWatchlist ) {
-					$data['title'] = $this->isTitleInWatchlist( $userId, $title );
+					$data['title'] = $self->isTitleInWatchlist( $userId, $title );
 				} else {
 					$data['title'] = $row->isIn !== null;
 				}
 			}
+			if ( $fld_public ) {
+				$data['public'] = $row->gl_perm === 1;
+			}
 			if ( $useInfo ) {
+				$info = ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false );
 				if ( $fld_description ) {
 					$data['description'] = property_exists( $info, 'description' ) ? $info->description : '';
-				}
-				if ( $fld_public ) {
-					$data['public'] = ApiEditList::isPublic( $info );
 				}
 				if ( $fld_image ) {
 					if ( property_exists( $info, 'image' ) && $info->image ) {
@@ -249,10 +258,13 @@ class ApiQueryLists extends ApiQueryBase {
 					}
 				}
 			}
+			if ( $fld_updated ) {
+				$data['updated'] = wfTimestamp( TS_ISO_8601, $row->gl_updated );
+			}
 
-			$fit = $this->getResult()->addValue( $path, null, $data );
+			$fit = $self->getResult()->addValue( $path, null, $data );
 			if ( !$fit ) {
-				$this->setContinueEnumParameter( 'continue', $continueValue );
+				$setContinue( $row );
 				return false;
 			}
 			return true;
@@ -303,6 +315,7 @@ class ApiQueryLists extends ApiQueryBase {
 					'public',
 					'image',
 					'count',
+					'updated',
 				)
 			),
 			'ids' => array(
@@ -380,7 +393,7 @@ class ApiQueryLists extends ApiQueryBase {
 			if ( !$this->getUser()->isLoggedIn() ) {
 				$showPrivate = false;
 			} else {
-				$showPrivate = null; // check each id against $currUserId
+				$showPrivate = null; // check each id against current user's ID
 			}
 		}
 		if ( $showPrivate !== false ) {

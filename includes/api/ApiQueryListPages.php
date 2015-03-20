@@ -79,7 +79,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 			// Id was given, this could be public or private list, legacy watchlist or regular
 			// Allow access to any public list/watchlist, and to private with proper owner/self
 			$db = $this->getDB();
-			$listRow = $db->selectRow( 'gather_list', array( 'gl_label', 'gl_user', 'gl_info' ),
+			$listRow = $db->selectRow( 'gather_list', array( 'gl_label', 'gl_user' ),
 				array( 'gl_id' => $params['id'] ), __METHOD__ );
 			if ( $listRow === false ) {
 				$this->dieUsage( "List does not exist", 'badid' );
@@ -101,11 +101,8 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 			}
 
 			// Check if this is a public list (if required)
-			if ( !$showPrivate ) {
-				$info = ApiEditList::parseListInfo( $listRow->gl_info, $params['id'], false );
-				if ( !ApiEditList::isPublic( $info ) ) {
-					$this->dieUsage( "You have no rights to see this list", 'badid' );
-				}
+			if ( !$showPrivate && $listRow->perm !== 1 ) {
+				$this->dieUsage( "You have no rights to see this list", 'badid' );
 			}
 
 			if ( $listRow->gl_label === '' ) {
