@@ -86,6 +86,15 @@
 			this.hideSpinner();
 		},
 		/**
+		 * Tests if title is valid
+		 * FIXME: This is duplicating code from CollectionEditOverlay.js
+		 * @param {String} title Proposed collection title
+		 * @returns {Boolean}
+		 */
+		isTitleValid: function ( title ) {
+			return title.length <= 90;
+		},
+		/**
 		 * Event handler for focusing input
 		 * @param {jQuery.Event} ev
 		 */
@@ -121,11 +130,17 @@
 				title = $( ev.target ).find( 'input' ).val();
 
 			ev.preventDefault();
-			this.showSpinner();
-			this.addCollection( title, page );
-			schema.log( {
-				eventName: 'new-collection'
-			} );
+			if ( this.isTitleValid( title ) ) {
+				this.showSpinner();
+				this.addCollection( title, page );
+				schema.log( {
+					eventName: 'new-collection'
+				} );
+
+				this.addCollection( title, page );
+			} else {
+				toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );
+			}
 		},
 		/**
 		 * Event handler for all clicks inside overlay.
@@ -239,6 +254,7 @@
 			var self = this,
 				api = this.api;
 
+			this.showSpinner();
 			return api.addCollection( title ).done( function ( collection ) {
 				api.addPageToCollection( collection.id, page ).done(
 					$.proxy( self, '_collectionStateChange', collection, true )
