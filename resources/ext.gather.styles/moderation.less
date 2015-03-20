@@ -1,0 +1,50 @@
+@import "minerva.variables";
+@import "minerva.mixins";
+
+.gather-moderation {
+	padding-top: 1em;
+
+	ul {
+		display: table;
+		width: 100%;
+
+		li {
+			display: table-row;
+
+			&.heading {
+				font-weight: bold;
+
+				>* {
+					border-width: 0px;
+					border-bottom: 2px solid #444;
+					text-align: center;
+				}
+			}
+
+			>* {
+				display: table-cell;
+				padding: 0.4em 1em;
+				border-style: solid;
+				border-width: 0px 1px 1px 0;
+				border-color: @grayLightest;
+				border-bottom-color: @grayLight;
+			}
+
+			&:not(.heading) {
+				>* {
+					&:first-child {
+						border-left-width: 1px;
+					}
+				}
+			}
+
+			&:nth-child(2n) {
+				background-color: @grayLightest;
+
+				>* {
+					border-right-color: @grayLight;
+				}
+			}
+		}
+	}
+}

@@ -13,7 +13,8 @@
 		"Gather\\Hooks::onExtensionSetup"
 	],
 	"SpecialPages": {
-		"Gather": "Gather\\SpecialGather"
+		"Gather": "Gather\\SpecialGather",
+		"GatherLists": "Gather\\SpecialGatherLists"
 	},
 	"MessagesDirs": {
 		"Gather": [
@@ -43,6 +44,7 @@
 		"Gather\\views\\CollectionsListItemCard": "includes/views/CollectionsListItemCard.php",
 		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
 		"Gather\\SpecialGather": "includes/specials/SpecialGather.php",
+		"Gather\\SpecialGatherLists": "includes/specials/SpecialGatherLists.php",
 		"Gather\\api\\ApiEditList": "includes/api/ApiEditList.php",
 		"Gather\\api\\ApiQueryLists": "includes/api/ApiQueryLists.php",
 		"Gather\\api\\ApiQueryListPages": "includes/api/ApiQueryListPages.php"
@@ -225,6 +227,15 @@
 			],
 			"scripts": [
 				"ext.gather.special/init.js"
+			]
+		},
+		"ext.gather.moderation": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"styles": [
+				"ext.gather.styles/moderation.less"
 			]
 		}
 	},

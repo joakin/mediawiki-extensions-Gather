@@ -194,6 +194,12 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.moderation' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+		'styles' => array(
+			'ext.gather.styles/moderation.less',
+		),
+	)
+
 );
 
 $wgResourceModuleSkinStyles['vector'] = $wgGatherMobileSpecialPageResourceBoilerplate + array(
