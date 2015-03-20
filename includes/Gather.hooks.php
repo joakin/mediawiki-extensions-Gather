@@ -106,6 +106,7 @@ class Hooks {
 	 * Load user collections
 	 */
 	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
+		global $wgGatherShouldShowTutorial;
 		$user = $out->getUser();
 		$title = $out->getTitle();
 		if ( !$user->isAnon() && !$title->isSpecialPage() ) {
@@ -123,6 +124,7 @@ class Hooks {
 			}
 			$vars['wgGatherCollections'] = $gatherCollections;
 		}
+		$vars['wgGatherShouldShowTutorial'] = $wgGatherShouldShowTutorial;
 		// Expose page image.
 		// FIXME: Should probably be in PageImages extension
 		if ( defined( 'PAGE_IMAGES_INSTALLED' ) && $title->getNamespace() === NS_MAIN ) {
