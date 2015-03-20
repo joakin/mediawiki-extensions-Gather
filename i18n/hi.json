@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Phoenix303"
+		]
+	},
+	"gather-delete-collection-delete-label": "हटाएँ",
+	"gather-delete-collection-cancel-label": "रद्द करें",
+	"gather-public": "सार्वजनिक",
+	"gather-delete-button": "हटाएँ"
+}

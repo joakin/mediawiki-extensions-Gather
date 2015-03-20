@@ -2,9 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Metalhead64",
-			"Purodha"
+			"Purodha",
+			"Inkowik"
 		]
 	},
+	"gather-lists-collection-owner": "Besitzer",
+	"gather-lists-collection-title": "Titel",
+	"gather-lists-collection-description": "Beschreibung",
+	"gather-lists-collection-count": "Zähler",
 	"gather-edit-collection-heading": "Sammlung bearbeiten",
 	"gather-edit-collection-label-name": "Name",
 	"gather-edit-collection-label-description": "Beschreibung",
@@ -28,6 +33,9 @@
 	"gather-add-toast": "Die Seite wurde zu deiner Sammlung „$1“ hinzugefügt.",
 	"gather-new-collection-failed-toast": "Es gab ein Problem beim Erstellen deiner Sammlung „$1“.",
 	"gather-add-failed-toast": "Es gab ein Problem beim Hinzufügen des Objekts zu deiner Sammlung „$1“.",
+	"gather-add-to-collection-summary": "Möchtest du $1 zu einer Sammlung hinzufügen?",
+	"gather-add-to-collection-confirm": "Zur Sammlung hinzufügen",
+	"gather-add-to-collection-cancel": "Nein danke",
 	"gather-remove-toast": "Die Seite wurde von deiner Sammlung „$1“ entfernt.",
 	"gather-desc": "Komponente des mobilen Frontends, die es Benutzern ermöglicht, Listen zu kuratieren",
 	"gather-no-public-lists-title": "Keine öffentlichen Sammlungen",
@@ -45,5 +53,8 @@
 	"gather-empty-footer": "Ich weiß nicht, wie du hierher gekommen bist, aber dies ist ein schlechter Ort.",
 	"gather-edit-button": "Bearbeiten",
 	"gather-delete-button": "Löschen",
+	"apihelp-gather-description": "Auflisten und Bearbeiten von Sammlungen.",
+	"apihelp-gather-param-gather": "Aktion, die auf die Sammlungen angewendet werden soll.",
+	"apihelp-gather-param-owner": "Nach Sammlungen dieses Benutzers suchen. Wird durch den aktuellen Benutzer ersetzt, wenn leer.",
 	"apihelp-gather-example-1": "Die Sammlungen des Benutzers <kbd>john</kbd> auflisten."
 }

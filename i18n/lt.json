@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pofka"
+		]
+	},
+	"gather-lists-collection-owner": "Savininkas",
+	"gather-lists-collection-title": "Pavadinimas",
+	"gather-lists-collection-description": "Aprašymas",
+	"gather-lists-collection-count": "Skaičiuoti",
+	"gather-edit-collection-heading": "Redaguoti kolekciją",
+	"gather-edit-collection-label-name": "Pavadinimas",
+	"gather-edit-collection-label-description": "Aprašymas",
+	"gather-edit-collection-label-privacy": "Privati kolekcija",
+	"gather-edit-collection-save-label": "Atlikta",
+	"gather-edit-collection-failed-error": "Išsaugant pakeitimus įvyko klaida.",
+	"gather-delete-collection-confirm": "Ar tikrai norite ištrinti šią kolekciją?",
+	"gather-delete-collection-heading": "Ištrinti kolekcija",
+	"gather-delete-collection-delete-label": "Ištrinti",
+	"gather-delete-collection-cancel-label": "Atšaukti",
+	"gather-delete-collection-success": "Kolekcija buvo sėkmingai ištrinta.",
+	"gather-delete-collection-failed-error": "Ištrinant kolekciją įvyko klaida.",
+	"gather-error-unknown-collection": "Norimos redaguoti kolekcijos rasti nepavyko.",
+	"gather-collection-member": "Yra kolekcijos dalis.",
+	"gather-collection-non-member": "Nėra kolekcijos dalis",
+	"gather-create-new-button-label": "Sukurti",
+	"gather-add-to-existing": "Pridėti į egzistuojančią kolekciją",
+	"gather-add-to-collection-confirm": "Pridėti į kolekciją",
+	"gather-add-to-collection-cancel": "Ne, ačiū",
+	"gather-no-public-lists-title": "Nėra viešų kolekcijų",
+	"gather-page-not-found": "Puslapis nerastas",
+	"gather-public": "Viešas",
+	"gather-edit-button": "Redaguoti",
+	"gather-delete-button": "Ištrinti"
+}
