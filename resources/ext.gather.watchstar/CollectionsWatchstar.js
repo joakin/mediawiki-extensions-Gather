@@ -2,6 +2,8 @@
 ( function ( M, $ ) {
 
 	var CollectionsWatchstar,
+		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
+		schema = new SchemaGather(),
 		CollectionsContentOverlay = M.require( 'ext.gather.watchstar/CollectionsContentOverlay' ),
 		Icon = M.require( 'Icon' ),
 		// FIXME: MobileFrontend code duplication
@@ -34,10 +36,13 @@
 		 * @cfg {Object} defaults Default options hash.
 		 * @cfg {Number} defaults.inCollections number of collections the current page appears in
 		 * @cfg {Object} defaults.collections definitions of the users existing collections
+		 * @cfg {Boolean} defaults.wasUserPrompted a flag which identifies if the user was prompted
+		 *  e.g. by WatchstarPageActionOverlay
 		 */
 		defaults: $.extend( {}, Watchstar.defaults, {
 			page: M.getCurrentPage(),
 			inCollections: 0,
+			wasUserPrompted: false,
 			collections: []
 		} ),
 		/** @inheritdoc */
@@ -87,6 +92,10 @@
 					}
 				} );
 			}
+			schema.log( {
+				eventName: 'click',
+				source: this.options.wasUserPrompted ? 'onboarding' : 'unknown'
+			} );
 			overlay.show();
 			ev.stopPropagation();
 		},

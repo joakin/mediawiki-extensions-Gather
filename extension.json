@@ -95,6 +95,19 @@
 				}
 			}
 		},
+		"ext.gather.logging": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.startup",
+				"mobile.user"
+			],
+			"scripts": [
+				"ext.gather.logging/SchemaGather.js"
+			]
+		},
 		"ext.gather.api": {
 			"targets": [
 				"mobile",
@@ -114,6 +127,7 @@
 				"desktop"
 			],
 			"dependencies": [
+				"ext.gather.logging",
 				"mobile.contentOverlays",
 				"mobile.toast",
 				"ext.gather.api",
@@ -139,6 +153,9 @@
 				"ext.gather.watchstar/contentOverlay.less"
 			],
 			"messages": [
+				"gather-remove-from-collection-failed-toast",
+				"gather-add-to-collection-failed-toast",
+				"gather-new-collection-failed-toast",
 				"gather-add-to-existing",
 				"gather-add-new-placeholder",
 				"gather-watchlist-title",
@@ -166,11 +183,13 @@
 				"desktop"
 			],
 			"dependencies": [
+				"ext.gather.logging",
 				"mobile.overlays",
 				"mobile.toast",
 				"ext.gather.api"
 			],
 			"messages": [
+				"gather-edit-collection-failed-error",
 				"gather-edit-collection-label-name",
 				"gather-edit-collection-label-description",
 				"gather-edit-collection-label-privacy",
@@ -263,6 +282,9 @@
 		],
 		"LoadExtensionSchemaUpdates": [
 			"Gather\\UpdaterHooks::onLoadExtensionSchemaUpdates"
+		],
+		"EventLoggingRegisterSchemas": [
+			"Gather\\Hooks::onEventLoggingRegisterSchemas"
 		]
 	}
 }

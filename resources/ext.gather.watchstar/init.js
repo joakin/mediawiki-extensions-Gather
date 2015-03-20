@@ -78,17 +78,19 @@
 	 * @ignore
 	 */
 	function init( page ) {
-		var $star = $( '#ca-watch' ),
+		var shouldShow = shouldShowCollectionTutorial(),
+			$star = $( '#ca-watch' ),
 			watchstar = new CollectionsWatchstar( {
 				el: $star,
 				page: page,
 				isAnon: user.isAnon(),
+				wasUserPrompted: shouldShow,
 				collections: mw.config.get( 'wgGatherCollections' ),
 				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
 			} );
 		if ( !page.inNamespace( 'special' ) ) {
 			// Determine if we should show the collection tutorial
-			if ( $star.length > 0 && shouldShowCollectionTutorial() ) {
+			if ( $star.length > 0 && shouldShow ) {
 				// FIXME: Timeout shouldn't be necessary but T91047 exists.
 				setTimeout( function () {
 					showPointer( watchstar, $star );

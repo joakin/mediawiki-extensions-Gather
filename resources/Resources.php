@@ -80,6 +80,18 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.logging' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			// FIXME: Break Schema.js out of MobileFrontend
+			'mobile.startup',
+			// FIXME: getUserEditCount should be part of mw.user
+			'mobile.user',
+		),
+		'scripts' => array(
+			'ext.gather.logging/SchemaGather.js',
+		),
+	),
+
 	'ext.gather.api' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'mobile.watchstar',
@@ -92,6 +104,7 @@ $wgResourceModules += array(
 
 	'ext.gather.collection.base' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
+			'ext.gather.logging',
 			'mobile.contentOverlays',
 			'mobile.toast',
 			'ext.gather.api',
@@ -114,6 +127,9 @@ $wgResourceModules += array(
 			'ext.gather.watchstar/contentOverlay.less',
 		),
 		'messages' => array(
+			'gather-remove-from-collection-failed-toast',
+			'gather-add-to-collection-failed-toast',
+			'gather-new-collection-failed-toast',
 			'gather-add-to-existing',
 			'gather-watchlist-title',
 			'gather-add-toast',
@@ -141,11 +157,13 @@ $wgResourceModules += array(
 
 	'ext.gather.collection.editor' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
+			'ext.gather.logging',
 			'mobile.overlays',
 			'mobile.toast',
 			'ext.gather.api',
 		),
 		'messages' => array(
+			"gather-edit-collection-failed-error",
 			'gather-edit-collection-label-name',
 			'gather-edit-collection-label-description',
 			'gather-edit-collection-label-privacy',

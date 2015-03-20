@@ -19,6 +19,27 @@ use \MobileContext;
  *	onRequestContextCreateSkin()
  */
 class Hooks {
+	/**
+	 * EventLoggingRegisterSchemas hook handler.
+	 *
+	 * Registers our EventLogging schemas so that they can be converted to
+	 * ResourceLoaderSchemaModules by the EventLogging extension as the
+	 * mobile.loggingSchemas module.
+	 *
+	 * If the module has already been registered in
+	 * onResourceLoaderRegisterModules, then it is overwritten.
+	 *
+	 * @param array $schemas The schemas currently registered with the EventLogging
+	 *  extension
+	 * @return bool Always true
+	 */
+	public static function onEventLoggingRegisterSchemas( &$schemas ) {
+		$schemas += array(
+			'GatherClicks' => 11639881,
+		);
+		return true;
+	}
+
 	public static function onExtensionSetup() {
 		// FIXME: This doesn't do anything as if mobilefrontend is not present
 		// The reported error is "This requires Gather."

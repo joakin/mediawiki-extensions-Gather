@@ -1,5 +1,7 @@
 ( function ( M, $ ) {
 	var
+		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
+		schema = new SchemaGather(),
 		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
 		WatchstarPageActionOverlay;
 
@@ -24,6 +26,9 @@
 			 * @event cancel
 			 */
 			this.emit( 'cancel' );
+			schema.log( {
+				eventName: 'dismiss-onboarding'
+			} );
 		},
 		/**
 		 * Event handler for cancelling the overlay

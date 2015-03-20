@@ -1,6 +1,8 @@
 ( function ( M, $ ) {
 
 	var CollectionDeleteOverlay,
+		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
+		schema = new SchemaGather(),
 		toast = M.require( 'toast' ),
 		icons = M.require( 'icons' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
@@ -61,13 +63,22 @@
 				self.$( '.spinner' ).hide();
 				toast.show( self.options.deleteSuccessMsg, 'toast' );
 
-				// Go to the collections list page as collection will no longer exist
-				window.location.href = mw.util.getUrl( 'Special:Gather' );
+				schema.log( {
+					eventName: 'delete-collection'
+				} ).done( function () {
+					// Go to the collections list page as collection will no longer exist
+					window.location.href = mw.util.getUrl( 'Special:Gather' );
+				} );
 
-			} ).fail( function () {
+			} ).fail( function ( errMsg ) {
 				toast.show( self.options.deleteFailedError, 'toast error' );
+				self.hide();
 				// Make it possible to try again.
 				self.$( '.delete-collection, .cancel-delete' ).prop( 'disabled', false );
+				schema.log( {
+					eventName: 'delete-collection-error',
+					errorText: errMsg
+				} );
 			} );
 		},
 		/**

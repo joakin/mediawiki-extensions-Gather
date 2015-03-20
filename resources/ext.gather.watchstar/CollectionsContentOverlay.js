@@ -1,5 +1,7 @@
 ( function ( M, $ ) {
 	var CollectionsContentOverlay,
+		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
+		schema = new SchemaGather(),
 		icons = M.require( 'icons' ),
 		toast = M.require( 'toast' ),
 		Icon = M.require( 'Icon' ),
@@ -60,6 +62,13 @@
 			CollectionsContentOverlayBase.prototype.initialize.apply( this, arguments );
 		},
 		/** @inheritdoc */
+		hide: function () {
+			schema.log( {
+				eventName: 'hide'
+			} );
+			return CollectionsContentOverlayBase.prototype.hide.apply( this, arguments );
+		},
+		/** @inheritdoc */
 		postRender: function () {
 			this.hideSpinner();
 		},
@@ -76,11 +85,14 @@
 		},
 		/**
 		 * Event handler for blurring input
-		 * @param {jQuery.Event} ev
 		 */
 		onBlurInput: function () {
 			this.$el.removeClass( 'compact' );
 		},
+		/**
+		 * Event handler for entering input.
+		 * @param {jQuery.Event} ev
+		 */
 		onInput: function ( ev ) {
 			var $input = $( ev.target ),
 				val = $input.val(),
@@ -98,6 +110,9 @@
 			ev.preventDefault();
 			this.showSpinner();
 			this.addCollection( title, page );
+			schema.log( {
+				eventName: 'new-collection'
+			} );
 		},
 		/**
 		 * Event handler for all clicks inside overlay.
@@ -127,6 +142,9 @@
 				this.addToCollection( collection, page );
 			}
 			ev.stopPropagation();
+			schema.log( {
+				eventName: 'select-collection'
+			} );
 		},
 		/**
 		 * Internal event for updating existing known states of users collections.
@@ -170,9 +188,17 @@
 		 * @param {Page} page to remove from collection
 		 */
 		removeFromCollection: function ( collection, page ) {
+			var self = this;
 			return this.api.removePageFromCollection( collection.id, page ).done(
 				$.proxy( this, '_collectionStateChange', collection, false )
-			);
+			).fail( function ( errMsg ) {
+				schema.log( {
+					eventName: 'remove-collection-error',
+					errorText: errMsg
+				} );
+				self.hideSpinner();
+				toast.show( mw.msg( 'gather-remove-from-collection-failed-toast' ), 'toast error' );
+			} );
 		},
 		/**
 		 * Communicate with API to add page to collection
@@ -180,9 +206,16 @@
 		 * @param {Page} page to add to collection
 		 */
 		addToCollection: function ( collection, page ) {
+			var self = this;
 			return this.api.addPageToCollection( collection.id, page ).done(
 				$.proxy( this, '_collectionStateChange', collection, true )
-			);
+			).fail( function () {
+				schema.log( {
+					eventName: 'add-collection-error'
+				} );
+				self.hideSpinner();
+				toast.show( mw.msg( 'gather-add-to-collection-failed-toast' ), 'toast error' );
+			} );
 		},
 		/**
 		 * Communicate with API to create a collection
@@ -201,8 +234,13 @@
 					// Hide since collection was created properly and list is outdated
 					self.hide();
 				} );
-			} ).fail( function () {
-				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast' );
+			} ).fail( function ( errMsg ) {
+				schema.log( {
+					eventName: 'create-collection-error',
+					errorText: errMsg
+				} );
+				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast error' );
+				self.hideSpinner();
 			} );
 		}
 	} );

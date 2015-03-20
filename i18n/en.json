@@ -2,6 +2,8 @@
 	"@metadata": {
 		"authors": []
 	},
+	"gather-remove-from-collection-failed-toast": "Unable to remove page from collection.",
+	"gather-add-to-collection-failed-toast": "Unable to add page to collection",
 	"gather-lists-collection-owner": "Owner",
 	"gather-lists-collection-title": "Title",
 	"gather-lists-collection-description": "Description",

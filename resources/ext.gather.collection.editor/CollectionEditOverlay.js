@@ -4,6 +4,8 @@
 		toast = M.require( 'toast' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
 		Overlay = M.require( 'Overlay' ),
+		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
+		schema = new SchemaGather(),
 		router = M.require( 'router' );
 
 	/**
@@ -27,7 +29,7 @@
 			headerButtons: [ {
 				className: 'save submit',
 				msg: mw.msg( 'gather-edit-collection-save-label' )
-			} ],
+			} ]
 		} ),
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {
@@ -53,6 +55,7 @@
 		 * Event handler when the save button is clicked.
 		 */
 		onSaveClick: function () {
+			var self = this;
 			// disable button and inputs
 			this.showSpinner();
 			this.$( '.mw-ui-input, .save' ).prop( 'disabled', true );
@@ -61,12 +64,20 @@
 			).done( function () {
 				// Go back to the page we were and reload to avoid having to update the
 				// JavaScript state.
-				router.navigate( '/' );
-				window.location.reload();
-			} ).fail( function () {
-				toast.show( this.options.editFailedError, 'toast error' );
+				schema.log( {
+					eventName: 'edit-collection'
+				} ).done( function () {
+					router.navigate( '/' );
+					window.location.reload();
+				} );
+			} ).fail( function ( errMsg ) {
+				toast.show( self.options.editFailedError, 'toast error' );
 				// Make it possible to try again.
-				this.$( '.mw-ui-input, .save' ).prop( 'disabled', false );
+				self.$( '.mw-ui-input, .save' ).prop( 'disabled', false );
+				schema.log( {
+					eventName: 'edit-collection-error',
+					errorMessage: errMsg
+				} );
 			} );
 		}
 	} );
