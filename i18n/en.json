@@ -2,12 +2,15 @@
 	"@metadata": {
 		"authors": []
 	},
-	"gather-remove-from-collection-failed-toast": "Unable to remove page from collection.",
-	"gather-add-to-collection-failed-toast": "Unable to add page to collection.",
 	"gather-lists-collection-owner": "Owner",
 	"gather-lists-collection-title": "Title",
 	"gather-lists-collection-description": "Description",
 	"gather-lists-collection-count": "Count",
+	"gather-lists-hide-collection": "Do you want to hide list \"$1\" by \"$2\"?",
+	"gather-lists-hide-success-toast": "List \"$1\" was hidden successfully.",
+	"gather-lists-hide-failure-toast": "Failed to hide list \"$1\".",
+	"gather-remove-from-collection-failed-toast": "Unable to remove page from collection.",
+	"gather-add-to-collection-failed-toast": "Unable to add page to collection.",
 	"gather-edit-collection-heading": "Edit collection",
 	"gather-edit-collection-label-name": "Name",
 	"gather-edit-collection-label-description": "Description",

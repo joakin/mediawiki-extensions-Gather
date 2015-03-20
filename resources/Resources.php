@@ -219,8 +219,17 @@ $wgResourceModules += array(
 	),
 
 	'ext.gather.lists' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
-		'styles' => array(
-			'ext.gather.styles/lists.less',
+		'dependencies' => array(
+			'mobile.toast',
+			'ext.gather.api',
+		),
+		'messages' => array(
+			'gather-lists-hide-collection',
+			'gather-lists-hide-success-toast',
+			'gather-lists-hide-failure-toast',
+		),
+		'scripts' => array(
+			'ext.gather.lists/init.js',
 		),
 	)
 
