@@ -131,21 +131,6 @@ class Hooks {
 		global $wgGatherShouldShowTutorial;
 		$user = $out->getUser();
 		$title = $out->getTitle();
-		if ( !$user->isAnon() && !$title->isSpecialPage() ) {
-			$member = $title->getPrefixedText();
-			$collectionsList = models\CollectionsList::newFromApi( $user, true, $member );
-			$gatherCollections = array();
-			foreach ( $collectionsList as $collectionInfo ) {
-				if ( $collectionInfo !== null ) {
-					$collection = $collectionInfo->toArray();
-					if ( $member ) {
-						$collection['titleInCollection'] = $collectionInfo->isKnownMember( $member );
-					}
-					$gatherCollections[] = $collection;
-				}
-			}
-			$vars['wgGatherCollections'] = $gatherCollections;
-		}
 		$vars['wgGatherShouldShowTutorial'] = $wgGatherShouldShowTutorial;
 		// Expose page image.
 		// FIXME: Should probably be in PageImages extension

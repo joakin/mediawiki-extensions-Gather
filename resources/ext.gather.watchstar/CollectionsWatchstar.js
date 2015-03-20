@@ -35,7 +35,7 @@
 		 * @inheritdoc
 		 * @cfg {Object} defaults Default options hash.
 		 * @cfg {Number} defaults.inCollections number of collections the current page appears in
-		 * @cfg {Object} defaults.collections definitions of the users existing collections
+		 * @cfg {Array} defaults.collections definitions of the users existing collections
 		 * @cfg {Boolean} defaults.wasUserPrompted a flag which identifies if the user was prompted
 		 *  e.g. by WatchstarPageActionOverlay
 		 */
@@ -43,7 +43,7 @@
 			page: M.getCurrentPage(),
 			inCollections: 0,
 			wasUserPrompted: false,
-			collections: []
+			collections: undefined
 		} ),
 		/** @inheritdoc */
 		postRender: function ( options ) {

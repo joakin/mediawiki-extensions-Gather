@@ -4,6 +4,7 @@
 		schema = new SchemaGather(),
 		icons = M.require( 'icons' ),
 		toast = M.require( 'toast' ),
+		user = M.require( 'user' ),
 		Icon = M.require( 'Icon' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
 		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' );
@@ -54,12 +55,24 @@
 			placeholder: mw.msg( 'gather-add-new-placeholder' ),
 			subheadingNewCollection: mw.msg( 'gather-add-to-new' ),
 			subheading: mw.msg( 'gather-add-to-existing' ),
-			collections: []
+			collections: undefined
 		},
 		/** @inheritdoc */
-		initialize: function () {
+		initialize: function ( options ) {
+			var self = this;
 			this.api = new CollectionsApi();
-			CollectionsContentOverlayBase.prototype.initialize.apply( this, arguments );
+			if ( options.collections === undefined ) {
+				options.collections = [];
+				CollectionsContentOverlayBase.prototype.initialize.call( this, options );
+				// load the collections.
+				this.showSpinner();
+				this.api.getCurrentUsersCollections( user.getName(), options.page ).done( function ( collections ) {
+					self.options.collections = collections;
+					self.render.call( self );
+				} );
+			} else {
+				CollectionsContentOverlayBase.prototype.initialize.call( this, options );
+			}
 		},
 		/** @inheritdoc */
 		hide: function () {

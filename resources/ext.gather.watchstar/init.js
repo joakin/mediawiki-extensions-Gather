@@ -16,14 +16,7 @@
 	 * @returns {Boolean}
 	 */
 	function shouldShowCollectionTutorial() {
-		var collections = mw.config.get( 'wgGatherCollections' ),
-			// Show to anonymous or a user with only watchstar as a collection
-			// note ES5 method usage
-			showToUser = user.isAnon() || Object.keys( collections ).length === 1;
-
 		if (
-			// User only has a watchlist, meaning they have not created a collection
-			showToUser &&
 			// Tutorial has never been dismissed
 			!settings.get( settingOverlayWasDismissed ) &&
 			// Feature flag is enabled
@@ -86,7 +79,6 @@
 				page: page,
 				isAnon: user.isAnon(),
 				wasUserPrompted: shouldShow,
-				collections: mw.config.get( 'wgGatherCollections' ),
 				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
 			} );
 

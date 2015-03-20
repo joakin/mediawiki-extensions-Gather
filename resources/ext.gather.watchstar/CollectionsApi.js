@@ -88,6 +88,35 @@
 			} );
 		},
 		/**
+		 * Gets an object representing all the current users collections
+		 * @method
+		 * @param {String} owner of the collections
+		 * @param {Page} page the current page.
+		 */
+		getCurrentUsersCollections: function ( owner, page ) {
+			return this.get( {
+				action: 'query',
+				list: 'lists',
+				lsttitle: page.getTitle(),
+				lstprop: 'label|description|public|image|count',
+				lstowner: owner
+			} ).then( function ( resp ) {
+				if ( resp.query && resp.query.lists ) {
+					return $.map( resp.query.lists, function ( list ) {
+						// FIXME: API should handle all these inconsistencies.
+						list.isWatchlist = list.id === 0;
+						list.titleInCollection = list.title;
+						list.title = list.label;
+						list.owner = owner;
+						delete list.label;
+						return list;
+					} );
+				} else {
+					return [];
+				}
+			} );
+		},
+		/**
 		 * Edits a collection
 		 * @method
 		 * @param {Number} id unique identifier of collection
