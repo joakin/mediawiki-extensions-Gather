@@ -4,6 +4,10 @@
 			"Bjankuloski06"
 		]
 	},
+	"gather-lists-collection-owner": "Сопственик",
+	"gather-lists-collection-title": "Наслов",
+	"gather-lists-collection-description": "Опис",
+	"gather-lists-collection-count": "Број",
 	"gather-edit-collection-heading": "Уреди збирка",
 	"gather-edit-collection-label-name": "Име",
 	"gather-edit-collection-label-description": "Опис",
@@ -27,6 +31,9 @@
 	"gather-add-toast": "Страницата е додадена во вашата збирка „$1“.",
 	"gather-new-collection-failed-toast": "Се јави проблем при создавањето на вашата збирка „$1“.",
 	"gather-add-failed-toast": "Се јави проблем при додавањето на ставката во вашата збирка „$1“.",
+	"gather-add-to-collection-summary": "Дали би сакале да ја додадете $1 во збирката?",
+	"gather-add-to-collection-confirm": "Додај во збирка",
+	"gather-add-to-collection-cancel": "Не, благодарам",
 	"gather-remove-toast": "Страницата е отстранета од вашата збирка „$1“.",
 	"gather-desc": "Дел од мобилниот посредник што им овозможува на корисниците да кустосуваат со списоци.",
 	"gather-no-public-lists-title": "Нема јавни збирки",

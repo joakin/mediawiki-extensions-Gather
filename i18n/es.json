@@ -29,6 +29,7 @@
 	"gather-desc": "Componente de Mobile Frontend que permite a los usuarios crear listas curadas.",
 	"gather-no-public-lists-title": "Sin colecciones públicas",
 	"gather-no-public-lists-description": "No existen colecciones públicas para este usuario.",
+	"gather-page-not-found": "Página no encontrada",
 	"gather-anon-view-lists": "Debes iniciar sesión para ver tus colecciones.",
 	"gather-watchlist-title": "Lista de seguimiento",
 	"gather-watchlist-description": "Una lista de páginas que me interesan.",

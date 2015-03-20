@@ -4,6 +4,10 @@
 			"Purodha"
 		]
 	},
+	"gather-lists-collection-owner": "Besetzer",
+	"gather-lists-collection-title": "Övverschreff",
+	"gather-lists-collection-description": "Wadd ess et?",
+	"gather-lists-collection-count": "Aanzahl",
 	"gather-edit-collection-heading": "Sammlong ändere",
 	"gather-edit-collection-label-name": "Nahme",
 	"gather-edit-collection-label-privacy": "Prefahte Sammlong",
@@ -24,6 +28,9 @@
 	"gather-add-toast": "Di Sigg es in Dinge Sammlong „$1“ jedonn.",
 	"gather-new-collection-failed-toast": "E Problehm es opjetrodde dohbei, Ding Sammlong mem Nahme „$1“ aanzejähje.",
 	"gather-add-failed-toast": "E Problehm es opjetrodde dohbei, dadd Objägg en Ding Sammlong mem Nahme „$1“ ze donn.",
+	"gather-add-to-collection-summary": "Wells De di Sigg „$1“ en en Sammlong donn?",
+	"gather-add-to-collection-confirm": "Dobei donn",
+	"gather-add-to-collection-cancel": "Nää, dat welle mer nit",
 	"gather-desc": "Aandeil för et Projramm för Mobihljerähte för de eije Leßte ze beärbeide.",
 	"gather-no-public-lists-title": "Kein öffentlesche Sammlonge",
 	"gather-no-public-lists-description": "mer han kein öffentlesche Sammlonge för heh dä Metmaacher.",
