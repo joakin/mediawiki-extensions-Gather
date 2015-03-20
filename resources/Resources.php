@@ -64,6 +64,7 @@ $wgResourceModules += array(
 	'ext.gather.styles' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'styles' => array(
 			'ext.gather.styles/collections.less',
+			'ext.gather.styles/lists.less',
 		),
 	),
 
