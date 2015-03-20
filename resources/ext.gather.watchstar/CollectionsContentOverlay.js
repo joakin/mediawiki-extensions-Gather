@@ -64,22 +64,6 @@
 			this.hideSpinner();
 		},
 		/**
-		 * Reveal all interface elements and cancel the spinner.
-		 */
-		hideSpinner: function () {
-			this.$( '.overlay-content' ).children().show();
-			this.$( '.spinner' ).hide();
-			// For position absolute to work the parent must have a specified height
-			this.$el.parent().css( 'height', '100%' );
-		},
-		/**
-		 * Hide all interface elements and show spinner.
-		 */
-		showSpinner: function () {
-			this.$( '.overlay-content' ).children().hide();
-			this.$( '.spinner' ).show();
-		},
-		/**
 		 * Event handler for focusing input
 		 * @param {jQuery.Event} ev
 		 */
