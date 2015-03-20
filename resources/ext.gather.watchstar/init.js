@@ -1,12 +1,10 @@
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 ( function ( M, $ ) {
 
-	var actionOverlay,
-		$target = $( '#ca-watch' ),
-		CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
-		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
+	var CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
+		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
 		settings = M.require( 'settings' ),
-		settingName = 'gather-has-dismissed-tutorial',
+		settingOverlayWasDismissed = 'gather-has-dismissed-tutorial',
 		util = M.require( 'util' ),
 		user = M.require( 'user' );
 
@@ -27,7 +25,7 @@
 			// User only has a watchlist, meaning they have not created a collection
 			showToUser &&
 			// Tutorial has never been dismissed
-			!settings.get( settingName ) &&
+			!settings.get( settingOverlayWasDismissed ) &&
 			// Feature flag is enabled
 			mw.config.get( 'wgGatherShouldShowTutorial' )
 		) {
@@ -37,44 +35,41 @@
 	}
 
 	/**
-	 * Disable and hide the tutorial
+	 * Overlay was dismissed.
 	 * @method
 	 * @ignore
 	 */
-	function dismissTutorial() {
-		actionOverlay.hide();
-		settings.save( settingName, true );
+	function overlayDismissed() {
+		settings.save( settingOverlayWasDismissed, true );
 	}
 
 	/**
 	 * Show a pointer that points to the collection feature.
 	 * @method
-	 * @param {Watchstar} watchstar
+	 * @param {Watchstar} watchstar to react when actionable
+	 * @param {jQuery.Object} $star DOM element to point to
 	 * @ignore
 	 */
-	function showPointer( watchstar ) {
-		// FIXME: Should be it's own View (WatchstarPageActionOverlay)
-		actionOverlay = new PageActionOverlay( {
-			target: $target,
-			className: 'slide active editing',
-			summary: mw.msg( 'gather-add-to-collection-summary', mw.config.get( 'wgTitle' ) ),
-			confirmMsg: mw.msg( 'gather-add-to-collection-confirm' ),
-			cancelMsg: mw.msg( 'gather-add-to-collection-cancel' )
+	function showPointer( watchstar, $star ) {
+		var actionOverlay = new WatchstarPageActionOverlay( {
+			target: $star
+		} );
+		// Dismiss when watchstar is clicked
+		$star.on( 'click', function () {
+			actionOverlay.hide();
+			overlayDismissed();
+		} );
+		// Dismiss when 'No thanks' button is clicked
+		actionOverlay.on( 'cancel', overlayDismissed );
+		// Toggle WatstarOverlay and dismiss
+		actionOverlay.on( 'action', function ( ev ) {
+			watchstar.onStatusToggle( ev );
+			overlayDismissed();
 		} );
 		actionOverlay.show();
 		// Refresh pointer otherwise it is not positioned
 		// FIXME: Remove when ContentOverlay is fixed
-		actionOverlay.refreshPointerArrow( $target );
-		// Dismiss when watchstar is clicked
-		$target.on( 'click', dismissTutorial );
-		// Dismiss when 'No thanks' button is clicked
-		actionOverlay.$( '.cancel' ).on( 'click', dismissTutorial );
-		// Toggle WatstarOverlay and dismiss
-		actionOverlay.$( '.actionable' ).on( 'click', function ( ev ) {
-			// Hide the tutorial
-			watchstar.onStatusToggle.call( watchstar, ev );
-			dismissTutorial();
-		} );
+		actionOverlay.refreshPointerArrow( $star );
 	}
 
 	/**
@@ -84,19 +79,20 @@
 	 * @ignore
 	 */
 	function init( page ) {
-		var watchstar = new CollectionsWatchstar( {
-			el: $target,
-			page: page,
-			isAnon: user.isAnon(),
-			collections: mw.config.get( 'wgGatherCollections' ),
-			isNewlyAuthenticatedUser: util.query.article_action === 'add_to_collection'
-		} );
+		var $star = $( '#ca-watch' ),
+			watchstar = new CollectionsWatchstar( {
+				el: $star,
+				page: page,
+				isAnon: user.isAnon(),
+				collections: mw.config.get( 'wgGatherCollections' ),
+				isNewlyAuthenticatedUser: util.query.article_action === 'add_to_collection'
+			} );
 		if ( !page.inNamespace( 'special' ) ) {
 			// Determine if we should show the collection tutorial
-			if ( $target.length > 0 && shouldShowCollectionTutorial() ) {
+			if ( $star.length > 0 && shouldShowCollectionTutorial() ) {
 				// FIXME: Timeout shouldn't be necessary but T91047 exists.
 				setTimeout( function () {
-					showPointer( watchstar );
+					showPointer( watchstar, $star );
 				}, 2000 );
 			}
 		}
