@@ -132,6 +132,7 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'ext.gather.watchstar/CollectionsContentOverlay.js',
 			'ext.gather.watchstar/CollectionsWatchstar.js',
+			'ext.gather.watchstar/WatchstarPageActionOverlay.js',
 			'ext.gather.watchstar/init.js',
 		),
 	),
