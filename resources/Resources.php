@@ -194,9 +194,9 @@ $wgResourceModules += array(
 		),
 	),
 
-	'ext.gather.moderation' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+	'ext.gather.lists' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'styles' => array(
-			'ext.gather.styles/moderation.less',
+			'ext.gather.styles/lists.less',
 		),
 	)
 

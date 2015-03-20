@@ -20,7 +20,7 @@ class SpecialGatherLists extends SpecialPage {
 		parent::__construct( 'GatherLists' );
 		$out = $this->getOutput();
 		$out->addModules( array(
-			'ext.gather.moderation'
+			'ext.gather.lists'
 		) );
 		$out->addModuleStyles( array(
 			'mediawiki.ui.anchor',
@@ -63,7 +63,7 @@ class SpecialGatherLists extends SpecialPage {
 		$out->setPageTitle( wfMessage( 'gather-lists-title' ) );
 
 		$html = '';
-		$html .= Html::openElement( 'div', array( 'class' => 'content gather-moderation' ) );
+		$html .= Html::openElement( 'div', array( 'class' => 'content gather-lists' ) );
 		$html .= Html::openElement( 'ul', array() );
 		$html .= Html::openElement( 'li', array( 'class' => 'heading' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-owner' ) )

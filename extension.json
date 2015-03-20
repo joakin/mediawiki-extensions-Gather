@@ -229,13 +229,13 @@
 				"ext.gather.special/init.js"
 			]
 		},
-		"ext.gather.moderation": {
+		"ext.gather.lists": {
 			"targets": [
 				"mobile",
 				"desktop"
 			],
 			"styles": [
-				"ext.gather.styles/moderation.less"
+				"ext.gather.styles/lists.less"
 			]
 		}
 	},
