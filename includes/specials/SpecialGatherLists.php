@@ -19,9 +19,6 @@ class SpecialGatherLists extends SpecialPage {
 	public function __construct() {
 		parent::__construct( 'GatherLists' );
 		$out = $this->getOutput();
-		$out->addModules( array(
-			'ext.gather.lists'
-		) );
 		$out->addModuleStyles( array(
 			'mediawiki.ui.anchor',
 			'mediawiki.ui.icon',
