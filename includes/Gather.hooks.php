@@ -128,7 +128,7 @@ class Hooks {
 		if ( defined( 'PAGE_IMAGES_INSTALLED' ) && $title->getNamespace() === NS_MAIN ) {
 			$pageImage = \PageImages::getPageImage( $title );
 			if ( $pageImage ) {
-				$thumb = $pageImage->transform( array( 'height' => 72, 'width' => 72 ) );
+				$thumb = $pageImage->transform( array( 'height' => 100, 'width' => 100 ) );
 				if ( $thumb ) {
 					$vars['wgGatherPageImageThumbnail'] = $thumb->getUrl();
 				}
