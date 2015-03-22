@@ -4,6 +4,10 @@
 			"Robby"
 		]
 	},
+	"gather-lists-collection-owner": "Besëtzer",
+	"gather-lists-collection-title": "Titel",
+	"gather-lists-collection-description": "Beschreiwung",
+	"gather-lists-collection-count": "Compteur",
 	"gather-edit-collection-label-name": "Numm",
 	"gather-edit-collection-label-description": "Beschreiwung",
 	"gather-edit-collection-label-privacy": "Privat Sammlung",
@@ -12,6 +16,7 @@
 	"gather-delete-collection-delete-label": "Läschen",
 	"gather-delete-collection-cancel-label": "Ofbriechen",
 	"gather-create-new-button-label": "Uleeën",
+	"gather-add-to-collection-cancel": "Nee, merci",
 	"gather-page-not-found": "Säit net fonnt",
 	"gather-watchlist-title": "Iwwerwaachungslëscht",
 	"gather-watchlist-description": "Eng Lëscht vu Säiten un deenen ech interesséiert sinn.",

@@ -7,6 +7,10 @@
 			"Laurenslimb"
 		]
 	},
+	"gather-lists-collection-owner": "Dueño",
+	"gather-lists-collection-title": "Título",
+	"gather-lists-collection-description": "Descripción",
+	"gather-lists-collection-count": "Cantidad",
 	"gather-edit-collection-heading": "Editar colección",
 	"gather-edit-collection-label-name": "Nombre",
 	"gather-edit-collection-label-description": "Descripción",
@@ -25,6 +29,9 @@
 	"gather-create-new-button-label": "Crear",
 	"gather-add-to-existing": "Añadir a la colección existente",
 	"gather-add-toast": "Se añadió la página a tu colección \"$1\".",
+	"gather-add-to-collection-summary": "¿Te gustaría agregar $1 a una colección?",
+	"gather-add-to-collection-confirm": "Añadir a la colección",
+	"gather-add-to-collection-cancel": "No, gracias",
 	"gather-remove-toast": "Se eliminó la página de tu colección \"$1\".",
 	"gather-desc": "Componente de Mobile Frontend que permite a los usuarios crear listas curadas.",
 	"gather-no-public-lists-title": "Sin colecciones públicas",

@@ -4,8 +4,11 @@
 			"Phoenix303"
 		]
 	},
+	"gather-lists-collection-title": "शीर्षक",
+	"gather-lists-collection-count": "गणना",
 	"gather-delete-collection-delete-label": "हटाएँ",
 	"gather-delete-collection-cancel-label": "रद्द करें",
+	"gather-add-to-collection-cancel": "नहीं धन्यवाद",
 	"gather-public": "सार्वजनिक",
 	"gather-delete-button": "हटाएँ"
 }

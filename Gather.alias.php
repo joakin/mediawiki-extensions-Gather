@@ -24,6 +24,11 @@ $specialPageAliases['de'] = array(
 	'Gather' => array( 'Sammeln' ),
 );
 
+/** Hebrew (עברית) */
+$specialPageAliases['he'] = array(
+	'Gather' => array( 'לקט' ),
+);
+
 /** Luxembourgish (Lëtzebuergesch) */
 $specialPageAliases['lb'] = array(
 	'Gather' => array( 'Sammelen' ),

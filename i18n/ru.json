@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Batumski brodyaga",
-			"Foxyor"
+			"Foxyor",
+			"Iluvatar"
 		]
 	},
+	"gather-lists-collection-owner": "Владелец",
 	"gather-edit-collection-label-name": "Имя",
 	"gather-watchlist-description": "Список страниц, которые мне интересны.",
 	"gather-lists-title": "Коллекции",

@@ -4,6 +4,8 @@
 			"Vitorvicentevalente"
 		]
 	},
+	"gather-lists-collection-title": "Título",
+	"gather-lists-collection-description": "Descrição",
 	"gather-edit-collection-heading": "Editar coleção",
 	"gather-edit-collection-label-name": "Nome",
 	"gather-edit-collection-label-description": "Descrição",
@@ -20,6 +22,8 @@
 	"gather-add-toast": "A página foi adicionada à sua coleção \"$1\".",
 	"gather-new-collection-failed-toast": "Ocorreu um problema ao criar a sua coleção \"$1\".",
 	"gather-add-failed-toast": "Ocorreu um problema ao adicionar o item à sua coleção \"$1\".",
+	"gather-add-to-collection-confirm": "Adicionar à coleção",
+	"gather-add-to-collection-cancel": "Não, obrigado",
 	"gather-remove-toast": "A página foi removida da sua coleção \"$1\".",
 	"gather-desc": "Componente da extensão Mobile Frontend que permite aos utilizadores organizarem listas.",
 	"gather-no-public-lists-title": "Sem coleções públicas",

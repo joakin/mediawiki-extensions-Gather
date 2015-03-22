@@ -4,6 +4,10 @@
 			"Liuxinyu970226"
 		]
 	},
+	"gather-lists-collection-owner": "所有人",
+	"gather-lists-collection-title": "标题",
+	"gather-lists-collection-description": "说明",
+	"gather-lists-collection-count": "计数",
 	"gather-edit-collection-heading": "编辑收藏",
 	"gather-edit-collection-label-name": "名称",
 	"gather-edit-collection-label-description": "说明",
@@ -27,6 +31,9 @@
 	"gather-add-toast": "页面已添加至您的“$1”收藏中。",
 	"gather-new-collection-failed-toast": "创建您的“$1”收藏时出现问题。",
 	"gather-add-failed-toast": "添加项目至您的“$1”收藏时出现问题。",
+	"gather-add-to-collection-summary": "您是否乐意将$1添加至收藏中？",
+	"gather-add-to-collection-confirm": "添加至收藏",
+	"gather-add-to-collection-cancel": "不，谢谢",
 	"gather-remove-toast": "页面已从您的“$1”收藏中移除。",
 	"gather-desc": "允许用户管理列表的移动前端组件。",
 	"gather-no-public-lists-title": "没有公开收藏",

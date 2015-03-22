@@ -4,12 +4,17 @@
 			"Chrumps"
 		]
 	},
+	"gather-lists-collection-owner": "Właściciel",
+	"gather-lists-collection-title": "Tytuł",
+	"gather-lists-collection-description": "Opis",
 	"gather-edit-collection-label-name": "Nazwa",
 	"gather-edit-collection-label-description": "Opis",
 	"gather-edit-collection-label-privacy": "Kolekcja prywatna",
 	"gather-edit-collection-save-label": "Gotowe",
 	"gather-delete-collection-cancel-label": "Anuluj",
 	"gather-create-new-button-label": "Utwórz",
+	"gather-add-to-collection-cancel": "Nie, dziękuję",
+	"gather-page-not-found": "Nie odnaleziono strony",
 	"gather-watchlist-title": "Obserwowane",
 	"gather-watchlist-description": "Lista stron, które mnie interesują.",
 	"gather-read-more": "Czytaj więcej",

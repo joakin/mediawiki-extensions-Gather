@@ -5,10 +5,10 @@
 			"Robby"
 		]
 	},
-	"gather-lists-collection-owner": "Label for owner of collection on list of all collections",
-	"gather-lists-collection-title": "Label for title of collection on list of all collections",
-	"gather-lists-collection-description": "Label for description of collection on list of all collections",
-	"gather-lists-collection-count": "Label for count of collection on list of all collections",
+	"gather-lists-collection-owner": "Label for owner of collection on list of all collections\n{{Identical|Owner}}",
+	"gather-lists-collection-title": "Label for title of collection on list of all collections\n{{Identical|Title}}",
+	"gather-lists-collection-description": "Label for description of collection on list of all collections\n{{Identical|Description}}",
+	"gather-lists-collection-count": "Label for count of collection on list of all collections\n{{Identical|Count}}",
 	"gather-edit-collection-heading": "Heading for collection editor overlay",
 	"gather-edit-collection-label-name": "Label above input field for name of collection\n{{Identical|Name}}",
 	"gather-edit-collection-label-description": "Label above input field for description of collection\n{{Identical|Description}}",

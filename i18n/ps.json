@@ -4,6 +4,10 @@
 			"Ahmed-Najib-Biabani-Ibrahimkhel"
 		]
 	},
+	"gather-lists-collection-owner": "خاوند",
+	"gather-lists-collection-title": "سرليک",
+	"gather-lists-collection-description": "څرگندونه",
+	"gather-lists-collection-count": "شمېرل",
 	"gather-edit-collection-heading": "ټولگه سمول",
 	"gather-edit-collection-label-name": "نوم",
 	"gather-edit-collection-label-description": "څرگندونه",
@@ -11,6 +15,9 @@
 	"gather-delete-collection-delete-label": "ړنگول",
 	"gather-delete-collection-cancel-label": "ناگارل",
 	"gather-create-new-button-label": "جوړول",
+	"gather-add-to-collection-summary": "غواړې چې د $1 مخ يوې ټولگې کې ورگډ کړې؟",
+	"gather-add-to-collection-confirm": "ټولگې کې ورگډول",
+	"gather-add-to-collection-cancel": "نه مننه",
 	"gather-watchlist-title": "کتنلړ",
 	"gather-lists-title": "غونډونه",
 	"gather-read-more": "نور لوستل",

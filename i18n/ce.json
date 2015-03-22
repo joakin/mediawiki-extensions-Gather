@@ -4,10 +4,18 @@
 			"Умар"
 		]
 	},
+	"gather-lists-collection-owner": "Ерг",
+	"gather-lists-collection-title": "ЦӀе",
+	"gather-lists-collection-description": "Цуьнах лаьцна",
+	"gather-lists-collection-count": "Ларар",
 	"gather-edit-collection-label-name": "ЦӀе",
 	"gather-edit-collection-save-label": "Кийчча ю",
+	"gather-delete-collection-delete-label": "ДӀаяккха",
+	"gather-delete-collection-cancel-label": "Цаоьшу",
 	"gather-create-new-button-label": "Кхолла",
+	"gather-add-to-collection-cancel": "ХӀахӀа, баркалла",
 	"gather-lists-title": "Коллекцеш",
 	"gather-private": "Долара",
-	"gather-edit-button": "Тае"
+	"gather-edit-button": "Тае",
+	"gather-delete-button": "ДӀаяккха"
 }
