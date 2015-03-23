@@ -51,12 +51,11 @@ $wgResourceModules += array(
 
 	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
 		'class' => 'ResourceLoaderImageModule',
-		'prefix' => 'mw-ui',
+		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
-			// FIXME: ':before' suffix should be configurable in image module.
 			'icon' => array(
-				'collections-read-more:before' => 'ext.gather.icons/next.svg',
-				'collection-owner:before' => 'ext.gather.icons/user.svg',
+				'collections-read-more' => 'ext.gather.icons/next.svg',
+				'collection-owner' => 'ext.gather.icons/user.svg',
 			),
 		),
 	),
@@ -70,12 +69,11 @@ $wgResourceModules += array(
 
 	'ext.gather.watchstar.icons' => $wgGatherResourceFileModuleBoilerplate + array(
 		'class' => 'ResourceLoaderImageModule',
-		'prefix' => 'mw-ui',
+		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
-			// FIXME: ':before' suffix should be configurable in image module.
 			'icon' => array(
-				'tick-disabled:before' => 'ext.gather.watchstar.icons/grey_check.svg',
-				'tick:before' => 'ext.gather.watchstar.icons/green_check.svg',
+				'tick-disabled' => 'ext.gather.watchstar.icons/grey_check.svg',
+				'tick' => 'ext.gather.watchstar.icons/green_check.svg',
 			),
 		),
 	),
