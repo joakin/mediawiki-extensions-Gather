@@ -56,7 +56,11 @@ class ApiEditList extends ApiBase {
 		$params = $this->extractRequestParams();
 
 		if ( $params['label'] !== null ) {
-			$params['label'] = trim( $params['label'] );
+			$label = trim( $params['label'] );
+			$params['label'] = $label;
+			if ( $this->isDisallowedString( $label ) ) {
+				$this->dieUsage( "Label `{$label}` denied by abuse filter", 'badlabel' );
+			}
 		}
 		$this->checkPermissions( $params );
 
@@ -99,7 +103,26 @@ class ApiEditList extends ApiBase {
 			$this->processTitles( $params, $user, $listId, $dbw, $isWatchlist );
 		}
 	}
-
+	/**
+	 * Checks whether the collection description or title is disallowed according to AbuseFilter
+	 * if available. If no abuse filters in place returns false.
+	 * @param string $string
+	 * @return boolean
+	 */
+	private function isDisallowedString( $string ) {
+		if ( class_exists( 'AbuseFilterVariableHolder' ) ) {
+			$vars = new \AbuseFilterVariableHolder();
+			$vars->addHolders( \AbuseFilter::generateUserVars( $this->getUser() ) );
+			$vars->setVar( 'action', 'gatheredit' ); // I think having your own action would be best
+			$vars->setVar( 'old_wikitext', '' );
+			$vars->setVar( 'new_wikitext', $string );
+			$vars->setVar( 'added_lines', $string );
+			$result = \AbuseFilter::filterAction( $vars, Title::newFromText( 'Gather' ) );
+			return !$result->isGood();
+		} else {
+			return false;
+		}
+	}
 	/**
 	 * This method should be called twice - once before accessing DB, and once when db row is found
 	 * @param array $params
@@ -257,7 +280,11 @@ class ApiEditList extends ApiBase {
 
 		// Update from api parameters
 		if ( $params['description'] !== null && $v->description !== $params['description'] ) {
-			$v->description = $params['description'];
+			$newDescription = $params['description'];
+			if ( $this->isDisallowedString( $newDescription ) ) {
+				$this->dieUsage( "Description `{$$newDescription}` denied by abuse filter", 'baddesc' );
+			}
+			$v->description = $newDescription;
 			$updated = true;
 		}
 		if ( $params['image'] !== null && $v->image !== $params['image'] ) {
