@@ -5,7 +5,8 @@
 		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
 		settings = M.require( 'settings' ),
 		settingOverlayWasDismissed = 'gather-has-dismissed-tutorial',
-		user = M.require( 'user' );
+		user = M.require( 'user' ),
+		page = M.getCurrentPage();
 
 	/**
 	 * Determines if collection tutorial should be shown
@@ -78,8 +79,8 @@
 	 * @ignore
 	 */
 	function init( page ) {
-		var shouldShow = shouldShowCollectionTutorial(),
-			$star = $( '#ca-watch' ),
+		var $star = $( '#ca-watch' ),
+			shouldShow = shouldShowCollectionTutorial(),
 			watchstar = new CollectionsWatchstar( {
 				el: $star,
 				page: page,
@@ -88,17 +89,18 @@
 				collections: mw.config.get( 'wgGatherCollections' ),
 				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
 			} );
-		if ( !page.inNamespace( 'special' ) ) {
-			// Determine if we should show the collection tutorial
-			if ( $star.length > 0 && shouldShow ) {
-				// FIXME: Timeout shouldn't be necessary but T91047 exists.
-				setTimeout( function () {
-					showPointer( watchstar, $star );
-				}, 2000 );
-			}
+
+		// Determine if we should show the collection tutorial
+		if ( $star.length > 0 && shouldShow ) {
+			// FIXME: Timeout shouldn't be necessary but T91047 exists.
+			setTimeout( function () {
+				showPointer( watchstar, $star );
+			}, 2000 );
 		}
 	}
-
-	init( M.getCurrentPage() );
+	// Only init when current page is an article
+	if ( !page.inNamespace( 'special' ) ) {
+		init( page );
+	}
 
 }( mw.mobileFrontend, jQuery ) );
