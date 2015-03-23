@@ -93,6 +93,7 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 			'list' => 'lists',
 			'lstprop' => 'label|description|public|image|count',
 			'continue' => '',
+			'lstlimit' => 50,
 			'lstowner' => $user->getName(),
 		);
 		if ( $memberTitle ) {
