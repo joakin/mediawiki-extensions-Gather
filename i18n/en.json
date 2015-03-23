@@ -51,6 +51,7 @@
 	"gather-empty-footer": "I don't know how you got here but this is a sad place.",
 	"gather-edit-button": "Edit",
 	"gather-delete-button": "Delete",
+	"right-gather-hidelist": "Force a public user list to become hidden",
 	"apihelp-gather-description": "List and edit gather collections.",
 	"apihelp-gather-param-gather": "Action to perform on collections.",
 	"apihelp-gather-param-owner": "Owner of the collections to search for. If omitted, defaults to current user.",

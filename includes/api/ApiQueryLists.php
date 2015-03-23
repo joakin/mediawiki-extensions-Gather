@@ -123,7 +123,7 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 
 		if ( $showPrivate !== true ) {
-			$cond = array( 'gl_perm' => 1 );
+			$cond = array( 'gl_perm' => ApiEditList::PERM_PUBLIC );
 			if ( $showPrivate === null ) {
 				$cond['gl_user'] = $this->getUser()->getId();
 			}
@@ -197,13 +197,15 @@ class ApiQueryLists extends ApiQueryBase {
 			if ( $row === null ) {
 				// Fake watchlist row
 				$row = (object) array(
-					'gl_id' => '0',
+					'gl_id' => 0,
 					'gl_label' => '',
 					'gl_user' => false,
-					'gl_perm' => 0,
+					'gl_perm' => ApiEditList::PERM_PRIVATE,
 					'gl_updated' => '',
 					'gl_info' => '',
 				);
+			} else {
+				$row = ApiEditList::normalizeRow( $row );
 			}
 
 			$count++;
@@ -216,7 +218,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 			$isWatchlist = $row->gl_label === '';
 
-			$data = array( 'id' => intval( $row->gl_id ) );
+			$data = array( 'id' => $row->gl_id );
 			if ( $isWatchlist ) {
 				$data['watchlist'] = true;
 			}
@@ -235,7 +237,21 @@ class ApiQueryLists extends ApiQueryBase {
 				}
 			}
 			if ( $fld_public ) {
-				$data['public'] = strval( $row->gl_perm ) === '1';
+				$data['public'] = $row->gl_perm === ApiEditList::PERM_PUBLIC;
+				switch ( $row->gl_perm ) {
+					case ApiEditList::PERM_PRIVATE:
+						$data['perm'] = 'private';
+						break;
+					case ApiEditList::PERM_PUBLIC:
+						$data['perm'] = 'public';
+						break;
+					case ApiEditList::PERM_HIDDEN:
+						$data['perm'] = 'hidden';
+						break;
+					default:
+						$self->dieDebug( __METHOD__,
+							"Unknown gather perm={$row->gl_perm} for id {$row->gl_id}" );
+				}
 			}
 			if ( $useInfo ) {
 				$info = ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false );

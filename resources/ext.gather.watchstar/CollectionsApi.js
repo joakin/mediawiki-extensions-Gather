@@ -47,7 +47,7 @@
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
 				id: id,
-				remove: true,
+				mode: 'remove',
 				titles: [ page.getTitle() ]
 			} );
 		},
@@ -83,7 +83,7 @@
 		removeCollection: function( id ) {
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
-				deletelist: 1,
+				mode: 'deletelist',
 				id: id
 			} );
 		},

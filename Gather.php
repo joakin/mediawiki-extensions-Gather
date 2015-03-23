@@ -90,5 +90,10 @@ $wgAPIListModules['listpages'] = 'Gather\api\ApiQueryListPages';
 // Configuration
 $wgGatherShouldShowTutorial = true;
 
+// Permissions
+$wgAvailableRights[] = 'gather-hidelist';
+$wgGroupPermissions['*']['gather-hidelist'] = false;
+$wgGroupPermissions['sysop']['gather-hidelist'] = true;
+
 // ResourceLoader modules
 require_once __DIR__ . "/resources/Resources.php";

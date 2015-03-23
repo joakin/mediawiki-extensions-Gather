@@ -48,21 +48,25 @@ use WatchAction;
 class ApiEditList extends ApiBase {
 	private $mPageSet = null;
 
+	const PERM_PRIVATE = 0;
+	const PERM_PUBLIC = 1;
+	const PERM_HIDDEN = 2;
+
 	/**
 	 * @throws \UsageException
 	 */
 	public function execute() {
 
 		$params = $this->extractRequestParams();
-
 		if ( $params['label'] !== null ) {
 			$params['label'] = trim( $params['label'] );
 		}
+
 		$this->checkPermissions( $params );
 
 		$p = $this->getModulePrefix();
 		$user = $this->getUser(); // TBD: We might want to allow other users with getWatchlistUser()
-		$isDeletingList = $params['deletelist'];
+		$mode = $params['mode'];
 		$listId = $params['id'];
 		$isNew = $listId === null;
 		$isWatchlist = $listId === 0;
@@ -75,26 +79,39 @@ class ApiEditList extends ApiBase {
 		} else {
 			// Find existing list
 			$row = $this->getListRow( $params, $dbw, array( 'gl_id' => $listId ) );
-			if ( $row === false ) {
-				// No database record with the given ID
+			if ( !$row ) {
 				$this->dieUsage( "List {$p}id was not found", 'badid' );
 			}
 			$isWatchlist = $row->gl_label === '';
-			if ( !$isDeletingList ) {
-				// ACTION: update list
-				$this->updateListDb( $dbw, $params, $row );
-			} else {
-				// ACTION: delete list (items + list itself)
-				$dbw->delete( 'gather_list_item', array( 'gli_gl_id' => $listId ), __METHOD__ );
-				$dbw->delete( 'gather_list', array( 'gl_id' => $listId ), __METHOD__ );
-				$this->getResult()->addValue( null, $this->getModuleName(), array(
-					'status' => 'deleted',
-					'id' => $listId,
-				) );
+			switch ( $mode ) {
+				case 'update':
+				case 'remove':
+					// ACTION: update list
+					$this->updateListDb( $dbw, $params, $row );
+					break;
+				case 'deletelist':
+					// ACTION: delete list (items + list itself)
+					$dbw->delete( 'gather_list_item', array( 'gli_gl_id' => $listId ), __METHOD__ );
+					$dbw->delete( 'gather_list', array( 'gl_id' => $listId ), __METHOD__ );
+					$this->getResult()->addValue( null, $this->getModuleName(), array(
+						'status' => 'deleted',
+						'id' => $listId,
+					) );
+					break;
+				case 'hidelist':
+				case 'showlist':
+					$update = array();
+					$perm = $mode === 'showlist' ? self::PERM_PUBLIC : self::PERM_HIDDEN;
+					if ( $row->gl_perm !== $perm ) {
+						$update['gl_perm'] = $perm;
+					}
+					$this->updateRow( $dbw, $row, $update );
+					// TODO: if ( $updated ) { log event / add to RC / ... ? }
+					break;
 			}
 		}
 
-		if ( !$isDeletingList ) {
+		if ( $mode === 'update' || $mode === 'remove' ) {
 			// Add the titles to the list (or subscribe with the legacy watchlist)
 			$this->processTitles( $params, $user, $listId, $dbw, $isWatchlist );
 		}
@@ -118,7 +135,10 @@ class ApiEditList extends ApiBase {
 
 		$user = $this->getUser(); // TBD: We might want to allow other users with getWatchlistUser()
 		$p = $this->getModulePrefix();
-		$deleteList = $params['deletelist'];
+		$mode = $params['mode'];
+		// These modes cannot change list items or change other params like label/description/...
+		// Incidentally, these are also modes that cannot be applied to the watchlist
+		$isNoUpdatesMode = in_array( $mode, array( 'showlist', 'hidelist', 'deletelist' ) );
 
 		if ( !$user->isLoggedIn() ) {
 			$this->dieUsage( 'You must be logged-in to edit a list', 'notloggedin' );
@@ -131,47 +151,75 @@ class ApiEditList extends ApiBase {
 		if ( $isWatchlist ) {
 			if ( $params['label'] !== null ) {
 				$this->dieUsage( "{$p}label cannot be set for a watchlist", 'invalidparammix' );
-			} elseif ( $deleteList ) {
-				$this->dieUsage( "List #0 (watchlist) may not be deleted", 'badid' );
+			} elseif ( $mode === 'deletelist' ) {
+				$this->dieUsage( "Watchlist may not be deleted", 'invalidparammix' );
 			} elseif ( $params['perm'] === 'public' ) {
 				// Per team discussion, introducing artificial limitation for now
 				// until we establish that making watchlist public would cause no harm.
 				// This check can be deleted at any time since all other API code supports it.
 				$this->dieUsage( 'Making watchlist public is not supported for security reasons',
 					'publicwatchlist' );
+			} elseif ( $isNoUpdatesMode ) {
+				// Per team discussion, introducing artificial limitation for now
+				// until we establish that making watchlist public would cause no harm.
+				// This check can be deleted at any time since all other API code supports it.
+				$this->dieUsage( "{$p}mode=$mode is not allowed for watchlist", 'watchlist' );
 			}
 		}
 		if ( $isNew ) {
-			if ( $deleteList ) {
-				// This is more for safety - it shouldn't be possible to delete a list by label
-				$this->dieUsage( "List must be identified with {$p}id when {$p}deletelist is used",
+			if ( $isNoUpdatesMode ) {
+				// These modes are not allowed for the new list (no ID)
+				$this->dieUsage( "List must be identified with {$p}id when {$p}mode=$mode is used",
 					'invalidparammix' );
-			} elseif ( $params['remove'] ) {
-				$this->dieUsage( "List must be identified with {$p}id when {$p}remove is used",
+			} elseif ( $mode === 'remove' ) {
+				$this->dieUsage( "List must be identified with {$p}id when {$p}mode=remove is used",
 					'invalidparammix' );
 			} elseif ( $params['label'] === null ) {
 				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
 			}
 		}
-		if ( $deleteList && !$row ) {
-			// For deletelist, disallow all parameters except those unset
+		switch ( $mode ) {
+			case 'update':
+			case 'remove':
+			case 'deletelist':
+				if ( $row && $row->gl_user !== $user->getId() ) {
+					$this->dieUsage( "List {$p}id does not belong to the current user",
+						'permissiondenied' );
+				}
+				if ( $row && $params['perm'] !== null && $row->gl_perm === self::PERM_HIDDEN ) {
+					$this->dieUsage( "Hidden list may not be made private or public",
+						'permissiondenied' );
+				}
+				break;
+			case 'hidelist':
+			case 'showlist':
+				if ( !$user->isAllowed( 'gather-hidelist' ) ) {
+					$this->dieUsage( "{$p}mode=$mode requires gather-hidelist permissions",
+						'permissiondenied' );
+				}
+				if ( $row &&
+					 $row->gl_perm === self::PERM_PRIVATE && $row->gl_user !== $user->getId()
+				) {
+					$this->dieUsage( "Private list may not be made hidden", 'invalidparammix' );
+				}
+				break;
+			default:
+				$this->dieDebug( __METHOD__, 'Unknown mode=' . $mode );
+				break;
+		}
+		if ( $isNoUpdatesMode && !$row ) {
+			// Special modes, disallow all parameters except those unset
 			// Minor optimization - don't validate on the second pass
 			$tmp = $params + $this->getPageSet()->extractRequestParams();
-			unset( $tmp['deletelist'] );
+			unset( $tmp['mode'] );
 			unset( $tmp['id'] );
 			unset( $tmp['token'] );
 			$extraParams = array_keys( array_filter( $tmp, function ( $x ) {
 				return $x !== null && $x !== false;
 			} ) );
 			if ( $extraParams ) {
-				$this->dieUsage( "The parameter {$p}deletelist must not be used with " .
+				$this->dieUsage( "The parameter {$p}mode=$mode must not be used with " .
 								 implode( ", ", $extraParams ), 'invalidparammix' );
-			}
-		}
-		if ( $row ) {
-			if ( strval( $row->gl_user ) !== strval( $user->getId() ) ) {
-				$this->dieUsage( "List {$p}id does not belong to the current user",
-					'permissiondenied' );
 			}
 		}
 	}
@@ -220,8 +268,16 @@ class ApiEditList extends ApiBase {
 			'image' => array(
 				ApiBase::PARAM_TYPE => 'string',
 			),
-			'remove' => false,
-			'deletelist' => false,
+			'mode' => array(
+				ApiBase::PARAM_DFLT => 'update',
+				ApiBase::PARAM_TYPE => array(
+					'update',
+					'remove',
+					'deletelist',
+					'hidelist',
+					'showlist',
+				),
+			),
 			'continue' => array(
 				ApiBase::PARAM_HELP_MSG => 'api-help-param-continue',
 			),
@@ -310,7 +366,7 @@ class ApiEditList extends ApiBase {
 				'gl_user' => $user->getId(),
 				'gl_label' => $label,
 				'gl_info' => $info,
-				'gl_perm' => $params['perm'] === 'public' ? 1 : 0,
+				'gl_perm' => $params['perm'] === 'public' ? self::PERM_PUBLIC : self::PERM_PRIVATE,
 				'gl_updated' => $dbw->timestamp( wfTimestampNow() ),
 			), __METHOD__, 'IGNORE' );
 			$id = $dbw->insertId();
@@ -364,27 +420,13 @@ class ApiEditList extends ApiBase {
 			$update['gl_label'] = $params['label'];
 		}
 		if ( $params['perm'] !== null ) {
-			$perm = $params['perm'] === 'public' ? '1' : '0';
-			if ( strval( $row->gl_perm ) !== $perm ) {
+			$perm = $params['perm'] === 'public' ?
+				self::PERM_PUBLIC : self::PERM_PRIVATE;
+			if ( $row->gl_perm !== $perm ) {
 				$update['gl_perm'] = $perm;
 			}
 		}
-		if ( $update ) {
-			// ACTION: update list record
-			$update['gl_updated'] = $dbw->timestamp( wfTimestampNow() );
-			$dbw->update( 'gather_list', $update, array( 'gl_id' => $row->gl_id ), __METHOD__, 'IGNORE' );
-			if ( $dbw->affectedRows() === 0 ) {
-				// update failed due to the duplicate label restriction. Report
-				$this->dieUsage( 'A list with this label already exists', 'duplicatelabel' );
-			}
-			$status = 'updated';
-		} else {
-			$status = 'nochanges';
-		}
-		$this->getResult()->addValue( null, $this->getModuleName(), array(
-			'status' => $status,
-			'id' => intval( $row-> gl_id ),
-		) );
+		$this->updateRow( $dbw, $row, $update );
 	}
 
 	/**
@@ -416,7 +458,8 @@ class ApiEditList extends ApiBase {
 		$titles->append( new ArrayIterator( $pageSet->getGoodTitles() ) );
 		$titles->append( new ArrayIterator( $pageSet->getMissingTitles() ) );
 
-		$isRemoving = $params['remove'];
+		$mode = $params['mode'];
+		$isRemoving = $mode === 'remove';
 		if ( $isWatchlist ) {
 			// Legacy watchlist - watch/unwatch
 			foreach ( $titles as $title ) {
@@ -538,15 +581,66 @@ class ApiEditList extends ApiBase {
 	 * @param DatabaseBase $dbw
 	 * @param array $conds
 	 * @return bool|stdClass
+	 * @throws MWException
 	 */
 	private function getListRow( array $params, DatabaseBase $dbw, array $conds ) {
-		$row = $dbw->selectRow( 'gather_list',
-			array( 'gl_id', 'gl_user', 'gl_label', 'gl_perm', 'gl_info' ),
-			$conds,
-			__METHOD__ );
+		$row = self::normalizeRow( $dbw->selectRow( 'gather_list',
+			array( 'gl_id', 'gl_user', 'gl_label', 'gl_perm', 'gl_info' ), $conds, __METHOD__ ) );
 		if ( $row ) {
 			$this->checkPermissions( $params, $row );
 		}
 		return $row;
+	}
+
+	/**
+	 * @param stdClass|bool $row
+	 * @return stdClass|bool
+	 * @throws MWException
+	 */
+	public static function normalizeRow( $row ) {
+		if ( $row ) {
+			// MySQL returns int value as a string. Normalize.
+			self::normalizeInt( $row, 'gl_id' );
+			self::normalizeInt( $row, 'gl_user' );
+			self::normalizeInt( $row, 'gl_perm' );
+		}
+		return $row;
+	}
+
+	private static function normalizeInt( $row, $property ) {
+		if ( property_exists( $row, $property ) ) {
+			$v = intval( $row->$property );
+			if ( strval( $v ) !== strval( $row->$property ) ) {
+				throw new MWException( 'Internal error in ' . __METHOD__ .
+					": $property is expected to be an integer" );
+			}
+			$row->$property = $v;
+		}
+	}
+
+	/**
+	 * @param DatabaseBase $dbw
+	 * @param stdClass $row
+	 * @param array $update
+	 * @throws \UsageException
+	 */
+	private function updateRow( DatabaseBase $dbw, $row, array $update ) {
+		if ( $update ) {
+			// ACTION: update list record
+			$update['gl_updated'] = $dbw->timestamp( wfTimestampNow() );
+			$dbw->update( 'gather_list', $update, array( 'gl_id' => $row->gl_id ), __METHOD__,
+				'IGNORE' );
+			if ( $dbw->affectedRows() === 0 ) {
+				// update failed due to the duplicate label restriction. Report
+				$this->dieUsage( 'A list with this label already exists', 'duplicatelabel' );
+			}
+			$status = 'updated';
+		} else {
+			$status = 'nochanges';
+		}
+		$this->getResult()->addValue( null, $this->getModuleName(), array(
+			'status' => $status,
+			'id' => $row->gl_id,
+		) );
 	}
 }

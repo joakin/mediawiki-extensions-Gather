@@ -79,8 +79,9 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 			// Id was given, this could be public or private list, legacy watchlist or regular
 			// Allow access to any public list/watchlist, and to private with proper owner/self
 			$db = $this->getDB();
-			$listRow = $db->selectRow( 'gather_list', array( 'gl_label', 'gl_user', 'gl_perm' ),
-				array( 'gl_id' => $params['id'] ), __METHOD__ );
+			$listRow = ApiEditList::normalizeRow( $db->selectRow( 'gather_list',
+				array( 'gl_label', 'gl_user', 'gl_perm' ),
+				array( 'gl_id' => $params['id'] ), __METHOD__ ) );
 			if ( $listRow === false ) {
 				$this->dieUsage( "List does not exist", 'badid' );
 			}
@@ -90,19 +91,19 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				// TODO: if we allow non-matching owner, we could treat it as public-only,
 				// but that might be unexpected behavior
 				$user = $this->getWatchlistUser( $params );
-				if ( strval( $user->getId() ) !== $listRow->gl_user ) {
+				if ( $listRow->gl_user !== $user->getId() ) {
 					$this->dieUsage( 'The owner supplied does not match the list\'s owner',
 						'permissiondenied' );
 				}
 				$showPrivate = true;
 			} else {
 				$user = $this->getUser();
-				$showPrivate = $user->isLoggedIn() && strval( $user->getId() ) === $listRow->gl_user
+				$showPrivate = $user->isLoggedIn() && $listRow->gl_user === $user->getId()
 					&& $user->isAllowed( 'viewmywatchlist' );
 			}
 
 			// Check if this is a public list (if required)
-			if ( !$showPrivate && strval( $listRow->gl_perm ) !== '1' ) {
+			if ( !$showPrivate && $listRow->gl_perm !== ApiEditList::PERM_PUBLIC ) {
 				$this->dieUsage( "You have no rights to see this list", 'badid' );
 			}
 
