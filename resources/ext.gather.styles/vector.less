@@ -2,8 +2,24 @@
 @import "minerva.variables.less";
 @import "minerva.mixins.less";
 
+.view-border-box,
 .collection {
 	* {
 		.box-sizing(border-box);
+	}
+}
+
+.collection-item {
+	h2 {
+		border-bottom: none;
+	}
+}
+
+@media all and (min-width: 1000px) {
+	.collection {
+		.collection-header {
+			text-align: left;
+			padding-left: 0;
+		}
 	}
 }
