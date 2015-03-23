@@ -92,7 +92,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	public function toArray() {
 		$data = parent::toArray();
 		$data['items'] = array();
-		foreach ( $this->this as $item ) {
+		foreach ( $this as $item ) {
 			$data['items'][] = $item->toArray();
 		}
 		return $data;
