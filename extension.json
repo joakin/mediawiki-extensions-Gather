@@ -129,6 +129,7 @@
 				"desktop"
 			],
 			"dependencies": [
+				"mediawiki.util",
 				"mobile.watchstar",
 				"ext.gather.api",
 				"ext.gather.collection.base",

@@ -104,6 +104,7 @@ $wgResourceModules += array(
 
 	'ext.gather.watchstar' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
+			'mediawiki.util',
 			'mobile.watchstar',
 			'ext.gather.api',
 			'ext.gather.collection.base',

@@ -5,7 +5,6 @@
 		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
 		settings = M.require( 'settings' ),
 		settingOverlayWasDismissed = 'gather-has-dismissed-tutorial',
-		util = M.require( 'util' ),
 		user = M.require( 'user' );
 
 	/**
@@ -85,7 +84,7 @@
 				page: page,
 				isAnon: user.isAnon(),
 				collections: mw.config.get( 'wgGatherCollections' ),
-				isNewlyAuthenticatedUser: util.query.article_action === 'add_to_collection'
+				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
 			} );
 		if ( !page.inNamespace( 'special' ) ) {
 			// Determine if we should show the collection tutorial
