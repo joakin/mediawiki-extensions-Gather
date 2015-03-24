@@ -86,6 +86,7 @@ $wgResourceModules += array(
 			'mobile.startup',
 			// FIXME: getUserEditCount should be part of mw.user
 			'mobile.user',
+			'ext.gather.schema',
 		),
 		'scripts' => array(
 			'ext.gather.logging/SchemaGather.js',

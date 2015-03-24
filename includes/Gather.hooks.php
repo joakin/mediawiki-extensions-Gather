@@ -20,14 +20,38 @@ use \MobileContext;
  */
 class Hooks {
 	/**
+	 * ResourceLoaderRegisterModules hook handler
+	 *
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderRegisterModules
+	 * @param ResourceLoader &$resourceLoader The ResourceLoader object
+	 * @return bool Always true
+	 */
+	public static function onResourceLoaderRegisterModules( \ResourceLoader &$resourceLoader ) {
+		// register an empty RL module
+		self::registerSchemas();
+		return true;
+	}
+
+	public static function registerSchemas( $dependencies = array() ) {
+		global $wgResourceModules;
+		$schema = array(
+			'dependencies' => $dependencies,
+			'targets' => array( 'desktop', 'mobile' ),
+		);
+		// exploits fact onEventLoggingRegisterSchemas runs after onResourceLoaderRegisterModules
+		if ( !isset( $wgResourceModules['ext.gather.schema'] ) || count( $dependencies ) > 0 ) {
+			$wgResourceModules['ext.gather.schema'] = $schema;
+		}
+		return true;
+	}
+
+	/**
 	 * EventLoggingRegisterSchemas hook handler.
 	 *
-	 * Registers our EventLogging schemas so that they can be converted to
-	 * ResourceLoaderSchemaModules by the EventLogging extension as the
-	 * mobile.loggingSchemas module.
+	 * Registers our EventLogging schemas
 	 *
-	 * If the module has already been registered in
-	 * onResourceLoaderRegisterModules, then it is overwritten.
+	 * This will override the previous definition of an empty schema written in
+	 * onResourceLoaderRegisterModules.
 	 *
 	 * @param array $schemas The schemas currently registered with the EventLogging
 	 *  extension
@@ -37,6 +61,7 @@ class Hooks {
 		$schemas += array(
 			'GatherClicks' => 11639881,
 		);
+		self::registerSchemas( array( 'schema.GatherClicks' ) );
 		return true;
 	}
 

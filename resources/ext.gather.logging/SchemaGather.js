@@ -19,7 +19,7 @@
 		/**
 		 * @inheritdoc
 		 */
-		name: 'SchemaGatherClicks'
+		name: 'GatherClicks'
 	} );
 
 	M.define( 'ext.gather.logging/SchemaGather', SchemaGather );
