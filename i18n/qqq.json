@@ -37,7 +37,7 @@
 	"gather-anon-cta": "Message that shows to anonymous users when they click the add to collection button.",
 	"gather-create-new-button-label": "Label for a button that is used to create a new collection.\n{{Identical|Create}}",
 	"gather-add-new-placeholder": "Placeholder text for input field for new collection.",
-	"gather-add-to-new": "Heading that shows in the watchstar content overlay above a form to create a new collection.",
+	"gather-add-to-new": "Heading that shows in the watchstar content overlay above a form to create a new public collection.",
 	"gather-add-to-existing": "Heading that shows in the watchstar content overlay above a list of your existing collections.",
 	"gather-add-toast": "Message displayed when you add an item to a collection. Parameters:\n* $1 - Name of collection.",
 	"gather-new-collection-failed-toast": "Message displayed when creating a new collection fails. Parameters:\n* $1 - Name of collection.",
