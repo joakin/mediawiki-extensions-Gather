@@ -8,6 +8,8 @@
 	"gather-edit-collection-label-name": "Namn",
 	"gather-edit-collection-label-description": "Beskrivning",
 	"gather-edit-collection-save-label": "Klart",
+	"gather-delete-collection-delete-label": "Ta bort",
+	"gather-delete-collection-cancel-label": "Avbryt",
 	"gather-create-new-button-label": "Skapa",
 	"gather-desc": "Komponent av Mobila Gränssnitt som tillåter användare att sätta ihop listor.",
 	"gather-no-public-lists-title": "Inga offentliga samlingar",

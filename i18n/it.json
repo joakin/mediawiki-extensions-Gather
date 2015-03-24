@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Giuseppe Forte"
+		]
+	},
+	"gather-lists-hide-success-toast": "Lista \"$1\" occultata con successo."
+}
