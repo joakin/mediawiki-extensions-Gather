@@ -37,7 +37,7 @@ class SpecialGatherLists extends SpecialPage {
 	/**
 	 * Render the special page
 	 */
-	public function execute() {
+	public function execute( $subPage ) {
 		// FIXME: Make method on CollectionsList
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
@@ -108,7 +108,7 @@ class SpecialGatherLists extends SpecialPage {
 		$user = $this->getUser();
 		$ts = $lang->userTimeAndDate( new MWTimestamp( $data['updated'] ), $user );
 
-		$html = Html::openElement( 'li', array( 'class' => $additionalClasses ) )
+		$html = Html::openElement( 'li' )
 			. $this->userLink( $data['owner'] )
 			. $this->collectionLink( $data['label'], $data['owner'], $data['id'] )
 			. Html::element( 'span', array(), $data['description'] )
