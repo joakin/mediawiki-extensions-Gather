@@ -56,7 +56,7 @@ class SpecialGatherLists extends SpecialPage {
 			'list' => 'lists',
 			'lstmode' => $subPage === 'hidden' ? 'allhidden' : 'allpublic',
 			// FIXME: Need owner to link to collection
-			'lstprop' => 'label|description|image|count|updated',
+			'lstprop' => 'label|description|image|count|updated|owner',
 			// TODO: Pagination
 			'continue' => '',
 		) ) );
