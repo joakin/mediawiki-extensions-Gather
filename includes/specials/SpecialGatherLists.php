@@ -10,6 +10,7 @@ use SpecialPage;
 use ApiMain;
 use FauxRequest;
 use Html;
+use Gather\views\helpers\CSS;
 
 /**
  * Render a collection of articles.
@@ -25,6 +26,11 @@ class SpecialGatherLists extends SpecialPage {
 			'ext.gather.icons',
 			'ext.gather.styles',
 		) );
+		$out->addModules(
+			array(
+				'ext.gather.lists',
+			)
+		);
 	}
 
 	/**
@@ -66,8 +72,11 @@ class SpecialGatherLists extends SpecialPage {
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-owner' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-title' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-description' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-count' ) )
-		. Html::closeElement( 'li' );
+		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-count' ) );
+		if ( $this->canHideLists() ) {
+			$html .= Html::element( 'span', array(), '' );
+		}
+		$html .= Html::closeElement( 'li' );
 		foreach ( $lists as $list ) {
 			$html .= $this->row( $list );
 		}
@@ -77,21 +86,59 @@ class SpecialGatherLists extends SpecialPage {
 		$out->addHTML( $html );
 	}
 
+	/**
+	 * Returns if the current user can hide public lists
+	 * @return bool
+	 */
+	private function canHideLists() {
+		return $this->getUser()->isAllowed( 'gather-hidelist' );
+	}
+
+	/**
+	 * Renders a html row of data
+	 * @param array $data
+	 * @return string
+	 */
 	private function row( $data ) {
-		return Html::openElement( 'li', array( 'class' => $additionalClasses ) )
+		$html = Html::openElement( 'li', array( 'class' => $additionalClasses ) )
 			. $this->userLink( $data['owner'] )
 			. $this->collectionLink( $data['label'], $data['owner'], $data['id'] )
 			. Html::element( 'span', array(), $data['description'] )
-			. Html::element( 'span', array(), $data['count'] )
-			. Html::closeElement( 'li' );
+			. Html::element( 'span', array(), $data['count'] );
+		if ( $this->canHideLists() ) {
+			$html .= Html::openElement( 'span', array() )
+				. Html::openElement( 'button', array() )
+				. Html::element( 'span', array(
+					'class' => CSS::iconClass( 'cancel', 'element', 'hide-collection' ),
+					'data-id' => $data['id'],
+					'data-label' => $data['label'],
+					'data-owner' => $data['owner']
+				), '' )
+				. Html::closeElement( 'button' )
+				. Html::closeElement( 'span' );
+		}
+		$html .= Html::closeElement( 'li' );
+		return $html;
 	}
 
+	/**
+	 * Renders a html link for the user's gather page
+	 * @param User $user
+	 * @return string
+	 */
 	private function userLink( $user ) {
 		return Html::element( 'a', array(
 			'href' => SpecialPage::getTitleFor( 'Gather', $user )->getLocalUrl()
 		), $user );
 	}
 
+	/**
+	 * Renders a html link for a collection page
+	 * @param string $text of the link
+	 * @param User $user owner of the collection
+	 * @param int $id of the collection
+	 * @return string
+	 */
 	private function collectionLink( $text, $user, $id ) {
 		return Html::element( 'a', array(
 			'href' => SpecialPage::getTitleFor( 'Gather', $user.'/'.$id )->getLocalUrl()

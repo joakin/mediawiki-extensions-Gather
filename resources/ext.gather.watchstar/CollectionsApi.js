@@ -101,7 +101,35 @@
 				label: title,
 				description: description
 			} );
+		},
+		/**
+		 * Set collection privacy
+		 * @method
+		 * @param {Number} id unique identifier of collection
+		 * @param {Boolean} isPrivate private or not
+		 * @return {jQuery.Deferred}
+		 */
+		setPrivacy: function ( id, isPrivate ) {
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				id: id,
+				perm: isPrivate ? 'private' : 'public'
+			} );
+		},
+		/**
+		 * Hide list (moderation purposes)
+		 * @method
+		 * @param {Number} id unique identifier of collection
+		 * @return {jQuery.Deferred}
+		 */
+		hideCollection: function ( id ) {
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				id: id,
+				mode: 'hidelist'
+			} );
 		}
+
 	} );
 
 	M.define( 'ext.gather.watchstar/CollectionsApi', CollectionsApi );
