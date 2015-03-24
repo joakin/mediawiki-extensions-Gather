@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Otokoume"
+		]
+	},
+	"gather-lists-collection-owner": "所有者",
+	"gather-lists-collection-title": "タイトル",
+	"gather-add-to-collection-summary": "コレクションに$1を追加しますか？",
+	"gather-add-to-collection-confirm": "コレクションに追加",
+	"gather-add-to-collection-cancel": "不要です"
+}

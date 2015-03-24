@@ -38,3 +38,8 @@ $specialPageAliases['lb'] = array(
 $specialPageAliases['mk'] = array(
 	'Gather' => array( 'Собирање' ),
 );
+
+/** Traditional Chinese (中文（繁體）‎) */
+$specialPageAliases['zh-hant'] = array(
+	'Gather' => array( '聚集' ),
+);

@@ -26,9 +26,14 @@
 	"gather-error-unknown-collection": "No se puede encontrar la colección solicitada para editar.",
 	"gather-collection-member": "Es miembro de la colección.",
 	"gather-collection-non-member": "No es miembro de la colección.",
+	"gather-anon-cta": "Añadir esta página a un colección que puedes compartir con el mundo.",
 	"gather-create-new-button-label": "Crear",
+	"gather-add-new-placeholder": "Escribe un nombre de colección nuevo",
+	"gather-add-to-new": "Añadir a una colección nueva",
 	"gather-add-to-existing": "Añadir a la colección existente",
 	"gather-add-toast": "Se añadió la página a tu colección \"$1\".",
+	"gather-new-collection-failed-toast": "Hubo un problema al crear tu colección \"$1\".",
+	"gather-add-failed-toast": "Hubo un problema al añadir el elemento a tu colección \"$1\".",
 	"gather-add-to-collection-summary": "¿Te gustaría agregar $1 a una colección?",
 	"gather-add-to-collection-confirm": "Añadir a la colección",
 	"gather-add-to-collection-cancel": "No, gracias",
@@ -48,5 +53,8 @@
 	"gather-empty": "Aún no hay nada en esta colección.",
 	"gather-empty-footer": "No sé cómo llegaste aquí, pero este es un lugar triste.",
 	"gather-edit-button": "Editar",
-	"gather-delete-button": "Borrar"
+	"gather-delete-button": "Borrar",
+	"apihelp-gather-param-gather": "Acción que realizar en las colecciones.",
+	"apihelp-gather-param-owner": "Propietario de las colecciones que buscar. Si se omite, se toma al usuario actual.",
+	"apihelp-gather-example-1": "Listar las colecciones del usuario <kbd>john</kbd>."
 }
