@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Joaquin Hernandez",
+			"Jon Robson",
+			"Rob Moen"
+		]
 	},
 	"gather-remove-from-collection-failed-toast": "Unable to remove page from collection.",
 	"gather-add-to-collection-failed-toast": "Unable to add page to collection.",
