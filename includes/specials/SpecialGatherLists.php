@@ -11,6 +11,7 @@ use ApiMain;
 use FauxRequest;
 use Html;
 use Gather\views\helpers\CSS;
+use MWTimestamp;
 
 /**
  * Render a collection of articles.
@@ -37,12 +38,13 @@ class SpecialGatherLists extends SpecialPage {
 	 * Render the special page
 	 */
 	public function execute() {
+		// FIXME: Make method on CollectionsList
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'list' => 'lists',
 			'lstmode' => 'allpublic',
 			// FIXME: Need owner to link to collection
-			'lstprop' => 'label|description|image|count',
+			'lstprop' => 'label|description|image|count|updated',
 			// TODO: Pagination
 			'continue' => '',
 		) ) );
@@ -65,6 +67,7 @@ class SpecialGatherLists extends SpecialPage {
 		$out->setProperty( 'unstyledContent', true );
 		$out->setPageTitle( wfMessage( 'gather-lists-title' ) );
 
+		// FIXME: Move below to View.
 		$html = '';
 		$html .= Html::openElement( 'div', array( 'class' => 'content gather-lists' ) );
 		$html .= Html::openElement( 'ul', array() );
@@ -72,7 +75,8 @@ class SpecialGatherLists extends SpecialPage {
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-owner' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-title' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-description' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-count' ) );
+		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-count' ) )
+		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-last-updated' ) );
 		if ( $this->canHideLists() ) {
 			$html .= Html::element( 'span', array(), '' );
 		}
@@ -100,11 +104,17 @@ class SpecialGatherLists extends SpecialPage {
 	 * @return string
 	 */
 	private function row( $data ) {
+		$lang = $this->getLanguage();
+		$user = $this->getUser();
+		$ts = $lang->userTimeAndDate( new MWTimestamp( $data['updated'] ), $user );
+
 		$html = Html::openElement( 'li', array( 'class' => $additionalClasses ) )
 			. $this->userLink( $data['owner'] )
 			. $this->collectionLink( $data['label'], $data['owner'], $data['id'] )
 			. Html::element( 'span', array(), $data['description'] )
-			. Html::element( 'span', array(), $data['count'] );
+			. Html::element( 'span', array(), $data['count'] )
+			. Html::element( 'span', array(), $ts );
+
 		if ( $this->canHideLists() ) {
 			$html .= Html::openElement( 'span', array() )
 				. Html::openElement( 'button', array() )
