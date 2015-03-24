@@ -49,7 +49,6 @@ class ApiQueryLists extends ApiQueryBase {
 		$params = $this->extractRequestParams();
 		$continue = $params['continue'];
 		$mode = $params['mode'];
-		$modeAll = $mode === 'allpublic';
 		$ids = $params['ids'];
 		$title = $params['title'];
 		$fld_label = in_array( 'label', $params['prop'] );
@@ -64,7 +63,7 @@ class ApiQueryLists extends ApiQueryBase {
 		// This code depends on the result ordered by label, and that watchlist label === ''
 		$injectWatchlist = !$continue;
 
-		if ( $modeAll ) {
+		if ( $mode ) {
 			if ( $ids !== null || $title !== null || $params['owner'] !== null ||
 				 $params['token'] !== null
 			) {
@@ -102,9 +101,9 @@ class ApiQueryLists extends ApiQueryBase {
 		$db = $this->getDB();
 		$this->addTables( 'gather_list' );
 		$this->addFields( 'gl_id' );
-		$this->addFieldsIf( 'gl_label', $fld_label || !$modeAll );
-		$this->addFieldsIf( 'gl_updated', $fld_updated || $modeAll );
-		$this->addFieldsIf( 'gl_user', $modeAll );
+		$this->addFieldsIf( 'gl_label', $fld_label || !$mode );
+		$this->addFieldsIf( 'gl_updated', $fld_updated || $mode );
+		$this->addFieldsIf( 'gl_user', $mode );
 		$this->addFieldsIf( 'gl_perm', $fld_public );
 
 		if ( $owner ) {
@@ -122,7 +121,13 @@ class ApiQueryLists extends ApiQueryBase {
 			$this->addWhere( $db->makeList( $cond, LIST_OR ) );
 		}
 
-		if ( $showPrivate !== true ) {
+		if ( $mode === 'allhidden' ) {
+			$this->addWhereFld( 'gl_perm', ApiEditList::PERM_HIDDEN );
+			if ( !$this->getUser()->isAllowed( 'gather-hidelist' ) ) {
+				// Show only the lists for the current user
+				$this->addWhereFld( 'gl_user', $this->getUser()->getId() );
+			}
+		} elseif ( $showPrivate !== true ) {
 			$cond = array( 'gl_perm' => ApiEditList::PERM_PUBLIC );
 			if ( $showPrivate === null ) {
 				$cond['gl_user'] = $this->getUser()->getId();
@@ -131,7 +136,7 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 
 		if ( $continue ) {
-			if ( $modeAll ) {
+			if ( $mode ) {
 				$cont = explode( '|', $params['continue'] );
 				$this->dieContinueUsageIf( count( $cont ) != 2 );
 				$cont_upd = $db->addQuotes( $cont[0] );
@@ -145,7 +150,7 @@ class ApiQueryLists extends ApiQueryBase {
 				$this->addWhere( "gl_label >= $cont" );
 			}
 		}
-		if ( $modeAll ) {
+		if ( $mode ) {
 			// The ordering has to be unique so that we can safely
 			// continue iteration even if subsequent timestamps are the same
 			$this->addOption( 'ORDER BY', 'gl_perm, gl_updated DESC, gl_id DESC' );
@@ -190,7 +195,7 @@ class ApiQueryLists extends ApiQueryBase {
 		$path = array( 'query', $this->getModuleName() );
 
 		// This closure will process one row, even if that row is fake watchlist
-		$processRow = function( $row ) use ( $self, &$count, $modeAll, $limit,  $useInfo, $title,
+		$processRow = function( $row ) use ( $self, &$count, $mode, $limit,  $useInfo, $title,
 			$fld_label, $fld_description, $fld_public, $fld_image, $fld_updated, $path, $userId,
 			$setContinue
 		) {
@@ -226,7 +231,7 @@ class ApiQueryLists extends ApiQueryBase {
 				// TODO: check if this is the right wfMessage to show
 				$data['label'] = !$isWatchlist ? $row->gl_label : wfMessage( 'watchlist' )->plain();
 			}
-			if ( $modeAll ) {
+			if ( $mode ) {
 				$data['owner'] = User::newFromId( $row->gl_user )->getName();
 			}
 			if ( $title ) {
@@ -320,6 +325,7 @@ class ApiQueryLists extends ApiQueryBase {
 			'mode' => array(
 				ApiBase::PARAM_TYPE => array(
 					'allpublic',
+					'allhidden',
 				)
 			),
 			'prop' => array(
