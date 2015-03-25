@@ -131,8 +131,9 @@ class Collection extends CollectionBase implements IteratorAggregate {
 				$lists = $data['query']['lists'];
 				if ( count( $lists ) === 1 ) {
 					$list = $lists[0];
+					$image = $list['image'] ? wfFindFile( $list['image'] ) : null;
 					$collection = new Collection( $id, $user, $list['label'], $list['description'],
-						$list['public'], $list['image'] );
+						$list['public'], $image );
 				}
 			}
 
