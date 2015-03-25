@@ -7,7 +7,8 @@
 			"Rob Moen",
 			"Liuxinyu970226",
 			"Robby",
-			"Amire80"
+			"Amire80",
+			"Yuri Astrakhan"
 		]
 	},
 	"gather-lists-collection-owner": "Label for owner of collection on list of all collections\n{{Identical|Owner}}",
@@ -63,6 +64,7 @@
 	"gather-empty-footer": "Footnote shown on an empty rendered collection on [[Special:Gather]].",
 	"gather-edit-button": "Label for a button that enables editing a collection.\n{{Identical|Edit}}",
 	"gather-delete-button": "Label for a button that enables deleting a collection.\n{{Identical|Delete}}",
+	"right-gather-hidelist": "Description of right to hide or restore public lists.\n\n{{Doc-right|gather-hidelist}}",
 	"apihelp-gather-description": "{{doc-apihelp-description|gather}}",
 	"apihelp-gather-param-gather": "{{doc-apihelp-param|gather|gather}}",
 	"apihelp-gather-param-owner": "{{doc-apihelp-param|gather|owner}}",

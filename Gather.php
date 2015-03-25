@@ -7,6 +7,7 @@
  * @author Jon Robson
  * @author Joaquin Hernandez
  * @author Rob Moen
+ * @author Yuri Astrakhan
  * @licence GNU General Public Licence 2.0 or later
  */
 
@@ -20,7 +21,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'Gather',
-	'author' => array( 'Jon Robson', 'Joaquin Hernandez', 'Rob Moen' ),
+	'author' => array( 'Jon Robson', 'Joaquin Hernandez', 'Rob Moen', 'Yuri Astrakhan' ),
 	'descriptionmsg' => 'gather-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Gather',
 	'license-name' => 'GPL-2.0+',
