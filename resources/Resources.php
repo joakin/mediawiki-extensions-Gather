@@ -218,6 +218,10 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'ext.gather.special/init.js',
 		),
+		'messages' => array(
+			'gather-no-such-action',
+			'gather-unknown-error',
+		),
 	),
 
 	'ext.gather.lists' => $wgGatherMobileSpecialPageResourceBoilerplate + array(

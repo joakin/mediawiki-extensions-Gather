@@ -12,6 +12,7 @@ use \SpecialPage;
 use \UsageException;
 use \DerivativeRequest;
 use \ApiMain;
+use \Exception;
 
 /**
  * Render a collection of articles.
@@ -63,7 +64,7 @@ class SpecialGather extends SpecialPage {
 		} elseif ( preg_match( '/^by\/(?<user>\w+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
 			// Collection page
 			// /by/:user/:id
-			$id = $matches['id'];
+			$id = (int)$matches['id'];
 			$user = User::newFromName( $matches['user'] );
 
 			if ( !( $user && $user->getId() ) ) {
@@ -108,6 +109,10 @@ class SpecialGather extends SpecialPage {
 	 * @param int $id collection id
 	 */
 	public function renderUserCollection( User $user, $id ) {
+		if ( !is_int( $id ) ) {
+			throw new Exception( __METHOD__ . ' requires the second parameter to be an integer, '
+				. gettype( $id ) . ' given.' );
+		}
 		$collection = models\Collection::newFromApi( $id, $user );
 
 		if ( $collection === null ||

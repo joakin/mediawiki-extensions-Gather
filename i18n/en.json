@@ -49,6 +49,8 @@
 	"gather-add-to-collection-confirm": "Add to collection",
 	"gather-add-to-collection-cancel": "No thanks",
 	"gather-remove-toast": "The page has been removed from your \"$1\" collection.",
+	"gather-no-such-action": "Sorry, the requested action doesn't exist.",
+	"gather-unknown-error": "Sorry, there was an unknown error while processing your request.",
 	"gather-desc": "Component of Mobile Frontend allowing users to curate lists.",
 	"gather-no-public-lists-title": "No public collections",
 	"gather-no-public-lists-description": "There are no public collections for this user.",
