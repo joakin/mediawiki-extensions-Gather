@@ -26,6 +26,8 @@
 
 namespace Gather\api;
 
+use AbuseFilter;
+use AbuseFilterVariableHolder;
 use ApiBase;
 use AppendIterator;
 use ArrayIterator;
@@ -61,9 +63,6 @@ class ApiEditList extends ApiBase {
 		if ( $params['label'] !== null ) {
 			$label = trim( $params['label'] );
 			$params['label'] = $label;
-			if ( $this->isDisallowedString( $label ) ) {
-				$this->dieUsage( "Label `{$label}` denied by abuse filter", 'badlabel' );
-			}
 		}
 
 		$this->checkPermissions( $params );
@@ -120,26 +119,28 @@ class ApiEditList extends ApiBase {
 			$this->processTitles( $params, $user, $listId, $dbw, $isWatchlist );
 		}
 	}
+
 	/**
 	 * Checks whether the collection description or title is disallowed according to AbuseFilter
 	 * if available. If no abuse filters in place returns false.
 	 * @param string $string
-	 * @return boolean
+	 * @return bool
 	 */
 	private function isDisallowedString( $string ) {
 		if ( class_exists( 'AbuseFilterVariableHolder' ) ) {
-			$vars = new \AbuseFilterVariableHolder();
-			$vars->addHolders( \AbuseFilter::generateUserVars( $this->getUser() ) );
-			$vars->setVar( 'action', 'gatheredit' ); // I think having your own action would be best
+			$vars = new AbuseFilterVariableHolder();
+			$vars->addHolders( AbuseFilter::generateUserVars( $this->getUser() ) );
+			$vars->setVar( 'action', 'gatheredit' );
 			$vars->setVar( 'old_wikitext', '' );
 			$vars->setVar( 'new_wikitext', $string );
 			$vars->setVar( 'added_lines', $string );
-			$result = \AbuseFilter::filterAction( $vars, Title::newFromText( 'Gather' ) );
+			$result = AbuseFilter::filterAction( $vars, Title::newFromText( 'Gather' ) );
 			return !$result->isGood();
 		} else {
 			return false;
 		}
 	}
+
 	/**
 	 * This method should be called twice - once before accessing DB, and once when db row is found
 	 * @param array $params
@@ -159,6 +160,7 @@ class ApiEditList extends ApiBase {
 		$user = $this->getUser(); // TBD: We might want to allow other users with getWatchlistUser()
 		$p = $this->getModulePrefix();
 		$mode = $params['mode'];
+		$label = $params['label'];
 		// These modes cannot change list items or change other params like label/description/...
 		// Incidentally, these are also modes that cannot be applied to the watchlist
 		$isNoUpdatesMode = in_array( $mode, array( 'showlist', 'hidelist', 'deletelist' ) );
@@ -167,12 +169,12 @@ class ApiEditList extends ApiBase {
 			$this->dieUsage( 'You must be logged-in to edit a list', 'notloggedin' );
 		} elseif ( !$user->isAllowed( 'editmywatchlist' ) ) {
 			$this->dieUsage( 'You don\'t have permission to edit your list', 'permissiondenied' );
-		} elseif ( $params['label'] === '' ) {
+		} elseif ( $label === '' ) {
 			$this->dieUsage( 'If given, label must not be empty', 'badlabel' );
 		}
 
 		if ( $isWatchlist ) {
-			if ( $params['label'] !== null ) {
+			if ( $label !== null ) {
 				$this->dieUsage( "{$p}label cannot be set for a watchlist", 'invalidparammix' );
 			} elseif ( $mode === 'deletelist' ) {
 				$this->dieUsage( "Watchlist may not be deleted", 'invalidparammix' );
@@ -197,7 +199,7 @@ class ApiEditList extends ApiBase {
 			} elseif ( $mode === 'remove' ) {
 				$this->dieUsage( "List must be identified with {$p}id when {$p}mode=remove is used",
 					'invalidparammix' );
-			} elseif ( $params['label'] === null ) {
+			} elseif ( $label === null ) {
 				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
 			}
 		}
@@ -230,19 +232,28 @@ class ApiEditList extends ApiBase {
 				$this->dieDebug( __METHOD__, 'Unknown mode=' . $mode );
 				break;
 		}
-		if ( $isNoUpdatesMode && !$row ) {
-			// Special modes, disallow all parameters except those unset
-			// Minor optimization - don't validate on the second pass
-			$tmp = $params + $this->getPageSet()->extractRequestParams();
-			unset( $tmp['mode'] );
-			unset( $tmp['id'] );
-			unset( $tmp['token'] );
-			$extraParams = array_keys( array_filter( $tmp, function ( $x ) {
-				return $x !== null && $x !== false;
-			} ) );
-			if ( $extraParams ) {
-				$this->dieUsage( "The parameter {$p}mode=$mode must not be used with " .
-								 implode( ", ", $extraParams ), 'invalidparammix' );
+		if ( !$row ) {
+			// First pass optimization - don't validate on the second pass (after DB row load)
+			if ( $isNoUpdatesMode ) {
+				// Special modes, disallow all parameters except those unset
+				$tmp = $params + $this->getPageSet()->extractRequestParams();
+				unset( $tmp['mode'] );
+				unset( $tmp['id'] );
+				unset( $tmp['token'] );
+				$extraParams = array_keys( array_filter( $tmp, function ( $x ) {
+					return $x !== null && $x !== false;
+				} ) );
+				if ( $extraParams ) {
+					$this->dieUsage( "The parameter {$p}mode=$mode must not be used with " .
+									 implode( ", ", $extraParams ), 'invalidparammix' );
+				}
+			}
+			if ( $label !== null && $this->isDisallowedString( $label ) ) {
+				$this->dieUsage( 'Label denied by the abuse filter', 'badlabel' );
+			}
+			$description = $params['description'];
+			if ( $description !== null && $this->isDisallowedString( $description ) ) {
+				$this->dieUsage( 'Description denied by the abuse filter', 'baddesc' );
 			}
 		}
 	}
@@ -336,11 +347,7 @@ class ApiEditList extends ApiBase {
 
 		// Update from api parameters
 		if ( $params['description'] !== null && $v->description !== $params['description'] ) {
-			$newDescription = $params['description'];
-			if ( $this->isDisallowedString( $newDescription ) ) {
-				$this->dieUsage( "Description `{$$newDescription}` denied by abuse filter", 'baddesc' );
-			}
-			$v->description = $newDescription;
+			$v->description = $params['description'];
 			$updated = true;
 		}
 		if ( $params['image'] !== null && $v->image !== $params['image'] ) {
