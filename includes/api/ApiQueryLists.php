@@ -71,6 +71,10 @@ class ApiQueryLists extends ApiQueryBase {
 					"not allowed with mode=allpublic",
 					'invalidparammix' );
 			}
+			if ( $mode === 'allhidden' && !$this->getUser()->isAllowed( 'gather-hidelist' ) ) {
+				$this->dieUsage( 'You don\'t have permission to view hidden lists',
+					'permissiondenied' );
+			}
 			$injectWatchlist = false;
 			$findWatchlist = false;
 			$owner = false;
