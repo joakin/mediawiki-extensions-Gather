@@ -34,12 +34,12 @@
 		 * Event handler for cancelling the overlay
 		 * @emits action
 		 */
-		onActionClick: function () {
+		onActionClick: function ( ev ) {
 			this.hide();
 			/**
 			 * @event action
 			 */
-			this.emit( 'action' );
+			this.emit( 'action', ev );
 		}
 	} );
 
