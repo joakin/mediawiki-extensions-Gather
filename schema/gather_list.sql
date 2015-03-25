@@ -16,12 +16,12 @@ CREATE TABLE /*_*/gather_list (
   -- Must be unique per user - makes it easier for querying/looking up
   gl_label VARCHAR(255) BINARY NOT NULL,
 
-  -- The list permissions type (NULL=not migrated, GATHER_PRIVATE=0, GATHER_PUBLIC=1)
-  -- gl_perm TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  -- The list permissions type (PRIVATE=0, PUBLIC=1, HIDDEN=2, ...)
+  gl_perm TINYINT UNSIGNED NOT NULL,
 
   -- The timestamp is updated whenever the list's meta data is modified.
   -- It is possible we might update this field when modifying watchlist / list pages
-  -- gl_updated VARBINARY(14) NOT NULL DEFAULT '',
+  gl_updated VARBINARY(14) NOT NULL,
 
   -- All other values are stored here to allow for rapid design changes.
   -- At this point we do not foresee any value in using indexes
@@ -36,4 +36,4 @@ CREATE UNIQUE INDEX /*i*/gl_user_label ON /*_*/gather_list (gl_user, gl_label);
 
 -- Show all public lists, sorted by the last updated timestamp
 -- gl_id is included to allow for safe continuation of the query
--- CREATE INDEX /*i*/gl_user_perm_updated ON /*_*/gather_list (gl_perm, gl_updated DESC, gl_id);
+CREATE INDEX /*i*/gl_perm_updated ON /*_*/gather_list (gl_perm, gl_updated);
