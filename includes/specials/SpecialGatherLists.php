@@ -159,7 +159,7 @@ class SpecialGatherLists extends SpecialPage {
 	 */
 	private function userLink( $user ) {
 		return Html::element( 'a', array(
-			'href' => SpecialPage::getTitleFor( 'Gather', $user )->getLocalUrl()
+			'href' => SpecialPage::getTitleFor( 'Gather', 'by/' . $user )->getLocalUrl()
 		), $user );
 	}
 
@@ -172,7 +172,7 @@ class SpecialGatherLists extends SpecialPage {
 	 */
 	private function collectionLink( $text, $user, $id ) {
 		return Html::element( 'a', array(
-			'href' => SpecialPage::getTitleFor( 'Gather', $user.'/'.$id )->getLocalUrl()
+			'href' => SpecialPage::getTitleFor( 'Gather', 'by/' . $user.'/'.$id )->getLocalUrl()
 		), $text );
 	}
 }
