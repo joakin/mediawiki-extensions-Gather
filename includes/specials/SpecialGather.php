@@ -9,6 +9,9 @@ use Gather\models;
 use Gather\views;
 use \User;
 use \SpecialPage;
+use \UsageException;
+use \DerivativeRequest;
+use \ApiMain;
 
 /**
  * Render a collection of articles.
@@ -114,6 +117,7 @@ class SpecialGather extends SpecialPage {
 		} else {
 			$this->getOutput()->addJsConfigVars( 'wgGatherCollections', array( $collection->toArray() ) );
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
+			$this->updateCollectionImage( $collection );
 		}
 	}
 
@@ -154,5 +158,30 @@ class SpecialGather extends SpecialPage {
 	 */
 	private function isOwner( User $user ) {
 		return $this->getUser()->getName() == $user->getName();
+	}
+
+	// FIXME: Re-evaluate when UI supports editing image of collection.
+	private function updateCollectionImage( $collection ) {
+		$currentImage = $collection->getFile();
+		$user = $collection->getOwner();
+		$suggestedImage = $collection->getSuggestedImage();
+		$imageChanged = !$currentImage || $currentImage->getTitle()->getText() !== $suggestedImage;
+		if ( $imageChanged && $this->isOwner( $user ) && !$collection->isWatchlist() ) {
+			// try to set the collection image to the first item in the collection.
+			try {
+				$api = new ApiMain( new DerivativeRequest(
+					$this->getRequest(),
+					array(
+						'action' => 'editlist',
+						'id' => $collection->getId(),
+						'image' => $suggestedImage,
+						'token' => $user->getEditToken( 'watch' ),
+					),
+					true
+				), true );
+				$api->execute();
+			} catch ( UsageException $e ) {
+			}
+		}
 	}
 }

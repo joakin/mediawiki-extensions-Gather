@@ -59,10 +59,10 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 * @param string $title Title of the collection
 	 * @param string $description Description of the collection
 	 * @param boolean $public Whether the collection is public or private
-	 * @param File Image that represents the collection
+	 * @param File $image Image that represents the collection
 	 */
 	public function __construct( $id = null, User $user, $title = '', $description = '',
-		$public = true, $image = null) {
+		$public = true, $image = null ) {
 		$this->id = $id;
 		$this->owner = $user;
 		$this->title = $title;
@@ -77,6 +77,13 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 */
 	public function getId() {
 		return $this->id;
+	}
+
+	/**
+	 * @return boolean whether the collection is a watchlist.
+	 */
+	public function isWatchlist() {
+		return $this->isWatchlist;
 	}
 
 	/**

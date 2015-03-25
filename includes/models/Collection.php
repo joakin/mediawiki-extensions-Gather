@@ -28,11 +28,30 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	protected $items = array();
 
 	/**
+	 * Image that could be used to illustrate collection.
+	 *
+	 * @var string
+	 */
+	protected $imageSuggestion = '';
+
+	/**
+	 * Obtain a suggested image from the created collection;
+	 *
+	 * @return string a suggested illustration based on members of collection.
+	 */
+	public function getSuggestedImage() {
+		return $this->imageSuggestion;
+	}
+
+	/**
 	 * Adds a item to the collection.
 	 *
 	 * @param CollectionItem $item
 	 */
 	public function add( CollectionItem $item ) {
+		if ( $item->hasImage() && !$this->hasImage() ) {
+			$this->imageSuggestion =  $item->getFile()->getTitle()->getText();
+		}
 		$this->items[] = $item;
 	}
 
