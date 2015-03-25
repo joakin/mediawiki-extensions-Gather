@@ -37,7 +37,7 @@ class SpecialGatherLists extends SpecialPage {
 	public function renderError() {
 		$out = $this->getOutput();
 		// FIXME: Get better i18n message for this view.
-		$view = new views\NoPublic();
+		$view = new views\NotFound();
 		$out->setPageTitle( $view->getTitle() );
 		$view->render( $out );
 	}
