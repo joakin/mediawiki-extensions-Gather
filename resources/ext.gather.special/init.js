@@ -7,14 +7,8 @@
 
 	/** Add routes for editing and deleting to the overlay manager */
 	function addOverlayManagerRoutes() {
-		overlayManager.add( /^\/collection\/(.*)\/(.*)$/, function ( action, id ) {
-			id = parseInt( id, 10 );
-			var collection;
-			$.each( mw.config.get( 'wgGatherCollections' ), function () {
-				if ( this.id === id && this.isWatchlist === false ) {
-					collection = this;
-				}
-			} );
+		overlayManager.add( /^\/collection\/(.*)\/(.*)$/, function ( action ) {
+			var collection = mw.config.get( 'wgGatherCollections' );
 
 			if ( collection ) {
 				if ( action === 'edit' ) {
