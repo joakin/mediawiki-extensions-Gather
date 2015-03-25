@@ -17,7 +17,7 @@
 		/** @inheritdoc */
 		className: 'collection-editor-overlay overlay position-fixed',
 		titleMaxLength: 90,
-		descriptionMaxLength: 180,
+		descriptionMaxLength: 280,
 		/** @inheritdoc */
 		defaults: $.extend( {}, Overlay.prototype.defaults, {
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
