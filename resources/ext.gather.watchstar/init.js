@@ -17,6 +17,8 @@
 	 */
 	function shouldShowCollectionTutorial() {
 		if (
+			// Don't show this when mobile is showing edit tutorial
+			mw.util.getParamValue( 'article_action' ) !== 'signup-edit' &&
 			// Tutorial has never been dismissed
 			!settings.get( settingOverlayWasDismissed ) &&
 			// Feature flag is enabled
