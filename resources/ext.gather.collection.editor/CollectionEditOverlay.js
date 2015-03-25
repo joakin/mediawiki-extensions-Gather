@@ -60,7 +60,7 @@
 			var title = this.$( '.title' ).val(),
 				description = this.$( '.description' ).val();
 
-			if ( this.isTitlevalid( title ) && this.isDescriptionValid( description ) ) {
+			if ( this.isTitleValid( title ) && this.isDescriptionValid( description ) ) {
 				// disable button and inputs
 				this.showSpinner();
 				this.$( '.mw-ui-input, .save' ).prop( 'disabled', true );
