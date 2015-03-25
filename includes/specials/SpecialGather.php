@@ -32,39 +32,61 @@ class SpecialGather extends SpecialPage {
 	}
 
 	/**
-	 * Render the special page and redirect the user to the editor (if page exists)
+	 * Render the special page
 	 *
-	 * @param string $subpage The name of the page to edit
+	 * @param string $subpage
 	 */
 	public function execute( $subpage ) {
 
-		if ( $subpage ) {
-			$args = explode( '/', $subpage );
-			// If there is a user argument, that's what we want to use
-			if ( isset( $args[0] ) ) {
-				// Show specified user's collections
-				$user = User::newFromName( $args[0] );
-			} else {
-				// Otherwise use current user
-				$user = $this->getUser();
-			}
-		} else {
+		if ( preg_match( '/^$/', $subpage ) ) {
+			// Root subpage. User owned collections.
 			// For listing own lists, you need to be logged in
 			$this->requireLogin( 'gather-anon-view-lists' );
 			$user = $this->getUser();
-		}
+			$this->renderUserCollectionsList( $user );
 
-		if ( !( $user && $user->getId() ) ) {
-			// Invalid user
-			$this->renderError( new views\NotFound() );
-		} else {
-			if ( isset( $args ) && isset( $args[1] ) ) {
-				$id = intval( $args[1] );
-				$this->renderUserCollection( $user, $id );
+		} elseif ( preg_match( '/^by\/(?<user>\w+)\/?$/', $subpage, $matches ) ) {
+			// User's collections
+			// /by/:user = /by/:user/
+			$user = User::newFromName( $matches['user'] );
+
+			if ( !( $user && $user->getId() ) ) {
+				// Invalid user
+				$this->renderError( new views\NotFound() );
 			} else {
 				$this->renderUserCollectionsList( $user );
 			}
+
+		} elseif ( preg_match( '/^by\/(?<user>\w+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
+			// Collection page
+			// /by/:user/:id
+			$id = $matches['id'];
+			$user = User::newFromName( $matches['user'] );
+
+			if ( !( $user && $user->getId() ) ) {
+				// Invalid user
+				$this->renderError( new views\NotFound() );
+			} else {
+				$this->renderUserCollection( $user, $id );
+			}
+
+		} elseif ( preg_match( '/^all(\/(?<mode>\w+))?\/?$/', $subpage, $matches ) ) {
+			// All collections. Public or hidden
+			// /all = /all/ = /all/public = /all/public/
+			// /all/hidden = /all/hidden/
+
+			// mode can be hidden or public only
+			$mode = isset( $matches['mode'] ) && $matches['mode'] === 'hidden' ?
+				'hidden' : 'public';
+			// FIXME: Migrate Special:GatherLists here instead of redirecting
+			$this->getOutput()->redirect(
+				SpecialPage::getTitleFor( 'GatherLists', $mode )->getLocalURL() );
+
+		} else {
+			// Unknown subpage
+			$this->renderError( new views\NotFound() );
 		}
+
 	}
 
 	/**
