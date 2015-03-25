@@ -131,7 +131,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 		$this->addTables( 'gather_list_item' );
 		$this->addFields( array( 'gli_namespace', 'gli_title', 'gli_order' ) );
 		$this->addWhereFld( 'gli_gl_id', $params['id'] );
-		$this->addWhereFld( 'wl_namespace', $params['namespace'] );
+		$this->addWhereFld( 'gli_namespace', $params['namespace'] );
 
 		if ( isset( $params['continue'] ) ) {
 			$cont = $params['continue'];
