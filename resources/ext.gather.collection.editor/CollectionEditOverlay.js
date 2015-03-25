@@ -16,6 +16,8 @@
 	CollectionEditOverlay = Overlay.extend( {
 		/** @inheritdoc */
 		className: 'collection-editor-overlay overlay position-fixed',
+		titleMaxLength: 90,
+		descriptionMaxLength: 180,
 		/** @inheritdoc */
 		defaults: $.extend( {}, Overlay.prototype.defaults, {
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
@@ -55,30 +57,53 @@
 		 * Event handler when the save button is clicked.
 		 */
 		onSaveClick: function () {
-			var self = this;
-			// disable button and inputs
-			this.showSpinner();
-			this.$( '.mw-ui-input, .save' ).prop( 'disabled', true );
-			this.api.editCollection(
-				this.id, this.$( '.title' ).val(), this.$( '.description' ).val()
-			).done( function () {
-				// Go back to the page we were and reload to avoid having to update the
-				// JavaScript state.
-				schema.log( {
-					eventName: 'edit-collection'
-				} ).done( function () {
-					router.navigate( '/' );
-					window.location.reload();
+			var title = this.$( '.title' ).val(),
+				description = this.$( '.description' ).val();
+
+			if ( this.isTitlevalid( title ) && this.isDescriptionValid( description ) ) {
+				// disable button and inputs
+				this.showSpinner();
+				this.$( '.mw-ui-input, .save' ).prop( 'disabled', true );
+				this.api.editCollection( this.id, title, description ).done( function () {
+					// Go back to the page we were and reload to avoid having to update the
+					// JavaScript state.
+					schema.log( {
+						eventName: 'edit-collection'
+					} ).done( function () {
+						router.navigate( '/' );
+						window.location.reload();
+					} );
+				} ).fail( function ( errMsg ) {
+					toast.show( this.options.editFailedError, 'toast error' );
+					// Make it possible to try again.
+					this.$( '.mw-ui-input, .save' ).prop( 'disabled', false );
+					schema.log( {
+						eventName: 'edit-collection-error',
+						errorMessage: errMsg
+					} );
 				} );
-			} ).fail( function ( errMsg ) {
-				toast.show( self.options.editFailedError, 'toast error' );
-				// Make it possible to try again.
-				self.$( '.mw-ui-input, .save' ).prop( 'disabled', false );
-				schema.log( {
-					eventName: 'edit-collection-error',
-					errorMessage: errMsg
-				} );
-			} );
+			} else {
+				toast.show( this.options.editFailedError, 'toast error' );
+			}
+
+		},
+		/**
+		 * Tests if title is valid
+		 * @param {[type]} title Proposed collection title
+		 * @returns {Boolean}
+		 */
+		isTitleValid: function ( title ) {
+			// FIXME: Need to consider other languages
+			return title.length <= this.titleMaxLength;
+		},
+		/**
+		 * Tests if description is valid
+		 * @param {[type]} description Proposed collection description
+		 * @returns {Boolean}
+		 */
+		isDescriptionValid: function ( description ) {
+			// FIXME: Need to consider other languages
+			return description.length <= this.descriptionMaxLength;
 		}
 	} );
 

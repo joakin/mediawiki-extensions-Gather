@@ -146,6 +146,12 @@ class Hooks {
 			),
 			'dependencies' => array( 'ext.gather.watchstar' ),
 		);
+		$modules['qunit']['ext.gather.collection.editor.tests'] = $boilerplate + array(
+			'scripts' => array(
+				'ext.gather.collection.editor/test_CollectionEditOverlay.js',
+			),
+			'dependencies' => array( 'ext.gather.collection.editor' ),
+		);
 		return true;
 	}
 
