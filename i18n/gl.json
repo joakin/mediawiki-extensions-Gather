@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fisterraeomar",
-			"Banjo"
+			"Banjo",
+			"Elisardojm"
 		]
 	},
 	"gather-edit-collection-heading": "Editar colección",
@@ -15,7 +16,7 @@
 	"gather-collection-member": "É membro da colección.",
 	"gather-collection-non-member": "Non é membro da colección.",
 	"gather-create-new-button-label": "Crear",
-	"gather-add-to-new": "Engadir a unha nova colección",
+	"gather-add-to-new": "Engadir a unha nova colección pública",
 	"gather-add-to-existing": "Engadir a unha colección existente",
 	"gather-desc": "Compoñente da extensión Mobile Frontend que permite aos usuarios xestionar listas.",
 	"gather-anon-view-lists": "Debe iniciar sesión para ver as súas coleccións.",

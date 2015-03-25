@@ -4,5 +4,11 @@
 			"Giuseppe Forte"
 		]
 	},
-	"gather-lists-hide-success-toast": "Lista \"$1\" occultata con successo."
+	"gather-lists-collection-owner": "Proprietario",
+	"gather-lists-collection-title": "Titolo",
+	"gather-lists-collection-description": "Descrizione",
+	"gather-lists-collection-count": "Conteggio",
+	"gather-lists-hide-success-toast": "Lista \"$1\" occultata con successo.",
+	"gather-add-to-collection-cancel": "No, grazie.",
+	"gather-page-not-found": "Pagina non trovata"
 }

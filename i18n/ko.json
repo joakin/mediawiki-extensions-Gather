@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"SeoJeongHo"
+		]
+	},
+	"gather-lists-collection-owner": "소유자",
+	"gather-lists-collection-last-updated": "마지막 업데이트",
+	"gather-lists-collection-title": "제목",
+	"gather-lists-collection-description": "설명",
+	"gather-lists-collection-count": "계산",
+	"gather-lists-hide-collection": "\"$1\"을 \"$2\"로 숨기기를 원하십니까?",
+	"gather-lists-hide-success-toast": "\"$1\"를 숨기기를 완료하였습니다.",
+	"gather-lists-hide-failure-toast": "\"$1\" 을 숨기지 못하였습니다.",
+	"gather-remove-from-collection-failed-toast": "컬렉션에서 이 페이지를 제거 할수 없습니다.",
+	"gather-add-to-collection-failed-toast": "컬렉션에 페이지를 추가 할수 없습니다.",
+	"gather-add-to-new": "새 공용 컬렉션에 추가",
+	"gather-add-to-collection-summary": "$1을 콜렉션에 추가 시키시겠습니까?",
+	"gather-add-to-collection-confirm": "콜렉션에 추가",
+	"gather-add-to-collection-cancel": "괜찮습니다.",
+	"right-gather-hidelist": "강제로 공용 사용자 목록을 숨기기 위해서"
+}

@@ -2,10 +2,25 @@
 	"@metadata": {
 		"authors": [
 			"Sjoerddebruin",
-			"JensRiskin"
+			"JensRiskin",
+			"MedShot"
 		]
 	},
+	"gather-lists-collection-owner": "Eigenaar:",
+	"gather-lists-collection-last-updated": "Laatst bijgewerkt",
+	"gather-lists-collection-title": "Naam",
+	"gather-lists-collection-description": "Beschrijving",
+	"gather-lists-collection-count": "Aantal",
+	"gather-lists-hide-success-toast": "Lijst \"$1\" is met succes verborgen.",
+	"gather-lists-hide-failure-toast": "Mislukt om lijst \"$1\" te verbergen.",
+	"gather-remove-from-collection-failed-toast": "Kan pagina niet verwijderen uit collectie.",
+	"gather-add-to-collection-failed-toast": "Kan pagina niet toevoegen aan collectie.",
 	"gather-delete-collection-cancel-label": "Annuleer",
+	"gather-add-new-placeholder": "Voer een nieuwe naam in voor de collectie",
+	"gather-add-to-new": "Toevoegen aan nieuwe openbare collectie",
+	"gather-add-to-collection-summary": "Wilt u $1 toevoegen aan een collectie?",
+	"gather-add-to-collection-confirm": "Voeg toe aan collectie",
+	"gather-add-to-collection-cancel": "Nee, bedankt",
 	"gather-watchlist-title": "Volglijst",
 	"gather-lists-title": "Verzamelingen",
 	"gather-read-more": "Meer lezen",

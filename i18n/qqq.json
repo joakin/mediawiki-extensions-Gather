@@ -8,13 +8,14 @@
 			"Liuxinyu970226",
 			"Robby",
 			"Amire80",
-			"Yuri Astrakhan"
+			"Yuri Astrakhan",
+			"Yurik"
 		]
 	},
 	"gather-lists-collection-owner": "Label for owner of collection on list of all collections\n{{Identical|Owner}}",
+	"gather-lists-collection-last-updated": "Label for last updated time of a collection",
 	"gather-lists-collection-title": "Label for title of collection on list of all collections\n{{Identical|Title}}",
 	"gather-lists-collection-description": "Label for description of collection on list of all collections\n{{Identical|Description}}",
-	"gather-lists-collection-last-updated": "Label for last updated time of a collection",
 	"gather-lists-collection-count": "Label for count of collection on list of all collections\n{{Identical|Count}}",
 	"gather-lists-hide-collection-label": "Label for button that performs moderation hide action which sets list from public to hidden.",
 	"gather-lists-hide-collection": "Label asking for confirmation when hiding a user's collection for moderation purposes. Parameters:\n* $1 - Title of the collection.\n* $2 - User name of the owner.",
@@ -71,7 +72,7 @@
 	"gather-empty-footer": "Footnote shown on an empty rendered collection on [[Special:Gather]].",
 	"gather-edit-button": "Label for a button that enables editing a collection.\n{{Identical|Edit}}",
 	"gather-delete-button": "Label for a button that enables deleting a collection.\n{{Identical|Delete}}",
-	"right-gather-hidelist": "Description of right to hide or restore public lists.\n\n{{Doc-right|gather-hidelist}}",
+	"right-gather-hidelist": "With gather, users can create lists and make them public. This right gives admins a way to hide or restore a list that violates WP policy.\n\n{{Doc-right|gather-hidelist}}",
 	"apihelp-gather-description": "{{doc-apihelp-description|gather}}",
 	"apihelp-gather-param-gather": "{{doc-apihelp-param|gather|gather}}",
 	"apihelp-gather-param-owner": "{{doc-apihelp-param|gather|owner}}",
