@@ -15,7 +15,7 @@ use \SpecialPage;
  */
 class SpecialGather extends SpecialPage {
 
-	public function __construct( $par ) {
+	public function __construct() {
 		parent::__construct( 'Gather' );
 		$out = $this->getOutput();
 		$out->addModules(
