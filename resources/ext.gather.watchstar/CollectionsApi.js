@@ -157,8 +157,20 @@
 				id: id,
 				mode: 'hidelist'
 			} );
+		},
+		/**
+		 * Show list (moderation purposes)
+		 * @method
+		 * @param {Number} id unique identifier of collection
+		 * @return {jQuery.Deferred}
+		 */
+		showCollection: function ( id ) {
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				id: id,
+				mode: 'showlist'
+			} );
 		}
-
 	} );
 
 	M.define( 'ext.gather.watchstar/CollectionsApi', CollectionsApi );

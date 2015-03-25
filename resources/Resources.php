@@ -227,6 +227,9 @@ $wgResourceModules += array(
 			'gather-lists-hide-collection',
 			'gather-lists-hide-success-toast',
 			'gather-lists-hide-failure-toast',
+			'gather-lists-show-collection',
+			'gather-lists-show-success-toast',
+			'gather-lists-show-failure-toast',
 		),
 		'scripts' => array(
 			'ext.gather.lists/init.js',
