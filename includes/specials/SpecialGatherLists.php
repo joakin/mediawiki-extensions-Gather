@@ -34,15 +34,27 @@ class SpecialGatherLists extends SpecialPage {
 		);
 	}
 
+	public function renderError() {
+		$out = $this->getOutput();
+		// FIXME: Get better i18n message for this view.
+		$view = new views\NoPublic();
+		$out->setPageTitle( $view->getTitle() );
+		$view->render( $out );
+	}
+
 	/**
 	 * Render the special page
 	 */
 	public function execute( $subPage ) {
+		if ( $subPage === 'hidden' && !$this->canHideLists() ) {
+			$this->renderError();
+			return;
+		}
 		// FIXME: Make method on CollectionsList
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'list' => 'lists',
-			'lstmode' => 'allpublic',
+			'lstmode' => $subPage === 'hidden' ? 'allhidden' : 'allpublic',
 			// FIXME: Need owner to link to collection
 			'lstprop' => 'label|description|image|count|updated',
 			// TODO: Pagination
@@ -52,7 +64,7 @@ class SpecialGatherLists extends SpecialPage {
 		$data = $api->getResultData();
 		if ( isset( $data['query']['lists'] ) ) {
 			$lists = $data['query']['lists'];
-			$this->render( $lists );
+			$this->render( $lists, $subPage === 'hidden' ? 'show' : 'hide' );
 		}
 	}
 
@@ -60,8 +72,9 @@ class SpecialGatherLists extends SpecialPage {
 	 * Render the special page
 	 *
 	 * @param array $lists
+	 * @param string [$action] hide or show - action to associate with the row.
 	 */
-	public function render( $lists ) {
+	public function render( $lists, $action ) {
 		$out = $this->getOutput();
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
@@ -82,7 +95,7 @@ class SpecialGatherLists extends SpecialPage {
 		}
 		$html .= Html::closeElement( 'li' );
 		foreach ( $lists as $list ) {
-			$html .= $this->row( $list );
+			$html .= $this->row( $list, $action );
 		}
 		$html .= Html::closeElement( 'ul' );
 		$html .= Html::closeElement( 'div' );
@@ -101,9 +114,10 @@ class SpecialGatherLists extends SpecialPage {
 	/**
 	 * Renders a html row of data
 	 * @param array $data
+	 * @param string [$action] hide or show - action to associate with the row.
 	 * @return string
 	 */
-	private function row( $data ) {
+	private function row( $data, $action = 'hide' ) {
 		$lang = $this->getLanguage();
 		$user = $this->getUser();
 		$ts = $lang->userTimeAndDate( new MWTimestamp( $data['updated'] ), $user );
@@ -116,15 +130,22 @@ class SpecialGatherLists extends SpecialPage {
 			. Html::element( 'span', array(), $ts );
 
 		if ( $this->canHideLists() ) {
+			$className = CSS::buttonClass(
+				$action === 'hide' ?  'destructive': 'constructive',
+				'moderate-collection'
+			);
+
+			$label = $action === 'hide' ? $this->msg( 'gather-lists-hide-collection-label' ) :
+				$this->msg( 'gather-lists-show-collection-label' );
+
 			$html .= Html::openElement( 'span', array() )
-				. Html::openElement( 'button', array() )
-				. Html::element( 'span', array(
-					'class' => CSS::iconClass( 'cancel', 'element', 'hide-collection' ),
+				. Html::element( 'button', array(
+					'class' => $className,
 					'data-id' => $data['id'],
+					'data-action' => $action,
 					'data-label' => $data['label'],
 					'data-owner' => $data['owner']
-				), '' )
-				. Html::closeElement( 'button' )
+				), $label )
 				. Html::closeElement( 'span' );
 		}
 		$html .= Html::closeElement( 'li' );
