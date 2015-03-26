@@ -98,12 +98,16 @@
 					}
 				} );
 			}
+			overlay.show();
+			ev.stopPropagation();
+		},
+		/** @inheritdoc */
+		onStatusToggle: function () {
+			Watchstar.prototype.onStatusToggle.apply( this, arguments );
 			schema.log( {
 				eventName: 'click',
 				source: this.options.wasUserPrompted ? 'onboarding' : 'unknown'
 			} );
-			overlay.show();
-			ev.stopPropagation();
 		},
 		/**
 		 * Sets a new status on the watchstar.
