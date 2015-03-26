@@ -75,7 +75,13 @@
 			}
 		},
 		/** @inheritdoc */
+		show: function () {
+			CollectionsContentOverlayBase.prototype.show.apply( this, arguments );
+			$( 'html' ).addClass( 'gather-overlay-enabled' );
+		},
+		/** @inheritdoc */
 		hide: function () {
+			$( 'html' ).removeClass( 'gather-overlay-enabled' );
 			schema.log( {
 				eventName: 'hide'
 			} );
