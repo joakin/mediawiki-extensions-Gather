@@ -15,12 +15,14 @@
 			name: 'watched',
 			additionalClassNames: 'icon-32px watch-this-article'
 		} ),
+		View = M.require( 'View' ),
 		Watchstar = M.require( 'modules/watchstar/Watchstar' );
 
 	/**
 	 * A clickable watchstar for managing collections
 	 * @class CollectionsWatchstar
 	 * @extends Watchstar
+	 * FIXME: do not extend Watchstar.
 	 */
 	CollectionsWatchstar = Watchstar.extend( {
 		/** @inheritdoc */
@@ -45,6 +47,10 @@
 			wasUserPrompted: false,
 			collections: undefined
 		} ),
+		/** @inheritdoc */
+		initialize: function ( options ) {
+			View.prototype.initialize.call( this, options );
+		},
 		/** @inheritdoc */
 		postRender: function ( options ) {
 			var $el = this.$el,

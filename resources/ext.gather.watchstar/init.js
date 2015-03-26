@@ -80,6 +80,7 @@
 				el: $star,
 				page: page,
 				isAnon: user.isAnon(),
+				isWatched: $star.hasClass( 'watched' ),
 				wasUserPrompted: shouldShow,
 				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
 			} );
