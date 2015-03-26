@@ -75,6 +75,9 @@ class ApiEditList extends ApiBase {
 		$isWatchlist = $listId === 0;
 
 		$dbw = wfGetDB( DB_MASTER, 'api' );
+		if ( $user->isBlocked() ) {
+			$this->dieUsage( 'You are blocked from editing your collection', 'blockeduser' );
+		}
 
 		if ( $isNew || $isWatchlist ) {
 			// ACTION: create a new list
