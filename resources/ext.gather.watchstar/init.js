@@ -20,6 +20,8 @@
 			mw.config.get( 'wgNamespaceNumber' ) === 0 &&
 			// Don't show this when mobile is showing edit tutorial
 			mw.util.getParamValue( 'article_action' ) !== 'signup-edit' &&
+			// Don't show if the overlay is open as user could have clicked watchstar
+			!$( 'html' ).hasClass( 'gather-overlay-enabled' ) &&
 			// Tutorial has never been dismissed
 			!settings.get( settingOverlayWasDismissed ) &&
 			// Feature flag is enabled
@@ -86,12 +88,8 @@
 				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
 			} );
 
-		// Determine if we should show the collection tutorial
 		if ( $star.length > 0 && shouldShow ) {
-			// FIXME: Timeout shouldn't be necessary but T91047 exists.
-			setTimeout( function () {
-				showPointer( watchstar, $star );
-			}, 2000 );
+			showPointer( watchstar, $star );
 		}
 	}
 	// Only init when current page is an article
