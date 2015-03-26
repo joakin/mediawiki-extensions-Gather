@@ -13,8 +13,9 @@
 		 */
 		defaults: $.extend( {}, Schema.prototype.defaults, {
 			userId: mw.user.getId(),
-			// FIXME:  use mw.user when method available
-			userEditCount: user.getEditCount()
+			// FIXME: use mw.user when method available
+			// Null when user is anon, set to 0
+			userEditCount: user.getEditCount() || 0
 		} ),
 		/**
 		 * @inheritdoc
