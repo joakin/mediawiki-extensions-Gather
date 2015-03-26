@@ -38,6 +38,6 @@
 
 	$( function () {
 		addOverlayManagerRoutes();
-		$( '.collection-actions' ).show();
+		$( '.collection-actions' ).addClass( 'visible' );
 	} );
 }( mw.mobileFrontend, jQuery ) );

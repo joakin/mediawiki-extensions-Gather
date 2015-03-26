@@ -15,6 +15,12 @@
 	}
 }
 
+// FIXME: Edit and delete buttons are currently broken:
+// https://phabricator.wikimedia.org/T94063
+.collection .collection-header .collection-actions.visible {
+	display: none;
+}
+
 @media all and (min-width: 1000px) {
 	.collection {
 		.collection-header {

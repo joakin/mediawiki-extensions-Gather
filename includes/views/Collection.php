@@ -79,8 +79,6 @@ class Collection extends View {
 		return Html::openElement( 'div',
 				array(
 					'class' => 'collection-actions',
-					// FIXME: This should work without JavaScript
-					'style' => 'display:none;',
 				)
 			) .
 			$this->getEditButtonHtml() .
