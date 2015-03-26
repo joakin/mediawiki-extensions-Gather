@@ -17,6 +17,7 @@
 	 */
 	function shouldShowCollectionTutorial() {
 		if (
+			mw.config.get( 'wgNamespaceNumber' ) === 0 &&
 			// Don't show this when mobile is showing edit tutorial
 			mw.util.getParamValue( 'article_action' ) !== 'signup-edit' &&
 			// Tutorial has never been dismissed
