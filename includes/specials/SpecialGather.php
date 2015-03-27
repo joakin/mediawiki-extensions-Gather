@@ -49,7 +49,7 @@ class SpecialGather extends SpecialPage {
 			$user = $this->getUser();
 			$this->renderUserCollectionsList( $user );
 
-		} elseif ( preg_match( '/^by\/(?<user>\w+)\/?$/', $subpage, $matches ) ) {
+		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/?$/', $subpage, $matches ) ) {
 			// User's collections
 			// /by/:user = /by/:user/
 			$user = User::newFromName( $matches['user'] );
@@ -61,7 +61,7 @@ class SpecialGather extends SpecialPage {
 				$this->renderUserCollectionsList( $user );
 			}
 
-		} elseif ( preg_match( '/^by\/(?<user>\w+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
+		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
 			// Collection page
 			// /by/:user/:id
 			$id = (int)$matches['id'];
@@ -74,7 +74,7 @@ class SpecialGather extends SpecialPage {
 				$this->renderUserCollection( $user, $id );
 			}
 
-		} elseif ( preg_match( '/^all(\/(?<mode>\w+))?\/?$/', $subpage, $matches ) ) {
+		} elseif ( preg_match( '/^all(\/(?<mode>[^\/]+))?\/?$/', $subpage, $matches ) ) {
 			// All collections. Public or hidden
 			// /all = /all/ = /all/public = /all/public/
 			// /all/hidden = /all/hidden/
