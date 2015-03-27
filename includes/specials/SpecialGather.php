@@ -12,7 +12,7 @@ use \SpecialPage;
 use \UsageException;
 use \DerivativeRequest;
 use \ApiMain;
-use \Exception;
+use \InvalidArgumentException;
 
 /**
  * Render a collection of articles.
@@ -110,8 +110,10 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function renderUserCollection( User $user, $id ) {
 		if ( !is_int( $id ) ) {
-			throw new Exception( __METHOD__ . ' requires the second parameter to be an integer, '
-				. gettype( $id ) . ' given.' );
+			throw new InvalidArgumentException(
+				__METHOD__ . ' requires the second parameter to be an integer, '
+				. gettype( $id ) . ' given.'
+			);
 		}
 		$collection = models\Collection::newFromApi( $id, $user );
 
