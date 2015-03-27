@@ -164,7 +164,7 @@ class SpecialGather extends SpecialPage {
 	 * @return boolean
 	 */
 	private function isOwner( User $user ) {
-		return $this->getUser()->getName() == $user->getName();
+		return $this->getUser()->equals( $user );
 	}
 
 	// FIXME: Re-evaluate when UI supports editing image of collection.
