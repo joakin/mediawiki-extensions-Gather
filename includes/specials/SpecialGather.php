@@ -21,18 +21,6 @@ class SpecialGather extends SpecialPage {
 
 	public function __construct() {
 		parent::__construct( 'Gather' );
-		$out = $this->getOutput();
-		$out->addModules(
-			array(
-				'ext.gather.special',
-			)
-		);
-		$out->addModuleStyles( array(
-			'mediawiki.ui.anchor',
-			'mediawiki.ui.icon',
-			'ext.gather.icons',
-			'ext.gather.styles',
-		) );
 	}
 
 	/**
@@ -41,7 +29,16 @@ class SpecialGather extends SpecialPage {
 	 * @param string $subpage
 	 */
 	public function execute( $subpage ) {
-
+		$out = $this->getOutput();
+		$out->addModules( array(
+			'ext.gather.special',
+		) );
+		$out->addModuleStyles( array(
+			'mediawiki.ui.anchor',
+			'mediawiki.ui.icon',
+			'ext.gather.icons',
+			'ext.gather.styles',
+		) );
 		if ( preg_match( '/^$/', $subpage ) ) {
 			// Root subpage. User owned collections.
 			// For listing own lists, you need to be logged in
