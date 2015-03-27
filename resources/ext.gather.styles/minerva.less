@@ -1,0 +1,29 @@
+.page-summary {
+	// In Minerva absolutely position these to the left to save space.
+	.mw-changeslist-date,
+	.mw-plusminus-neg,
+	.mw-plusminus-pos {
+	  position: absolute;
+	  left: 12px;
+	}
+
+	// Add suitable margins for vertical positioning in minerva
+	.mw-userlink,
+	.edit-summary {
+		margin: .5em 0;
+	}
+}
+
+// Hide the talk and user page links since both are formatted badly on mobile.
+.mw-usertoollinks {
+	display: none;
+}
+
+// FIXME: Overwrite MobileFrontend rule
+.page-list.side-list {
+	.title {
+		h3 {
+			margin-top: 0;
+		}
+	}
+}

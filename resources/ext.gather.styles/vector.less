@@ -30,3 +30,69 @@
 		}
 	}
 }
+
+.content-header {
+	form {
+		select {
+			margin-right: .2em;
+		}
+	}
+}
+.gather-ui-tabs {
+	margin: 0;
+	list-style: none;
+}
+
+.mw-changeslist {
+	.list-header {
+		font-size: 1em;
+		border-bottom: none;
+		font-weight: bold;
+		margin-top: 0;
+		padding: .5em .2em .4em;
+		background-color: @grayLightest;
+	}
+
+	ul {
+		list-style: none;
+		display: block;
+	}
+
+	.page-summary {
+		* {
+			display: inline;
+			font-size: 1em;
+			line-height: 1;
+			padding: 0;
+		}
+
+		.mw-userlink,
+		> * {
+			margin: 0 0 0 4px;
+		}
+
+		.mw-changeslist-date {
+			font-family: monospace;
+		}
+
+		.mw-usertoollinks,
+		.edit-summary,
+		.mw-plusminus-pos,
+		.mw-plusminus-neg {
+			&:before {
+				content: '(';
+			}
+			&:after {
+				content: ')';
+			}
+		}
+
+		.edit-summary {
+			font-style: italic;
+		}
+	}
+
+	h3 {
+		font-weight: normal;
+	}
+}

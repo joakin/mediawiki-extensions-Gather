@@ -37,6 +37,8 @@ $autoloadClasses = array(
 
 	'Gather\models\CollectionItem' => 'models/CollectionItem',
 	'Gather\models\CollectionBase' => 'models/CollectionBase',
+	'Gather\models\CollectionFeed' => 'models/CollectionFeed',
+	'Gather\models\CollectionFeedItem' => 'models/CollectionFeedItem',
 	'Gather\models\CollectionInfo' => 'models/CollectionInfo',
 	'Gather\models\Collection' => 'models/Collection',
 	'Gather\models\CollectionsList' => 'models/CollectionsList',
@@ -46,6 +48,8 @@ $autoloadClasses = array(
 	'Gather\views\View' => 'views/View',
 	'Gather\views\NotFound' => 'views/NotFound',
 	'Gather\views\NoPublic' => 'views/NoPublic',
+	'Gather\views\CollectionFeed' => 'views/CollectionFeed',
+	'Gather\views\CollectionFeedItem' => 'views/CollectionFeedItem',
 	'Gather\views\Collection' => 'views/Collection',
 	'Gather\views\CollectionItemCard' => 'views/CollectionItemCard',
 	'Gather\views\Image' => 'views/Image',
@@ -57,6 +61,7 @@ $autoloadClasses = array(
 
 	'Gather\SpecialGather' => 'specials/SpecialGather',
 	'Gather\SpecialGatherLists' => 'specials/SpecialGatherLists',
+	'Gather\SpecialGatherEditFeed' => 'specials/SpecialGatherEditFeed',
 
 	'Gather\api\ApiEditList' => 'api/ApiEditList',
 	'Gather\api\ApiQueryLists' => 'api/ApiQueryLists',
@@ -71,6 +76,7 @@ foreach ( $autoloadClasses as $className => $classFilename ) {
 
 $wgSpecialPages['Gather'] = 'Gather\SpecialGather';
 $wgSpecialPages['GatherLists'] = 'Gather\SpecialGatherLists';
+$wgSpecialPages['GatherEditFeed'] = 'Gather\SpecialGatherEditFeed';
 
 // Hooks
 $wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
