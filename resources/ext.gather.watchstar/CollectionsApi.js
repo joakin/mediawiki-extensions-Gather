@@ -80,7 +80,7 @@
 		 * @method
 		 * @param {Number} id unique identifier of collection
 		 */
-		removeCollection: function( id ) {
+		removeCollection: function ( id ) {
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
 				mode: 'deletelist',
