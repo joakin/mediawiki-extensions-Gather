@@ -53,10 +53,8 @@ $wgResourceModules += array(
 		'class' => 'ResourceLoaderImageModule',
 		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
-			'icon' => array(
-				'collections-read-more' => 'ext.gather.icons/next.svg',
-				'collection-owner' => 'ext.gather.icons/user.svg',
-			),
+			'collections-read-more' => 'ext.gather.icons/next.svg',
+			'collection-owner' => 'ext.gather.icons/user.svg',
 		),
 	),
 
@@ -71,10 +69,8 @@ $wgResourceModules += array(
 		'class' => 'ResourceLoaderImageModule',
 		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
-			'icon' => array(
-				'tick-disabled' => 'ext.gather.watchstar.icons/grey_check.svg',
-				'tick' => 'ext.gather.watchstar.icons/green_check.svg',
-			),
+			'tick-disabled' => 'ext.gather.watchstar.icons/grey_check.svg',
+			'tick' => 'ext.gather.watchstar.icons/green_check.svg',
 		),
 	),
 
