@@ -33,6 +33,7 @@
 		/**
 		 * Event handler for cancelling the overlay
 		 * @emits action
+		 * @param {jQuery.Event} ev
 		 */
 		onActionClick: function ( ev ) {
 			this.hide();

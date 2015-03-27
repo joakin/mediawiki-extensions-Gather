@@ -13,37 +13,39 @@
 			overlay = new CollectionEditOverlay( {
 				collection: collection
 			} );
-			this.validTitle = randomString( overlay.titleMaxLength );
-			this.invalidTitle = randomString( overlay.titleMaxLength + 1 );
-			this.validDescription = randomString( overlay.descriptionMaxLength );
-			this.invalidDescription = randomString( overlay.descriptionMaxLength + 1 );
+			this.validTitle = getStringWithLength( overlay.titleMaxLength );
+			this.invalidTitle = getStringWithLength( overlay.titleMaxLength + 1 );
+			this.validDescription = getStringWithLength( overlay.descriptionMaxLength );
+			this.invalidDescription = getStringWithLength( overlay.descriptionMaxLength + 1 );
 
 		}
 	} );
 
 	/**
-	 * Use base 36 method to generate a random string with specified length
+	 * Generate string of a certain length
 	 * @param {Number} length length of desired string
 	 * @returns {String} randomly generated string
 	 */
-	function randomString( length ) {
-		return Math.round(
-			( Math.pow( 36, length + 1 ) - Math.random() * Math.pow( 36, length ) )
-		).toString( 36 ).slice( 1 );
+	function getStringWithLength( len ) {
+		var i, str = '';
+		for ( i = 0; i < len; i++ ) {
+			str += 'a';
+		}
+		return str;
 	}
 
 	QUnit.test( 'Collection title validation', 2, function ( assert ) {
-			assert.strictEqual( overlay.isTitleValid( this.validTitle ), true,
-				'Check that a valid title is correctly evaluated' );
-			assert.strictEqual( overlay.isTitleValid( this.invalidTitle ), false,
-				'Check that an invalid title is correctly evaluated' );
+		assert.strictEqual( overlay.isTitleValid( this.validTitle ), true,
+			'Check that a valid title is correctly evaluated' );
+		assert.strictEqual( overlay.isTitleValid( this.invalidTitle ), false,
+			'Check that an invalid title is correctly evaluated' );
 	} );
 
 	QUnit.test( 'Collection description validation', 2, function ( assert ) {
-			assert.strictEqual( overlay.isDescriptionValid( this.validDescription ), true,
-				'Check that a valid description is correctly evaluated' );
-			assert.strictEqual( overlay.isDescriptionValid( this.invalidDescription ), false,
-				'Check that an invalid description is correctly evaluated' );
+		assert.strictEqual( overlay.isDescriptionValid( this.validDescription ), true,
+			'Check that a valid description is correctly evaluated' );
+		assert.strictEqual( overlay.isDescriptionValid( this.invalidDescription ), false,
+			'Check that an invalid description is correctly evaluated' );
 	} );
 
 }( mw.mobileFrontend ) );
