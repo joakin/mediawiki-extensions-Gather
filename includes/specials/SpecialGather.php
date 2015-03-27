@@ -122,7 +122,7 @@ class SpecialGather extends SpecialPage {
 			// FIXME: No permissions to visit this. Showing not found ATM.
 			$this->renderError( new views\NotFound() );
 		} else {
-			$this->getOutput()->addJsConfigVars( 'wgGatherCollections', array( $collection->toArray() ) );
+			$this->getOutput()->addJsConfigVars( 'wgGatherCollections', $collection->toArray() );
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
 			$this->updateCollectionImage( $collection );
 		}
