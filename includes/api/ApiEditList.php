@@ -75,9 +75,6 @@ class ApiEditList extends ApiBase {
 		$isWatchlist = $listId === 0;
 
 		$dbw = wfGetDB( DB_MASTER, 'api' );
-		if ( $user->isBlocked() ) {
-			$this->dieUsage( 'You are blocked from editing your collection', 'blockeduser' );
-		}
 
 		if ( $isNew || $isWatchlist ) {
 			// ACTION: create a new list
@@ -172,6 +169,8 @@ class ApiEditList extends ApiBase {
 			$this->dieUsage( 'You must be logged-in to edit a list', 'notloggedin' );
 		} elseif ( !$user->isAllowed( 'editmywatchlist' ) ) {
 			$this->dieUsage( 'You don\'t have permission to edit your list', 'permissiondenied' );
+		} elseif ( $user->isBlocked() ) {
+			$this->dieUsage( 'You are blocked from editing your list', 'blocked' );
 		} elseif ( $label === '' ) {
 			$this->dieUsage( 'If given, label must not be empty', 'badlabel' );
 		}
