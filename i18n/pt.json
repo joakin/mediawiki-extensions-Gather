@@ -1,11 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vitorvicentevalente"
+			"Vitorvicentevalente",
+			"Fabulous"
 		]
 	},
+	"gather-lists-collection-last-updated": "Última atualização",
 	"gather-lists-collection-title": "Título",
 	"gather-lists-collection-description": "Descrição",
+	"gather-lists-hide-collection-label": "Ocultar",
+	"gather-lists-hide-collection": "Deseja ocultar a lista \"$1\" de $2?",
+	"gather-lists-hide-success-toast": "A lista \"$1\" foi ocultada com sucesso.",
+	"gather-lists-hide-failure-toast": "Falha ao ocultar a lista \"$1\".",
+	"gather-lists-show-collection-label": "Mostrar",
+	"gather-lists-show-collection": "Deseja tornar pública a lista \"$1\" de $2 novamente?",
+	"gather-add-to-collection-failed-toast": "Não foi possível adicionar a página à coleção.",
 	"gather-edit-collection-heading": "Editar coleção",
 	"gather-edit-collection-label-name": "Nome",
 	"gather-edit-collection-label-description": "Descrição",
@@ -17,7 +26,7 @@
 	"gather-collection-member": "É membro da coleção.",
 	"gather-collection-non-member": "Não é membro da coleção.",
 	"gather-create-new-button-label": "Criar",
-	"gather-add-to-new": "Adicionar à nova coleção",
+	"gather-add-to-new": "Adicionar a nova coleção pública",
 	"gather-add-to-existing": "Adicionar à coleção existente",
 	"gather-add-toast": "A página foi adicionada à sua coleção \"$1\".",
 	"gather-new-collection-failed-toast": "Ocorreu um problema ao criar a sua coleção \"$1\".",

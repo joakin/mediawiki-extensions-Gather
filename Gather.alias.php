@@ -38,6 +38,7 @@ $specialPageAliases['lb'] = array(
 /** Macedonian (македонски) */
 $specialPageAliases['mk'] = array(
 	'Gather' => array( 'Собирање' ),
+	'GatherLists' => array( 'СобирањеСписоци' ),
 );
 
 /** Traditional Chinese (中文（繁體）‎) */

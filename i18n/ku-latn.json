@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bikarhêner"
+		]
+	},
+	"gather-lists-collection-owner": "Xwedî",
+	"gather-lists-collection-last-updated": "Rojanekirina dawî",
+	"gather-lists-collection-title": "Sernav",
+	"gather-lists-collection-count": "Jimartin",
+	"gather-lists-hide-collection-label": "Veşêre",
+	"gather-lists-show-collection-label": "Berçavkirin",
+	"gather-edit-collection-label-name": "Nav",
+	"gather-edit-collection-label-description": "Danasîn",
+	"gather-delete-collection-confirm": "Tu piştrastî ko tu dixazî koleksiyonê jê bibi?",
+	"gather-delete-collection-heading": "Koleksiyonê jê bibe",
+	"gather-delete-collection-delete-label": "Jê bibe",
+	"gather-delete-collection-cancel-label": "Betal bike",
+	"gather-add-to-collection-confirm": "Bixe nav kolesiyone",
+	"gather-add-to-collection-cancel": "Na spas",
+	"gather-delete-button": "Jê bibe"
+}

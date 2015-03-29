@@ -6,6 +6,7 @@
 		]
 	},
 	"gather-lists-collection-owner": "擁有者",
+	"gather-lists-collection-last-updated": "最後更新",
 	"gather-lists-collection-count": "數量",
 	"gather-delete-collection-confirm": "您確定要刪除此收藏？",
 	"gather-delete-collection-heading": "刪除收藏",

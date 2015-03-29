@@ -2,11 +2,20 @@
 	"@metadata": {
 		"authors": [
 			"Element303",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Abaddon1337"
 		]
 	},
+	"gather-edit-collection-label-name": "Nom",
+	"gather-edit-collection-label-description": "Description",
+	"gather-delete-collection-delete-label": "Supprimer",
+	"gather-delete-collection-cancel-label": "Annuler",
 	"gather-delete-collection-success": "La collection a été supprimée avec succès.",
+	"gather-delete-collection-failed-error": "Il y a eu un problème en supprimant cette collection.",
+	"gather-create-new-button-label": "Créer",
+	"gather-add-to-collection-cancel": "Non merci",
 	"gather-desc": "Composant de l'Interface Mobile permettant aux utilisateurs d'organiser les listes.",
+	"gather-page-not-found": "Page non trouvée",
 	"gather-anon-view-lists": "Vous devez être connecté pour voir vos Collections.",
 	"gather-watchlist-title": "Liste de suivi",
 	"gather-watchlist-description": "Une liste de pages qui m'intéressent.",
@@ -17,5 +26,6 @@
 	"gather-article-count": "$1 {{PLURAL:$1|article|articles}}",
 	"gather-empty": "Rien dans cette collection pour le moment...",
 	"gather-empty-footer": "Je ne sais pas comment vous êtes arrivé ici mais il s'agit d'un endroit triste.",
+	"gather-edit-button": "Modifier",
 	"gather-delete-button": "Supprimer"
 }

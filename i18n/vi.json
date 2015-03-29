@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dinhxuanduyet",
+			"Macofe"
+		]
+	},
+	"gather-lists-collection-last-updated": "Lần cập nhật cuối",
+	"gather-lists-collection-title": "Tiêu đề",
+	"gather-lists-collection-description": "Miêu tả",
+	"gather-lists-hide-collection": "Bạn có muốn ẩn danh sách \"$1\" bởi $2?",
+	"gather-lists-hide-failure-toast": "Ẩn danh sách \"$1\" thất bại.",
+	"gather-add-to-collection-failed-toast": "Không thể thêm trang vào bộ sưu tập",
+	"gather-add-to-collection-cancel": "Không, cám ơn",
+	"right-gather-hidelist": "Cưỡng ép ẩn một danh sách người dùng công cộng"
+}

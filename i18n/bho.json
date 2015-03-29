@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Macofe",
+			"Nepaboy"
+		]
+	},
+	"gather-lists-collection-last-updated": "अन्तिम अपडेट",
+	"gather-lists-hide-collection-label": "छुपाईं",
+	"gather-lists-hide-collection": "का आप $2 के द्वारा \"$1\" के छुपावे के चाहेब?",
+	"gather-lists-hide-success-toast": "\"$1\" सूची सफलतापूर्वक छुपा दिहल गईल बा।",
+	"gather-lists-hide-failure-toast": "$1 सूची के छुपावे में नाकाम",
+	"gather-lists-show-collection-label": "प्रकट",
+	"gather-lists-show-failure-toast": "$1 सूची देखावे में नाकाम",
+	"gather-add-to-collection-failed-toast": "संग्रह मे पन्ना जोड़े में नाकाम",
+	"gather-add-to-new": "नया सार्वजनिक संग्रह में जोड़ीं",
+	"gather-no-such-action": "क्षमा करीं, अनुरोध करल गईल काम उपलब्ध नईखे।",
+	"gather-unknown-error": "क्षमा करब, जब आपके निवेदन के प्रशोधन करल जात रहल ह तवना घड़ी कउनो अनजान गलती आ गईल ह।",
+	"right-gather-hidelist": "सार्वजनिक सदस्य सूची के छुपावे खातिर दवाब डालीं"
+}
