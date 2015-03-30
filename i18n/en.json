@@ -10,6 +10,8 @@
 	},
 	"gather": "Gather",
 	"gatherlists": "Gather lists",
+	"gather-lists-showhidden": "Show hidden lists",
+	"gather-lists-showvisible": "Show visible lists",
 	"gather-lists-collection-owner": "Owner",
 	"gather-lists-collection-last-updated": "Last updated",
 	"gather-lists-collection-title": "Title",
