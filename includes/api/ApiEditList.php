@@ -124,10 +124,14 @@ class ApiEditList extends ApiBase {
 	 * Checks whether the collection description or title is disallowed according to AbuseFilter
 	 * if available. If no abuse filters in place returns false.
 	 * @param string $string
+	 * @param int $maxLength maximum allowed number of characters in a string
 	 * @return bool
+	 * @throws MWException
 	 */
-	private function isDisallowedString( $string ) {
-		if ( class_exists( 'AbuseFilterVariableHolder' ) ) {
+	private function isValidStr( $string, $maxLength ) {
+		if ( mb_strlen( $string ) > $maxLength ) {
+			return false;
+		} elseif ( class_exists( 'AbuseFilterVariableHolder' ) ) {
 			$vars = new AbuseFilterVariableHolder();
 			$vars->addHolders( AbuseFilter::generateUserVars( $this->getUser() ) );
 			$vars->setVar( 'action', 'gatheredit' );
@@ -135,9 +139,9 @@ class ApiEditList extends ApiBase {
 			$vars->setVar( 'new_wikitext', $string );
 			$vars->setVar( 'added_lines', $string );
 			$result = AbuseFilter::filterAction( $vars, Title::newFromText( 'Gather' ) );
-			return !$result->isGood();
+			return $result->isGood();
 		} else {
-			return false;
+			return true;
 		}
 	}
 
@@ -247,15 +251,15 @@ class ApiEditList extends ApiBase {
 				} ) );
 				if ( $extraParams ) {
 					$this->dieUsage( "The parameter {$p}mode=$mode must not be used with " .
-									 implode( ", ", $extraParams ), 'invalidparammix' );
+						implode( ", ", $extraParams ), 'invalidparammix' );
 				}
 			}
-			if ( $label !== null && $this->isDisallowedString( $label ) ) {
-				$this->dieUsage( 'Label denied by the abuse filter', 'badlabel' );
+			if ( $label !== null && !$this->isValidStr( $label, 90 ) ) {
+				$this->dieUsage( 'Label too long or denied by the abuse filter', 'badlabel' );
 			}
 			$description = $params['description'];
-			if ( $description !== null && $this->isDisallowedString( $description ) ) {
-				$this->dieUsage( 'Description denied by the abuse filter', 'baddesc' );
+			if ( $description !== null && !$this->isValidStr( $description, 280 ) ) {
+				$this->dieUsage( 'Description too long or denied by the abuse filter', 'baddesc' );
 			}
 		}
 	}
