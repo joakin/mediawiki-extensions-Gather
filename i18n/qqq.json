@@ -9,9 +9,12 @@
 			"Robby",
 			"Amire80",
 			"Yuri Astrakhan",
-			"Yurik"
+			"Yurik",
+			"Florian Schmidt"
 		]
 	},
+	"gather": "Name of special page [[Special:Gather]].",
+	"gatherlists": "Name of special page [[Special:GatherLists]].",
 	"gather-lists-collection-owner": "Label for owner of collection on list of all collections\n{{Identical|Owner}}",
 	"gather-lists-collection-last-updated": "Label for last updated time of a collection\n{{Identical|Last updated}}",
 	"gather-lists-collection-title": "Label for title of collection on list of all collections\n{{Identical|Title}}",

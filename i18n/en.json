@@ -4,9 +4,12 @@
 			"Joaquin Hernandez",
 			"Jon Robson",
 			"Rob Moen",
-			"Yuri Astrakhan"
+			"Yuri Astrakhan",
+			"Florian Schmidt"
 		]
 	},
+	"gather": "Gather",
+	"gatherlists": "Gather lists",
 	"gather-lists-collection-owner": "Owner",
 	"gather-lists-collection-last-updated": "Last updated",
 	"gather-lists-collection-title": "Title",
