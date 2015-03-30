@@ -191,6 +191,7 @@ class GatherTests extends ApiTestCase {
 		$this->badUseEdit( 'ed-b5', $usr, false, '"label": "x"' );
 		$this->badUseEdit( 'ed-b6', $usrA, $tokenA, '"label": "x"' );
 		$this->badUseEdit( 'ed-b7', $usrA, false, '"label": "x"' );
+		$this->badUseEdit( 'ed-b8', $usr, $token, '"label": "a|b"' );
 
 		// watchlist should not be modifiable this way
 		$idWL = '"id":0';
