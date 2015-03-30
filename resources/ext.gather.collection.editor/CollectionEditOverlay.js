@@ -69,7 +69,7 @@
 					// JavaScript state.
 					schema.log( {
 						eventName: 'edit-collection'
-					} ).done( function () {
+					} ).always( function () {
 						router.navigate( '/' );
 						window.location.reload();
 					} );

@@ -65,7 +65,7 @@
 
 				schema.log( {
 					eventName: 'delete-collection'
-				} ).done( function () {
+				} ).always( function () {
 					// Go to the collections list page as collection will no longer exist
 					window.location.href = mw.util.getUrl( 'Special:Gather' );
 				} );
