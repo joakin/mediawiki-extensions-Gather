@@ -96,10 +96,7 @@ class ApiEditList extends ApiBase {
 					// ACTION: delete list (items + list itself)
 					$dbw->delete( 'gather_list_item', array( 'gli_gl_id' => $listId ), __METHOD__ );
 					$dbw->delete( 'gather_list', array( 'gl_id' => $listId ), __METHOD__ );
-					$this->getResult()->addValue( null, $this->getModuleName(), array(
-						'status' => 'deleted',
-						'id' => $listId,
-					) );
+					$this->setResultStatus( $listId, 'deleted' );
 					break;
 				case 'hidelist':
 				case 'showlist':
@@ -180,21 +177,20 @@ class ApiEditList extends ApiBase {
 		}
 
 		if ( $isWatchlist ) {
+			global $wgGatherAllowPublicWatchlist;
 			if ( $label !== null ) {
 				$this->dieUsage( "{$p}label cannot be set for a watchlist", 'invalidparammix' );
 			} elseif ( $mode === 'deletelist' ) {
 				$this->dieUsage( "Watchlist may not be deleted", 'invalidparammix' );
-			} elseif ( $params['perm'] === 'public' ) {
+			} elseif ( !$wgGatherAllowPublicWatchlist ) {
 				// Per team discussion, introducing artificial limitation for now
 				// until we establish that making watchlist public would cause no harm.
-				// This check can be deleted at any time since all other API code supports it.
-				$this->dieUsage( 'Making watchlist public is not supported for security reasons',
-					'publicwatchlist' );
-			} elseif ( $isNoUpdatesMode ) {
-				// Per team discussion, introducing artificial limitation for now
-				// until we establish that making watchlist public would cause no harm.
-				// This check can be deleted at any time since all other API code supports it.
-				$this->dieUsage( "{$p}mode=$mode is not allowed for watchlist", 'watchlist' );
+				if ( $isNoUpdatesMode ) {
+					$this->dieUsage( "{$p}mode=$mode is not allowed for watchlist", 'watchlist' );
+				} elseif ( $params['perm'] === 'public' ) {
+					$this->dieUsage( 'Making watchlist public is not supported for security reasons',
+						'publicwatchlist' );
+				}
 			}
 		}
 		if ( $isNew ) {
@@ -396,8 +392,8 @@ class ApiEditList extends ApiBase {
 	 */
 	private function createRow( DatabaseBase $dbw, User $user, array $params, &$isWatchlist ) {
 		$label = $isWatchlist ? '' : $params['label'];
-		$info = $this->updateInfo( new stdClass(), $params, $isWatchlist );
-		$createRow = !$isWatchlist || $info;
+		$info = $this->updateInfo( new stdClass(), $params );
+		$createRow = !$isWatchlist || $info || $params['perm'] === 'public';
 
 		if ( $createRow ) {
 			$id = $dbw->nextSequenceValue( 'gather_list_gl_id_seq' );
@@ -428,16 +424,10 @@ class ApiEditList extends ApiBase {
 				$this->dieDebug( "List was not found", 'badid' );
 			} else {
 				// Watchlist, no changes
-				$this->getResult()->addValue( null, $this->getModuleName(), array(
-					'status' => 'nochanges',
-					'id' => 0,
-				) );
+				$this->setResultStatus( 0, 'nochanges' );
 			}
 		} else {
-			$this->getResult()->addValue( null, $this->getModuleName(), array(
-				'status' => 'created',
-				'id' => $id,
-			) );
+			$this->setResultStatus( $id, 'created' );
 		}
 		return $id;
 	}
@@ -452,7 +442,7 @@ class ApiEditList extends ApiBase {
 	private function updateListDb( DatabaseBase $dbw, array $params, $row ) {
 		$update = array();
 		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
-		$info = $this->updateInfo( $info, $params, $row->gl_label === '' );
+		$info = $this->updateInfo( $info, $params );
 		if ( $info ) {
 			$update['gl_info'] = $info;
 		}
@@ -498,8 +488,7 @@ class ApiEditList extends ApiBase {
 		$titles->append( new ArrayIterator( $pageSet->getGoodTitles() ) );
 		$titles->append( new ArrayIterator( $pageSet->getMissingTitles() ) );
 
-		$mode = $params['mode'];
-		$isRemoving = $mode === 'remove';
+		$isRemoving = $params['mode'] === 'remove';
 		if ( $isWatchlist ) {
 			// Legacy watchlist - watch/unwatch
 			foreach ( $titles as $title ) {
@@ -678,9 +667,17 @@ class ApiEditList extends ApiBase {
 		} else {
 			$status = 'nochanges';
 		}
+		$this->setResultStatus( $row->gl_id, $status );
+	}
+
+	/**
+	 * @param int $id
+	 * @param string $status
+	 */
+	private function setResultStatus( $id, $status ) {
 		$this->getResult()->addValue( null, $this->getModuleName(), array(
 			'status' => $status,
-			'id' => $row->gl_id,
+			'id' => $id,
 		) );
 	}
 }

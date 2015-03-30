@@ -56,6 +56,8 @@ class ApiQueryLists extends ApiQueryBase {
 		$fld_public = in_array( 'public', $params['prop'] );
 		$fld_image = in_array( 'image', $params['prop'] );
 		$fld_updated = in_array( 'updated', $params['prop'] );
+		$fld_owner = in_array( 'owner', $params['prop'] );
+		$fld_count = in_array( 'count', $params['prop'] );
 
 		// Watchlist, having the label set to '', should always appear first
 		// If it doesn't, make sure to insert a fake one in the result
@@ -77,9 +79,8 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 			$injectWatchlist = false;
 			$findWatchlist = false;
-			$owner = false;
+			$owner = null;
 			$showPrivate = false;
-			$userId = 0;
 		} else {
 			if ( $ids ) {
 				$findWatchlist = array_search( 0, $ids );
@@ -96,7 +97,6 @@ class ApiQueryLists extends ApiQueryBase {
 
 			/** @var User $owner */
 			list( $owner, $showPrivate ) = $this->calcPermissions( $params, $ids );
-			$userId = $owner ? $owner->getId() : $this->getUser()->getId();
 			if ( $showPrivate !== true ) {
 				$injectWatchlist = false;
 			}
@@ -105,13 +105,28 @@ class ApiQueryLists extends ApiQueryBase {
 		$db = $this->getDB();
 		$this->addTables( 'gather_list' );
 		$this->addFields( 'gl_id' );
-		$this->addFieldsIf( 'gl_label', $fld_label || !$mode );
+		if ( $fld_label || !$mode ) {
+			$this->addFields( 'gl_label' );
+		} else {
+			$this->addFields( array( 'isWl' => "gl_label=''" ) );
+		}
 		$this->addFieldsIf( 'gl_updated', $fld_updated || $mode );
-		$this->addFieldsIf( 'gl_user', $mode );
 		$this->addFieldsIf( 'gl_perm', $fld_public );
+
+		if ( $fld_owner && !$owner ) {
+			// Join user table to get user name
+			// else - we already know the user to return, no need to join tables
+			$this->addTables( 'user' );
+			$this->addJoinConds( array( 'user' => array( 'INNER JOIN', 'user_id=gl_user' ) ) );
+			$this->addFields( 'user_name' );
+		}
 
 		if ( $owner ) {
 			$this->addWhereFld( 'gl_user', $owner->getId() );
+			$singleUser = true;
+		} else {
+			$owner = $this->getUser();
+			$singleUser = false;
 		}
 
 		if ( $ids || $findWatchlist ) {
@@ -120,17 +135,22 @@ class ApiQueryLists extends ApiQueryBase {
 				$cond['gl_id'] = $ids;
 			}
 			if ( $findWatchlist ) {
-				$cond['gl_label'] = '';
+				if ( $singleUser ) {
+					$cond['gl_label'] = '';
+				} else {
+					$cond[] =
+						$db->makeList( array( 'gl_label' => '', 'gl_user' => $owner->getId() ),
+							LIST_AND );
+					if ( !$ids ) {
+						$singleUser = true;
+					}
+				}
 			}
 			$this->addWhere( $db->makeList( $cond, LIST_OR ) );
 		}
 
 		if ( $mode === 'allhidden' ) {
 			$this->addWhereFld( 'gl_perm', ApiEditList::PERM_HIDDEN );
-			if ( !$this->getUser()->isAllowed( 'gather-hidelist' ) ) {
-				// Show only the lists for the current user
-				$this->addWhereFld( 'gl_user', $this->getUser()->getId() );
-			}
 		} elseif ( $showPrivate !== true ) {
 			$cond = array( 'gl_perm' => ApiEditList::PERM_PUBLIC );
 			if ( $showPrivate === null ) {
@@ -140,18 +160,30 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 
 		if ( $continue ) {
-			if ( $mode ) {
-				$cont = explode( '|', $params['continue'] );
-				$this->dieContinueUsageIf( count( $cont ) != 2 );
-				$cont_upd = $db->addQuotes( $cont[0] );
-				$cont_id = intval( $cont[1] );
-				$this->dieContinueUsageIf( strval( $cont_id ) !== $cont[1] );
-				$cont_id = $db->addQuotes( $cont_id );
-				$this->addWhere( "gl_updated < $cont_upd OR " .
-								 "(gl_updated = $cont_upd AND gl_id <= $cont_id)" );
+			if ( $singleUser ) {
+				// Single value continue
+				$contLabel = $db->addQuotes( $params['continue'] );
+				$this->addWhere( "gl_label >= $contLabel" );
 			} else {
-				$cont = $db->addQuotes( $continue );
-				$this->addWhere( "gl_label >= $cont" );
+				if ( $mode ) {
+					$cont = explode( '|', $params['continue'] );
+					$this->dieContinueUsageIf( count( $cont ) != 2 );
+					$contUpd = $db->addQuotes( $cont[0] );
+					$contId = intval( $cont[1] );
+					$this->dieContinueUsageIf( strval( $contId ) !== $cont[1] );
+					$contId = $db->addQuotes( $contId );
+					$this->addWhere( "gl_updated < $contUpd OR " .
+									 "(gl_updated = $contUpd AND gl_id <= $contId)" );
+				} else {
+					$cont = explode( '|', $params['continue'], 2 ); // label may contain '|'
+					$this->dieContinueUsageIf( count( $cont ) != 2 );
+					$contUser = intval( $cont[0] );
+					$this->dieContinueUsageIf( strval( $contUser ) !== $cont[0] );
+					$contUser = $db->addQuotes( $contUser );
+					$contLabel = $db->addQuotes( $cont[1] );
+					$this->addWhere( "gl_user > $contUser OR " .
+									 "(gl_user = $contUser AND gl_label >= $contLabel)" );
+				}
 			}
 		}
 		if ( $mode ) {
@@ -161,8 +193,14 @@ class ApiQueryLists extends ApiQueryBase {
 			$setContinue = function( $row ) use ( $self ) {
 				$self->setContinueEnumParameter( 'continue', "{$row->gl_updated}|{$row->gl_id}" );
 			};
-		} else {
+		} elseif ( !$singleUser ) {
+			$this->addFields( 'gl_user' );
 			$this->addOption( 'ORDER BY', 'gl_user, gl_label' );
+			$setContinue = function( $row ) use ( $self ) {
+				$self->setContinueEnumParameter( 'continue', "{$row->gl_user}|{$row->gl_label}" );
+			};
+		} else {
+			$this->addOption( 'ORDER BY', 'gl_label' );
 			$setContinue = function( $row ) use ( $self ) {
 				$self->setContinueEnumParameter( 'continue', $row->gl_label );
 			};
@@ -183,10 +221,8 @@ class ApiQueryLists extends ApiQueryBase {
 				$subsql = $db->selectSQLText( 'gather_list_item', 'gli_gl_id', $cond, __METHOD__ );
 				$subsql = "($subsql)";
 				$this->addFields( array( 'isIn' => $subsql ) );
-			} else {
-				// Avoid subquery because there would be no results - searching for watchlist
-				$this->addFields( array( 'isIn' => 'NULL' ) );
 			}
+			// else - avoid subquery because there would be no results - searching for watchlist
 		}
 
 		$useInfo = $fld_description || $fld_image;
@@ -200,15 +236,14 @@ class ApiQueryLists extends ApiQueryBase {
 
 		// This closure will process one row, even if that row is fake watchlist
 		$processRow = function( $row ) use ( $self, &$count, $mode, $limit,  $useInfo, $title,
-			$fld_label, $fld_description, $fld_public, $fld_image, $fld_updated, $path, $userId,
-			$setContinue
+			$fld_label, $fld_description, $fld_public, $fld_image, $fld_updated, $fld_owner,
+			$path, $owner, $setContinue
 		) {
 			if ( $row === null ) {
 				// Fake watchlist row
 				$row = (object) array(
 					'gl_id' => 0,
 					'gl_label' => '',
-					'gl_user' => false,
 					'gl_perm' => ApiEditList::PERM_PRIVATE,
 					'gl_updated' => '',
 					'gl_info' => '',
@@ -225,7 +260,7 @@ class ApiQueryLists extends ApiQueryBase {
 				return false;
 			}
 
-			$isWatchlist = $row->gl_label === '';
+			$isWatchlist = property_exists( $row, 'isWl' ) ? $row->isWl : $row->gl_label === '';
 
 			$data = array( 'id' => $row->gl_id );
 			if ( $isWatchlist ) {
@@ -235,14 +270,15 @@ class ApiQueryLists extends ApiQueryBase {
 				// TODO: check if this is the right wfMessage to show
 				$data['label'] = !$isWatchlist ? $row->gl_label : wfMessage( 'watchlist' )->plain();
 			}
-			if ( $mode ) {
-				$data['owner'] = User::newFromId( $row->gl_user )->getName();
+			if ( $fld_owner ) {
+				$data['owner'] = property_exists( $row, 'user_name' ) ?
+					$row->user_name : $owner->getName();
 			}
 			if ( $title ) {
 				if ( $isWatchlist ) {
-					$data['title'] = $self->isTitleInWatchlist( $userId, $title );
+					$data['title'] = $self->isTitleInWatchlist( $owner, $title );
 				} else {
-					$data['title'] = $row->isIn !== null;
+					$data['title'] = isset( $row->isIn );
 				}
 			}
 			if ( $fld_public ) {
@@ -297,7 +333,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 		foreach ( $this->select( __METHOD__ ) as $row ) {
 			if ( $injectWatchlist ) {
-				if ( $row->gl_label !== '' ) {
+				if ( property_exists( $row, 'isWl' ) ? !$row->isWl : $row->gl_label !== '' ) {
 					// The very first DB row already has a label, so inject a fake
 					if ( !$processRow( null ) ) {
 						break;
@@ -317,7 +353,9 @@ class ApiQueryLists extends ApiQueryBase {
 
 		$this->getResult()->setIndexedTagName_internal( $path, 'c' );
 
-		$this->updateCounts( $params, $userId );
+		if ( $fld_count ) {
+			$this->updateCounts( $owner );
+		}
 	}
 
 	public function getCacheMode( $params ) {
@@ -342,6 +380,7 @@ class ApiQueryLists extends ApiQueryBase {
 					'image',
 					'count',
 					'updated',
+					'owner',
 				)
 			),
 			'ids' => array(
@@ -417,7 +456,7 @@ class ApiQueryLists extends ApiQueryBase {
 			// ids given - will need to validate each id to belong to the current user for privacy
 			$owner = false;
 			if ( !$this->getUser()->isLoggedIn() ) {
-				$showPrivate = false;
+				$showPrivate = false; // Anonymous user - optimize, none of the results are private
 			} else {
 				$showPrivate = null; // check each id against current user's ID
 			}
@@ -434,13 +473,9 @@ class ApiQueryLists extends ApiQueryBase {
 
 	/**
 	 * Update result lists with their page counts
-	 * @param $params
-	 * @param int $userId
+	 * @param User $wlOwner In case there is a watchlist, this is the user it belongs to
 	 */
-	private function updateCounts( $params, $userId ) {
-		if ( !in_array( 'count', $params['prop'] ) ) {
-			return;
-		}
+	private function updateCounts( User $wlOwner ) {
 		$data = $this->getResult()->getData();
 		if ( !isset( $data['query'] ) || !isset( $data['query'][$this->getModuleName()] ) ) {
 			return;
@@ -449,13 +484,13 @@ class ApiQueryLists extends ApiQueryBase {
 
 		$ids = array();
 		$wlListId = false;
-		$wlUserId = false;
 		foreach ( $data as $page ) {
-			if ( $page['id'] === 0 || isset( $page['watchlist'] ) ) {
-				$wlListId = $page['id'];
-				$wlUserId = $userId;
-			} else {
-				$ids[] = $page['id'];
+			if ( is_array( $page ) ) {
+				if ( $page['id'] === 0 || isset( $page['watchlist'] ) ) {
+					$wlListId = $page['id'];
+				} else {
+					$ids[] = $page['id'];
+				}
 			}
 		}
 
@@ -465,7 +500,7 @@ class ApiQueryLists extends ApiQueryBase {
 			$db = $this->getQuery()->getNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
 			// Must divide in two because of duplicate talk pages (same as the special page)
 			$counts[$wlListId] = intval( floor(
-				$db->selectRowCount( 'watchlist', '*', array( 'wl_user' => $wlUserId ),
+				$db->selectRowCount( 'watchlist', '*', array( 'wl_user' => $wlOwner->getId() ),
 					__METHOD__ ) / 2 ) );
 		}
 		if ( count( $ids ) > 0 ) {
@@ -482,8 +517,10 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 
 		foreach ( $data as &$page ) {
-			$id = $page['id'];
-			$page['count'] = isset( $counts[$id] ) ? $counts[$id] : 0;
+			if ( is_array( $page ) ) {
+				$id = $page['id'];
+				$page['count'] = isset( $counts[$id] ) ? $counts[$id] : 0;
+			}
 		}
 		// Replace result with the results with counts
 		$this->getResult()->addValue( 'query', $this->getModuleName(), $data,
@@ -491,15 +528,15 @@ class ApiQueryLists extends ApiQueryBase {
 	}
 
 	/**
-	 * @param int $userId
+	 * @param User $user
 	 * @param Title $title
 	 * @return bool
 	 * @throws \DBUnexpectedError
 	 */
-	private function isTitleInWatchlist( $userId, $title ) {
+	private function isTitleInWatchlist( User $user, Title $title ) {
 		$db = $this->getQuery()->getNamedDB( 'watchlist', DB_SLAVE, 'watchlist' );
 		return (bool)$db->selectField( 'watchlist', '1', array(
-			'wl_user' => $userId,
+			'wl_user' => $user->getId(),
 			'wl_namespace' => $title->getNamespace(),
 			'wl_title' => $title->getDBkey(),
 		), __METHOD__ );

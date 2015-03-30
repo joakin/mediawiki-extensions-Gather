@@ -97,5 +97,10 @@ $wgAvailableRights[] = 'gather-hidelist';
 $wgGroupPermissions['*']['gather-hidelist'] = false;
 $wgGroupPermissions['sysop']['gather-hidelist'] = true;
 
+/**
+ * If true, user's watchlist can be made public
+ */
+$wgGatherAllowPublicWatchlist = false;
+
 // ResourceLoader modules
 require_once __DIR__ . "/resources/Resources.php";
