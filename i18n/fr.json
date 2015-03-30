@@ -3,9 +3,20 @@
 		"authors": [
 			"Element303",
 			"Thibaut120094",
-			"Abaddon1337"
+			"Abaddon1337",
+			"MPlauche"
 		]
 	},
+	"gather-lists-collection-owner": "propriétaire",
+	"gather-lists-collection-last-updated": "Dernière mise à jour",
+	"gather-lists-collection-title": "Titre",
+	"gather-lists-collection-description": "Description",
+	"gather-lists-collection-count": "Total",
+	"gather-lists-hide-collection-label": "Masquer",
+	"gather-lists-hide-collection": "Voulez-vous masquer la liste \"$1\" par $2?",
+	"gather-lists-hide-success-toast": "Liste \"$1\" masquée avec succès.",
+	"gather-lists-hide-failure-toast": "Impossible de masquer la liste \"$1\".",
+	"gather-lists-show-collection-label": "Montrer",
 	"gather-edit-collection-label-name": "Nom",
 	"gather-edit-collection-label-description": "Description",
 	"gather-delete-collection-delete-label": "Supprimer",

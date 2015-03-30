@@ -41,6 +41,11 @@ $specialPageAliases['mk'] = array(
 	'GatherLists' => array( 'СобирањеСписоци' ),
 );
 
+/** Simplified Chinese (中文（简体）‎) */
+$specialPageAliases['zh-hans'] = array(
+	'GatherLists' => array( 'Gather列表' ),
+);
+
 /** Traditional Chinese (中文（繁體）‎) */
 $specialPageAliases['zh-hant'] = array(
 	'Gather' => array( '聚集' ),

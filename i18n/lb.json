@@ -10,6 +10,7 @@
 	"gather-lists-collection-description": "Beschreiwung",
 	"gather-lists-collection-count": "Compteur",
 	"gather-lists-hide-collection-label": "Verstoppen",
+	"gather-lists-hide-collection": "Wëllt Dir d'Lëscht ''$1'' vum $2 verstoppen?",
 	"gather-lists-hide-success-toast": "D'Lëscht ''$1'' gouf verstoppt.",
 	"gather-lists-hide-failure-toast": "D'Lëscht ''$1'' konnt net verstoppt ginn.",
 	"gather-lists-show-collection-label": "Weisen",

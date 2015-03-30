@@ -4,5 +4,16 @@
 			"Papuass"
 		]
 	},
-	"gather-lists-title": "Kolekcijas"
+	"gather-lists-collection-owner": "Īpašnieks",
+	"gather-lists-collection-title": "Nosaukums",
+	"gather-lists-collection-description": "Apraksts",
+	"gather-lists-collection-count": "Skaits",
+	"gather-lists-hide-collection-label": "Paslēpt",
+	"gather-delete-collection-delete-label": "Dzēst",
+	"gather-delete-collection-cancel-label": "Atcelt",
+	"gather-add-to-collection-confirm": "Pievienot kolekcijai",
+	"gather-add-to-collection-cancel": "Nē, paldies",
+	"gather-page-not-found": "Lapa nav atrasta",
+	"gather-lists-title": "Kolekcijas",
+	"gather-delete-button": "Dzēst"
 }
