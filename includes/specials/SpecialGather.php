@@ -121,9 +121,18 @@ class SpecialGather extends SpecialPage {
 			( !$collection->isPublic() && !$collection->isOwner( $this->getUser() ) ) ) {
 			$this->renderError( new views\NotFound() );
 		} else {
-			$this->getOutput()->addJsConfigVars( 'wgGatherCollections', $collection->toArray() );
+			$out = $this->getOutput();
+			$out->addJsConfigVars( 'wgGatherCollections', $collection->toArray() );
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
 			$this->updateCollectionImage( $collection );
+			$out->addHeadItem( 'description',
+				Html::element(
+					'meta', array(
+						'name' => 'description',
+						'content' => $collection->getDescription(),
+					)
+				)
+			);
 		}
 	}
 
