@@ -10,6 +10,7 @@ use SpecialPage;
 use ApiMain;
 use FauxRequest;
 use Html;
+use Linker;
 use Gather\views\helpers\CSS;
 use MWTimestamp;
 
@@ -46,9 +47,15 @@ class SpecialGatherLists extends SpecialPage {
 	 * Render the special page
 	 */
 	public function execute( $subPage ) {
-		if ( $subPage === 'hidden' && !$this->canHideLists() ) {
-			$this->renderError();
-			return;
+		$out = $this->getOutput();
+		if ( $subPage === 'hidden' ) {
+			if ( !$this->canHideLists() ) {
+				$this->renderError();
+				return;
+			}
+			$out->addSubtitle( $this->getSubTitle() );
+		} elseif ( $this->canHideLists() ) {
+			$out->addSubtitle( $this->getSubTitle( true ) );
 		}
 		// FIXME: Make method on CollectionsList
 		$api = new ApiMain( new FauxRequest( array(
@@ -66,6 +73,18 @@ class SpecialGatherLists extends SpecialPage {
 			$lists = $data['query']['lists'];
 			$this->render( $lists, $subPage === 'hidden' ? 'show' : 'hide' );
 		}
+	}
+
+	/**
+	 * Get subtitle text with a link to show the (un-)hidden collections.
+	 * @param boolean $hidden Whether to get a link to show the hidden collections
+	 * @return string
+	 */
+	public function getSubTitle( $hidden = false ) {
+		return Linker::link(
+			SpecialPage::getTitleFor( 'GatherLists', ( $hidden ? 'hidden' : false ) ),
+			( $hidden ? $this->msg( 'gather-lists-showhidden' ) : $this->msg( 'gather-lists-showvisible' ) )
+		);
 	}
 
 	/**

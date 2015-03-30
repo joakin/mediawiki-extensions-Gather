@@ -14,6 +14,8 @@
 		]
 	},
 	"gather-lists-collection-owner": "Table column header in a list of all collections. The column will list usernames of people who own collection.\n{{Identical|Owner}}",
+	"gather-lists-showhidden": "Link title to show hidden lists on [[Special:GatherLists]].",
+	"gather-lists-showvisible": "Link title to show visible lists on [[Special:GatherLists]].",
 	"gather-lists-collection-last-updated": "Label for last updated time of a collection\n{{Identical|Last updated}}",
 	"gather-lists-collection-title": "Label for title of collection on list of all collections\n{{Identical|Title}}",
 	"gather-lists-collection-description": "Label for description of collection on list of all collections\n{{Identical|Description}}",
