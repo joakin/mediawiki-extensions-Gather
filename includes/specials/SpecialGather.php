@@ -115,8 +115,9 @@ class SpecialGather extends SpecialPage {
 		$collection = models\Collection::newFromApi( $id, $user );
 
 		if ( $collection === null ||
-			( !$collection->isPublic() && !$this->isOwner( $collection->getOwner() ) ) ) {
+			// If collection is private and current user doesn't own it
 			// FIXME: No permissions to visit this. Showing not found ATM.
+			( !$collection->isPublic() && !$collection->isOwner( $this->getUser() ) ) ) {
 			$this->renderError( new views\NotFound() );
 		} else {
 			$this->getOutput()->addJsConfigVars( 'wgGatherCollections', $collection->toArray() );
@@ -131,7 +132,9 @@ class SpecialGather extends SpecialPage {
 	 * @param User $user owner of collections
 	 */
 	public function renderUserCollectionsList( User $user ) {
-		$collectionsList = models\CollectionsList::newFromApi( $user, $this->isOwner( $user ) );
+		$collectionsList = models\CollectionsList::newFromApi(
+			$user, $this->getUser()->equals( $user )
+		);
 		if ( $collectionsList->getCount() > 0 ) {
 			$this->render( new views\CollectionsList( $collectionsList ) );
 		} else {
@@ -152,25 +155,14 @@ class SpecialGather extends SpecialPage {
 		$view->render( $out );
 	}
 
-	/**
-	 * Returns if the user viewing the page is the owner of the collection/list
-	 * we are viewing
-	 *
-	 * @param User $user user owner of the current page
-	 *
-	 * @return boolean
-	 */
-	private function isOwner( User $user ) {
-		return $this->getUser()->equals( $user );
-	}
-
 	// FIXME: Re-evaluate when UI supports editing image of collection.
 	private function updateCollectionImage( $collection ) {
 		$currentImage = $collection->getFile();
-		$user = $collection->getOwner();
 		$suggestedImage = $collection->getSuggestedImage();
 		$imageChanged = !$currentImage || $currentImage->getTitle()->getText() !== $suggestedImage;
-		if ( $imageChanged && $this->isOwner( $user ) && !$collection->isWatchlist() ) {
+		if ( $imageChanged &&
+			$collection->isOwner( $this->getUser() ) &&
+			!$collection->isWatchlist() ) {
 			// try to set the collection image to the first item in the collection.
 			try {
 				$api = new ApiMain( new DerivativeRequest(
@@ -179,7 +171,7 @@ class SpecialGather extends SpecialPage {
 						'action' => 'editlist',
 						'id' => $collection->getId(),
 						'image' => $suggestedImage,
-						'token' => $user->getEditToken( 'watch' ),
+						'token' => $collection->getOwner()->getEditToken( 'watch' ),
 					),
 					true
 				), true );

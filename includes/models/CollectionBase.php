@@ -171,7 +171,7 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 * @return boolean
 	 */
 	public function isOwner( User $user ) {
-		return $this->owner->getName() == $user->getName();
+		return $this->owner->equals( $user );
 	}
 
 }
