@@ -118,18 +118,20 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	}
 
 	/**
-	 * Generate UserPageCollectionsList from api result
+	 * Generate a Collection from api result
 	 * @param Integer $id the id of the collection
-	 * @param User $user collection list owner (currently unused)
+	 * @param User $user optional collection list owner (if present will be
+	 * included in the query and validated)
 	 * @return models\Collections a collection
 	 */
-	public static function newFromApi( $id, User $user ) {
+	public static function newFromApi( $id, User $user = null ) {
+
 		$collection = null;
-		$api = new ApiMain( new FauxRequest( array(
+		$params = array(
 			'action' => 'query',
 			'list' => 'lists',
 			'lstids' => $id,
-			'lstprop' => 'label|description|public|image',
+			'lstprop' => 'label|description|public|image|owner',
 			'prop' => 'pageimages|extracts',
 			'generator' => 'listpages',
 			'glspid' => $id,
@@ -141,7 +143,13 @@ class Collection extends CollectionBase implements IteratorAggregate {
 			'pilimit' => 50,
 			// TODO: Pagination
 			'continue' => '',
-		) ) );
+		);
+		// If user is present, include it in the request. Api will return not found
+		// if the specified owner doesn't match the actual collection owner.
+		if ( $user ) {
+			$params['lstowner'] = $user->getName();
+		}
+		$api = new ApiMain( new FauxRequest( $params ) );
 
 		try {
 			$api->execute();
@@ -151,12 +159,13 @@ class Collection extends CollectionBase implements IteratorAggregate {
 				if ( count( $lists ) === 1 ) {
 					$list = $lists[0];
 					$image = $list['image'] ? wfFindFile( $list['image'] ) : null;
-					$collection = new Collection( $id, $user, $list['label'], $list['description'],
+					$owner = User::newFromName( $list['owner'] );
+					$collection = new Collection( $id, $owner, $list['label'], $list['description'],
 						$list['public'], $image );
 				}
 			}
 
-			if ( isset( $data['query']['pages'] ) ) {
+			if ( $collection && isset( $data['query']['pages'] ) ) {
 				$pages = $data['query']['pages'];
 				foreach ( $pages as $page ) {
 					$title = Title::newFromText( $page['title'], $page['ns'] );
