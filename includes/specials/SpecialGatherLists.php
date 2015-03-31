@@ -13,6 +13,7 @@ use Html;
 use Linker;
 use Gather\views\helpers\CSS;
 use MWTimestamp;
+use Exception;
 
 /**
  * Render a collection of articles.
@@ -57,21 +58,32 @@ class SpecialGatherLists extends SpecialPage {
 		} elseif ( $this->canHideLists() ) {
 			$out->addSubtitle( $this->getSubTitle( true ) );
 		}
+		$req = $this->getRequest();
+		$limit = 100;
+
 		// FIXME: Make method on CollectionsList
-		$api = new ApiMain( new FauxRequest( array(
+		$api = new ApiMain( new FauxRequest( array_merge( array(
 			'action' => 'query',
 			'list' => 'lists',
 			'lstmode' => $subPage === 'hidden' ? 'allhidden' : 'allpublic',
+			'lstlimit' => $limit,
 			// FIXME: Need owner to link to collection
 			'lstprop' => 'label|description|image|count|updated|owner',
-			// TODO: Pagination
 			'continue' => '',
-		) ) );
-		$api->execute();
-		$data = $api->getResultData();
-		if ( isset( $data['query']['lists'] ) ) {
-			$lists = $data['query']['lists'];
-			$this->render( $lists, $subPage === 'hidden' ? 'show' : 'hide' );
+		), $req->getValues() ) ) );
+		try {
+			$api->execute();
+			$data = $api->getResultData();
+			if ( isset( $data['query']['lists'] ) ) {
+				$lists = $data['query']['lists'];
+				if ( isset( $data['continue'] ) ) {
+					$nextPageUrl = $this->getTitle()->getLocalUrl( $data['continue'] );
+				} else {
+					$nextPageUrl = '';
+				}
+				$this->render( $lists, $subPage === 'hidden' ? 'show' : 'hide', $nextPageUrl );
+			}
+		} catch ( Exception $e ) {
 		}
 	}
 
@@ -91,9 +103,10 @@ class SpecialGatherLists extends SpecialPage {
 	 * Render the special page
 	 *
 	 * @param array $lists
-	 * @param string [$action] hide or show - action to associate with the row.
+	 * @param string $action hide or show - action to associate with the row.
+	 * @param string $nextPageUrl url to access the next page of results.
 	 */
-	public function render( $lists, $action ) {
+	public function render( $lists, $action, $nextPageUrl = '' ) {
 		$out = $this->getOutput();
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
@@ -117,6 +130,12 @@ class SpecialGatherLists extends SpecialPage {
 			$html .= $this->row( $list, $action );
 		}
 		$html .= Html::closeElement( 'ul' );
+		if ( $nextPageUrl ) {
+			$html .= Html::element( 'a', array(
+					'href' => $nextPageUrl,
+					'class' => CSS::buttonClass( 'progressive', 'more-collections' ),
+				), wfMessage( 'gather-lists-collection-more-link-label' ) );
+		}
 		$html .= Html::closeElement( 'div' );
 
 		$out->addHTML( $html );

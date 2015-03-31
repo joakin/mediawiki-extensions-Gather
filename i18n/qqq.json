@@ -79,5 +79,6 @@
 	"apihelp-gather-description": "{{doc-apihelp-description|gather}}",
 	"apihelp-gather-param-gather": "{{doc-apihelp-param|gather|gather}}",
 	"apihelp-gather-param-owner": "{{doc-apihelp-param|gather|owner}}",
-	"apihelp-gather-example-1": "{{doc-apihelp-example|gather}}"
+	"apihelp-gather-example-1": "{{doc-apihelp-example|gather}}",
+	"gather-lists-collection-more-link-label": "Link label for a more type link on the Special:GatherLists page."
 }
