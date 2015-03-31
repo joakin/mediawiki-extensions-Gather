@@ -116,7 +116,7 @@ class SpecialGather extends SpecialPage {
 		$collection = models\Collection::newFromApi( $id, $user );
 
 		if ( $collection === null ||
-			( !$collection->isPublic() && !$this->isOwner( $user ) ) ) {
+			( !$collection->isPublic() && !$this->isOwner( $collection->getOwner() ) ) ) {
 			// FIXME: No permissions to visit this. Showing not found ATM.
 			$this->renderError( new views\NotFound() );
 		} else {
