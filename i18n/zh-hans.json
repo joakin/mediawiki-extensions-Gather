@@ -4,6 +4,10 @@
 			"Liuxinyu970226"
 		]
 	},
+	"gather": "Gather",
+	"gatherlists": "Gather列表",
+	"gather-lists-showhidden": "显示隐藏列表",
+	"gather-lists-showvisible": "显示可视列表",
 	"gather-lists-collection-owner": "所有人",
 	"gather-lists-collection-last-updated": "最后更新",
 	"gather-lists-collection-title": "标题",

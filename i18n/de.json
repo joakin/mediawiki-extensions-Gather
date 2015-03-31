@@ -6,6 +6,10 @@
 			"Inkowik"
 		]
 	},
+	"gather": "Gather",
+	"gatherlists": "Gather-Listen",
+	"gather-lists-showhidden": "Versteckte Listen anzeigen",
+	"gather-lists-showvisible": "Sichtbare Listen anzeigen",
 	"gather-lists-collection-owner": "Besitzer",
 	"gather-lists-collection-last-updated": "Zuletzt aktualisiert",
 	"gather-lists-collection-title": "Titel",

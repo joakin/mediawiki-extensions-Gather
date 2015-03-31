@@ -4,6 +4,10 @@
 			"Bjankuloski06"
 		]
 	},
+	"gather": "Собери",
+	"gatherlists": "Списоци за собирање",
+	"gather-lists-showhidden": "Прикажи скриени списоци",
+	"gather-lists-showvisible": "Прикажи видливи списоци",
 	"gather-lists-collection-owner": "Сопственик",
 	"gather-lists-collection-last-updated": "Последна поднова",
 	"gather-lists-collection-title": "Наслов",
