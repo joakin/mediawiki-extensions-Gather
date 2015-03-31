@@ -122,13 +122,21 @@ class ApiEditList extends ApiBase {
 	 * if available. If no abuse filters in place returns false.
 	 * @param string $string
 	 * @param int $maxLength maximum allowed number of characters in a string
+	 * @param bool $titleRules if true, enforce same rules as for a page title
 	 * @return bool
 	 * @throws MWException
 	 */
-	private function isValidStr( $string, $maxLength ) {
+	private function isValidStr( $string, $maxLength, $titleRules ) {
 		if ( mb_strlen( $string ) > $maxLength ) {
 			return false;
-		} elseif ( class_exists( 'AbuseFilterVariableHolder' ) ) {
+		}
+		if ( $titleRules ) {
+			// TODO: the label should be normalized to $title->getPrefixedText()
+			if ( !Title::newFromText( $string ) ) {
+				return false;
+			}
+		}
+		if ( class_exists( 'AbuseFilterVariableHolder' ) ) {
 			$vars = new AbuseFilterVariableHolder();
 			$vars->addHolders( AbuseFilter::generateUserVars( $this->getUser() ) );
 			$vars->setVar( 'action', 'gatheredit' );
@@ -137,9 +145,8 @@ class ApiEditList extends ApiBase {
 			$vars->setVar( 'added_lines', $string );
 			$result = AbuseFilter::filterAction( $vars, Title::newFromText( 'Gather' ) );
 			return $result->isGood();
-		} else {
-			return true;
 		}
+		return true;
 	}
 
 	/**
@@ -250,11 +257,11 @@ class ApiEditList extends ApiBase {
 						implode( ", ", $extraParams ), 'invalidparammix' );
 				}
 			}
-			if ( $label !== null && !$this->isValidStr( $label, 90 ) ) {
+			if ( $label !== null && !$this->isValidStr( $label, 90, true ) ) {
 				$this->dieUsage( 'Label too long or denied by the abuse filter', 'badlabel' );
 			}
 			$description = $params['description'];
-			if ( $description !== null && !$this->isValidStr( $description, 280 ) ) {
+			if ( $description !== null && !$this->isValidStr( $description, 280, false ) ) {
 				$this->dieUsage( 'Description too long or denied by the abuse filter', 'baddesc' );
 			}
 		}
