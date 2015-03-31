@@ -30,7 +30,10 @@ class CollectionsList extends View {
 			$view = new CollectionsListItemCard( $item );
 			$html .= $view->getHtml();
 		}
-		// FIXME: Pagination
+		$url = $collectionsList->getContinueUrl();
+		if ( $url ) {
+			$html .= Pagination::more( $url, wfMessage( 'gather-lists-more' )->text() );
+		}
 		$html .= Html::closeElement( 'div' );
 		return $html;
 	}

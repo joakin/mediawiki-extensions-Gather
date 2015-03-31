@@ -11,6 +11,7 @@ use ApiMain;
 use FauxRequest;
 use Html;
 use Linker;
+use Gather\views;
 use Gather\views\helpers\CSS;
 use MWTimestamp;
 use Exception;
@@ -131,10 +132,8 @@ class SpecialGatherLists extends SpecialPage {
 		}
 		$html .= Html::closeElement( 'ul' );
 		if ( $nextPageUrl ) {
-			$html .= Html::element( 'a', array(
-					'href' => $nextPageUrl,
-					'class' => CSS::buttonClass( 'progressive', 'more-collections' ),
-				), wfMessage( 'gather-lists-collection-more-link-label' ) );
+			$html .= views\Pagination::more(
+				$nextPageUrl, wfMessage( 'gather-lists-collection-more-link-label' ) );
 		}
 		$html .= Html::closeElement( 'div' );
 

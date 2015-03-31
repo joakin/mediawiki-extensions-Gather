@@ -11,6 +11,7 @@ use Gather\models;
 use \ArrayIterator;
 use \ApiMain;
 use \FauxRequest;
+use \SpecialPage;
 
 class CollectionsList implements \IteratorAggregate, ArraySerializable {
 
@@ -18,13 +19,17 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 	 * @var CollectionInfo[] list of collection items
 	 */
 	protected $collections = array();
-
+	/**
+	 * @var array query string parameters
+	 */
+	protected $continue = array();
 	/**
 	 * @var bool if the list can show private collections or not
 	 */
 	protected $includePrivate;
 
-	public function __construct( $includePrivate = false ) {
+	public function __construct( $user, $includePrivate = false ) {
+		$this->user = $user;
 		$this->includePrivate = $includePrivate;
 	}
 
@@ -79,23 +84,62 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 	}
 
 	/**
+	 * Return user who owns this collection.
+	 * @return User
+	 */
+	public function getOwner() {
+		return $this->user;
+	}
+
+	/**
+	 * Return local url for list of collections
+	 * Example: /wiki/Special:Gather/by/user
+	 *
+	 * @param array $query string parameters for url
+	 * @return string localized url for collection
+	 */
+	public function getUrl( $query = array() ) {
+		return SpecialPage::getTitleFor( 'Gather' )
+			->getSubpage( 'by' )
+			->getSubpage( $this->getOwner() )
+			->getLocalURL( $query );
+	}
+
+	/**
+	 * Return a URL that allows you to retreive the rest of the list of collections
+	 * @return string|null
+	 */
+	public function getContinueUrl() {
+		return $this->continue ? $this->getUrl( $this->continue ) : false;
+	}
+
+	/**
+	 * @param array $continue information to obtain further lists
+	 */
+	public function setContinueQueryString( $continue ) {
+		$this->continue = $continue;
+	}
+
+	/**
 	 * Generate UserPageCollectionsList from api result
 	 * FIXME: $user parameter currently ignored
 	 * @param User $user collection list owner (currently ignored)
-	 * @param boolean $includePrivate if the list should show private collections or not
-	 * @param string $memberTitle title of member to check for
+	 * @param boolean [$includePrivate] if the list should show private collections or not
+	 * @param string [$memberTitle] title of member to check for
+	 * @param string [$continue] generate collection list from continue parameter
 	 * @return models\CollectionsList List of collections.
 	 */
-	public static function newFromApi( User $user, $includePrivate = false, $memberTitle = false ) {
-		$collectionsList = new CollectionsList( $includePrivate );
-		$query = array(
+	public static function newFromApi( User $user, $includePrivate = false,
+		$memberTitle = false, $continue = array() ) {
+		$collectionsList = new CollectionsList( $user, $includePrivate );
+		$query = array_merge( $continue, array(
 			'action' => 'query',
 			'list' => 'lists',
 			'lstprop' => 'label|description|public|image|count',
-			'continue' => '',
 			'lstlimit' => 50,
 			'lstowner' => $user->getName(),
-		);
+			'continue' => '',
+			) );
 		if ( $memberTitle ) {
 			$query['lsttitle'] = $memberTitle;
 		}
@@ -116,6 +160,9 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 					$collectionsList->add( $info );
 				}
 			}
+		}
+		if ( isset( $data['continue'] ) ) {
+			$collectionsList->setContinueQueryString( $data['continue'] );
 		}
 		return $collectionsList;
 	}

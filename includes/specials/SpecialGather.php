@@ -13,6 +13,7 @@ use \UsageException;
 use \DerivativeRequest;
 use \ApiMain;
 use \InvalidArgumentException;
+use \Html;
 
 /**
  * Render a collection of articles.
@@ -133,7 +134,8 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function renderUserCollectionsList( User $user ) {
 		$collectionsList = models\CollectionsList::newFromApi(
-			$user, $this->getUser()->equals( $user )
+			$user, $this->getUser()->equals( $user ), false,
+			$this->getRequest()->getValues()
 		);
 		if ( $collectionsList->getCount() > 0 ) {
 			$this->render( new views\CollectionsList( $collectionsList ) );
