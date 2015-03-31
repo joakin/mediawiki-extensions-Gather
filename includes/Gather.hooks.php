@@ -102,7 +102,7 @@ class Hooks {
 								'text' => wfMessage( 'gather-lists-title' )->escaped(),
 								'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
 								// FIXME: Temporarily watchlist icon
-								'class' => CSS::iconClass( 'watchlist', 'before' ),
+								'class' => CSS::iconClass( 'collections-icon', 'before' ),
 								'data-event-name' => 'collections',
 							),
 						),
