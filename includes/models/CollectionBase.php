@@ -127,14 +127,15 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 * Return local url for collection
 	 * Example: /wiki/Special:Gather/by/user/id
 	 *
+	 * @param array [$args] optional query string parameters
 	 * @return string localized url for collection
 	 */
-	public function getUrl() {
+	public function getUrl( $args = array() ) {
 		return SpecialPage::getTitleFor( 'Gather' )
 			->getSubpage( 'by' )
 			->getSubpage( $this->getOwner() )
 			->getSubpage( $this->getId() )
-			->getLocalURL();
+			->getLocalURL( $args );
 	}
 
 	/** @inheritdoc */

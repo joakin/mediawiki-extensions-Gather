@@ -13,6 +13,7 @@ use \ApiMain;
 use \FauxRequest;
 use \Title;
 use \Exception;
+use \SpecialPage;
 
 /**
  * A collection with a list of items, which are represented by the CollectionItem class.
@@ -118,16 +119,33 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	}
 
 	/**
+	 * Return a URL that allows you to retreive the rest of the items of the
+	 * collection
+	 * @return string|null
+	 */
+	public function getContinueUrl() {
+		return $this->continue ? $this->getUrl( $this->continue ) : false;
+	}
+
+	/**
+	 * @param array $continue information to obtain further items
+	 */
+	public function setContinueQueryString( $continue ) {
+		$this->continue = $continue;
+	}
+
+	/**
 	 * Generate a Collection from api result
 	 * @param Integer $id the id of the collection
-	 * @param User $user optional collection list owner (if present will be
+	 * @param User [$user] optional collection list owner (if present will be
 	 * included in the query and validated)
+	 * @param array [$continue] optional parameters to append to the query.
 	 * @return models\Collections a collection
 	 */
-	public static function newFromApi( $id, User $user = null ) {
-
+	public static function newFromApi( $id, User $user = null, $continue = array() ) {
+		$limit = 50;
 		$collection = null;
-		$params = array(
+		$params = array_merge( $continue, array(
 			'action' => 'query',
 			'list' => 'lists',
 			'lstids' => $id,
@@ -138,12 +156,11 @@ class Collection extends CollectionBase implements IteratorAggregate {
 			'explaintext' => true,
 			'exintro' => true,
 			'exchars' => self::EXTRACTS_CHAR_LIMIT,
-			'glsplimit' => 50,
-			'exlimit' => 50,
-			'pilimit' => 50,
-			// TODO: Pagination
+			'glsplimit' => $limit,
+			'exlimit' => $limit,
+			'pilimit' => $limit,
 			'continue' => '',
-		);
+		) );
 		// If user is present, include it in the request. Api will return not found
 		// if the specified owner doesn't match the actual collection owner.
 		if ( $user ) {
@@ -183,6 +200,9 @@ class Collection extends CollectionBase implements IteratorAggregate {
 					}
 					$collection->add( new CollectionItem( $title, $pi, $extract ) );
 				}
+			}
+			if ( isset( $data['continue'] ) ) {
+				$collection->setContinueQueryString( $data['continue'] );
 			}
 		} catch ( Exception $e ) {
 			// just return collection

@@ -81,5 +81,6 @@
 	"apihelp-gather-param-owner": "{{doc-apihelp-param|gather|owner}}",
 	"apihelp-gather-example-1": "{{doc-apihelp-example|gather}}",
 	"gather-lists-collection-more-link-label": "Link label for a more type link on the Special:GatherLists page.",
-	"gather-lists-more": "Link label for more link at the bottom of a list of users existing collections."
+	"gather-lists-more": "Link label for more link at the bottom of a list of users existing collections.",
+	"gather-collection-more": "Label for link at bottom of Gather collection when there are more than 50 items."
 }

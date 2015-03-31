@@ -113,7 +113,7 @@ class SpecialGather extends SpecialPage {
 				. gettype( $id ) . ' given.'
 			);
 		}
-		$collection = models\Collection::newFromApi( $id, $user );
+		$collection = models\Collection::newFromApi( $id, $user, $this->getRequest()->getValues() );
 
 		if ( $collection === null ||
 			// If collection is private and current user doesn't own it

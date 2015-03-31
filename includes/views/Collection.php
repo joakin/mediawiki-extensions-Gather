@@ -176,6 +176,10 @@ class Collection extends View {
 
 		if ( $collection->getCount() > 0 ) {
 			$html .= $this->getCollectionItems( $collection );
+			$url = $collection->getContinueUrl();
+			if ( $url ) {
+				$html .= Pagination::more( $url, wfMessage( 'gather-collection-more' )->text() );
+			}
 		} else {
 			$html .= $this->getEmptyCollectionMessage();
 		}
