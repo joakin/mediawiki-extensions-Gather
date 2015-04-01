@@ -4,6 +4,7 @@
 			"Bikarhêner"
 		]
 	},
+	"gather": "Civîn",
 	"gather-lists-collection-owner": "Xwedî",
 	"gather-lists-collection-last-updated": "Rojanekirina dawî",
 	"gather-lists-collection-title": "Sernav",
@@ -18,5 +19,6 @@
 	"gather-delete-collection-cancel-label": "Betal bike",
 	"gather-add-to-collection-confirm": "Bixe nav kolesiyone",
 	"gather-add-to-collection-cancel": "Na spas",
+	"gather-edit-button": "Biguherîne",
 	"gather-delete-button": "Jê bibe"
 }

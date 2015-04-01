@@ -74,5 +74,8 @@
 	"apihelp-gather-description": "Auflisten und Bearbeiten von Sammlungen.",
 	"apihelp-gather-param-gather": "Aktion, die auf die Sammlungen angewendet werden soll.",
 	"apihelp-gather-param-owner": "Nach Sammlungen dieses Benutzers suchen. Wird durch den aktuellen Benutzer ersetzt, wenn leer.",
-	"apihelp-gather-example-1": "Die Sammlungen des Benutzers <kbd>john</kbd> auflisten."
+	"apihelp-gather-example-1": "Die Sammlungen des Benutzers <kbd>john</kbd> auflisten.",
+	"gather-lists-collection-more-link-label": "Weitere öffentliche Sammlungen ansehen.",
+	"gather-lists-more": "Weitere Sammlungen von diesem Benutzer ansehen.",
+	"gather-collection-more": "Weitere Seiten in dieser Sammlung ansehen"
 }
