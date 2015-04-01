@@ -41,6 +41,7 @@ use UnwatchAction;
 use User;
 use ApiPageSet;
 use WatchAction;
+use SpecialPage;
 
 /**
  * API module to allow users to manage lists
@@ -138,12 +139,15 @@ class ApiEditList extends ApiBase {
 		}
 		if ( class_exists( 'AbuseFilterVariableHolder' ) ) {
 			$vars = new AbuseFilterVariableHolder();
-			$vars->addHolders( AbuseFilter::generateUserVars( $this->getUser() ) );
+			$user = $this->getUser();
+			$vars->addHolders( AbuseFilter::generateUserVars( $user ) );
 			$vars->setVar( 'action', 'gatheredit' );
 			$vars->setVar( 'old_wikitext', '' );
 			$vars->setVar( 'new_wikitext', $string );
 			$vars->setVar( 'added_lines', $string );
-			$result = AbuseFilter::filterAction( $vars, Title::newFromText( 'Gather' ) );
+			$title = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )->
+					getSubPage( $user->getName() );
+			$result = AbuseFilter::filterAction( $vars, $title );
 			return $result->isGood();
 		}
 		return true;
