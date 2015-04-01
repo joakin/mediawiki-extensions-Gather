@@ -92,17 +92,23 @@
 		 * @method
 		 * @param {String} owner of the collections
 		 * @param {Page} page the current page.
+		 * @param {Object} [queryArgs] parameters to send to api
 		 */
-		getCurrentUsersCollections: function ( owner, page ) {
-			return this.get( {
+		getCurrentUsersCollections: function ( owner, page, queryArgs ) {
+			var args = $.extend( {}, queryArgs || {}, {
 				action: 'query',
 				list: 'lists',
 				lsttitle: page.getTitle(),
 				lstprop: 'label|description|public|image|count',
 				lstowner: owner
-			} ).then( function ( resp ) {
+			} );
+			return this.get( args ).then( function ( resp ) {
+				var result = {};
+				if ( resp['query-continue'] ) {
+					result.continueArgs = resp['query-continue'].lists;
+				}
 				if ( resp.query && resp.query.lists ) {
-					return $.map( resp.query.lists, function ( list ) {
+					result.collections = $.map( resp.query.lists, function ( list ) {
 						// FIXME: API should handle all these inconsistencies.
 						list.isWatchlist = list.id === 0;
 						list.titleInCollection = list.title;
@@ -112,8 +118,9 @@
 						return list;
 					} );
 				} else {
-					return [];
+					result.collections = [];
 				}
+				return result;
 			} );
 		},
 		/**
