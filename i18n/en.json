@@ -73,6 +73,7 @@
 	"gather-empty-footer": "I don't know how you got here but this is a sad place.",
 	"gather-edit-button": "Edit",
 	"gather-delete-button": "Delete",
+	"gather-overlay-continue": "Next",
 	"right-gather-hidelist": "Force a public user list to become hidden",
 	"apihelp-gather-description": "List and edit Gather collections.",
 	"apihelp-gather-param-gather": "Action to perform on collections.",

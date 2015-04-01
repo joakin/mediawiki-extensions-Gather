@@ -169,6 +169,7 @@ $wgResourceModules += array(
 
 	'ext.gather.collection.editor' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
+			'ext.gather.page.search',
 			'ext.gather.logging',
 			'mobile.overlays',
 			'mobile.toast',
@@ -181,8 +182,12 @@ $wgResourceModules += array(
 			'gather-edit-collection-label-privacy',
 			'gather-edit-collection-save-label',
 			'gather-error-unknown-collection',
+			'gather-overlay-continue',
+			'gather-edit-button',
+			'gather-delete-button',
 		),
 		'templates' => array(
+			'header.hogan' => 'ext.gather.collection.editor/header.hogan',
 			'content.hogan' => 'ext.gather.collection.editor/content.hogan',
 		),
 		'scripts' => array(
@@ -190,6 +195,29 @@ $wgResourceModules += array(
 		),
 		'styles' => array(
 			'ext.gather.collection.editor/editOverlay.less',
+		),
+	),
+
+	'ext.gather.page.search' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.api',
+			'mobile.pagelist.scripts',
+		),
+		'messages' => array(
+			// FIXME: Duplicates messages in ext.gather.watchstar
+			'gather-remove-toast',
+			'gather-add-toast',
+		),
+		'templates' => array(
+			'CollectionSearchPanel.hogan' => 'ext.gather.page.search/CollectionSearchPanel.hogan',
+			'item.hogan' => 'ext.gather.page.search/item.hogan',
+		),
+		'styles' => array(
+			'ext.gather.page.search/searchPanel.less',
+		),
+		'scripts' => array(
+			'ext.gather.page.search/CollectionPageList.js',
+			'ext.gather.page.search/CollectionSearchPanel.js',
 		),
 	),
 

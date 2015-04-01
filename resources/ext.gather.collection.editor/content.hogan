@@ -1,15 +1,20 @@
-<div class="content">
-	{{#collection}}
+<div class="manage-members-pane">
+	<div class="panel">{{{spinner}}}</div>
+	<div class="content">
+		<button class="mw-ui-button mw-ui-progressive edit-action action">{{editMsg}}</button>
+		<a class="mw-ui-button mw-ui-destructive action" href="#/collection/delete/{{collection.id}}">{{deleteMsg}}</a>
+	</div>
+</div>
+<div class="content editor-pane hidden">
 	<label>{{nameLabel}}</label>
-	<input class="mw-ui-input title" value="{{title}}">
+	<input class="mw-ui-input title" value="{{collection.title}}">
 	<label>{{descriptionLabel}}</label>
 	<textarea class="mw-ui-input description"
-		rows='2'>{{description}}</textarea>
+		rows='2'>{{collection.description}}</textarea>
 	<div class="mw-ui-checkbox">
 		<input type="checkbox" id="collection-editor-privacy"
 			{{^public}}checked{{/public}}
 			disabled />
 		<label for="collection-editor-privacy">{{privateLabel}}</label>
 	</div>
-	{{/collection}}
 </div>

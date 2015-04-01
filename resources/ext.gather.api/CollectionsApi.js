@@ -88,6 +88,31 @@
 			} );
 		},
 		/**
+		 * Obtain all the members of a given collection
+		 * @method
+		 * @param {Number} id unique identifier of collection
+		 */
+		getCollectionMembers: function ( id ) {
+			var params = {
+				action: 'query',
+				prop: 'pageimages',
+				piprop: 'thumbnail',
+				pithumbsize: 120,
+				pilimit: 50,
+				generator: 'listpages',
+				glspid: id,
+				glsplimit: 50
+			};
+
+			return this.get( params ).then( function ( resp ) {
+				return $.map( resp.query.pages, function ( page ) {
+					page.heading = page.title;
+					page.isMember = true;
+					return page;
+				} );
+			} );
+		},
+		/**
 		 * Gets an object representing all the current users collections
 		 * @method
 		 * @param {String} owner of the collections
