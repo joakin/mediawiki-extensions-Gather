@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Jenniesarina",
-			"Dan Koehl"
+			"Dan Koehl",
+			"Jopparn"
 		]
 	},
 	"gather-edit-collection-label-name": "Namn",
@@ -23,5 +24,8 @@
 	"gather-article-count": "$1 {{PLURAL:$1|artikel|artiklar}}",
 	"gather-empty": "Ingenting i denna samling ännu...",
 	"gather-empty-footer": "Jag vet inte hur du kom hit, men det här är en sorglig plats.",
-	"gather-edit-button": "Redigera"
+	"gather-edit-button": "Redigera",
+	"gather-lists-collection-more-link-label": "Visa fler offentliga samlingar.",
+	"gather-lists-more": "Visa fler samlingar från denna användare.",
+	"gather-collection-more": "Visa fler sidor i denna samling"
 }
