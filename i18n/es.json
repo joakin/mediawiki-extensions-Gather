@@ -7,6 +7,8 @@
 			"Laurenslimb"
 		]
 	},
+	"gather-lists-showhidden": "Mostrar listas ocultas",
+	"gather-lists-showvisible": "Mostrar listas visibles",
 	"gather-lists-collection-owner": "Dueño",
 	"gather-lists-collection-last-updated": "Última actualización",
 	"gather-lists-collection-title": "Título",
@@ -70,5 +72,8 @@
 	"right-gather-hidelist": "Forzar el ocultamiento de una lista de usuario pública",
 	"apihelp-gather-param-gather": "Acción que realizar en las colecciones.",
 	"apihelp-gather-param-owner": "Propietario de las colecciones que buscar. Si se omite, se toma al usuario actual.",
-	"apihelp-gather-example-1": "Listar las colecciones del usuario <kbd>john</kbd>."
+	"apihelp-gather-example-1": "Listar las colecciones del usuario <kbd>john</kbd>.",
+	"gather-lists-collection-more-link-label": "Ver más colecciones públicas.",
+	"gather-lists-more": "Ver más colecciones de este usuario.",
+	"gather-collection-more": "Ver más páginas de esta colección"
 }

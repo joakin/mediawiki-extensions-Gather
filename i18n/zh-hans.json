@@ -72,5 +72,8 @@
 	"apihelp-gather-description": "列举并编辑聚集收藏。",
 	"apihelp-gather-param-gather": "在收藏中执行的操作。",
 	"apihelp-gather-param-owner": "要搜索的收藏主人。如果省略，默认为当前用户。",
-	"apihelp-gather-example-1": "列出用于用户<kbd>john</kbd>的收藏。"
+	"apihelp-gather-example-1": "列出用于用户<kbd>john</kbd>的收藏。",
+	"gather-lists-collection-more-link-label": "查看更多公开收藏。",
+	"gather-lists-more": "查理来自此用户的更多收藏。",
+	"gather-collection-more": "查看此收藏中的更多页面"
 }
