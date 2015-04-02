@@ -22,6 +22,13 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	const EXTRACTS_CHAR_LIMIT = 140;
 
 	/**
+	 * Internal data used for creating url of collections which span multiple urls.
+	 *
+	 * @var array
+	 */
+	protected $continue = array();
+
+	/**
 	 * The internal collection of items.
 	 *
 	 * @var CollectionItem[]
