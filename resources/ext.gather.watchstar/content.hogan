@@ -28,3 +28,6 @@
 	</li>
 {{/collections}}
 </ul>
+{{#moreLink}}
+<button class="mw-ui-quiet mw-ui-anchor mw-ui-progressive more-collections">{{moreLinkLabel}}</button>
+{{/moreLink}}

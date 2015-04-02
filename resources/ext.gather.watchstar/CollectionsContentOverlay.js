@@ -27,6 +27,7 @@
 		appendTo: 'body',
 		/** @inheritdoc */
 		events: {
+			'click .more-collections': 'onClickLoadMoreCollections',
 			click: 'onClickInsideOverlay',
 			'focus input': 'onFocusInput',
 			'blur input': 'onBlurInput',
@@ -55,21 +56,18 @@
 			placeholder: mw.msg( 'gather-add-new-placeholder' ),
 			subheadingNewCollection: mw.msg( 'gather-add-to-new' ),
 			subheading: mw.msg( 'gather-add-to-existing' ),
+			moreLinkLabel: mw.msg( 'gather-add-to-another' ),
 			collections: undefined
 		},
 		/** @inheritdoc */
 		initialize: function ( options ) {
-			var self = this;
 			this.api = new CollectionsApi();
 			if ( options.collections === undefined ) {
 				options.collections = [];
 				CollectionsContentOverlayBase.prototype.initialize.call( this, options );
 				// load the collections.
 				this.showSpinner();
-				this.api.getCurrentUsersCollections( user.getName(), options.page ).done( function ( collections ) {
-					self.options.collections = collections;
-					self.render.call( self );
-				} );
+				this._loadCollections( user.getName(), options.page );
 			} else {
 				CollectionsContentOverlayBase.prototype.initialize.call( this, options );
 			}
@@ -99,6 +97,53 @@
 		 */
 		isTitleValid: function ( title ) {
 			return title.length <= 90;
+		},
+		/**
+		 * Loads collections from the api and renders them in the view.
+		 * @param {String} username
+		 * @param {Page} page
+		 * @param {Object} qs query string parameters to query the api with
+		 * @private
+		 * @returns {jQuery.promise}
+		 */
+		_loadCollections: function ( username, page, qs ) {
+			var self = this;
+
+			return this.api.getCurrentUsersCollections( username, page, qs ).done(
+				function ( resp ) {
+					var reset,
+						s = self._scrollTop || 0,
+						threshold = 100,
+						curScrollTop = self.$( '.overlay-content' ).scrollTop();
+
+					self.options.collections = self.options.collections.concat( resp.collections );
+					if ( resp.continueArgs ) {
+						self.options.moreLink = true;
+						self._continue = resp.continueArgs;
+					} else {
+						self.options.moreLink = false;
+						self._continue = false;
+					}
+					if ( s > curScrollTop - threshold && s < curScrollTop + threshold ) {
+						reset = true;
+					}
+					self.render.call( self );
+					if ( reset ) {
+						// reset the scroll top to avoid losing the current place of the user.
+						self.$( '.overlay-content' ).scrollTop( s );
+						self._scrollTop = 0;
+					}
+				} );
+		},
+		/**
+		 * Event handler for clicking on the load more collections link
+		 * @param {jQuery.Event} ev
+		 */
+		onClickLoadMoreCollections: function ( ev ) {
+			this._scrollTop = this.$( '.overlay-content' ).scrollTop();
+
+			$( ev.currentTarget ).remove();
+			this._loadCollections( user.getName(), this.options.page, this._continue );
 		},
 		/**
 		 * Event handler for focusing input
