@@ -45,13 +45,14 @@
 	 * Show a pointer that points to the collection feature.
 	 * @method
 	 * @param {Watchstar} watchstar to react when actionable
-	 * @param {jQuery.Object} $star DOM element to point to
 	 * @ignore
 	 */
-	function showPointer( watchstar, $star ) {
-		var actionOverlay = new WatchstarPageActionOverlay( {
-			target: $star
-		} );
+	function showPointer( watchstar ) {
+		var $star = watchstar.$el,
+			actionOverlay = new WatchstarPageActionOverlay( {
+				target: $star
+			} );
+
 		// Dismiss when watchstar is clicked
 		$star.on( 'click', function () {
 			actionOverlay.hide();
@@ -71,7 +72,7 @@
 	}
 
 	/**
-	 * Toggle the watch status of a known page
+	 * Swap out the default watchstar for our link
 	 * @method
 	 * @param {Page} page
 	 * @ignore
@@ -80,7 +81,6 @@
 		var $star = $( '#ca-watch' ),
 			shouldShow = shouldShowCollectionTutorial(),
 			watchstar = new CollectionsWatchstar( {
-				el: $star,
 				page: page,
 				isAnon: user.isAnon(),
 				isWatched: $star.hasClass( 'watched' ),
@@ -88,8 +88,10 @@
 				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
 			} );
 
-		if ( $star.length > 0 && shouldShow ) {
-			showPointer( watchstar, $star );
+		watchstar.insertBefore( $star );
+		$star.remove();
+		if ( shouldShow ) {
+			showPointer( watchstar );
 		}
 	}
 	// Only init when current page is an article

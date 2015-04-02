@@ -81,5 +81,6 @@
 	"gather-lists-collection-more-link-label": "View more public collections.",
 	"gather-lists-more": "View more collections from this user.",
 	"gather-collection-more": "View more pages in this collection",
-	"gather-add-to-another": "Show my other collections"
+	"gather-add-to-another": "Show my other collections",
+	"gather-watchstar-button-label": "Add to collection"
 }

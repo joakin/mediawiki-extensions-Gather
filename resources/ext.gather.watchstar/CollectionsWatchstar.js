@@ -33,6 +33,9 @@
 			'click a': 'onLinksClick',
 			click: 'onStatusToggle'
 		},
+		tagName: 'li',
+		className: 'collection-star-container',
+		template: mw.template.get( 'ext.gather.watchstar', 'star.hogan' ),
 		/** @inheritdoc */
 		ctaDrawerOptions: {
 			content: mw.msg( 'gather-anon-cta' ),
@@ -52,14 +55,18 @@
 		defaults: {
 			page: M.getCurrentPage(),
 			inCollections: 0,
+			label: mw.msg( 'gather-watchstar-button-label' ),
 			wasUserPrompted: false,
 			collections: undefined
 		},
 		/** @inheritdoc */
+		preRender: function ( options ) {
+			options.watchIconClass = options.isWatched ? watchedIcon.getClassName() :
+				watchIcon.getClassName();
+		},
+		/** @inheritdoc */
 		postRender: function ( options ) {
-			var $el = this.$el,
-				unwatchedClass = watchIcon.getGlyphClassName(),
-				watchedClass = watchedIcon.getGlyphClassName();
+			var $el = this.$el;
 
 			// For newly authenticated users via CTA force dialog to open.
 			if ( options.isNewlyAuthenticatedUser ) {
@@ -67,11 +74,6 @@
 					$el.trigger( 'click' );
 				}, 500 );
 				delete options.isNewlyAuthenticatedUser;
-			}
-			if ( options.isWatched ) {
-				$el.addClass( watchedClass ).removeClass( unwatchedClass );
-			} else {
-				$el.addClass( unwatchedClass ).removeClass( watchedClass );
 			}
 			$el.removeClass( 'hidden' );
 		},
