@@ -94,7 +94,7 @@
 				} );
 				overlay.on( 'collection-unwatch', function ( collection ) {
 					if ( collection.isWatchlist ) {
-						self.newStatus( true );
+						self.newStatus( false );
 					}
 				} );
 			}
