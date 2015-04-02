@@ -66,6 +66,9 @@ $wgResourceModules += array(
 			'ext.gather.styles/collections.less',
 			'ext.gather.styles/lists.less',
 		),
+		'skinStyles' => array(
+			'vector' => 'ext.gather.styles/vector.less'
+		),
 	),
 
 	'ext.gather.watchstar.icons' => $wgGatherResourceFileModuleBoilerplate + array(
@@ -240,13 +243,6 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'ext.gather.lists/init.js',
 		),
-	)
-
-);
-
-$wgResourceModuleSkinStyles['vector'] = $wgGatherMobileSpecialPageResourceBoilerplate + array(
-	'ext.gather.styles' => array(
-		'ext.gather.styles/vector.less',
 	),
 );
 
