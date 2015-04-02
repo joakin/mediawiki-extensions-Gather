@@ -1,7 +1,7 @@
 /*jshint unused:vars */
 ( function ( M, $ ) {
 
-	var WatchstarApi = M.require( 'modules/watchstar/WatchstarApi' ),
+	var Api = M.require( 'api' ).Api,
 		user = M.require( 'user' ),
 		CollectionsApi;
 
@@ -11,7 +11,7 @@
 	 * @class CollectionApi
 	 * @extends Api
 	 */
-	CollectionsApi = WatchstarApi.extend( {
+	CollectionsApi = Api.extend( {
 		boilerplate: {
 			id: 0,
 			title: 'Watchlist',

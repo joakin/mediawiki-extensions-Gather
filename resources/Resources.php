@@ -93,7 +93,6 @@ $wgResourceModules += array(
 
 	'ext.gather.api' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
-			'mobile.watchstar',
 			'mobile.editor.api',
 		),
 		'scripts' => array(
@@ -121,6 +120,7 @@ $wgResourceModules += array(
 			'mobile.settings',
 			'ext.gather.api',
 			'ext.gather.collection.base',
+			'mobile.settings',
 			'ext.gather.watchstar.icons',
 		),
 		'styles' => array(
