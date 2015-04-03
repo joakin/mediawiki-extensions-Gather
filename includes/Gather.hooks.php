@@ -84,6 +84,8 @@ class Hooks {
 		if ( MobileContext::singleton()->isBetaGroupMember() ) {
 			$modules['watch'] = array( 'ext.gather.watchstar' );
 		}
+		// FIXME: abuse of the hook.
+		$skin->getOutput()->addModules( 'ext.gather.icons' );
 		return true;
 	}
 
