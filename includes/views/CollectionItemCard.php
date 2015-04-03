@@ -47,10 +47,14 @@ class CollectionItemCard extends View {
 	protected function getHtml() {
 		$item = $this->item;
 		$title = $item->getTitle();
+		$img = $this->image->getHtml();
+		if ( $img ) {
+			$img = Html::openElement( 'a', array( 'href' => $title->getLocalUrl() ) ) .
+				$img .
+				Html::closeElement( 'a' );
+		}
 		$html = Html::openElement( 'div', array( 'class' => 'collection-item' ) ) .
-			Html::openElement( 'a', array( 'href' => $title->getLocalUrl() ) ) .
-			$this->image->getHtml() .
-			Html::closeElement( 'a' ) .
+			$img .
 			Html::openElement( 'h2', array( 'class' => 'collection-item-title' ) ) .
 			Linker::link( $title ) .
 			Html::closeElement( 'h2' );
