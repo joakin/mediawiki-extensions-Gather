@@ -14,10 +14,10 @@ abstract class View {
 	/**
 	 * Returns the html for the view
 	 *
-	 * @private
+	 * @param array additional $data to help construct the view
 	 * @return string Html
 	 */
-	abstract protected function getHtml();
+	abstract protected function getHtml( $data = array() );
 
 	/**
 	 * Returns the title for the view
@@ -32,7 +32,7 @@ abstract class View {
 	 *
 	 * @param OutputPage $out
 	 */
-	public function render( OutputPage $out ) {
-		$out->addHTML( $this->getHtml() );
+	public function render( OutputPage $out, $data = array() ) {
+		$out->addHTML( $this->getHtml( $data ) );
 	}
 }

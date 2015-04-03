@@ -51,7 +51,7 @@ class CollectionsListItemCard extends View {
 	/**
 	 * @inheritdoc
 	 */
-	public function getHtml() {
+	public function getHtml( $data = array() ) {
 		$articleCountMsg = wfMessage(
 			'gather-article-count',
 			$this->collection->getCount()

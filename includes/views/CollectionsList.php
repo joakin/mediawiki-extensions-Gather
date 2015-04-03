@@ -53,7 +53,7 @@ class CollectionsList extends View {
 	/**
 	 * @inheritdoc
 	 */
-	public function getHtml() {
+	public function getHtml( $data = array() ) {
 		$html = Html::openElement(
 			'div',
 			array( 'class' => 'collections-list content view-border-box' )

@@ -44,7 +44,7 @@ class CollectionItemCard extends View {
 	/**
 	 * @inheritdoc
 	 */
-	protected function getHtml() {
+	protected function getHtml( $data = array() ) {
 		$item = $this->item;
 		$title = $item->getTitle();
 		$img = $this->image->getHtml();
