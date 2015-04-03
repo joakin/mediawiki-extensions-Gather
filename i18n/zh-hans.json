@@ -75,5 +75,6 @@
 	"apihelp-gather-example-1": "列出用于用户<kbd>john</kbd>的收藏。",
 	"gather-lists-collection-more-link-label": "查看更多公开收藏。",
 	"gather-lists-more": "查理来自此用户的更多收藏。",
-	"gather-collection-more": "查看此收藏中的更多页面"
+	"gather-collection-more": "查看此收藏中的更多页面",
+	"gather-add-to-another": "显示我的其他收藏"
 }

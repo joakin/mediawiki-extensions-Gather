@@ -35,6 +35,12 @@ $specialPageAliases['lb'] = array(
 	'Gather' => array( 'Sammelen' ),
 );
 
+/** لوری (لوری) */
+$specialPageAliases['lrc'] = array(
+	'Gather' => array( 'جم_کردن' ),
+	'GatherLists' => array( 'جم_کردن_نومگه_یا' ),
+);
+
 /** Macedonian (македонски) */
 $specialPageAliases['mk'] = array(
 	'Gather' => array( 'Собирање' ),

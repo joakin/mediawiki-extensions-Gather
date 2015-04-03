@@ -3,15 +3,24 @@
 		"authors": [
 			"Jenniesarina",
 			"Dan Koehl",
-			"Jopparn"
+			"Jopparn",
+			"WikiPhoenix"
 		]
 	},
+	"gather-lists-collection-owner": "Ägare",
+	"gather-lists-collection-last-updated": "Senast uppdaterad",
+	"gather-lists-collection-title": "Titel",
+	"gather-lists-collection-description": "Beskrivning",
+	"gather-lists-hide-collection-label": "Dölj",
 	"gather-edit-collection-label-name": "Namn",
 	"gather-edit-collection-label-description": "Beskrivning",
 	"gather-edit-collection-save-label": "Klart",
 	"gather-delete-collection-delete-label": "Ta bort",
 	"gather-delete-collection-cancel-label": "Avbryt",
 	"gather-create-new-button-label": "Skapa",
+	"gather-add-to-collection-summary": "Vill du lägga till $1 i en samling?",
+	"gather-add-to-collection-confirm": "Lägg till i samling",
+	"gather-add-to-collection-cancel": "Nej tack",
 	"gather-desc": "Komponent av Mobila Gränssnitt som tillåter användare att sätta ihop listor.",
 	"gather-no-public-lists-title": "Inga offentliga samlingar",
 	"gather-no-public-lists-description": "Det finns inga offentliga samlingar för denna användare.",
@@ -27,5 +36,6 @@
 	"gather-edit-button": "Redigera",
 	"gather-lists-collection-more-link-label": "Visa fler offentliga samlingar.",
 	"gather-lists-more": "Visa fler samlingar från denna användare.",
-	"gather-collection-more": "Visa fler sidor i denna samling"
+	"gather-collection-more": "Visa fler sidor i denna samling",
+	"gather-add-to-another": "Visa mina andra samlingar"
 }

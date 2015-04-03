@@ -28,5 +28,9 @@
 	"gather-no-such-action": "죄송합니다. 요청된 동작이 존재하지 않습니다.",
 	"gather-unknown-error": "요청을 처리하는 중 알수 없는 에러가 생겼습니다.",
 	"gather-delete-button": "삭제",
-	"right-gather-hidelist": "강제로 공용 사용자 목록을 숨기기 위해서"
+	"right-gather-hidelist": "강제로 공용 사용자 목록을 숨기기 위해서",
+	"gather-lists-collection-more-link-label": "더 많은 공용 컬렉션 보기",
+	"gather-lists-more": "사용자에게서 더 많은 컬렉션 보기",
+	"gather-collection-more": "컬렉션에서 더 많은 페이지 보기",
+	"gather-add-to-another": "다른 컬렉션 보기"
 }
