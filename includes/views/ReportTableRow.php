@@ -8,7 +8,6 @@ namespace Gather\views;
 use User;
 use Language;
 use Gather\models;
-use MWTimestamp;
 use Html;
 use SpecialPage;
 use Gather\views\helpers\CSS;
@@ -63,7 +62,7 @@ class ReportTableRow extends View {
 		$collection = $this->collection;
 		$action = isset( $data['action'] ) ? $data['action'] : 'hide';
 
-		$ts = $lang->userTimeAndDate( new MWTimestamp( $data['updated'] ), $user );
+		$ts = $lang->userTimeAndDate( $collection->getUpdated(), $user );
 		$owner = $collection->getOwner();
 		$label = $collection->getTitle();
 		$id = $collection->getId();

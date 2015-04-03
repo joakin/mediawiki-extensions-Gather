@@ -6,6 +6,8 @@
 
 namespace Gather\models;
 
+use MWTimestamp;
+
 /**
  * The info of collection of items.
  *
@@ -16,6 +18,8 @@ class CollectionInfo extends CollectionBase {
 	protected $knownMembers = array();
 	/** @var int $count of items in the collection */
 	protected $count;
+	/** @var MWTimestamp $updated Last updated time of the collection */
+	protected $updated;
 
 	/**
 	 * Returns items count
@@ -39,6 +43,20 @@ class CollectionInfo extends CollectionBase {
 		$data = parent::toArray();
 		$data['count'] = $this->count;
 		return $data;
+	}
+
+	/**
+	 * @param string $updated
+	 */
+	public function setUpdated( $updated ) {
+		$this->updated = new MWTimestamp( $updated );
+	}
+
+	/**
+	 * @return MWTimestamp
+	 */
+	public function getUpdated() {
+		return $this->updated;
 	}
 
 	/**

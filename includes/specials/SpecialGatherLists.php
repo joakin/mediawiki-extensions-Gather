@@ -9,10 +9,8 @@ use User;
 use SpecialPage;
 use ApiMain;
 use FauxRequest;
-use Html;
 use Linker;
 use Gather\views;
-use Gather\views\helpers\CSS;
 use Exception;
 
 /**
@@ -114,40 +112,19 @@ class SpecialGatherLists extends SpecialPage {
 		$data = array(
 			'canHide' => $this->canHideLists(),
 			'action' => $action,
+			'nextPageUrl' => $nextPageUrl,
 		);
 
-		// FIXME: Move below to View.
-		$html = '';
-		$html .= Html::openElement( 'div', array( 'class' => 'content gather-lists' ) );
-		$html .= Html::openElement( 'ul', array() );
-		$html .= Html::openElement( 'li', array( 'class' => 'heading' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-title' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-description' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-count' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-owner' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-last-updated' ) );
-		if ( $this->canHideLists() ) {
-			$html .= Html::element( 'span', array(), '' );
-		}
-		$html .= Html::closeElement( 'li' );
-		$out->addHTML( $html );
+		$cList = new models\CollectionsList();
 		foreach ( $lists as $list ) {
 			$collection = new models\CollectionInfo( $list['id'], User::newFromName( $list['owner'] ),
-			 $list['label'], $list['description'] );
+				$list['label'], $list['description'] );
 			$collection->setCount( $list['count'] );
-			$this->row( $collection, $data + array(
-				// FIXME: Should be part of the CollectionInfo model.
-				'updated' => $list['updated'],
-			) );
+			$collection->setUpdated( $list['updated'] );
+			$cList->add( $collection );
 		}
-		$html = Html::closeElement( 'ul' );
-		if ( $nextPageUrl ) {
-			$html .= views\Pagination::more(
-				$nextPageUrl, wfMessage( 'gather-lists-collection-more-link-label' ) );
-		}
-		$html .= Html::closeElement( 'div' );
-
-		$out->addHTML( $html );
+		$view = new views\ReportTable( $this->getUser(), $this->getLanguage(), $cList );
+		$view->render( $this->getOutput(), $data );
 	}
 
 	/**
