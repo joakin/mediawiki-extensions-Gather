@@ -118,10 +118,10 @@ class SpecialGatherLists extends SpecialPage {
 		$html .= Html::openElement( 'div', array( 'class' => 'content gather-lists' ) );
 		$html .= Html::openElement( 'ul', array() );
 		$html .= Html::openElement( 'li', array( 'class' => 'heading' ) )
-		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-owner' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-title' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-description' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-count' ) )
+		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-owner' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-last-updated' ) );
 		if ( $this->canHideLists() ) {
 			$html .= Html::element( 'span', array(), '' );
@@ -160,10 +160,10 @@ class SpecialGatherLists extends SpecialPage {
 		$ts = $lang->userTimeAndDate( new MWTimestamp( $data['updated'] ), $user );
 
 		$html = Html::openElement( 'li' )
-			. $this->userLink( $data['owner'] )
 			. $this->collectionLink( $data['label'], $data['owner'], $data['id'] )
 			. Html::element( 'span', array(), $data['description'] )
 			. Html::element( 'span', array(), $data['count'] )
+			. $this->userLink( $data['owner'] )
 			. Html::element( 'span', array(), $ts );
 
 		if ( $this->canHideLists() ) {
