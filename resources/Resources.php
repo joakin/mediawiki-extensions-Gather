@@ -118,6 +118,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mediawiki.util',
 			'mobile.watchstar',
+			'mobile.settings',
 			'ext.gather.api',
 			'ext.gather.collection.base',
 			'ext.gather.watchstar.icons',
