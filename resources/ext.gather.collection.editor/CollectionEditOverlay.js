@@ -58,6 +58,7 @@
 		 */
 		onSaveClick: function () {
 			var title = this.$( '.title' ).val(),
+				self = this,
 				description = this.$( '.description' ).val();
 
 			if ( this.isTitleValid( title ) && this.isDescriptionValid( description ) ) {
@@ -74,7 +75,7 @@
 						window.location.reload();
 					} );
 				} ).fail( function ( errMsg ) {
-					toast.show( this.options.editFailedError, 'toast error' );
+					toast.show( self.options.editFailedError, 'toast error' );
 					// Make it possible to try again.
 					this.$( '.mw-ui-input, .save' ).prop( 'disabled', false );
 					schema.log( {
