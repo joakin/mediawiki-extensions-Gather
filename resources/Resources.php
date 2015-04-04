@@ -93,10 +93,11 @@ $wgResourceModules += array(
 
 	'ext.gather.api' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
-			'mobile.editor.api',
+			// FIXME: All we need is Api.js ...
+			'mobile.startup',
 		),
 		'scripts' => array(
-			'ext.gather.watchstar/CollectionsApi.js',
+			'ext.gather.api/CollectionsApi.js',
 		),
 	),
 
