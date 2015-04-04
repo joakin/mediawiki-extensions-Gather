@@ -84,7 +84,7 @@ class Hooks {
 	 */
 	public static function onSkinMinervaDefaultModules( $skin, &$modules ) {
 		if ( MobileContext::singleton()->isBetaGroupMember() ) {
-			$modules['watch'] = array( 'ext.gather.watchstar' );
+			$modules['watch'] = array( 'ext.gather.init' );
 		}
 		// FIXME: abuse of the hook.
 		$skin->getOutput()->addModules( 'ext.gather.icons' );

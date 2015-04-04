@@ -117,8 +117,7 @@ $wgResourceModules += array(
 	'ext.gather.watchstar' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'mediawiki.util',
-			'mobile.watchstar',
-			'mobile.settings',
+			'mobile.user',
 			'ext.gather.api',
 			'ext.gather.collection.base',
 			'mobile.settings',
@@ -156,7 +155,15 @@ $wgResourceModules += array(
 			'ext.gather.watchstar/CollectionsContentOverlay.js',
 			'ext.gather.watchstar/CollectionsWatchstar.js',
 			'ext.gather.watchstar/WatchstarPageActionOverlay.js',
-			'ext.gather.watchstar/init.js',
+		),
+	),
+
+	'ext.gather.init' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.watchstar',
+		),
+		'scripts' => array(
+			'ext.gather.init/init.js',
 		),
 	),
 

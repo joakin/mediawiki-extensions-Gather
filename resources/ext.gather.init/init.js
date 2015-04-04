@@ -52,6 +52,7 @@
 			actionOverlay = new WatchstarPageActionOverlay( {
 				target: $star
 			} );
+
 		// Dismiss when watchstar is clicked
 		$star.on( 'click', function () {
 			actionOverlay.hide();
