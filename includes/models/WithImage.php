@@ -23,5 +23,11 @@ interface WithImage {
 	 * @return File Get the file from this item
 	 */
 	public function getFile();
+
+	/**
+	 * @param integer $size of thumbnail
+	 * @return File Get the thumbnail from this item
+	 */
+	public function getThumbnail( $size );
 }
 

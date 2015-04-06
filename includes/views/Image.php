@@ -39,8 +39,7 @@ class Image {
 	private function getPageImageHtml( $size = 750, $useBackgroundImage = false ) {
 		$imageHtml = '';
 		if ( $this->item->hasImage() ) {
-			$file = $this->item->getFile();
-			$thumb = $file->transform( array( 'width' => $size ) );
+			$thumb = $this->item->getThumbnail( $size );
 			if ( $thumb && $thumb->getUrl() ) {
 				$className = 'list-thumb ';
 				$className .= $thumb->getWidth() > $thumb->getHeight()

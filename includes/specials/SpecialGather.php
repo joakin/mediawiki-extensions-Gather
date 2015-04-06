@@ -125,11 +125,34 @@ class SpecialGather extends SpecialPage {
 			$out->addJsConfigVars( 'wgGatherCollections', $collection->toArray() );
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
 			$this->updateCollectionImage( $collection );
-			$out->addHeadItem( 'description',
+			$this->addMetaInformation( $collection->getDescription(), $collection->getThumbnail( 360 ) );
+		}
+	}
+
+	/**
+	 * Adds meta tags to the page.
+	 *
+	 * @param string $description
+	 * @param Thumbnail $thumb
+	 */
+	protected function addMetaInformation( $description, $thumb ) {
+		$out = $this->getOutput();
+		$out->addHeadItem( 'description',
+			Html::element(
+				'meta', array(
+					'name' => 'description',
+					'content' => $description,
+				)
+			)
+		);
+		if ( $thumb ) {
+			$out->addHeadItem(
+				'ogimage',
 				Html::element(
-					'meta', array(
-						'name' => 'description',
-						'content' => $collection->getDescription(),
+					'meta',
+					array(
+						'property' => 'og:image',
+						'content' => wfExpandUrl( $thumb->getUrl(), PROTO_CURRENT ),
 					)
 				)
 			);
