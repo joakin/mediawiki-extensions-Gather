@@ -93,5 +93,6 @@
 	"gather-lists-more": "Link label for more link at the bottom of a list of users existing collections.",
 	"gather-collection-more": "Label for link at bottom of Gather collection when there are more than 50 items.",
 	"gather-add-to-another": "Label for button at bottom of collection overlay for when you have more collections that you could potentially add to.",
-	"gather-watchstar-button-label": "A label for the button to add to a collection."
+	"gather-watchstar-button-label": "A label for the button to add to a collection.",
+	"gather-menu-guider": "Message that shows up in an overlay pointing at the menu button."
 }

@@ -173,6 +173,9 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'ext.gather.watchstar',
 		),
+		'messages' => array(
+			'gather-menu-guider',
+		),
 		'scripts' => array(
 			'ext.gather.init/init.js',
 		),
