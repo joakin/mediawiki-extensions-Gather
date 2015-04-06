@@ -82,7 +82,7 @@
 	 * @ignore
 	 */
 	function init( page ) {
-		var $star = $( '#ca-watch' ),
+		var $star = $( '#ca-watch, #ca-unwatch' ),
 			shouldShow = shouldShowCollectionTutorial(),
 			watchstar = new CollectionsWatchstar( {
 				page: page,

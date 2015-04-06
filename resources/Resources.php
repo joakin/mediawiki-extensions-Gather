@@ -160,6 +160,9 @@ $wgResourceModules += array(
 			// FIXME: Cannot push to stable until buttonWithSpinner is a view (T95490)
 			'mobile.buttonWithSpinner',
 		),
+		'skinStyles' => array(
+			'vector' => 'ext.gather.watchstar/vector.less',
+		),
 		'styles' => array(
 			'ext.gather.watchstar/contentOverlay.less',
 			'ext.gather.watchstar/tag.less',
@@ -199,6 +202,23 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.desktop' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'mediawiki.util',
+		),
+		'messages' => array(
+			'gather-lists-title',
+		),
+		'position' => 'top',
+		'skinStyles' => array(
+			'default' => 'ext.gather.desktop/default.less',
+			'minerva' => '',
+		),
+		'scripts' => array(
+			'ext.gather.desktop/init.js',
+		),
+	),
+
 	'ext.gather.init' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.alerts.init',
@@ -209,6 +229,10 @@ $wgResourceModules += array(
 		),
 		'scripts' => array(
 			'ext.gather.init/init.js',
+		),
+		'skinStyles' => array(
+			'vector' => 'ext.gather.init/vector.less',
+			'minerva' => 'ext.gather.init/minerva.less',
 		),
 	),
 
