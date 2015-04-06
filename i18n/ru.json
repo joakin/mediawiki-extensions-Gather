@@ -3,7 +3,8 @@
 		"authors": [
 			"Batumski brodyaga",
 			"Foxyor",
-			"Iluvatar"
+			"Iluvatar",
+			"Mariya"
 		]
 	},
 	"gather-lists-collection-owner": "Владелец",
@@ -13,5 +14,8 @@
 	"gather-private": "Личная",
 	"gather-empty": "В коллекции еще ничего нет...",
 	"gather-empty-footer": "Не знаю, как вы сюда попали, но это скучное место.",
-	"gather-edit-button": "Редактировать"
+	"gather-edit-button": "Редактировать",
+	"gather-lists-more": "Посмотрите другие статьи этого пользователя",
+	"gather-collection-more": "Посмотрите другие статьи из этой коллекции",
+	"gather-add-to-another": "Показать другие мои коллекции"
 }

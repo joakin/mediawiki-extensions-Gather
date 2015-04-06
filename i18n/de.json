@@ -65,7 +65,7 @@
 	"gather-read-more": "Mehr erfahren",
 	"gather-private": "Privat",
 	"gather-public": "Öffentlich",
-	"gather-article-count": "{{PLURAL:$1|Ein Artikel|$1 Artikel}}",
+	"gather-article-count": "{{PLURAL:$1|Eine Seite|$1 Seiten}}",
 	"gather-empty": "Noch nichts in dieser Sammlung …",
 	"gather-empty-footer": "Ich weiß nicht, wie du hierher gekommen bist, aber dies ist ein schlechter Ort.",
 	"gather-edit-button": "Bearbeiten",

@@ -5,6 +5,8 @@
 			"Amire80"
 		]
 	},
+	"gather": "לקט",
+	"gatherlists": "רשימת לקטים",
 	"gather-lists-showhidden": "הצגת רשימות מוסתרות",
 	"gather-lists-showvisible": "הצגות רשימות גלויות",
 	"gather-lists-collection-owner": "מתחזק",
@@ -71,5 +73,9 @@
 	"apihelp-gather-description": "קבלת רשימה ועריכה של לקטים.",
 	"apihelp-gather-param-gather": "איזו פעולה לעשות על הלקטים.",
 	"apihelp-gather-param-owner": "איזה מתחזק לקטים לחפש. אם אין, בררת המחדל היא המשתמש הנוכחי.",
-	"apihelp-gather-example-1": "רשימת לקטים עבור המשתמש <kbd>john</kbd>."
+	"apihelp-gather-example-1": "רשימת לקטים עבור המשתמש <kbd>john</kbd>.",
+	"gather-lists-collection-more-link-label": "תצוגה של לקטים ציבוריים נוספים.",
+	"gather-lists-more": "הצגת לקטים נוספים של אותו המשתמש.",
+	"gather-collection-more": "הצגת דפים נוספים בלקט הזה",
+	"gather-add-to-another": "הצגת הלקטים האחרים שלי"
 }

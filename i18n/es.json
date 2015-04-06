@@ -75,5 +75,6 @@
 	"apihelp-gather-example-1": "Listar las colecciones del usuario <kbd>john</kbd>.",
 	"gather-lists-collection-more-link-label": "Ver más colecciones públicas.",
 	"gather-lists-more": "Ver más colecciones de este usuario.",
-	"gather-collection-more": "Ver más páginas de esta colección"
+	"gather-collection-more": "Ver más páginas de esta colección",
+	"gather-add-to-another": "Mostrar mis otras colecciones"
 }
