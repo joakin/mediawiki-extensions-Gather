@@ -69,6 +69,7 @@
 	"gather-watchlist-title": "Title used for special casing the Watchlist collection on the [[Special:Gather]] page.\n{{Identical|Watchlist}}",
 	"gather-watchlist-description": "Default description for special casing the Watchlist collection on the [[Special:Gather]] page.",
 	"gather-lists-title": "Title for [[Special:Gather]] when displaying user curated lists.\n{{Identical|Collection}}",
+	"gather-lists-from-user-title": "Title for [[Special:Gather]] when displaying user curated lists for a known user.\nParameters: $1 - name of user who collections belong to.",
 	"gather-read-more": "Label for the read more link used on [[Special:Gather]].\n{{Identical|Read more}}",
 	"gather-private": "Label for a collection when it is not publicly visible\n{{Identical|Private}}",
 	"gather-public": "Label for a collection when it is publicly visible\n{{Identical|Public}}",

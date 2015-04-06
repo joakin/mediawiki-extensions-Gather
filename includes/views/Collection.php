@@ -62,7 +62,8 @@ class Collection extends View {
 	 */
 	private function getOwnerHtml( $owner ) {
 		return Html::openElement( 'a', array(
-				'href' => SpecialPage::getTitleFor( 'UserProfile', $owner->getName() )->getLocalUrl(),
+				'href' => SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )->
+						getSubPage( $owner->getName() )->getLocalUrl(),
 				'class' => 'collection-owner',
 			) ) .
 			Html::element( 'span', array(
