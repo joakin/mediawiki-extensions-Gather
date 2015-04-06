@@ -178,4 +178,16 @@ class Hooks {
 		}
 		return true;
 	}
+
+	/**
+	 * LoginFormValidErrorMessages hook handler.
+	 * Add valid error messages for Gather login pages.
+	 *
+	 * @see https://wwww.mediawiki.org/wiki/Manual:Hooks/LoginFormValidErrorMessages
+	 *
+	 * @param array $messages Array of valid messages, already added
+	 */
+	public static function onLoginFormValidErrorMessages( &$messages ) {
+		$messages[] = 'gather-anon-view-lists';
+	}
 }

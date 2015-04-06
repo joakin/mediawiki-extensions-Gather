@@ -81,6 +81,7 @@ $wgHooks['MakeGlobalVariablesScript'][] = 'Gather\Hooks::onMakeGlobalVariablesSc
 $wgHooks['ResourceLoaderTestModules'][] = 'Gather\Hooks::onResourceLoaderTestModules';
 $wgHooks['EventLoggingRegisterSchemas'][] = 'Gather\Hooks::onEventLoggingRegisterSchemas';
 $wgHooks['ResourceLoaderRegisterModules'][] = 'Gather\Hooks::onResourceLoaderRegisterModules';
+$wgHooks['LoginFormValidErrorMessages'][] = 'Gather\Hooks::onLoginFormValidErrorMessages';
 
 // Maintenance Hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'Gather\UpdaterHooks::onLoadExtensionSchemaUpdates';
