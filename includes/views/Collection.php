@@ -44,8 +44,16 @@ class Collection extends View {
 		$collection = $this->collection;
 		$description = $collection->getDescription();
 		$owner = $collection->getOwner();
+		if ( $collection->isHidden() ) {
+			$privacy = 'Hidden';
+		} else {
+			$privacy = $collection->isPublic() ? 'Public' : 'Private';
+		}
 
 		$html = Html::openElement( 'div', array( 'class' => 'collection-header' ) ) .
+			Html::openElement( 'div', array( 'class' => 'collection-meta' ) ) .
+				Html::element( 'div', array( 'class' => 'collection-privacy' ), $privacy ) .
+			Html::closeElement( 'div' ) .
 			Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() ) .
 			Html::element( 'div', array( 'class' => 'collection-description' ), $description ) .
 			$this->getOwnerHtml( $owner ) .
