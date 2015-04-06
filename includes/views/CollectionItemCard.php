@@ -53,9 +53,9 @@ class CollectionItemCard extends View {
 				$img .
 				Html::closeElement( 'a' );
 		}
-		$html = Html::openElement( 'div', array( 'class' => 'collection-item' ) ) .
+		$html = Html::openElement( 'div', array( 'class' => 'collection-card' ) ) .
 			$img .
-			Html::openElement( 'h2', array( 'class' => 'collection-item-title' ) ) .
+			Html::openElement( 'h2', array( 'class' => 'collection-card-title' ) ) .
 			Linker::link( $title ) .
 			Html::closeElement( 'h2' );
 		// Handle excerpt for titles with an extract or unknown pages
@@ -66,10 +66,10 @@ class CollectionItemCard extends View {
 				$itemExcerpt = wfMessage( 'gather-page-not-found' )->escaped();
 			}
 			$html .= Html::element(
-				'p', array( 'class' => 'collection-item-excerpt' ), $itemExcerpt
+				'p', array( 'class' => 'collection-card-excerpt' ), $itemExcerpt
 			);
 		}
-		$html .= Html::openElement( 'div', array( 'class' => 'collection-item-footer' ) )
+		$html .= Html::openElement( 'div', array( 'class' => 'collection-card-footer' ) )
 			. Html::openElement( 'a',
 				array(
 					'href' => $title->getLocalUrl(),

@@ -16,6 +16,21 @@
 	}
 }
 
+
+/**
+ * Common components to Collection page and List of collections page.
+ */
+
+.collections-pagination {
+	text-align: center;
+}
+
+.collection-card {
+	// Don't split items between css columns
+	display: inline-block;
+	width: 100%;
+}
+
 /*
  *  Collection page
  */
@@ -79,7 +94,7 @@
 		}
 	}
 
-	.collection-item {
+	.collection-card {
 		@collectionItemPadding: 1em;
 
 		border: 1px solid @grayLightest;
@@ -92,7 +107,7 @@
 			background-size: cover;
 		}
 
-		.collection-item-title {
+		.collection-card-title {
 			font-size: 2em;
 			padding-bottom: 0;
 			.reset-special-page-heading-styles();
@@ -106,7 +121,7 @@
 			}
 		}
 
-		.collection-item-footer {
+		.collection-card-footer {
 			// Make footer run to edges
 			margin: 1em -@collectionItemPadding 0;
 			padding: @collectionItemPadding;
@@ -202,23 +217,12 @@
 }
 
 /**
- * Common components (pagination, tablet columns, etc)
+ * Tablet styles
  */
 
-.collections-pagination {
-	text-align: center;
-}
-
-.collection-item,
-.collection-card {
-	// Don't split items between css columns
-	display: inline-block;
-	width: 100%;
-}
-
+// Cards responsive behavior
 @columns: 2;
 @media all and (min-width: @wgMFDeviceWidthTablet) {
-	.collection-items,
 	.collection-cards {
 		-webkit-columns: @columns;
 		-moz-columns: @columns;
