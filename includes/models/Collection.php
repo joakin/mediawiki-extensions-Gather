@@ -57,7 +57,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	 * @param CollectionItem $item
 	 */
 	public function add( CollectionItem $item ) {
-		if ( $item->hasImage() && !$this->hasImage() ) {
+		if ( $item->hasImage() && !$this->imageSuggestion ) {
 			$this->imageSuggestion =  $item->getFile()->getTitle()->getText();
 		}
 		$this->items[] = $item;
