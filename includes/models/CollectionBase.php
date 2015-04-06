@@ -47,6 +47,13 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	protected $public;
 
 	/**
+	 * Whether collection has been hidden
+	 *
+	 * @var bool
+	 */
+	protected $hidden;
+
+	/**
 	 * Image that represents the collection.
 	 *
 	 * @var File
@@ -114,6 +121,22 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 */
 	public function isPublic() {
 		return $this->public;
+	}
+
+	/**
+	 * Marks the collection as hidden.
+	 */
+	public function setHidden() {
+		$this->hidden = true;
+	}
+
+	/**
+	 * Returns if the list has been hidden by an admin.
+	 *
+	 * @return boolean
+	 */
+	public function isHidden() {
+		return $this->hidden;
 	}
 
 	/**

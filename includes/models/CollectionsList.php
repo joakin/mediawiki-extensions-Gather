@@ -154,6 +154,9 @@ class CollectionsList implements \IteratorAggregate, ArraySerializable {
 					$info = new models\CollectionInfo( $list['id'], $user,
 						$list['label'], $list['description'], $list['public'], $image );
 					$info->setCount( $list['count'] );
+					if ( $list['perm'] === 'hidden' ) {
+						$info->setHidden();
+					}
 					if ( $memberTitle ) {
 						$info->setMember( $memberTitle, $list['title'] );
 					}
