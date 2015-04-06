@@ -79,23 +79,12 @@
 		}
 	}
 
-	.collection-items {
-		@media all and (min-width: @wgMFDeviceWidthTablet) {
-			-webkit-columns: 2;
-			-moz-columns: 2;
-			columns: 2;
-		}
-	}
-
 	.collection-item {
 		@collectionItemPadding: 1em;
 
 		border: 1px solid @grayLightest;
 		padding: 0 @collectionItemPadding;
 		margin-bottom: 2em;
-
-		display: inline-block;
-		width: 100%;
 
 		.list-thumb {
 			height: 300px;
@@ -212,6 +201,27 @@
 
 }
 
+/**
+ * Common components (pagination, tablet columns, etc)
+ */
+
 .collections-pagination {
 	text-align: center;
+}
+
+.collection-item,
+.collection-card {
+	// Don't split items between css columns
+	display: inline-block;
+	width: 100%;
+}
+
+@columns: 2;
+@media all and (min-width: @wgMFDeviceWidthTablet) {
+	.collection-items,
+	.collection-cards {
+		-webkit-columns: @columns;
+		-moz-columns: @columns;
+		columns: @columns;
+	}
 }
