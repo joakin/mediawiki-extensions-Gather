@@ -151,7 +151,7 @@ class Collection extends View {
 	 * @return string HTML
 	 */
 	public function getCollectionItems( models\Collection $collection ) {
-		$html = Html::openElement( 'div', array( 'class' => 'collection-items' ) );
+		$html = Html::openElement( 'div', array( 'class' => 'collection-cards' ) );
 		foreach ( $collection as $item ) {
 			if ( $item->getTitle()->getNamespace() === NS_MAIN ) {
 				$view = new CollectionItemCard( $item );

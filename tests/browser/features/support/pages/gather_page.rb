@@ -8,6 +8,6 @@ class GatherPage
   div(:edit_overlay, css: '.collection-editor-overlay')
   text_field(:edit_overlay_description, css: '.collection-editor-overlay .description')
   button(:edit_overlay_done, css: '.collection-editor-overlay .save')
-  div(:collection_items, css: '.collection-items')
+  div(:collection_items, css: '.collection-cards')
   div(:collection_description, css: '.collection-description')
 end
