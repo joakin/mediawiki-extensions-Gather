@@ -167,6 +167,21 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	}
 
 	/**
+	 * @param int $size
+	 * @return bool|\MediaTransformOutput
+	 */
+	public function getThumbnail( $size ) {
+		if ( $this->hasImage() ) {
+			$file = $this->getFile();
+			$thumb = $file->transform( array( 'width' => $size ) );
+			if ( $thumb && $thumb->getUrl() ) {
+				return $thumb;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Returns if the user is the owner of the collection/list
 	 * @param User $user user to check if it is the owner
 	 * @return boolean
