@@ -1,9 +1,10 @@
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-( function ( M, $ ) {
+( function ( M ) {
 
 	var CollectionsWatchstar,
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
+		CtaDrawer = M.require( 'CtaDrawer' ),
 		CollectionsContentOverlay = M.require( 'ext.gather.watchstar/CollectionsContentOverlay' ),
 		Icon = M.require( 'Icon' ),
 		// FIXME: MobileFrontend code duplication
@@ -15,16 +16,23 @@
 			name: 'watched',
 			additionalClassNames: 'icon-32px watch-this-article'
 		} ),
-		View = M.require( 'View' ),
-		Watchstar = M.require( 'modules/watchstar/Watchstar' );
+		user = M.require( 'user' ),
+		View = M.require( 'View' );
 
 	/**
 	 * A clickable watchstar for managing collections
 	 * @class CollectionsWatchstar
-	 * @extends Watchstar
-	 * FIXME: do not extend Watchstar.
+	 * @extends View
 	 */
-	CollectionsWatchstar = Watchstar.extend( {
+	CollectionsWatchstar = View.extend( {
+		/**
+		 * @inheritdoc
+		 */
+		events: {
+			// Disable clicks on original link
+			'click a': 'onLinksClick',
+			click: 'onStatusToggle'
+		},
 		/** @inheritdoc */
 		ctaDrawerOptions: {
 			content: mw.msg( 'gather-anon-cta' ),
@@ -41,15 +49,11 @@
 		 * @cfg {Boolean} defaults.wasUserPrompted a flag which identifies if the user was prompted
 		 *  e.g. by WatchstarPageActionOverlay
 		 */
-		defaults: $.extend( {}, Watchstar.defaults, {
+		defaults: {
 			page: M.getCurrentPage(),
 			inCollections: 0,
 			wasUserPrompted: false,
 			collections: undefined
-		} ),
-		/** @inheritdoc */
-		initialize: function ( options ) {
-			View.prototype.initialize.call( this, options );
 		},
 		/** @inheritdoc */
 		postRender: function ( options ) {
@@ -70,6 +74,24 @@
 				$el.addClass( unwatchedClass ).removeClass( watchedClass );
 			}
 			$el.removeClass( 'hidden' );
+		},
+		/**
+		 * Prevent default on incoming events
+		 * @param {jQuery.Event} ev
+		 */
+		onLinksClick: function ( ev ) {
+			ev.preventDefault();
+		},
+		/**
+		 * Triggered when a user anonymously clicks on the watchstar.
+		 * @method
+		 */
+		onStatusToggleAnon: function () {
+			if ( !this.drawer ) {
+				this.drawer = new CtaDrawer( this.ctaDrawerOptions );
+
+			}
+			this.drawer.show();
 		},
 		/** @inheritdoc */
 		onStatusToggleUser: function ( ev ) {
@@ -103,7 +125,11 @@
 		},
 		/** @inheritdoc */
 		onStatusToggle: function () {
-			Watchstar.prototype.onStatusToggle.apply( this, arguments );
+			if ( user.isAnon() ) {
+				this.onStatusToggleAnon.apply( this, arguments );
+			} else {
+				this.onStatusToggleUser.apply( this, arguments );
+			}
 			schema.log( {
 				eventName: 'click',
 				source: this.options.wasUserPrompted ? 'onboarding' : 'unknown'
@@ -136,4 +162,4 @@
 	} );
 	M.define( 'ext.gather.watchstar/CollectionsWatchstar', CollectionsWatchstar );
 
-}( mw.mobileFrontend, jQuery ) );
+}( mw.mobileFrontend ) );
