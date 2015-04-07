@@ -98,6 +98,7 @@
 			var args = $.extend( {}, queryArgs || {}, {
 				action: 'query',
 				list: 'lists',
+				lstlimit: 50,
 				lsttitle: page.getTitle(),
 				lstprop: 'label|description|public|image|count',
 				lstowner: owner
