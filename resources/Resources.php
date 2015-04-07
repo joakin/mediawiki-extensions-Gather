@@ -145,8 +145,10 @@ $wgResourceModules += array(
 			'gather-add-to-collection-confirm',
 			'gather-add-to-collection-cancel',
 			'gather-add-to-another',
+			'gather-watchstar-button-label',
 		),
 		'templates' => array(
+			'star.hogan' => 'ext.gather.watchstar/star.hogan',
 			'content.hogan' => 'ext.gather.watchstar/content.hogan',
 		),
 		'scripts' => array(
