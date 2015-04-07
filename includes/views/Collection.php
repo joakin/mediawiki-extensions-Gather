@@ -5,9 +5,9 @@
 
 namespace Gather\views;
 
-use \Html;
-use \User;
-use \SpecialPage;
+use Html;
+use User;
+use SpecialPage;
 use Gather\views\helpers\CSS;
 use Gather\models;
 

@@ -7,8 +7,8 @@ namespace Gather\views;
 
 use Gather\models;
 use Gather\views\helpers\CSS;
-use \Html;
-use \Linker;
+use Html;
+use Linker;
 
 /**
  * View for an item card in a mobile collection.

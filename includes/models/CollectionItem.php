@@ -6,7 +6,7 @@
 
 namespace Gather\models;
 
-use \Title;
+use Title;
 
 /**
  * An item of a Collection. Similar to a Page and MobilePage, but with some

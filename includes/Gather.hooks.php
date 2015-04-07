@@ -5,10 +5,12 @@
 
 namespace Gather;
 
-use \SpecialPage;
+use SpecialPage;
 use Gather\models;
 use Gather\views\helpers\CSS;
-use \MobileContext;
+use MobileContext;
+use ResourceLoader;
+use PageImages;
 
 /**
  * Hook handlers for Gather extension
@@ -26,7 +28,7 @@ class Hooks {
 	 * @param ResourceLoader &$resourceLoader The ResourceLoader object
 	 * @return bool Always true
 	 */
-	public static function onResourceLoaderRegisterModules( \ResourceLoader &$resourceLoader ) {
+	public static function onResourceLoaderRegisterModules( ResourceLoader &$resourceLoader ) {
 		// register an empty RL module
 		self::registerSchemas();
 		return true;
@@ -168,7 +170,7 @@ class Hooks {
 		// Expose page image.
 		// FIXME: Should probably be in PageImages extension
 		if ( defined( 'PAGE_IMAGES_INSTALLED' ) && $title->getNamespace() === NS_MAIN ) {
-			$pageImage = \PageImages::getPageImage( $title );
+			$pageImage = PageImages::getPageImage( $title );
 			if ( $pageImage ) {
 				$thumb = $pageImage->transform( array( 'height' => 100, 'width' => 100 ) );
 				if ( $thumb ) {

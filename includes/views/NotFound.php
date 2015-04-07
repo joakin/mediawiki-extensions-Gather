@@ -5,7 +5,7 @@
 
 namespace Gather\views;
 
-use \Html;
+use Html;
 
 /**
  * Renders an error when the user wasn't found

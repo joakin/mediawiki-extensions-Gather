@@ -6,14 +6,15 @@
 
 namespace Gather\models;
 
-use \User;
+use User;
 use Gather\models;
-use \ArrayIterator;
-use \ApiMain;
-use \FauxRequest;
-use \SpecialPage;
+use ArrayIterator;
+use IteratorAggregate;
+use ApiMain;
+use FauxRequest;
+use SpecialPage;
 
-class CollectionsList implements \IteratorAggregate, ArraySerializable {
+class CollectionsList implements IteratorAggregate, ArraySerializable {
 
 	/**
 	 * @var CollectionInfo[] list of collection items

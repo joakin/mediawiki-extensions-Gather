@@ -5,7 +5,7 @@
 
 namespace Gather\views;
 
-use \Html;
+use Html;
 
 /**
  * Renders an error when there are no public lists for a user
