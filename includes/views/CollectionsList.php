@@ -6,7 +6,7 @@
 namespace Gather\views;
 
 use Gather\models;
-use \Html;
+use Html;
 
 /**
  * Renders a mobile collection card list

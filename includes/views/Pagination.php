@@ -6,7 +6,7 @@
 namespace Gather\views;
 
 use Gather\views\helpers\CSS;
-use \Html;
+use Html;
 
 /**
  * View for the pagination buttons on lists

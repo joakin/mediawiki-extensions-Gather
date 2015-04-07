@@ -6,9 +6,9 @@
 
 namespace Gather\models;
 
-use \User;
-use \Title;
-use \SpecialPage;
+use User;
+use Title;
+use SpecialPage;
 
 /**
  * Base model for a Collection.

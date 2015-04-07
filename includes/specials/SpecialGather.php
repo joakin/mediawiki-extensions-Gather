@@ -7,13 +7,13 @@ namespace Gather;
 
 use Gather\models;
 use Gather\views;
-use \User;
-use \SpecialPage;
-use \UsageException;
-use \DerivativeRequest;
-use \ApiMain;
-use \InvalidArgumentException;
-use \Html;
+use User;
+use SpecialPage;
+use UsageException;
+use DerivativeRequest;
+use ApiMain;
+use InvalidArgumentException;
+use Html;
 
 /**
  * Render a collection of articles.

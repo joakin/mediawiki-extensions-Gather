@@ -5,7 +5,7 @@
 
 namespace Gather\views;
 
-use \OutputPage;
+use OutputPage;
 
 /**
  * Render a view.

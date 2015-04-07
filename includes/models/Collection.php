@@ -6,14 +6,14 @@
 
 namespace Gather\models;
 
-use \IteratorAggregate;
-use \ArrayIterator;
-use \User;
-use \ApiMain;
-use \FauxRequest;
-use \Title;
-use \Exception;
-use \SpecialPage;
+use IteratorAggregate;
+use ArrayIterator;
+use User;
+use ApiMain;
+use FauxRequest;
+use Title;
+use Exception;
+use SpecialPage;
 
 /**
  * A collection with a list of items, which are represented by the CollectionItem class.
