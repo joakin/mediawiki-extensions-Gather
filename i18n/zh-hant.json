@@ -20,6 +20,6 @@
 	"gather-read-more": "閱讀更多",
 	"gather-private": "私有",
 	"gather-public": "公開的",
-	"gather-article-count": "$1 個{{PLURAL:$1|條目}}",
+	"gather-article-count": "$1 個{{PLURAL:$1|頁面}}",
 	"gather-delete-button": "刪除"
 }
