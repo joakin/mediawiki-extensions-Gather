@@ -24,14 +24,10 @@
 	/**
 	 * Generate string of a certain length
 	 * @param {Number} length length of desired string
-	 * @returns {String} randomly generated string
+	 * @returns {String} generated string
 	 */
 	function getStringWithLength( len ) {
-		var i, str = '';
-		for ( i = 0; i < len; i++ ) {
-			str += 'a';
-		}
-		return str;
+		return Array( len + 1 ).join( 'a' );
 	}
 
 	QUnit.test( 'Collection title validation', 2, function ( assert ) {
