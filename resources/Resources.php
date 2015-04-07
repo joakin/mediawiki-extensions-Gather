@@ -135,6 +135,7 @@ $wgResourceModules += array(
 			'gather-watchlist-title',
 			'gather-add-toast',
 			'gather-add-failed-toast',
+			'gather-add-title-invalid-toast',
 			'gather-remove-toast',
 			'gather-anon-cta',
 			'gather-collection-member',
