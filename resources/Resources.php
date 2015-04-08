@@ -130,6 +130,8 @@ $wgResourceModules += array(
 			'ext.gather.collection.base',
 			'mobile.settings',
 			'ext.gather.watchstar.icons',
+			// FIXME: Cannot push to stable until buttonWithSpinner is a view (T95490)
+			'mobile.buttonWithSpinner',
 		),
 		'styles' => array(
 			'ext.gather.watchstar/contentOverlay.less',
