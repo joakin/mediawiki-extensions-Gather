@@ -60,10 +60,11 @@
 	"gather-watchlist-title": "Набљудувања",
 	"gather-watchlist-description": "Список на страници што ме интересираат.",
 	"gather-lists-title": "Збирки",
+	"gather-lists-from-user-title": "Збирки на $1",
 	"gather-read-more": "Прочитајте повеќе",
 	"gather-private": "Приватна",
 	"gather-public": "Јавна",
-	"gather-article-count": "$1 {{PLURAL:$1|статија|статии}}",
+	"gather-article-count": "$1 {{PLURAL:$1|страница|страници}}",
 	"gather-empty": "Досега немате ништо во збиркава...",
 	"gather-empty-footer": "Не знам како стасавте тука, но ова е тажно место.",
 	"gather-edit-button": "Уреди",
@@ -76,5 +77,6 @@
 	"gather-lists-collection-more-link-label": "Преглед на повеќе јавни збирки.",
 	"gather-lists-more": "Преглед на збирки од овој корисник.",
 	"gather-collection-more": "Уште страници во збиркава",
-	"gather-add-to-another": "Други мои збирки"
+	"gather-add-to-another": "Други мои збирки",
+	"gather-watchstar-button-label": "Додај во збирка"
 }
