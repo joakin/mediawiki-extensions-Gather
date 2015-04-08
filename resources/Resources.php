@@ -213,6 +213,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'ext.gather.api',
 			'mobile.pagelist.scripts',
+			'mobile.search',
 		),
 		'messages' => array(
 			// FIXME: Duplicates messages in ext.gather.watchstar

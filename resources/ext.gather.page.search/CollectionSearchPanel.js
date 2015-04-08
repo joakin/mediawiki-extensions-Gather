@@ -1,6 +1,9 @@
-( function ( M ) {
+( function ( M, $ ) {
 
 	var Panel = M.require( 'Panel' ),
+		Icon = M.require( 'Icon' ),
+		SearchApi = M.require( 'modules/search/SearchApi' ),
+		SEARCH_DELAY = 500,
 		CollectionPageList = M.require( 'ext.gather.page.search/CollectionPageList' ),
 		CollectionSearchPanel;
 
@@ -8,9 +11,15 @@
 	 * Class for a showing page search results in a panel
 	 * @class CollectionPageSearchPanel
 	 * @extends Panel
+	 * @uses CollectionPageList
 	 */
 	CollectionSearchPanel = Panel.extend( {
+		/** @inheritdoc */
 		template: mw.template.get( 'ext.gather.page.search', 'CollectionSearchPanel.hogan' ),
+		/** @inheritdoc */
+		events: $.extend( {}, Panel.prototype.events, {
+			'input .search input': 'onSearchInput'
+		} ),
 		/**
 		 * @inheritdoc
 		 * @cfg {Array} defaults.pages a list of pages in the collection
@@ -19,22 +28,132 @@
 		className: 'panel visible collection-search-panel',
 		defaults: {
 			pages: [],
-			collection: undefined
+			collection: undefined,
+			searchIcon: new Icon( {
+				name: 'search',
+				// FIXME:
+				label: mw.msg( 'search' ),
+				additionalClassNames: 'indicator'
+			} ).toHtmlString()
 		},
-		postRender: function( options ) {
+		/** @inheritdoc */
+		initialize: function ( options ) {
+			var self = this;
+			// FIXME: In future we'll want to use CollectionApi for this
+			this.api = new SearchApi();
+			Panel.prototype.initialize.call( this, options );
+			this._members = {};
+			$.each( options.pages, function ( i, page ) {
+				self._members[page.title] = true;
+			} );
+		},
+		/** @inheritdoc */
+		postRender: function ( options ) {
 			Panel.prototype.postRender.apply( this, arguments );
 			this._renderResults( options.pages );
 		},
+		/**
+		 * Updates the members of the collection associated with the panel
+		 * @param {Page} page
+		 * @param {Boolean} isRemoved whether page has been removed from this collection
+		 */
+		_updateCollectionMembers: function ( page, isRemoved ) {
+			var newPages = [],
+				options = this.options;
+
+			if ( isRemoved ) {
+				delete this._members[page.title];
+			} else {
+				this._members[page.title] = true;
+			}
+			if ( isRemoved ) {
+				$.each( options.pages, function ( i, curPage ) {
+					if ( curPage.title !== page.title ) {
+						newPages.push( curPage );
+					}
+				} );
+				this.options.pages = newPages;
+			} else {
+				this.options.pages.push( page );
+			}
+		},
+		/**
+		 * Updates the rendering of the internal CollectionPageList
+		 * @private
+		 * @param {Page[]} pages
+		 */
 		_renderResults: function ( pages ) {
-			var collectionPageList = new CollectionPageList( {
-				pages: pages,
-				collection: this.options.collection,
-				el: this.$( '.results' )
-			} );
-			collectionPageList.renderPageImages();
+			var self = this;
+			if ( this.pageList ) {
+				this.pageList.options.pages = pages;
+				this.pageList.render();
+			} else {
+				this.pageList = new CollectionPageList( {
+					pages: pages,
+					collection: this.options.collection,
+					el: this.$( '.results' )
+				} );
+				this.pageList.on( 'member-removed', function ( page ) {
+					self._updateCollectionMembers( page, true );
+				} );
+				this.pageList.on( 'member-added', function ( page ) {
+					self._updateCollectionMembers( page );
+				} );
+			}
+			this.pageList.renderPageImages();
+		},
+		/**
+		 * Check whether a member is a known member of the current collection.
+		 * @param {String} title
+		 * @returns {Boolean}
+		 */
+		hasMember: function ( title ) {
+			return this._members[title] !== undefined;
+		},
+		/**
+		 * Event handler for when search input changes
+		 */
+		onSearchInput: function () {
+			var self = this,
+				$input = this.$( 'input' ),
+				query = $input.val(),
+				$results = this.$( '.results' );
+
+			if ( query !== this.lastQuery ) {
+				this.api.abort();
+				clearTimeout( this.timer );
+				$results.empty();
+
+				if ( query.length ) {
+					this.$( '.spinner' ).show();
+
+					this.timer = setTimeout( function () {
+						self.api.search( query ).done( function ( data ) {
+							var results;
+
+							// check if we're getting the rights response in case of out of
+							// order responses (need to get the current value of the input)
+							if ( data.query === $input.val() ) {
+								results = $.map( data.results, function ( page ) {
+									page.isMember = self.hasMember( page.title );
+									return page;
+								} );
+								self.$( '.spinner' ).hide();
+								self._renderResults( results );
+							}
+						} );
+					}, SEARCH_DELAY );
+				} else {
+					// re-render the members of the collection
+					this._renderResults( this.options.pages );
+				}
+
+				// keep track of last query to take into account backspace usage
+				this.lastQuery = query;
+			}
 		}
 	} );
 
 	M.define( 'ext.gather.page.search/CollectionSearchPanel', CollectionSearchPanel );
 
-}( mw.mobileFrontend ) );
+}( mw.mobileFrontend, jQuery ) );
