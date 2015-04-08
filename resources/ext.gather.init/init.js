@@ -18,6 +18,8 @@
 	function shouldShowCollectionTutorial() {
 		if (
 			mw.config.get( 'wgNamespaceNumber' ) === 0 &&
+			// Show when not on the main page
+			!page.isMainPage() &&
 			// Don't show this when mobile is showing edit tutorial
 			mw.util.getParamValue( 'article_action' ) !== 'signup-edit' &&
 			// Don't show if the overlay is open as user could have clicked watchstar
