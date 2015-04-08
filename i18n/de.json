@@ -23,6 +23,9 @@
 	"gather-lists-show-collection": "Möchtest du die Liste „$1“ von $2 erneut öffentlich machen?",
 	"gather-lists-show-success-toast": "Die Liste „$1“ wurde erfolgreich wieder öffentlich gemacht.",
 	"gather-lists-show-failure-toast": "Die Liste „$1“ konnte nicht angezeigt werden.",
+	"gather-editfeed-show": "Anzeigen",
+	"gather-editfeed-title": "Meine Bearbeitungsfeeds",
+	"gather-editfeed-empty": "Es gibt keine kürzlich erfolgten Bearbeitungen an Seiten in dieser Sammlung.",
 	"gather-remove-from-collection-failed-toast": "Seite konnte nicht von der Sammlung entfernt werden.",
 	"gather-add-to-collection-failed-toast": "Seite konnte nicht zur Sammlung hinzugefügt werden",
 	"gather-edit-collection-heading": "Sammlung bearbeiten",
@@ -79,5 +82,6 @@
 	"gather-lists-collection-more-link-label": "Weitere öffentliche Sammlungen ansehen.",
 	"gather-lists-more": "Weitere Sammlungen von diesem Benutzer ansehen.",
 	"gather-collection-more": "Weitere Seiten in dieser Sammlung ansehen",
-	"gather-add-to-another": "Meine anderen Sammlungen anzeigen"
+	"gather-add-to-another": "Meine anderen Sammlungen anzeigen",
+	"gather-watchstar-button-label": "Zu Sammlung hinzufügen"
 }

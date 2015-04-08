@@ -60,6 +60,7 @@
 	"gather-watchlist-title": "监视列表",
 	"gather-watchlist-description": "我感兴趣的页面列表。",
 	"gather-lists-title": "收藏",
+	"gather-lists-from-user-title": "由$1收藏",
 	"gather-read-more": "阅读更多",
 	"gather-private": "私有的",
 	"gather-public": "公开",
@@ -76,5 +77,6 @@
 	"gather-lists-collection-more-link-label": "查看更多公开收藏。",
 	"gather-lists-more": "查理来自此用户的更多收藏。",
 	"gather-collection-more": "查看此收藏中的更多页面",
-	"gather-add-to-another": "显示我的其他收藏"
+	"gather-add-to-another": "显示我的其他收藏",
+	"gather-watchstar-button-label": "添加至收藏"
 }

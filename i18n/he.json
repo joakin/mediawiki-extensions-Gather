@@ -61,10 +61,11 @@
 	"gather-watchlist-title": "רשימות המעקב",
 	"gather-watchlist-description": "רשימת דפים שמעניינים אותי.",
 	"gather-lists-title": "לקטים",
+	"gather-lists-from-user-title": "לקטים של $1",
 	"gather-read-more": "קריאה נוספת",
 	"gather-private": "פרטי",
 	"gather-public": "ציבורי",
-	"gather-article-count": "{{PLURAL:$1|ערך אחד|$1 ערכים}}",
+	"gather-article-count": "{{PLURAL:$1|דף אחד|$1 דפים}}",
 	"gather-empty": "הלקט שלכם ריק כרגע...",
 	"gather-empty-footer": "אני לא יודע איך הגעת לכאן אבל זה מקום עצוב.",
 	"gather-edit-button": "עריכה",
@@ -77,5 +78,6 @@
 	"gather-lists-collection-more-link-label": "תצוגה של לקטים ציבוריים נוספים.",
 	"gather-lists-more": "הצגת לקטים נוספים של אותו המשתמש.",
 	"gather-collection-more": "הצגת דפים נוספים בלקט הזה",
-	"gather-add-to-another": "הצגת הלקטים האחרים שלי"
+	"gather-add-to-another": "הצגת הלקטים האחרים שלי",
+	"gather-watchstar-button-label": "הוספה ללקט"
 }
