@@ -1,0 +1,74 @@
+@import "minerva.variables";
+@import "minerva.mixins";
+
+@pageHeaderBarBorderColor: #e2e2e2;
+@watchlistSelectorBorderColor: #e2e2e2;
+@watchlistSelectorLinkColor: #58595b;
+
+.gather-edit-feed-header {
+	text-align: center;
+}
+
+.gather-ui-tabs {
+	margin-bottom: -1px;
+
+	li,
+	div {
+		line-height: 1.5;
+		padding: 5px 0 0;
+		border-bottom: 1px solid @colorGray13;
+		text-align: center;
+	}
+
+	li {
+		display: inline-block;
+		border-left: 1px solid @colorGray13;
+		width: 25%;
+		margin: 0 0 0 -1px;
+		border-bottom: none;
+
+		&.selected {
+			a {
+				border-bottom: solid 3px @colorProgressive;
+				font-weight: bold;
+			}
+		}
+
+		a {
+			display: block;
+			color: @colorGray5;
+			margin: 0 1px 0 0;
+			border-bottom: 3px solid transparent;
+		}
+	}
+}
+
+.mw-userlink {
+	color: @grayMediumDark;
+	display: inline-block;  // so that the icon in beta is next to the text when the text is centered
+}
+
+.mw-anonuserlink {
+	color: inherit;
+}
+
+.mw-plusminus-pos,
+.mw-plusminus-neg {
+	text-align: left;
+}
+
+.mw-plusminus-pos {
+	color: #00af88;
+}
+
+.mw-plusminus-neg {
+	color: #dc2e16;
+}
+
+.minoredit {
+	background: @grayLightest;
+	border-radius: 2px;
+	font-size: .9em;
+	font-weight: bold;
+	padding: 0 6px 1px;
+}
