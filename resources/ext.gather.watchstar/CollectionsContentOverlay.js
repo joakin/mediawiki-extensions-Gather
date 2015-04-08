@@ -190,7 +190,7 @@
 
 				this.addCollection( title, page );
 			} else {
-				toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );
+				toast.show( mw.msg( 'gather-add-title-invalid-toast' ), 'toast error' );
 			}
 		},
 		/**
