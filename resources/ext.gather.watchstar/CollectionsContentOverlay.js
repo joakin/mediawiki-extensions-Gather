@@ -7,7 +7,8 @@
 		user = M.require( 'user' ),
 		Icon = M.require( 'Icon' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
-		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' );
+		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' ),
+		ButtonWithSpinner = M.require( 'ButtonWithSpinner' );
 
 	/**
 	 * A clickable watchstar for managing collections
@@ -52,7 +53,6 @@
 			} ).toHtmlString(),
 			title: mw.config.get( 'wgTitle' ),
 			spinner: icons.spinner().toHtmlString(),
-			createButtonLabel: mw.msg( 'gather-create-new-button-label' ),
 			placeholder: mw.msg( 'gather-add-new-placeholder' ),
 			subheadingNewCollection: mw.msg( 'gather-add-to-new' ),
 			subheading: mw.msg( 'gather-add-to-existing' ),
@@ -87,6 +87,20 @@
 		},
 		/** @inheritdoc */
 		postRender: function () {
+			var $form = this.$( 'form' );
+
+			this.createButton  = new ButtonWithSpinner( {
+				label: mw.msg( 'gather-create-new-button-label' ),
+				flags: ['primary', 'constructive']
+			} );
+			this.createButton.setDisabled( true );
+			// Binding here as widgets are not views and are created after events map runs
+			this.createButton.on( 'click', function () {
+				$form.submit();
+			} );
+
+			$form.append( this.createButton.$element );
+			// Hide base overlay's spinner
 			this.hideSpinner();
 		},
 		/**
@@ -168,9 +182,8 @@
 		 */
 		onInput: function ( ev ) {
 			var $input = $( ev.target ),
-				val = $input.val(),
-				$button = $input.next( 'button' );
-			$button.prop( 'disabled', val === '' );
+				val = $input.val();
+			this.createButton.setDisabled( val === '' );
 		},
 		/**
 		 * Event handler for setting up a new collection
@@ -182,13 +195,10 @@
 
 			ev.preventDefault();
 			if ( this.isTitleValid( title ) ) {
-				this.showSpinner();
 				this.addCollection( title, page );
 				schema.log( {
 					eventName: 'new-collection'
 				} );
-
-				this.addCollection( title, page );
 			} else {
 				toast.show( mw.msg( 'gather-add-title-invalid-toast' ), 'toast error' );
 			}
@@ -305,7 +315,7 @@
 			var self = this,
 				api = this.api;
 
-			this.showSpinner();
+			this.createButton.showSpinner();
 			return api.addCollection( title ).done( function ( collection ) {
 				api.addPageToCollection( collection.id, page ).done(
 					$.proxy( self, '_collectionStateChange', collection, true )
@@ -320,7 +330,7 @@
 					errorText: errMsg
 				} );
 				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast error' );
-				self.hideSpinner();
+				self.createButton.hideSpinner();
 			} );
 		}
 	} );
