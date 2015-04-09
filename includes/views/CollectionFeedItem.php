@@ -43,7 +43,7 @@ class CollectionFeedItem extends View {
 	/**
 	 * @inheritdoc
 	 */
-	protected function getHtml() {
+	protected function getHtml( $data = array() ) {
 		$lang = $this->language;
 		$item = $this->item;
 		$title = $item->getTitle();

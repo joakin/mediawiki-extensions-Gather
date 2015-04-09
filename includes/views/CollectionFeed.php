@@ -77,7 +77,7 @@ class CollectionFeed extends View {
 	/**
 	 * @inheritdoc
 	 */
-	public function getHtml() {
+	public function getHtml( $data = array() ) {
 		$html = Html::openElement( 'div', array( 'class' => 'mw-changeslist' ) );
 		if ( $this->feed->getCount() > 0 ) {
 			$html .= $this->getCollectionItems();
