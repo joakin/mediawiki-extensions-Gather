@@ -53,7 +53,7 @@ $wgResourceModules += array(
 		'class' => 'ResourceLoaderImageModule',
 		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
-			'collections-icon' => 'ext.gather.icons/plus.svg',
+			'collections-icon' => 'ext.gather.menu.icon/plus.svg',
 		),
 	),
 
