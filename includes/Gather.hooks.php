@@ -87,7 +87,7 @@ class Hooks {
 			$modules['watch'] = array( 'ext.gather.init' );
 		}
 		// FIXME: abuse of the hook.
-		$skin->getOutput()->addModules( 'ext.gather.icons' );
+		$skin->getOutput()->addModuleStyles( 'ext.gather.menu.icon' );
 		return true;
 	}
 
