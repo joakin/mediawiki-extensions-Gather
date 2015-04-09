@@ -30,7 +30,7 @@
 	"gather-lists-show-collection": "Label asking for confirmation when revealing a user's collection for moderation purposes. Parameters:\n* $1 - Title of the collection.\n* $2 - User name of the owner.",
 	"gather-lists-show-success-toast": "Label for toast displaying that specified list was shown successfully. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
 	"gather-lists-show-failure-toast": "Label for toast diaplaying that showing specified list failed. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
-	"gather-editfeed-show": "Label for button that toggles list on feed of edits.",
+	"gather-editfeed-show": "Label for button that toggles list on feed of edits.\n{{Identical|Show}}",
 	"gather-editfeed-title": "Title for page that allows you to view edits inside a collection.",
 	"gather-editfeed-empty": "Message that shows when no edits have been made recently to any pages inside a collection.",
 	"gather-remove-from-collection-failed-toast": "Error message displayed to user when remove from collection action fails.",

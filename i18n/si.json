@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Roonyh"
+		]
+	},
+	"gather-edit-collection-failed-error": "ඔබ සිදුකිරීමට උත්සහ කල වෙනස්කම සම්බන්ධ දෝෂයක් ඇති විය. වෙනත් දෙයක් උත්සහ කර බලන්න.",
+	"gather-add-to-collection-summary": "මුලු ලොව ම සමහ බෙදා ගත හැකි පිටු එකතුවකට $1 එක් කරන්න!",
+	"gather-empty-footer": "{{SITENAME}} පිටුවක් කියවන අතර තරු ලකුණ එබීම මගින් එකතුවක් තනන්න."
+}

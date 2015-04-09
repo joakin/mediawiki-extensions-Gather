@@ -4,7 +4,8 @@
 			"Macofe",
 			"Awesomecat5",
 			"Fitoschido",
-			"Laurenslimb"
+			"Laurenslimb",
+			"Tusca"
 		]
 	},
 	"gather-lists-showhidden": "Mostrar listas ocultas",
@@ -22,6 +23,9 @@
 	"gather-lists-show-collection": "¿Quieres volver a hacer pública la lista \"$1\" de $2?",
 	"gather-lists-show-success-toast": "La lista \"$1\" se hizo pública de nuevo con éxito.",
 	"gather-lists-show-failure-toast": "Error al mostrar la lista \"$1\".",
+	"gather-editfeed-show": "Mostrar",
+	"gather-editfeed-title": "Mis comentarios",
+	"gather-editfeed-empty": "No se realizaron realizaron ninguna de las ediciones ni páginas recientes de esta colección.",
 	"gather-remove-from-collection-failed-toast": "No se pudo eliminar la página de la colección.",
 	"gather-add-to-collection-failed-toast": "No se pudo agregar la página a la colección.",
 	"gather-edit-collection-heading": "Editar colección",
@@ -47,7 +51,8 @@
 	"gather-add-toast": "Se añadió la página a tu colección \"$1\".",
 	"gather-new-collection-failed-toast": "Hubo un problema al crear tu colección \"$1\".",
 	"gather-add-failed-toast": "Hubo un problema al añadir el elemento a tu colección \"$1\".",
-	"gather-add-to-collection-summary": "¿Te gustaría agregar $1 a una colección?",
+	"gather-add-title-invalid-toast": "Al ingresar un título se produjo un problema. Favor de intentarlo de nuevo.",
+	"gather-add-to-collection-summary": "¿Te gustaría agregar $1 a una colección de páginas interconectadas mundialmente?",
 	"gather-add-to-collection-confirm": "Añadir a la colección",
 	"gather-add-to-collection-cancel": "No, gracias",
 	"gather-remove-toast": "Se eliminó la página de tu colección \"$1\".",
@@ -61,12 +66,13 @@
 	"gather-watchlist-title": "Lista de seguimiento",
 	"gather-watchlist-description": "Una lista de páginas que me interesan.",
 	"gather-lists-title": "Colecciones",
+	"gather-lists-from-user-title": "Colecciones de $1",
 	"gather-read-more": "Leer más",
 	"gather-private": "Privada",
 	"gather-public": "Público",
-	"gather-article-count": "$1 {{PLURAL:$1|artículo|artículos}}",
+	"gather-article-count": "$1 {{PLURAL:$1|página|páginas}}",
 	"gather-empty": "Aún no hay nada en esta colección.",
-	"gather-empty-footer": "No sé cómo llegaste aquí, pero este es un lugar triste.",
+	"gather-empty-footer": "Accionar la página de lectura {{SITENAME}} haciendo clíck  en el ícono para crear una colección.",
 	"gather-edit-button": "Editar",
 	"gather-delete-button": "Borrar",
 	"right-gather-hidelist": "Forzar el ocultamiento de una lista de usuario pública",
@@ -76,5 +82,6 @@
 	"gather-lists-collection-more-link-label": "Ver más colecciones públicas.",
 	"gather-lists-more": "Ver más colecciones de este usuario.",
 	"gather-collection-more": "Ver más páginas de esta colección",
-	"gather-add-to-another": "Mostrar mis otras colecciones"
+	"gather-add-to-another": "Mostrar mis otras colecciones",
+	"gather-watchstar-button-label": "Añadir a la colección"
 }

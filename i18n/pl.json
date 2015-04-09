@@ -17,6 +17,7 @@
 	"gather-lists-show-collection": "Czy chcesz ponownie upublicznić listę \"$1\" użytkownika $2?",
 	"gather-lists-show-success-toast": "Lista \"$1\" została ponownie upubliczniona.",
 	"gather-lists-show-failure-toast": "Nie można pokazać listy \"$1\".",
+	"gather-editfeed-show": "Pokaż",
 	"gather-edit-collection-label-name": "Nazwa",
 	"gather-edit-collection-label-description": "Opis",
 	"gather-edit-collection-label-privacy": "Kolekcja prywatna",
