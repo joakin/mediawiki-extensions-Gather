@@ -185,7 +185,10 @@ class SpecialGather extends SpecialPage {
 		$out = $this->getOutput();
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
-		$out->setPageTitle( $view->getTitle() );
+		// disable visible page title
+		$out->setPageTitle( '' );
+		// add title of the actual view to html title-tag
+		$out->setHTMLTitle( $view->getTitle() );
 		$view->render( $out );
 	}
 
