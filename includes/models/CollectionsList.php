@@ -29,7 +29,7 @@ class CollectionsList implements IteratorAggregate, ArraySerializable {
 	 */
 	protected $includePrivate;
 
-	public function __construct( $user, $includePrivate = false ) {
+	public function __construct( $user = false, $includePrivate = false ) {
 		$this->user = $user;
 		$this->includePrivate = $includePrivate;
 	}
@@ -123,11 +123,10 @@ class CollectionsList implements IteratorAggregate, ArraySerializable {
 
 	/**
 	 * Generate UserPageCollectionsList from api result
-	 * FIXME: $user parameter currently ignored
 	 * @param User $user collection list owner (currently ignored)
 	 * @param boolean [$includePrivate] if the list should show private collections or not
-	 * @param string [$memberTitle] title of member to check for
-	 * @param string [$continue] generate collection list from continue parameter
+	 * @param string|boolean [$memberTitle] title of member to check for
+	 * @param array [$continue] generate collection list from continue parameter
 	 * @return models\CollectionsList List of collections.
 	 */
 	public static function newFromApi( User $user, $includePrivate = false,
