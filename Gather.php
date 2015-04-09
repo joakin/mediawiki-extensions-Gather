@@ -56,6 +56,7 @@ $autoloadClasses = array(
 	'Gather\views\CollectionsList' => 'views/CollectionsList',
 	'Gather\views\CollectionsListItemCard' => 'views/CollectionsListItemCard',
 	'Gather\views\Pagination' => 'views/Pagination',
+	'Gather\views\ReportTableRow' => 'views/ReportTableRow',
 
 	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
 

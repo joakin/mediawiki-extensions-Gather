@@ -169,7 +169,7 @@ class Collection extends View {
 	/**
 	 * @inheritdoc
 	 */
-	protected function getHtml() {
+	protected function getHtml( $data = array() ) {
 		$collection = $this->collection;
 
 		$html = Html::openElement( 'div', array( 'class' => 'collection content' ) ) .

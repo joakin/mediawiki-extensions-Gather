@@ -13,7 +13,6 @@ use Html;
 use Linker;
 use Gather\views;
 use Gather\views\helpers\CSS;
-use MWTimestamp;
 use Exception;
 
 /**
@@ -112,6 +111,10 @@ class SpecialGatherLists extends SpecialPage {
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
 		$out->setPageTitle( wfMessage( 'gather-lists-title' ) );
+		$data = array(
+			'canHide' => $this->canHideLists(),
+			'action' => $action,
+		);
 
 		// FIXME: Move below to View.
 		$html = '';
@@ -127,10 +130,17 @@ class SpecialGatherLists extends SpecialPage {
 			$html .= Html::element( 'span', array(), '' );
 		}
 		$html .= Html::closeElement( 'li' );
+		$out->addHTML( $html );
 		foreach ( $lists as $list ) {
-			$html .= $this->row( $list, $action );
+			$collection = new models\CollectionInfo( $list['id'], User::newFromName( $list['owner'] ),
+			 $list['label'], $list['description'] );
+			$collection->setCount( $list['count'] );
+			$this->row( $collection, $data + array(
+				// FIXME: Should be part of the CollectionInfo model.
+				'updated' => $list['updated'],
+			) );
 		}
-		$html .= Html::closeElement( 'ul' );
+		$html = Html::closeElement( 'ul' );
 		if ( $nextPageUrl ) {
 			$html .= views\Pagination::more(
 				$nextPageUrl, wfMessage( 'gather-lists-collection-more-link-label' ) );
@@ -150,67 +160,13 @@ class SpecialGatherLists extends SpecialPage {
 
 	/**
 	 * Renders a html row of data
-	 * @param array $data
+	 * @param models\CollectionInfo $collection
 	 * @param string [$action] hide or show - action to associate with the row.
 	 * @return string
 	 */
-	private function row( $data, $action = 'hide' ) {
-		$lang = $this->getLanguage();
-		$user = $this->getUser();
-		$ts = $lang->userTimeAndDate( new MWTimestamp( $data['updated'] ), $user );
-
-		$html = Html::openElement( 'li' )
-			. $this->collectionLink( $data['label'], $data['owner'], $data['id'] )
-			. Html::element( 'span', array(), $data['description'] )
-			. Html::element( 'span', array(), $data['count'] )
-			. $this->userLink( $data['owner'] )
-			. Html::element( 'span', array(), $ts );
-
-		if ( $this->canHideLists() ) {
-			$className = CSS::buttonClass(
-				$action === 'hide' ?  'destructive': 'constructive',
-				'moderate-collection'
-			);
-
-			$label = $action === 'hide' ? $this->msg( 'gather-lists-hide-collection-label' ) :
-				$this->msg( 'gather-lists-show-collection-label' );
-
-			$html .= Html::openElement( 'span', array() )
-				. Html::element( 'button', array(
-					'class' => $className,
-					'data-id' => $data['id'],
-					'data-action' => $action,
-					'data-label' => $data['label'],
-					'data-owner' => $data['owner']
-				), $label )
-				. Html::closeElement( 'span' );
-		}
-		$html .= Html::closeElement( 'li' );
-		return $html;
-	}
-
-	/**
-	 * Renders a html link for the user's gather page
-	 * @param User $user
-	 * @return string
-	 */
-	private function userLink( $user ) {
-		return Html::element( 'a', array(
-			'href' => SpecialPage::getTitleFor( 'Gather', 'by/' . $user )->getLocalUrl()
-		), $user );
-	}
-
-	/**
-	 * Renders a html link for a collection page
-	 * @param string $text of the link
-	 * @param User $user owner of the collection
-	 * @param int $id of the collection
-	 * @return string
-	 */
-	private function collectionLink( $text, $user, $id ) {
-		return Html::element( 'a', array(
-			'href' => SpecialPage::getTitleFor( 'Gather', 'by/' . $user.'/'.$id )->getLocalUrl()
-		), $text );
+	private function row( $collection, $data ) {
+		$view = new views\ReportTableRow( $this->getUser(), $this->getLanguage(), $collection );
+		$view->render( $this->getOutput(), $data );
 	}
 }
 

@@ -26,7 +26,7 @@ class Image {
 	/**
 	 * Get the view html
 	 */
-	public function getHtml() {
+	public function getHtml( $data = array() ) {
 		// FIXME: magic number
 		return $this->getPageImageHtml( 750, true );
 	}
