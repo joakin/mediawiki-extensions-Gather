@@ -1,9 +1,8 @@
 ( function ( M, $ ) {
 
-	var PageList = M.require( 'modules/PageList' ),
+	var PageList = M.require( 'PageList' ),
 		Page = M.require( 'Page' ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
-		View = M.require( 'View' ),
 		Icon = M.require( 'Icon' ),
 		CollectionPageList;
 
@@ -45,16 +44,8 @@
 		initialize: function () {
 			this._removals = [];
 			this._additions = [];
-			// FIXME: PageList in MobileFrontend should be rewritten as PageListWatchstar.
-			View.prototype.initialize.apply( this, arguments );
+			PageList.prototype.initialize.apply( this, arguments );
 			this.api = new CollectionsApi();
-		},
-		/**
-		 * @inheritdoc
-		 * Loads watch stars for each page.
-		 */
-		postRender: function () {
-			// FIXME: PageList in MobileFrontend should be rewritten as PageListWatchstar.
 		},
 		/**
 		 * Event handler for when a member changes status in the collection
