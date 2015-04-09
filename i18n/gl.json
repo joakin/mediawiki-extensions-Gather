@@ -11,7 +11,7 @@
 	"gather-edit-collection-label-description": "Descrición",
 	"gather-edit-collection-label-privacy": "Colección privada",
 	"gather-edit-collection-save-label": "Feito",
-	"gather-edit-collection-failed-error": "Ocorreu un problema ao gardar os cambios.",
+	"gather-edit-collection-failed-error": "Ocorreu un problema co seu intento de cambio, por favor ténteo de novo.",
 	"gather-error-unknown-collection": "Non se atopa a colección solicitada para a súa edición.",
 	"gather-collection-member": "É membro da colección.",
 	"gather-collection-non-member": "Non é membro da colección.",
@@ -26,6 +26,6 @@
 	"gather-read-more": "Seguir lendo",
 	"gather-private": "Privado",
 	"gather-empty": "Colección aínda baleira.",
-	"gather-empty-footer": "Non sei como chegou aquí, pero este é un lugar triste.",
+	"gather-empty-footer": "Cree unha colección premendo na icona da estrela cando lea unha páxina de {{SITENAME}}.",
 	"gather-edit-button": "Editar"
 }
