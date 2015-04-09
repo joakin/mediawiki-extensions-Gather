@@ -116,5 +116,10 @@
 	"gather-collection-more": "View more pages in this collection",
 	"gather-add-to-another": "Show my other collections",
 	"gather-watchstar-button-label": "Add to collection",
-	"gather-menu-guider": "Tap on the menu icon to take a look at your new collection."
+	"gather-menu-guider": "Tap on the menu icon to take a look at your new collection.",
+	"gather-api-help-param-listid": "List id; omit or set to 0 to use the watchlist.",
+	"gather-api-help-param-listowner": "User ID of the list owner. Only makes sense for watchlists.",
+	"gather-api-help-param-listtoken": "Watchlist token (see watchlist API); required when looking at someone else's watchlist.",
+	"apihelp-query+listmembership-description": "Returns which of a set of pages are in a given list.",
+	"apihelp-query+listmembership-example-1": "Check whether \"Page\" is on the watchlist."
 }

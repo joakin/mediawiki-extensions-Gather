@@ -175,7 +175,7 @@ class GatherTests extends ApiTestCase {
 		foreach ( array( $usr, $usr2 ) as $user ) {
 			$this->assertLists( 'ed-a0', $user, '{}',
 				'[{"id":0, "watchlist":true, "label":"Watchlist"}]' );
-			$this->assertPages( 'ed-a1', $user, null, array(), array() );
+			$this->assertPages( 'ed-a1', $user, null, array() );
 		}
 
 		$this->badUsePage( 'ed-a2', $usr, '"lspid": 9999999' );
@@ -239,10 +239,12 @@ class GatherTests extends ApiTestCase {
 
 		$expListsW2->count = 1;
 		$expPagesW = array( $pageW, $pageTW );
+		$expPagesIn = array( 'Gather-ListW' );
 
 		$this->assertPages( 'ed-c2', $usr, null, $expPagesW );
 		$this->assertPages( 'ed-c3', $usr, 0, $expPagesW );
 		$this->assertLists( 'ed-c4', $usr, 0, $expListsW, $expListsW2 );
+		$this->assertIsIn( 'ed-c5', $usr, 0, $expPagesIn );
 
 		//
 		// Create Watchlist row
@@ -256,10 +258,15 @@ class GatherTests extends ApiTestCase {
 		$this->assertPages( 'ed-d2', $usr, 0, $expPagesW );
 		$this->assertPages( 'ed-d3', $usr, $id0, $expPagesW );
 		$this->assertLists( 'ed-d4', $usr, 0, $expListsW, $expListsW2 );
+		$this->assertIsIn( 'ed-d4a', $usr, 0, $expPagesIn );
 		$this->assertLists( 'ed-d5', $usr, $id0, $expListsW, $expListsW2 );
+		$this->assertIsIn( 'ed-d5a', $usr, $id0, $expPagesIn );
 		$this->assertLists( 'ed-d6', $usrA, $id0, null );
+		$this->assertIsIn( 'ed-d6a', $usrA, $id0, null );
 		$this->assertLists( 'ed-d7', $usr2, $id0, null );
+		$this->assertIsIn( 'ed-d7a', $usr2, $id0, null );
 		$this->assertLists( 'ed-d7a', $usrS, $id0, null );
+		$this->assertIsIn( 'ed-d7a', $usrS, $id0, null );
 		$this->badUsePage( 'ed-d8', $usrA, '"lspid": ' . $id0 );
 		$this->badUsePage( 'ed-d9', $usr2, '"lspid": ' . $id0 );
 		$this->badUsePage( 'ed-d10', $usrS, '"lspid": ' . $id0 );
@@ -301,12 +308,15 @@ class GatherTests extends ApiTestCase {
 
 		$expListsW2->count = 2;
 		$expPagesW = array( $pageW, $pageWA, $pageTW, $pageTWA );
+		$expPagesIn = array( 'Gather-ListW', 'Gather-ListWA' );
 
 		$this->assertPages( 'ed-e2', $usr, null, $expPagesW );
 		$this->assertPages( 'ed-e3', $usr, 0, $expPagesW );
 		$this->assertPages( 'ed-e4', $usr, $id0, $expPagesW );
 		$this->assertLists( 'ed-e5', $usr, 0, $expListsW, $expListsW2 );
+		$this->assertIsIn( 'ed-e5a', $usr, 0, $expPagesIn );
 		$this->assertLists( 'ed-e6', $usr, $id0, $expListsW, $expListsW2 );
+		$this->assertIsIn( 'ed-e6a', $usr, $id0, $expPagesIn );
 
 		//
 		// Add Gather-ListWAB to the created watchlist with ID=0 and description change
@@ -320,12 +330,15 @@ class GatherTests extends ApiTestCase {
 		$expListsW2->count = 3;
 		$expListsW2->description = 'y';
 		$expPagesW = array( $pageW, $pageWA, $pageWAB, $pageTW, $pageTWA, $pageTWAB );
+		$expPagesIn = array( 'Gather-ListW', 'Gather-ListWA', 'Gather-ListWAB' );
 
 		$this->assertPages( 'ed-f2', $usr, null, $expPagesW );
 		$this->assertPages( 'ed-f3', $usr, 0, $expPagesW );
 		$this->assertPages( 'ed-f4', $usr, $id0, $expPagesW );
 		$this->assertLists( 'ed-f5', $usr, 0, $expListsW, $expListsW2 );
+		$this->assertIsIn( 'ed-f5a', $usr, 0, $expPagesIn );
 		$this->assertLists( 'ed-f6', $usr, $id0, $expListsW, $expListsW2 );
+		$this->assertIsIn( 'ed-f6a', $usr, $id0, $expPagesIn );
 
 		//
 		// Create new list A
@@ -341,12 +354,17 @@ class GatherTests extends ApiTestCase {
 			'count' => 0,
 		) );
 		$expPagesA = array();
+		$expPagesIn = array();
 
 		$this->assertPages( 'ed-i2', $usr, $idA, $expPagesA );
 		$this->assertLists( 'ed-i3', $usr, $idA, $expListsA, $expListsA2 );
+		$this->assertIsIn( 'ed-i3a', $usr, $idA, $expPagesIn );
 		$this->assertLists( 'ed-i4', $usrA, $idA, null );
+		$this->assertIsIn( 'ed-i4a', $usrA, $idA, null );
 		$this->assertLists( 'ed-i5', $usr2, $idA, null );
+		$this->assertIsIn( 'ed-i5a', $usr2, $idA, null );
 		$this->assertLists( 'ed-i6', $usrS, $idA, null );
+		$this->assertIsIn( 'ed-i6a', $usrS, $idA, null );
 
 		$this->badUsePage( 'ed-ia1', $usrA, '"lspid": ' . $idA );
 		$this->badUsePage( 'ed-ia2', $usr2, '"lspid": ' . $idA );
@@ -414,9 +432,13 @@ class GatherTests extends ApiTestCase {
 		$this->assertPages( 'ed-k2b', $usrA, $idA, $expPagesA );
 		$this->assertPages( 'ed-k2c', $usrS, $idA, $expPagesA );
 		$this->assertLists( 'ed-k3', $usr, $idA, $expListsA, $expListsA2 );
+		$this->assertIsIn( 'ed-k3a', $usr, $idA, $expPagesIn );
 		$this->assertLists( 'ed-k4', $usrA, $idA, $expListsA, $expListsA2 );
+		$this->assertIsIn( 'ed-k4a', $usrA, $idA, $expPagesIn );
 		$this->assertLists( 'ed-k5', $usr2, $idA, $expListsA, $expListsA2 );
+		$this->assertIsIn( 'ed-k5a', $usr2, $idA, $expPagesIn );
 		$this->assertLists( 'ed-k6', $usrS, $idA, $expListsA, $expListsA2 );
+		$this->assertIsIn( 'ed-k6a', $usrS, $idA, $expPagesIn );
 
 		$this->badUseEdit( 'ed-ka1', $usr, false, $idAs . ', "description": "x"' );
 		$this->badUseEdit( 'ed-ka2', $usrA, false, $idAs . ', "description": "x"' );
@@ -457,6 +479,7 @@ class GatherTests extends ApiTestCase {
 		$this->badUsePage( 'ed-l3a', $usrS, '"lspid": ' . $idA );
 		$this->badUsePage( 'ed-l4', $usrA, '"lspid": ' . $idA );
 		$this->assertLists( 'ed-l5', $usr, $idA, null );
+		$this->assertIsIn( 'ed-l5a', $usr, $idA, null );
 		$this->assertLists( 'ed-l6', $usrA, $idA, null );
 		$this->assertLists( 'ed-l7', $usr2, $idA, null );
 		$this->assertLists( 'ed-l7a', $usrS, $idA, null );
@@ -484,15 +507,20 @@ class GatherTests extends ApiTestCase {
 		) );
 		// Non-alphabetic order should be preserved
 		$expPagesB = array( $pageB, $pageAB, $pageWAB );
+		$expPagesIn = array( 'Gather-ListB', 'Gather-ListAB', 'Gather-ListWAB' );
 
 		$this->assertPages( 'ed-n2', $usr, $idB, $expPagesB );
 		$this->assertPages( 'ed-n3', $usr2, $idB, $expPagesB );
 		$this->assertPages( 'ed-n3a', $usrS, $idB, $expPagesB );
 		$this->assertPages( 'ed-n4', $usrA, $idB, $expPagesB );
 		$this->assertLists( 'ed-n5', $usr, $idB, $expListsB, $expListsB2 );
+		$this->assertIsIn( 'ed-n5a', $usr, $idB, $expPagesIn );
 		$this->assertLists( 'ed-n6', $usrA, $idB, $expListsB, $expListsB2 );
+		$this->assertIsIn( 'ed-n6a', $usrA, $idB, $expPagesIn );
 		$this->assertLists( 'ed-n7', $usr2, $idB, $expListsB, $expListsB2 );
+		$this->assertIsIn( 'ed-n7a', $usr2, $idB, $expPagesIn );
 		$this->assertLists( 'ed-n8', $usrS, $idB, $expListsB, $expListsB2 );
+		$this->assertIsIn( 'ed-n8a', $usrS, $idB, $expPagesIn );
 		$this->badUseEdit( 'ed-na1', $usr, $token, '"label": "B", "mode": "hidelist"' );
 		$this->badUseEdit( 'ed-na2', $usr, $token, '"label": "B", "mode": "showlist"' );
 		$this->badUseEdit( 'ed-na3', $usrA, $tokenA, '"label": "B", "mode": "hidelist"' );
@@ -525,9 +553,13 @@ class GatherTests extends ApiTestCase {
 		$this->assertLists( 'ed-o4', $usr, $idB, $expListsB, $expListsB2 );
 		$this->assertLists( 'ed-o4a', $usr, '{}', array( $expListsW, $expListsB ),
 			array( $expListsW2, $expListsB2 ) );
+		$this->assertIsIn( 'ed-o4b', $usr, $idB, $expPagesIn );
 		$this->assertLists( 'ed-o5', $usrA, $idB, null );
+		$this->assertIsIn( 'ed-o5a', $usrA, $idB, null );
 		$this->assertLists( 'ed-o6', $usr2, $idB, null );
+		$this->assertIsIn( 'ed-o6a', $usr2, $idB, null );
 		$this->assertLists( 'ed-o7', $usrS, $idB, null );
+		$this->assertIsIn( 'ed-o7a', $usrS, $idB, null );
 
 		$this->badUsePage( 'ed-oa1', $usrA, '"lspid": ' . $idB );
 		$this->badUsePage( 'ed-oa2', $usr2, '"lspid": ' . $idB );
@@ -557,6 +589,7 @@ class GatherTests extends ApiTestCase {
 
 		$this->assertPages( 'ed-p2', $usr, $idB, $expPagesB );
 		$this->assertLists( 'ed-p3', $usr, $idB, $expListsB, $expListsB2 );
+		$this->assertIsIn( 'ed-p3a', $usr, $idB, $expPagesIn );
 	}
 
 	public function testMultipleLists() {
@@ -1045,6 +1078,47 @@ class GatherTests extends ApiTestCase {
 			$lst = $this->getVal( $message, '"query", "lists"', $res );
 			$this->assertEquals( $expectedProp, $lst, $message );
 		}
+	}
+
+	/**
+	 * @param $message
+	 * @param User $u
+	 * @param $params
+	 * @param null|array|object $expected if null, expect empty, if object, expect one page,
+	 *        if array, expect several pages
+	 * @throws Exception
+	 */
+	private function assertIsIn( $message, $u, $params, $expected ) {
+		if ( is_integer( $params ) ) {
+			$params = '"lsmid":' . $params;
+		}
+		$params = array_merge( (array)$this->toArr( $message, $params, true ), array(
+			'action' => 'query',
+			'format' => 'json',
+			'continue' => '',
+			'generator' => 'allpages',
+			'gapprefix' => 'Gather-List',
+			'gaplimit' => 'max',
+			'prop' => 'listmembership'
+		) );
+
+		if ( $expected === null ) {
+			$this->badUse( $message, $u, 'query', false, $params );
+			return;
+		}
+
+		$res = $this->doApiRequest2( $message, $u, $params );
+
+		$found = array();
+		if ( isset( $res[0]['query']['pages'] ) ) {
+			foreach ( $res[0]['query']['pages'] as $page ) {
+				if ( array_key_exists( 'listmembership', $page ) ) {
+					$this->assertEquals( true, $page['listmembership'], $message );
+					$found[] = $page['title'];
+				}
+			}
+		}
+		$this->assertArrayEquals( $expected, $found, false, false, $message );
 	}
 
 	private function assertPages( $message, $u, $id, $expected ) {

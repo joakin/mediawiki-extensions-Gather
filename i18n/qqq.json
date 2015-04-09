@@ -118,5 +118,10 @@
 	"gather-collection-more": "Label for link at bottom of Gather collection when there are more than 50 items.",
 	"gather-add-to-another": "Label for button at bottom of collection overlay for when you have more collections that you could potentially add to.",
 	"gather-watchstar-button-label": "A label for the button to add to a collection.",
-	"gather-menu-guider": "Message that shows up in an overlay pointing at the menu button."
+	"gather-menu-guider": "Message that shows up in an overlay pointing at the menu button.",
+	"gather-api-help-param-listid": "{{doc-apihelp-param|lsm|id|listmembership|query+listmembership}}",
+	"gather-api-help-param-listowner": "{{doc-apihelp-param|lsm|owner|listmembership|query+listmembership}}",
+	"gather-api-help-param-listtoken": "{{doc-apihelp-param|lsm|token|listmembership|query+listmembership}}",
+	"apihelp-query+listmembership-description": "{{doc-apihelp-description|lsm|listmembership|query+listmembership}}",
+	"apihelp-query+listmembership-example-1": "{{doc-apihelp-example|lsm|listmembership|query+listmembership}}"
 }
