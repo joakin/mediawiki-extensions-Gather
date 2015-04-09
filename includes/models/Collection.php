@@ -186,6 +186,9 @@ class Collection extends CollectionBase implements IteratorAggregate {
 					$owner = User::newFromName( $list['owner'] );
 					$collection = new Collection( $id, $owner, $list['label'], $list['description'],
 						$list['public'], $image );
+					if ( $list['perm'] === 'hidden' ) {
+						$collection->setHidden();
+					}
 				}
 			}
 
