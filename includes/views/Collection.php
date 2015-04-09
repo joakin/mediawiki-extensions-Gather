@@ -46,6 +46,7 @@ class Collection extends View {
 		$owner = $collection->getOwner();
 
 		$html = Html::openElement( 'div', array( 'class' => 'collection-header' ) ) .
+			Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() ) .
 			Html::element( 'div', array( 'class' => 'collection-description' ), $description ) .
 			$this->getOwnerHtml( $owner ) .
 			$this->getActionButtonsHtml() .
