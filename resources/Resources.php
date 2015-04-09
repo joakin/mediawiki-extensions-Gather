@@ -49,11 +49,18 @@ $wgGatherMobileSpecialPageResourceBoilerplate = $wgGatherResourceFileModuleBoile
 
 $wgResourceModules += array(
 
-	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
+	'ext.gather.menu.icon' => $wgGatherResourceFileModuleBoilerplate + array(
 		'class' => 'ResourceLoaderImageModule',
 		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
 			'collections-icon' => 'ext.gather.icons/plus.svg',
+		),
+	),
+
+	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
+		'class' => 'ResourceLoaderImageModule',
+		'selector' => '.mw-ui-icon-{name}:before',
+		'images' => array(
 			'collections-read-more' => 'ext.gather.icons/next.svg',
 			'collection-owner' => 'ext.gather.icons/user.svg',
 		),
