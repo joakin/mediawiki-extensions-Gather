@@ -1,0 +1,9 @@
+<li class="page-summary" title="{{title}}" data-title="{{title}}"
+	{{#isMember}}data-is-member="true"{{/isMember}}>
+  <a href="#" class="title">
+    <div class="list-thumb {{pageimageClass}}" style="{{listThumbStyleAttribute}}"></div>
+    <h3>{{{heading}}}</h3>
+    {{#isMember}}{{{iconButton}}}{{/isMember}}
+		{{^isMember}}{{{iconDisabledButton}}}{{/isMember}}
+  </a>
+</li>

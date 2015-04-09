@@ -1,0 +1,20 @@
+<div class="overlay-header save-header hideable">
+	<ul>
+		<li>{{{cancelButton}}}</li>
+	</ul>
+	<div class="overlay-title">
+		<h2>{{collection.title}}</h2>
+	</div>
+	<div class="overlay-action">
+		<button class="submit save">{{saveMsg}}</button>
+	</div>
+</div>
+<div class="overlay-header continue-header hideable hidden">
+	<ul>
+		<li>{{{backButton}}}</li>
+	</ul>
+	<div class="overlay-title">
+		<h2>{{collection.title}}</h2>
+	</div>
+	<div class="overlay-action"><button class="continue">{{continueMsg}}</button></div>
+</div>

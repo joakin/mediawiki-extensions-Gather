@@ -3,6 +3,7 @@
 	var CollectionEditOverlay,
 		toast = M.require( 'toast' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+		CollectionSearchPanel = M.require( 'ext.gather.page.search/CollectionSearchPanel' ),
 		Overlay = M.require( 'Overlay' ),
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
@@ -12,10 +13,11 @@
 	 * Overlay for editing a collection
 	 * @extends Overlay
 	 * @class CollectionEditOverlay
+	 * @uses CollectionSearchPanel
 	 */
 	CollectionEditOverlay = Overlay.extend( {
 		/** @inheritdoc */
-		className: 'collection-editor-overlay overlay position-fixed',
+		className: 'collection-editor-overlay overlay',
 		titleMaxLength: 90,
 		descriptionMaxLength: 280,
 		/** @inheritdoc */
@@ -28,17 +30,21 @@
 			descriptionLabel: mw.msg( 'gather-edit-collection-label-description' ),
 			privateLabel: mw.msg( 'gather-edit-collection-label-privacy' ),
 			headerButtonsListClassName: 'overlay-action',
-			headerButtons: [ {
-				className: 'save submit',
-				msg: mw.msg( 'gather-edit-collection-save-label' )
-			} ]
+			continueMsg: mw.msg( 'gather-overlay-continue' ),
+			editMsg: mw.msg( 'gather-edit-button' ),
+			deleteMsg: mw.msg( 'gather-delete-button' ),
+			saveMsg: mw.msg( 'gather-edit-collection-save-label' )
 		} ),
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {
+			'click .edit-action': 'onEditActionClick',
+			'click .continue': 'onNextClick',
+			'click .back': 'onBackClick',
 			'click .save': 'onSaveClick'
 		} ),
 		/** @inheritdoc */
 		templatePartials: $.extend( {}, Overlay.prototype.templatePartials, {
+			header: mw.template.get( 'ext.gather.collection.editor', 'header.hogan' ),
 			content: mw.template.get( 'ext.gather.collection.editor', 'content.hogan' )
 		} ),
 		/** @inheritdoc */
@@ -53,11 +59,59 @@
 				Overlay.prototype.initialize.apply( this, arguments );
 			}
 		},
+		/** @inheritdoc */
+		postRender: function ( options ) {
+			var self = this,
+				id = this.id;
+
+			Overlay.prototype.postRender.apply( this, arguments );
+			this.api.getCollectionMembers( id ).done( function ( pages ) {
+				self.searchPanel = new CollectionSearchPanel( {
+					collection: options.collection,
+					pages: pages,
+					el: self.$( '.panel' )
+				} ).show();
+			} );
+		},
+		/**
+		 * Switch to the first pane in the overlay.
+		 * @private
+		 */
+		_switchToFirstPane: function () {
+			this.$( '.continue-header, .editor-pane' ).addClass( 'hidden' );
+			this.$( '.save-header, .manage-members-pane' ).removeClass( 'hidden' );
+		},
+		/**
+		 * Event handler when the edit button is clicked.
+		 */
+		onEditActionClick: function () {
+			this.$( '.save-header, .manage-members-pane' ).addClass( 'hidden' );
+			this.$( '.continue-header, .editor-pane' ).removeClass( 'hidden' );
+		},
+		/**
+		 * Event handler when the back button is clicked on the title/edit description pane.
+		 */
+		onBackClick: function () {
+			var collection = this.options.collection;
+			// reset the values to their original values.
+			this.$( 'input.title' ).val( collection.title );
+			this.$( '.description' ).val( collection.description );
+			// Note: we will need to reset checkbox when enabling private/public toggle.
+			this._switchToFirstPane();
+		},
+		/**
+		 * Event handler when the continue button is clicked in the title/edit description pane.
+		 */
+		onNextClick: function () {
+			var newTitle = this.$( 'input.title' ).val();
+			this.$( '.save-header h2' ).text( newTitle );
+			this._switchToFirstPane();
+		},
 		/**
 		 * Event handler when the save button is clicked.
 		 */
 		onSaveClick: function () {
-			var title = this.$( '.title' ).val(),
+			var title = this.$( 'input.title' ).val(),
 				self = this,
 				description = this.$( '.description' ).val();
 

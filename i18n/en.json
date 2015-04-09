@@ -77,6 +77,7 @@
 	"gather-empty-footer": "Create a collection by clicking on the star icon while reading a {{SITENAME}} page.",
 	"gather-edit-button": "Edit",
 	"gather-delete-button": "Delete",
+	"gather-overlay-continue": "Next",
 	"right-gather-hidelist": "Force a public user list to become hidden",
 	"apihelp-gather-description": "List and edit Gather collections.",
 	"apihelp-gather-param-gather": "Action to perform on collections.",
