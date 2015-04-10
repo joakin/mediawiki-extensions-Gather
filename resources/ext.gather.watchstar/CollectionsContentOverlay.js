@@ -91,7 +91,7 @@
 
 			this.createButton  = new ButtonWithSpinner( {
 				label: mw.msg( 'gather-create-new-button-label' ),
-				flags: ['primary', 'constructive']
+				flags: [ 'primary', 'constructive' ]
 			} );
 			this.createButton.setDisabled( true );
 			// Binding here as widgets are not views and are created after events map runs
