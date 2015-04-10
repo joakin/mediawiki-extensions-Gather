@@ -1056,6 +1056,6 @@ class GatherTests extends ApiTestCase {
 	private function assertPages( $message, $u, $id, $expected ) {
 		$params = $id === null ? '{}' : '"lspid":' . $id;
 		$res = $this->getPages( $message, $u, $params );
-		$this->getVal( $message, '"listpages"', $res, $expected );
+		$this->getVal( $message, '"query", "listpages"', $res, $expected );
 	}
 }

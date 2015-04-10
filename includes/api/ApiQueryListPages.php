@@ -41,8 +41,11 @@ use Title;
  */
 class ApiQueryListPages extends ApiQueryGeneratorBase {
 
+	private $modulePath;
+
 	public function __construct( ApiQuery $query, $moduleName ) {
 		parent::__construct( $query, $moduleName, 'lsp' );
+		$this->modulePath = array( 'query', $this->getModuleName() );
 	}
 
 	public function execute() {
@@ -114,9 +117,8 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				$titles = $this->queryListItems( $params, $isGenerator );
 			}
 		}
-
 		if ( !$isGenerator ) {
-			$this->getResult()->setIndexedTagName_internal( $this->getModuleName(), 'wr' );
+			$this->getResult()->setIndexedTagName_internal( $this->modulePath, 'wr' );
 		} else {
 			$resultPageSet->populateFromTitles( $titles );
 		}
@@ -159,7 +161,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 			if ( !$isGenerator ) {
 				$vals = array();
 				ApiQueryBase::addTitleInfo( $vals, $t );
-				$fit = $this->getResult()->addValue( $this->getModuleName(), null, $vals );
+				$fit = $this->getResult()->addValue( $this->modulePath, null, $vals );
 				if ( !$fit ) {
 					$this->setContinueEnumParameter( 'continue', $row->gli_order );
 					break;
@@ -225,7 +227,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 			if ( !$isGenerator ) {
 				$vals = array();
 				ApiQueryBase::addTitleInfo( $vals, $t );
-				$fit = $this->getResult()->addValue( $this->getModuleName(), null, $vals );
+				$fit = $this->getResult()->addValue( $this->modulePath, null, $vals );
 				if ( !$fit ) {
 					$this->setContinueEnumParameter( 'continue', $row->wl_namespace . '|' . $row->wl_title );
 					break;
