@@ -73,6 +73,7 @@
 	"gather-empty-footer": "当阅读{{SITENAME}}页面时，通过点击星形图标创建一个收藏。",
 	"gather-edit-button": "编辑",
 	"gather-delete-button": "删除",
+	"gather-overlay-continue": "下一步",
 	"right-gather-hidelist": "强制隐藏一个公开的用户列表",
 	"apihelp-gather-description": "列举并编辑聚集收藏。",
 	"apihelp-gather-param-gather": "在收藏中执行的操作。",

@@ -72,7 +72,7 @@
 	"gather-public": "Público",
 	"gather-article-count": "$1 {{PLURAL:$1|página|páginas}}",
 	"gather-empty": "Aún no hay nada en esta colección.",
-	"gather-empty-footer": "Accionar la página de lectura {{SITENAME}} haciendo clíck  en el ícono para crear una colección.",
+	"gather-empty-footer": "Para crear una colección, pulsa en el icono de la estrella en cualquier página de {{SITENAME}}.",
 	"gather-edit-button": "Editar",
 	"gather-delete-button": "Borrar",
 	"right-gather-hidelist": "Forzar el ocultamiento de una lista de usuario pública",

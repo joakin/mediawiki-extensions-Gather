@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Yona b",
-			"Amire80"
+			"Amire80",
+			"LaG roiL"
 		]
 	},
 	"gather": "לקט",
@@ -11,7 +12,7 @@
 	"gather-lists-showvisible": "הצגות רשימות גלויות",
 	"gather-lists-collection-owner": "מתחזק",
 	"gather-lists-collection-last-updated": "עודכן לאחרונה",
-	"gather-lists-collection-title": "כותרת",
+	"gather-lists-collection-title": "שם",
 	"gather-lists-collection-description": "תיאור",
 	"gather-lists-collection-count": "פריטים",
 	"gather-lists-hide-collection-label": "הסתרה",
@@ -23,7 +24,7 @@
 	"gather-lists-show-success-toast": "הרשימה \"$1\" שוב הוגדרה כציבורית בהצלחה.",
 	"gather-lists-show-failure-toast": "הצגת הרשימה \"$1\" לא עבדה.",
 	"gather-editfeed-show": "הצגה",
-	"gather-editfeed-title": "הזנות העריכות שלי",
+	"gather-editfeed-title": "עריכות לדפים בלקטים שלי",
 	"gather-editfeed-empty": "לא היו לאחרונה עריכות לשום דף בלקט הזה.",
 	"gather-remove-from-collection-failed-toast": "לא ניתן להסיר דף מלקט.",
 	"gather-add-to-collection-failed-toast": "לא ניתן להוסיף דף ללקט",
@@ -74,6 +75,7 @@
 	"gather-empty-footer": "צור לקט באמצעות לחיצה על הכוכב בזמן קריאת דף באתר {{SITENAME}}.",
 	"gather-edit-button": "עריכה",
 	"gather-delete-button": "מחיקה",
+	"gather-overlay-continue": "הבא",
 	"right-gather-hidelist": "לכפות על רשימה ציבורית שיצר משתמש להיות מוסתרת",
 	"apihelp-gather-description": "קבלת רשימה ועריכה של לקטים.",
 	"apihelp-gather-param-gather": "איזו פעולה לעשות על הלקטים.",

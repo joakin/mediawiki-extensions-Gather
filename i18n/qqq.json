@@ -66,7 +66,6 @@
 	"gather-no-such-action": "Message used, if thse user tried to request a non-existent action on a collection.",
 	"gather-unknown-error": "Used as an error message, if there was an unknown error.",
 	"gather-desc": "{{desc|name=Gather|url=https://www.mediawiki.org/wiki/Extension:Gather}}",
-	"gather-loginpage-desc": "User friendly description of Gather on mobile [[Special:UserLogin]] page.",
 	"gather-no-public-lists-title": "The title of the view shown when there are no public collections for a user.",
 	"gather-no-public-lists-description": "The descriptive text explaining that there are no public collections for a user.",
 	"gather-page-not-found": "Text in place of the collection excerpt explaining that the page does not exist",
