@@ -59,6 +59,7 @@
 	"gather-no-such-action": "Die angeforderte Aktion ist leider nicht vorhanden.",
 	"gather-unknown-error": "Leider gab es beim Verarbeiten deiner Anfrage einen unbekannten Fehler.",
 	"gather-desc": "Komponente des mobilen Frontends, die es Benutzern ermöglicht, Listen zu kuratieren",
+	"gather-loginpage-desc": "Mit Sammlungen kannst du Listen deiner Lieblingsseiten erstellen und sie teilen.",
 	"gather-no-public-lists-title": "Keine öffentlichen Sammlungen",
 	"gather-no-public-lists-description": "Es gibt keine öffentlichen Sammlungen für diesen Benutzer.",
 	"gather-page-not-found": "Seite nicht gefunden",

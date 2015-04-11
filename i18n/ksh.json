@@ -4,6 +4,7 @@
 			"Purodha"
 		]
 	},
+	"gather": "De eije Sammlonge",
 	"gatherlists": "Öffentlesche Leßte aanzeije",
 	"gather-lists-showhidden": "Zeisch de verschtoche Leßte aan.",
 	"gather-lists-showvisible": "Zeisch de seeschbaa Leßte aan.",
@@ -55,6 +56,7 @@
 	"gather-no-such-action": "Schahd, esu ene Opdracht känne mer nidd em Zersammehang met Sammlonge.",
 	"gather-unknown-error": "Schahd, ene onklohre Fähler es beim Versohch opjetrodde, dat ze maache.",
 	"gather-desc": "Aandeil för et Projramm för Mobihljerähte för de eije Leßte ze beärbeide.",
+	"gather-loginpage-desc": "Met de Sammlonge kam_mer Sigge en eije Sammlong don un öffentlesch wiggerjävve.",
 	"gather-no-public-lists-title": "Kein öffentlesche Sammlonge",
 	"gather-no-public-lists-description": "mer han kein öffentlesche Sammlonge för heh dä Metmaacher.",
 	"gather-page-not-found": "Sigg nit jefonge",
