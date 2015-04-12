@@ -59,6 +59,7 @@
 	"gather-no-such-action": "סליחה, הפעולה המבוקשת אינה קיימת.",
 	"gather-unknown-error": "סליחה, אירעה שגיאה בלתי־ידועה בעיבוד הבקשה שלך.",
 	"gather-desc": "מרכיב באתר הניידים המאפשר למשתמשים לסדר רשימות.",
+	"gather-loginpage-desc": "עם לקטים אתם יכולים ליצור ולשתף רשימות של הדפים האהובים עליכם.",
 	"gather-no-public-lists-title": "אין לקטים ציבוריים",
 	"gather-no-public-lists-description": "אין לקטין ציבוריים עבור המשתמש הזה.",
 	"gather-page-not-found": "הדף לא נמצא",

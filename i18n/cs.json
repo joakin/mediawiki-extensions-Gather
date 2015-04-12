@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mormegil"
+			"Mormegil",
+			"Cvanca"
 		]
 	},
 	"gather-lists-collection-owner": "Vlastník",
@@ -24,7 +25,7 @@
 	"gather-edit-collection-label-description": "Popis",
 	"gather-edit-collection-label-privacy": "Soukromá sbírka",
 	"gather-edit-collection-save-label": "Hotovo",
-	"gather-edit-collection-failed-error": "Při ukládání změn došlo k chybě.",
+	"gather-edit-collection-failed-error": "Při ukládání změn došlo k chybě, zkuste prosím něco jiného.",
 	"gather-delete-collection-confirm": "Jste si {{GENDER:|jist|jista|jisti}}, že chcete tuto sbírku smazat?",
 	"gather-delete-collection-heading": "Smazat sbírku",
 	"gather-delete-collection-delete-label": "Smazat",
@@ -42,7 +43,7 @@
 	"gather-add-toast": "Stránka byla přidána do vaší sbírky „$1“.",
 	"gather-new-collection-failed-toast": "Při vytváření vaší sbírky „$1“ došlo k chybě.",
 	"gather-add-failed-toast": "Při přidávání položky do vaší sbírky „$1“ došlo k chybě.",
-	"gather-add-to-collection-summary": "{{GENDER:|Chtěl|Chtěla|Chtěli}} byste přidat stránku $1 do sbírky?",
+	"gather-add-to-collection-summary": "Přidat stránku $1 do sbírky, kterou můžete sdílet s celým světem!",
 	"gather-add-to-collection-confirm": "Přidat do sbírky",
 	"gather-add-to-collection-cancel": "Ne, děkuji",
 	"gather-remove-toast": "Stránka byla odebrána z vaší sbírky „$1“.",
@@ -59,9 +60,9 @@
 	"gather-read-more": "Číst dál",
 	"gather-private": "Soukromá",
 	"gather-public": "Veřejná",
-	"gather-article-count": "$1 {{PLURAL:$1|článek|články|článků}}",
+	"gather-article-count": "$1 {{PLURAL:$1|stránka|stránky|stránek}}",
 	"gather-empty": "V této sbírce zatím nic není…",
-	"gather-empty-footer": "Nevím, kde jste se tu vzali, ale je tu smutno.",
+	"gather-empty-footer": "Vytvořit sbírku kliknutím na ikonu hvězdičky při čtení stránky translatewiki.net.",
 	"gather-edit-button": "Upravit",
 	"gather-delete-button": "Smazat",
 	"right-gather-hidelist": "Vynucování skrytí veřejné uživatelské sbírky",
