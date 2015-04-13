@@ -99,19 +99,26 @@
 		onStatusToggleUser: function ( ev ) {
 			// Open the collections content overlay to deal with this.
 			var overlay = this.overlay,
+				options = this.options,
 				self = this;
 
 			if ( !overlay ) {
 				// cache it so state changes internally for this session
 				this.overlay = overlay = new CollectionsContentOverlay( {
-					page: this.options.page,
+					page: options.page,
 					// FIXME: Should be retrievable from Page
 					description: mw.config.get( 'wgMFDescription' ),
 					// FIXME: Should be retrievable from Page
 					pageImageUrl: mw.config.get( 'wgGatherPageImageThumbnail' ),
-					collections: this.options.collections
+					collections: options.collections
 				} );
 				overlay.on( 'collection-watch', function ( collection ) {
+					/**
+					 * @event completed
+					 * @param {Boolean} whether user was prompted
+					 */
+					self.emit( 'completed', options.wasUserPrompted ||
+						options.isNewlyAuthenticatedUser );
 					if ( collection.isWatchlist ) {
 						self.newStatus( true );
 					}

@@ -2,6 +2,7 @@
 ( function ( M, $ ) {
 
 	var CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
+		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
 		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
 		settings = M.require( 'settings' ),
 		settingOverlayWasDismissed = 'gather-has-dismissed-tutorial',
@@ -95,7 +96,20 @@
 		if ( shouldShow ) {
 			showPointer( watchstar );
 		}
+		watchstar.on( 'completed', function ( firstTimeUser ) {
+			var p;
+			if ( firstTimeUser ) {
+				// FIXME: Rename pointer overlay?
+				p = new PageActionOverlay( {
+					target: $( '#mw-mf-main-menu-button' ),
+					summary: mw.msg( 'gather-menu-guider' ),
+					cancelMsg: mw.msg( 'gather-add-to-collection-cancel' )
+				} );
+				p.show();
+			}
+		} );
 	}
+
 	// Only init when current page is an article
 	if ( !page.inNamespace( 'special' ) ) {
 		init( page );
