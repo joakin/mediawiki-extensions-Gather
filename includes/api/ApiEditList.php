@@ -26,6 +26,7 @@
 
 namespace Gather\api;
 
+use ManualLogEntry;
 use AbuseFilter;
 use AbuseFilterVariableHolder;
 use ApiBase;
@@ -56,6 +57,19 @@ class ApiEditList extends ApiBase {
 	const PERM_HIDDEN = 2;
 
 	/**
+	 * @param string $type Log type
+	 * @param string $action Log action
+	 * @param Title|null $title Title object or null
+	 * @param Skin|null $skin Skin object or null. If null, we want to use the wiki
+	 *   content language, since that will go to the IRC feed.
+	 * @param array $params Parameters
+	 */
+	public static function getGatherLogFormattedString( $type, $action, $title, $sk, $params ) {
+		return wfMessage( 'gather-checkuser-log-action' )
+			->rawParams( $params['action'], '[[' . $title->getPrefixedText() . ']]' )->parse();
+	}
+
+	/**
 	 * @throws \UsageException
 	 */
 	public function execute() {
@@ -76,10 +90,12 @@ class ApiEditList extends ApiBase {
 		$isWatchlist = $listId === 0;
 
 		$dbw = wfGetDB( DB_MASTER, 'api' );
+		$logEventName = false;
 
 		if ( $isNew || $isWatchlist ) {
 			// ACTION: create a new list
 			$listId = $this->createRow( $dbw, $user, $params, $isWatchlist );
+			$logEventName = 'new';
 		} else {
 			// Find existing list
 			$row = $this->getListRow( $params, $dbw, array( 'gl_id' => $listId ) );
@@ -92,12 +108,14 @@ class ApiEditList extends ApiBase {
 				case 'remove':
 					// ACTION: update list
 					$this->updateListDb( $dbw, $params, $row );
+					$logEventName = $mode;
 					break;
 				case 'deletelist':
 					// ACTION: delete list (items + list itself)
 					$dbw->delete( 'gather_list_item', array( 'gli_gl_id' => $listId ), __METHOD__ );
 					$dbw->delete( 'gather_list', array( 'gl_id' => $listId ), __METHOD__ );
 					$this->setResultStatus( $listId, 'deleted' );
+					$logEventName = $mode;
 					break;
 				case 'hidelist':
 				case 'showlist':
@@ -107,7 +125,7 @@ class ApiEditList extends ApiBase {
 						$update['gl_perm'] = $perm;
 					}
 					$this->updateRow( $dbw, $row, $update );
-					// TODO: if ( $updated ) { log event / add to RC / ... ? }
+					$logEventName = $mode;
 					break;
 			}
 		}
@@ -115,6 +133,35 @@ class ApiEditList extends ApiBase {
 		if ( $mode === 'update' || $mode === 'remove' ) {
 			// Add the titles to the list (or subscribe with the legacy watchlist)
 			$this->processTitles( $params, $user, $listId, $dbw, $isWatchlist );
+		}
+
+		if ( $logEventName ) {
+			$this->logEntry( $logEventName, $listId );
+		}
+	}
+
+	/**
+	 * When CheckUser extension is installed log events.
+	 * @param string $action that occurred
+	 * @param integer $id of the collection that was operated on.
+	 * @throws MWException
+	 */
+	private function logEntry( $action, $id ) {
+		// If CheckUser installed, give it a heads up
+		if ( is_callable( '\CheckUserHooks::updateCheckUserData' ) ) {
+			$user = $this->getUser();
+			$target = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )
+				->getSubPage( $user->getName() )->getSubPage( $id  );
+			$entry = new ManualLogEntry( 'gather', 'action' );
+			$entry->setPerformer( $user );
+			$entry->setTarget( $target );
+			$params = array(
+				'username' => 'bob',
+				'action' => $action,
+			);
+			$entry->setParameters( $params );
+			$rc = $entry->getRecentChange();
+			\CheckUserHooks::updateCheckUserData( $rc );
 		}
 	}
 

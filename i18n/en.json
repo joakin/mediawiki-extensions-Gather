@@ -10,6 +10,7 @@
 	},
 	"gather": "Gather",
 	"gatherlists": "Gather lists",
+	"gather-checkuser-log-action": "performed action \"$1\" on $2 via the Gather extension",
 	"gather-lists-showhidden": "Show hidden lists",
 	"gather-lists-showvisible": "Show visible lists",
 	"gather-lists-collection-owner": "Owner",
