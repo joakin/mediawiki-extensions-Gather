@@ -21,11 +21,6 @@
 		}
 	} );
 
-	/**
-	 * Generate string of a certain length
-	 * @param {Number} length length of desired string
-	 * @returns {String} generated string
-	 */
 	function getStringWithLength( len ) {
 		return Array( len + 1 ).join( 'a' );
 	}
