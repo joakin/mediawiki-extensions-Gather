@@ -8,6 +8,7 @@
 	},
 	"gather": "Gather",
 	"gatherlists": "Öffentliche Listen",
+	"gather-checkuser-log-action": "führte die Aktion „$1“ auf „$2“ über die Gather-Erweiterung aus",
 	"gather-lists-showhidden": "Versteckte Listen anzeigen",
 	"gather-lists-showvisible": "Sichtbare Listen anzeigen",
 	"gather-lists-collection-owner": "Besitzer",
@@ -86,5 +87,6 @@
 	"gather-lists-more": "Weitere Sammlungen von diesem Benutzer ansehen.",
 	"gather-collection-more": "Weitere Seiten in dieser Sammlung ansehen",
 	"gather-add-to-another": "Meine anderen Sammlungen anzeigen",
-	"gather-watchstar-button-label": "Zu Sammlung hinzufügen"
+	"gather-watchstar-button-label": "Zu Sammlung hinzufügen",
+	"gather-menu-guider": "Tippe auf das Menüsymbol, um deine neue Sammlung anzusehen."
 }

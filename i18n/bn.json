@@ -4,8 +4,9 @@
 			"Aftabuzzaman"
 		]
 	},
+	"gather-editfeed-show": "দেখাও",
 	"gather-watchlist-title": "নজরতালিকা",
 	"gather-read-more": "আরও পড়ুন",
 	"gather-private": "ব্যক্তিগত",
-	"gather-article-count": "$1টি {{PLURAL:$1|নিবন্ধ}}"
+	"gather-article-count": "$1টি {{PLURAL:$1|পাতা}}"
 }

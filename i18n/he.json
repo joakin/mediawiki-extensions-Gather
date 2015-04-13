@@ -8,6 +8,7 @@
 	},
 	"gather": "לקט",
 	"gatherlists": "רשימת לקטים",
+	"gather-checkuser-log-action": "ביצע את הפעולה \"$1\" על $2 דרך הרחבת הלקטים",
 	"gather-lists-showhidden": "הצגת רשימות מוסתרות",
 	"gather-lists-showvisible": "הצגות רשימות גלויות",
 	"gather-lists-collection-owner": "מתחזק",
@@ -86,5 +87,6 @@
 	"gather-lists-more": "הצגת לקטים נוספים של אותו המשתמש.",
 	"gather-collection-more": "הצגת דפים נוספים בלקט הזה",
 	"gather-add-to-another": "הצגת הלקטים האחרים שלי",
-	"gather-watchstar-button-label": "הוספה ללקט"
+	"gather-watchstar-button-label": "הוספה ללקט",
+	"gather-menu-guider": "נא ללחוץ על על כפתור התפריט כדי לראות את הלקט החדש שלך."
 }
