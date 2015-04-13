@@ -25,6 +25,7 @@
 	<div class="overlay-title">
 		<div class="search">
 			<input class="search" type="text">
+			{{{clearIcon}}}
 		</div>
 	</div>
 </div>
