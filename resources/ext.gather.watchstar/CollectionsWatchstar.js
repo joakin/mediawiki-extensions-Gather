@@ -67,13 +67,12 @@
 		/** @inheritdoc */
 		postRender: function ( options ) {
 			var $el = this.$el;
-
 			// For newly authenticated users via CTA force dialog to open.
 			if ( options.isNewlyAuthenticatedUser ) {
 				setTimeout( function () {
 					$el.trigger( 'click' );
 				}, 500 );
-				delete options.isNewlyAuthenticatedUser;
+				delete this.options.isNewlyAuthenticatedUser;
 			}
 			$el.removeClass( 'hidden' );
 		},
