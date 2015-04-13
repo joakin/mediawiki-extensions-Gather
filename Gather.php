@@ -102,6 +102,9 @@ $wgAPIListModules['listpages'] = 'Gather\api\ApiQueryListPages';
 // Configuration
 $wgGatherShouldShowTutorial = true;
 
+// For CheckUser
+$wgLogActionsHandlers['gather/action'] = 'Gather\api\ApiEditList::getGatherLogFormattedString';
+
 // Permissions
 $wgAvailableRights[] = 'gather-hidelist';
 $wgGroupPermissions['*']['gather-hidelist'] = false;
