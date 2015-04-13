@@ -74,6 +74,7 @@
 	"gather-read-more": "Read more",
 	"gather-private": "Private",
 	"gather-public": "Public",
+	"gather-hidden": "Hidden",
 	"gather-article-count": "$1 {{PLURAL:$1|page|pages}}",
 	"gather-empty": "Nothing in this collection yet...",
 	"gather-empty-footer": "Create a collection by clicking on the star icon while reading a {{SITENAME}} page.",

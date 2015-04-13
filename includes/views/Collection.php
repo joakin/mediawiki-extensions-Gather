@@ -44,16 +44,21 @@ class Collection extends View {
 		$collection = $this->collection;
 		$description = $collection->getDescription();
 		$owner = $collection->getOwner();
+		$privacyMsg = false;
+
 		if ( $collection->isHidden() ) {
-			$privacy = 'Hidden';
-		} else {
-			$privacy = $collection->isPublic() ? 'Public' : 'Private';
+			$privacyMsg = wfMessage( 'gather-hidden' )->plain();
+		} elseif ( !$collection->isPublic() ) {
+			$privacyMsg = wfMessage( 'gather-private' )->plain();
 		}
 
 		$html = Html::openElement( 'div', array( 'class' => 'collection-header' ) ) .
-			Html::openElement( 'div', array( 'class' => 'collection-meta' ) ) .
-				Html::element( 'div', array( 'class' => 'collection-privacy' ), $privacy ) .
-			Html::closeElement( 'div' ) .
+			Html::openElement( 'div', array( 'class' => 'collection-meta' ) );
+		// Provide privacy tag if collection is not public
+		if ( $privacyMsg ) {
+			$html .= Html::element( 'div', array( 'class' => 'collection-privacy' ), $privacyMsg );
+		}
+		$html .= Html::closeElement( 'div' ) .
 			Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() ) .
 			Html::element( 'div', array( 'class' => 'collection-description' ), $description ) .
 			$this->getOwnerHtml( $owner ) .
