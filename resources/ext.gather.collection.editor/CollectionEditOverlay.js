@@ -104,7 +104,7 @@
 		 */
 		onNextClick: function () {
 			var newTitle = this.$( 'input.title' ).val();
-			this.$( '.save-header h2' ).text( newTitle );
+			this.$( '.save-header h2 span' ).text( newTitle );
 			this._switchToFirstPane();
 		},
 		/**
