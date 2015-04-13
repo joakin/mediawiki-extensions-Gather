@@ -135,6 +135,7 @@ $wgResourceModules += array(
 		),
 		'styles' => array(
 			'ext.gather.watchstar/contentOverlay.less',
+			'ext.gather.watchstar/tag.less',
 		),
 		'messages' => array(
 			'gather-remove-from-collection-failed-toast',
@@ -161,11 +162,13 @@ $wgResourceModules += array(
 		'templates' => array(
 			'star.hogan' => 'ext.gather.watchstar/star.hogan',
 			'content.hogan' => 'ext.gather.watchstar/content.hogan',
+			'Tag.hogan' => 'ext.gather.watchstar/Tag.hogan',
 		),
 		'scripts' => array(
 			'ext.gather.watchstar/CollectionsContentOverlay.js',
 			'ext.gather.watchstar/CollectionsWatchstar.js',
 			'ext.gather.watchstar/WatchstarPageActionOverlay.js',
+			'ext.gather.watchstar/Tag.js',
 		),
 	),
 

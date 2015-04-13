@@ -4,6 +4,7 @@
 	var CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
 		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
 		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
+		Tag = M.require( 'ext.gather.watchstar/Tag' ),
 		settings = M.require( 'settings' ),
 		settingOverlayWasDismissed = 'gather-has-dismissed-tutorial',
 		user = M.require( 'user' ),
@@ -97,7 +98,7 @@
 			showPointer( watchstar );
 		}
 		watchstar.on( 'completed', function ( firstTimeUser ) {
-			var p;
+			var p, tag;
 			if ( firstTimeUser ) {
 				// FIXME: Rename pointer overlay?
 				p = new PageActionOverlay( {
@@ -106,6 +107,8 @@
 					cancelMsg: mw.msg( 'gather-add-to-collection-cancel' )
 				} );
 				p.show();
+				// FIXME: Hacky.. Should use MainMenu but Bug: T93257.
+				tag = new Tag( { label: 'new' } ).appendTo( '#mw-mf-page-left .collection-menu-item' );
 			}
 		} );
 	}
