@@ -35,6 +35,11 @@ class ReportTable extends View {
 	protected function getHtml( $data = array() ) {
 		$html = '';
 		$html .= Html::openElement( 'div', array( 'class' => 'content gather-lists' ) );
+		// Display protocol for hiding another users list
+		if ( $data['canHide'] ) {
+			$html .= Html::rawElement( 'div', array( 'class' => 'hide-protocol' ),
+				wfMessage( 'gather-lists-hide-protocol' )->parse() );
+		}
 		$html .= Html::openElement( 'ul', array() );
 		$html .= Html::openElement( 'li', array( 'class' => 'heading' ) )
 		. Html::element( 'span', array(), wfMessage( 'gather-lists-collection-title' ) )
