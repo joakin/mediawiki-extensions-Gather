@@ -190,6 +190,9 @@ class Hooks {
 	 * @param array $messages Array of valid messages, already added
 	 */
 	public static function onLoginFormValidErrorMessages( &$messages ) {
+		// support for both, mobile and desktop, remove the key "Gather",
+		// when mobile uses desktop login page
+		$messages['Gather'] = 'gather-loginpage-desc';
 		$messages[] = 'gather-anon-view-lists';
 	}
 }
