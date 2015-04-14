@@ -4,7 +4,8 @@
 			"Batumski brodyaga",
 			"Foxyor",
 			"Iluvatar",
-			"Mariya"
+			"Mariya",
+			"Okras"
 		]
 	},
 	"gather-lists-collection-owner": "Владелец",
@@ -13,7 +14,7 @@
 	"gather-lists-title": "Коллекции",
 	"gather-private": "Личная",
 	"gather-empty": "В коллекции еще ничего нет...",
-	"gather-empty-footer": "Не знаю, как вы сюда попали, но это скучное место.",
+	"gather-empty-footer": "Создайте коллекцию, нажав на значок звёздочки во время чтения страницы сайта {{SITENAME}}.",
 	"gather-edit-button": "Редактировать",
 	"gather-overlay-continue": "Далее",
 	"gather-lists-more": "Посмотрите другие статьи этого пользователя",

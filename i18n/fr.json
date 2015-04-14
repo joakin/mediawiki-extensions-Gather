@@ -4,11 +4,15 @@
 			"Element303",
 			"Thibaut120094",
 			"Abaddon1337",
-			"MPlauche"
+			"MPlauche",
+			"Gomoko"
 		]
 	},
 	"gather": "Regrouper",
 	"gatherlists": "Regrouper des listes",
+	"gather-checkuser-log-action": "action « $1 » effectuée sur $1 via l’extension Gather",
+	"gather-lists-showhidden": "Afficher les listes cachées",
+	"gather-lists-showvisible": "Afficher les listes visibles",
 	"gather-lists-collection-owner": "propriétaire",
 	"gather-lists-collection-last-updated": "Dernière mise à jour",
 	"gather-lists-collection-title": "Titre",
@@ -22,6 +26,8 @@
 	"gather-lists-show-collection": "Voulez-vous rendre publique la liste \"$1\" par $2 de nouveau?",
 	"gather-lists-show-success-toast": "Liste \"$1\" est redevenue publique.",
 	"gather-lists-show-failure-toast": "Impossible d'afficher la liste \"$1\".",
+	"gather-editfeed-show": "Afficher",
+	"gather-editfeed-title": "Modifications sur les pages dans mes collections",
 	"gather-remove-from-collection-failed-toast": "Impossible de supprimer cette page de la collection.",
 	"gather-add-to-collection-failed-toast": "Impossible d'ajouter cette page à la collection.",
 	"gather-edit-collection-heading": "Modifier la collection",
