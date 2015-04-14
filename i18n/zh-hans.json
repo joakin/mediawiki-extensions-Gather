@@ -6,6 +6,7 @@
 	},
 	"gather": "Gather",
 	"gatherlists": "Gather列表",
+	"gather-checkuser-log-action": "通过Gather扩展在$2执行“$1”操作",
 	"gather-lists-showhidden": "显示隐藏列表",
 	"gather-lists-showvisible": "显示可视列表",
 	"gather-lists-collection-owner": "所有人",
@@ -69,6 +70,7 @@
 	"gather-read-more": "阅读更多",
 	"gather-private": "私有的",
 	"gather-public": "公开",
+	"gather-hidden": "已隐藏",
 	"gather-article-count": "$1个{{PLURAL:$1|页面}}",
 	"gather-empty": "此收藏中尚无任何条目……",
 	"gather-empty-footer": "当阅读{{SITENAME}}页面时，通过点击星形图标创建一个收藏。",
@@ -84,5 +86,6 @@
 	"gather-lists-more": "查理来自此用户的更多收藏。",
 	"gather-collection-more": "查看此收藏中的更多页面",
 	"gather-add-to-another": "显示我的其他收藏",
-	"gather-watchstar-button-label": "添加至收藏"
+	"gather-watchstar-button-label": "添加至收藏",
+	"gather-menu-guider": "点击菜单图标以检查您的新收藏。"
 }

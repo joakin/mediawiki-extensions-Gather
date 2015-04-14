@@ -4,8 +4,9 @@
 			"Bjankuloski06"
 		]
 	},
-	"gather": "Собери",
-	"gatherlists": "Списоци за собирање",
+	"gather": "Собирање",
+	"gatherlists": "Јавни списоци",
+	"gather-checkuser-log-action": "извршено дејството „$1“ врз $2 преку додатокот „Собирање“",
 	"gather-lists-showhidden": "Прикажи скриени списоци",
 	"gather-lists-showvisible": "Прикажи видливи списоци",
 	"gather-lists-collection-owner": "Сопственик",
@@ -84,5 +85,6 @@
 	"gather-lists-more": "Преглед на збирки од овој корисник.",
 	"gather-collection-more": "Уште страници во збиркава",
 	"gather-add-to-another": "Други мои збирки",
-	"gather-watchstar-button-label": "Додај во збирка"
+	"gather-watchstar-button-label": "Додај во збирка",
+	"gather-menu-guider": "Допрете ја иконата за мени за да ја погледате вашата нова збирка"
 }

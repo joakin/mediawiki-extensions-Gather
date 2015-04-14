@@ -72,6 +72,7 @@
 	"gather-read-more": "Mehr erfahren",
 	"gather-private": "Privat",
 	"gather-public": "Öffentlich",
+	"gather-hidden": "Versteckt",
 	"gather-article-count": "{{PLURAL:$1|Eine Seite|$1 Seiten}}",
 	"gather-empty": "Noch nichts in dieser Sammlung …",
 	"gather-empty-footer": "Erstellt eine Sammlung durch das Klicken auf das Sternsymbol während des Lesens einer {{SITENAME}}-Seite.",
