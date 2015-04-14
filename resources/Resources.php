@@ -299,10 +299,8 @@ $wgResourceModules += array(
 	),
 );
 
-$wgResourceModuleSkinStyles['minerva'] = $wgGatherMobileSpecialPageResourceBoilerplate + array(
-	'ext.gather.styles' => array(
-		'ext.gather.styles/minerva.less',
-	),
+$wgResourceModuleSkinStyles['minerva']['ext.gather.styles'] = array(
+	'ext.gather.styles/minerva.less',
 );
 
 unset( $wgGatherResourceFileModuleBoilerplate );
