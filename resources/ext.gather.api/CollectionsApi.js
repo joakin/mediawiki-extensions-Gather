@@ -175,7 +175,7 @@
 		 * @param {Boolean} isPrivate private or not
 		 * @return {jQuery.Deferred}
 		 */
-		setPrivacy: function ( id, isPrivate ) {
+		setPrivate: function ( id, isPrivate ) {
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
 				id: id,
@@ -183,29 +183,17 @@
 			} );
 		},
 		/**
-		 * Hide list (moderation purposes)
+		 * Show or hide a list (for moderation purposes)
 		 * @method
 		 * @param {Number} id unique identifier of collection
+		 * @param {Boolean} isVisible
 		 * @return {jQuery.Deferred}
 		 */
-		hideCollection: function ( id ) {
+		setVisible: function ( id, isVisible ) {
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
 				id: id,
-				mode: 'hidelist'
-			} );
-		},
-		/**
-		 * Show list (moderation purposes)
-		 * @method
-		 * @param {Number} id unique identifier of collection
-		 * @return {jQuery.Deferred}
-		 */
-		showCollection: function ( id ) {
-			return this.postWithToken( 'watch', {
-				action: 'editlist',
-				id: id,
-				mode: 'showlist'
+				mode: isVisible ? 'showlist' : 'hidelist'
 			} );
 		}
 	} );
