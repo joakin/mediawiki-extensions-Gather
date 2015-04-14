@@ -73,6 +73,7 @@ $wgResourceModules += array(
 			'ext.gather.styles/editfeed.less',
 		),
 		'skinStyles' => array(
+			'minerva' => 'ext.gather.styles/minerva.less',
 			'vector' => 'ext.gather.styles/vector.less'
 		),
 	),
@@ -290,12 +291,6 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'ext.gather.lists/init.js',
 		),
-	),
-);
-
-$wgResourceModuleSkinStyles['minerva'] = $wgGatherMobileSpecialPageResourceBoilerplate + array(
-	'ext.gather.styles' => array(
-		'ext.gather.styles/minerva.less',
 	),
 );
 
