@@ -317,9 +317,11 @@
 
 			this.createButton.showSpinner();
 			return api.addCollection( title ).done( function ( collection ) {
-				api.addPageToCollection( collection.id, page ).done(
-					$.proxy( self, '_collectionStateChange', collection, true )
-				).fail( function () {
+				api.addPageToCollection( collection.id, page ).done( function () {
+					// open the editor
+					self._collectionStateChange( collection, true );
+					window.location.hash = '#/collection/edit/' + collection.id;
+				} ).fail( function () {
 					toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );
 					// Hide since collection was created properly and list is outdated
 					self.hide();
