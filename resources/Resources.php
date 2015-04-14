@@ -268,9 +268,20 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.routes' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.api',
+			'mobile.toast',
+		),
+		'scripts' => array(
+			'ext.gather.routes/routes.js',
+		),
+	),
+
 	'ext.gather.special' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.collection.editor',
+			'ext.gather.routes',
 			'ext.gather.collection.delete',
 		),
 		'scripts' => array(
