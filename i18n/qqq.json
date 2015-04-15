@@ -42,6 +42,7 @@
 	"gather-edit-collection-label-privacy": "Label next to checkbox for making collection private.",
 	"gather-edit-collection-save-label": "Label for save button in collection editor.\n{{Identical|Done}}",
 	"gather-edit-collection-failed-error": "There was a problem saving the changes.",
+	"gather-edit-collection-clear-label": "Label for button that clears search.",
 	"gather-delete-collection-confirm": "Text under the heading asking the user if they would like to delete a collection.",
 	"gather-delete-collection-heading": "Heading for collection delete overlay",
 	"gather-delete-collection-delete-label": "Label for delete button in delete overlay.\n{{Identical|Delete}}",

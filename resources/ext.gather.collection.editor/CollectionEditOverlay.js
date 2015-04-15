@@ -5,6 +5,7 @@
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
 		CollectionSearchPanel = M.require( 'ext.gather.page.search/CollectionSearchPanel' ),
 		Overlay = M.require( 'Overlay' ),
+		Icon = M.require( 'Icon' ),
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
 		router = M.require( 'router' );
@@ -27,6 +28,11 @@
 		descriptionMaxLength: 280,
 		/** @inheritdoc */
 		defaults: $.extend( {}, Overlay.prototype.defaults, {
+			clearIcon: new Icon( {
+				name: 'clear',
+				label: mw.msg( 'gather-edit-collection-clear-label' ),
+				additionalClassNames: 'clear hidden'
+			} ).toHtmlString(),
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
 			unknownCollectionError: mw.msg( 'gather-error-unknown-collection' ),
 			collection: null,
@@ -43,6 +49,7 @@
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {
 			'click .edit-action': 'onEditActionClick',
+			'click .clear': 'onClearSearch',
 			'focus .manage-members-pane input': 'onFocusSearch',
 			'input .search-header input': 'onRunSearch',
 			'click .search-header .back': 'onExitSearch',
@@ -66,6 +73,7 @@
 				this.api = new CollectionsApi();
 				Overlay.prototype.initialize.apply( this, arguments );
 			}
+			this.$clear = this.$( '.search-header .clear' );
 		},
 		/** @inheritdoc */
 		postRender: function ( options ) {
@@ -114,6 +122,15 @@
 			this.$( this._selectors.edit ).removeClass( 'hidden' );
 		},
 		/**
+		 * Event handler when the search input is cleared
+		 */
+		onClearSearch: function () {
+			this.$( '.search-header input' ).val( '' );
+			this.searchPanel.search( '' );
+			this.$clear.addClass( 'hidden' );
+			this.$( '.search-header input' ).focus();
+		},
+		/**
 		 * Event handler when the search input is focused
 		 */
 		onFocusSearch: function () {
@@ -125,7 +142,15 @@
 		 * @param {jQuery.Event} ev
 		 */
 		onRunSearch: function ( ev ) {
-			this.searchPanel.search( $( ev.currentTarget ).val() );
+			var val = $( ev.currentTarget ).val(),
+				$clear = this.$clear;
+
+			if ( val ) {
+				$clear.removeClass( 'hidden' );
+			} else {
+				$clear.addClass( 'hidden' );
+			}
+			this.searchPanel.search( val );
 		},
 		/**
 		 * Event handler when the exit search button is clicked.

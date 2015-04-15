@@ -37,6 +37,7 @@
 	"gather-edit-collection-label-privacy": "Private collection",
 	"gather-edit-collection-save-label": "Done",
 	"gather-edit-collection-failed-error": "There was an issue with your attempted change, please try something else.",
+	"gather-edit-collection-clear-label": "Clear",
 	"gather-delete-collection-confirm": "Are you sure you want to delete this collection?",
 	"gather-delete-collection-heading": "Delete collection",
 	"gather-delete-collection-delete-label": "Delete",
