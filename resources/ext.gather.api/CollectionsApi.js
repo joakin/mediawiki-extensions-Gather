@@ -105,6 +105,10 @@
 			};
 
 			return this.get( params ).then( function ( resp ) {
+				// Workaround for https://phabricator.wikimedia.org/T95741
+				if ( !resp.query ) {
+					return [];
+				}
 				return $.map( resp.query.pages, function ( page ) {
 					page.heading = page.title;
 					page.isMember = true;
