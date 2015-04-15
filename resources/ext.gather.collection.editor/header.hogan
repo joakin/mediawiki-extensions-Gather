@@ -3,7 +3,7 @@
 		<li>{{{cancelButton}}}</li>
 	</ul>
 	<div class="overlay-title">
-		<h2>{{collection.title}}</h2>
+		<h2><span class="truncated-text">{{collection.title}}</span></h2>
 	</div>
 	<div class="overlay-action">
 		<button class="submit save">{{saveMsg}}</button>
@@ -14,7 +14,7 @@
 		<li>{{{backButton}}}</li>
 	</ul>
 	<div class="overlay-title">
-		<h2>{{collection.title}}</h2>
+		<h2><span class="truncated-text">{{collection.title}}</span></h2>
 	</div>
 	<div class="overlay-action"><button class="continue">{{continueMsg}}</button></div>
 </div>
