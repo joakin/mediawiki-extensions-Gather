@@ -9,15 +9,21 @@
 		]
 	},
 	"gather-lists-collection-owner": "Владелец",
+	"gather-editfeed-show": "Показать",
+	"gather-editfeed-title": "Правки страниц моей коллекции",
 	"gather-edit-collection-label-name": "Имя",
+	"gather-loginpage-desc": "С помощью коллекций вы можете создавать и делиться вашими любимыми страницами.",
 	"gather-watchlist-description": "Список страниц, которые мне интересны.",
 	"gather-lists-title": "Коллекции",
 	"gather-private": "Личная",
+	"gather-hidden": "Скрытая",
 	"gather-empty": "В коллекции еще ничего нет...",
 	"gather-empty-footer": "Создайте коллекцию, нажав на значок звёздочки во время чтения страницы сайта {{SITENAME}}.",
 	"gather-edit-button": "Редактировать",
 	"gather-overlay-continue": "Далее",
 	"gather-lists-more": "Посмотрите другие статьи этого пользователя",
 	"gather-collection-more": "Посмотрите другие статьи из этой коллекции",
-	"gather-add-to-another": "Показать другие мои коллекции"
+	"gather-add-to-another": "Показать другие мои коллекции",
+	"gather-watchstar-button-label": "Добавить в коллекцию",
+	"gather-menu-guider": "Нажмите на значок меню, чтобы взглянуть на вашу новую коллекцию."
 }
