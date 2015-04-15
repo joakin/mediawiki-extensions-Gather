@@ -168,10 +168,8 @@ class Collection extends View {
 	public function getCollectionItems( models\Collection $collection ) {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-cards' ) );
 		foreach ( $collection as $item ) {
-			if ( $item->getTitle()->getNamespace() === NS_MAIN ) {
-				$view = new CollectionItemCard( $item );
-				$html .= $view->getHtml();
-			}
+			$view = new CollectionItemCard( $item );
+			$html .= $view->getHtml();
 		}
 		// FIXME: Pagination(??) currently we
 		// limit the size of the collection
