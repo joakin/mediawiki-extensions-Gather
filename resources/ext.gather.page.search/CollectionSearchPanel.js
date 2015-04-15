@@ -3,7 +3,7 @@
 	var Panel = M.require( 'Panel' ),
 		Icon = M.require( 'Icon' ),
 		SearchApi = M.require( 'modules/search/SearchApi' ),
-		SEARCH_DELAY = 500,
+		SEARCH_DELAY = 200,
 		CollectionPageList = M.require( 'ext.gather.page.search/CollectionPageList' ),
 		CollectionSearchPanel;
 
@@ -116,13 +116,11 @@
 		onSearchInput: function () {
 			var self = this,
 				$input = this.$( 'input' ),
-				query = $input.val(),
-				$results = this.$( '.results' );
+				query = $input.val();
 
 			if ( query !== this.lastQuery ) {
 				this.api.abort();
 				clearTimeout( this.timer );
-				$results.empty();
 
 				if ( query.length ) {
 					this.$( '.spinner' ).show();
