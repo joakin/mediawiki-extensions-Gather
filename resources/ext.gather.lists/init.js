@@ -15,34 +15,18 @@
 	 * @param {jQuery.Event} ev
 	 */
 	function onModerateCollection( ev ) {
-		var $btn = $( ev.currentTarget ),
-			$row = $btn.closest( 'li' ),
-			id = $btn.data( 'id' ),
-			label = $btn.data( 'label' ),
-			owner = $btn.data( 'owner' ),
-			action = $btn.data( 'action' ),
-			msgKey = action === 'hide' ? 'gather-lists-hide-collection' : 'gather-lists-show-collection',
-			message = mw.msg( msgKey, label, owner );
+		var $button = $( ev.currentTarget ),
+			data = $button.data(),
+			key = 'gather-lists-' + data.action + '-collection';
 
-		if ( action === 'hide' && window.confirm( message ) ) {
-			api.hideCollection( id ).done( function () {
-				$row.fadeOut( function () {
-					$row.remove();
-					toast.show( mw.msg( 'gather-lists-hide-success-toast', label ), 'toast' );
-				} );
-			} ).fail( function () {
-				toast.show( mw.msg( 'gather-lists-hide-failure-toast', label ), 'toast fail' );
-			} );
-		}
-
-		if ( action === 'show' && window.confirm( message ) ) {
-			api.showCollection( id ).done( function () {
-				$row.fadeOut( function () {
-					$row.remove();
-					toast.show( mw.msg( 'gather-lists-show-success-toast', label ), 'toast' );
-				} );
-			} ).fail( function () {
-				toast.show( mw.msg( 'gather-lists-show-failure-toast', label ), 'toast fail' );
+		if ( window.confirm( mw.msg( key, data.label, data.owner ) ) ) {
+			api.setVisible( data.id, data.action === 'show' ).always( function () {
+				$button.closest( 'li' ).remove();
+				key = 'gather-lists-' + data.action + '-success-toast';
+				toast.show( mw.msg( key, data.label ), 'toast' );
+			}, function () {
+				key = 'gather-lists-' + data.action + '-failure-toast';
+				toast.show( mw.msg( key, data.label ), 'toast fail' );
 			} );
 		}
 	}
