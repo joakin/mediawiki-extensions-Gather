@@ -43,6 +43,7 @@ $autoloadClasses = array(
 	'Gather\models\Collection' => 'models/Collection',
 	'Gather\models\CollectionsList' => 'models/CollectionsList',
 	'Gather\models\WithImage' => 'models/WithImage',
+	'Gather\models\Image' => 'models/Image',
 	'Gather\models\ArraySerializable' => 'models/ArraySerializable',
 
 	'Gather\views\View' => 'views/View',

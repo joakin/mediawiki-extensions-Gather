@@ -126,7 +126,10 @@ class SpecialGather extends SpecialPage {
 			$out->addJsConfigVars( 'wgGatherCollections', $collection->toArray() );
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
 			$this->updateCollectionImage( $collection );
-			$this->addMetaInformation( $collection->getDescription(), $collection->getThumbnail( 360 ) );
+			$this->addMetaInformation(
+				$collection->getDescription(),
+				models\Image::getThumbnail( $collection->getFile() )
+			);
 		}
 	}
 

@@ -48,21 +48,6 @@ class CollectionItem implements WithImage, ArraySerializable {
 	}
 
 	/**
-	 * @param int $size
-	 * @return bool|\MediaTransformOutput
-	 */
-	public function getThumbnail( $size ) {
-		if ( $this->hasImage() ) {
-			$file = $this->getFile();
-			$thumb = $file->transform( array( 'width' => $size ) );
-			if ( $thumb && $thumb->getUrl() ) {
-				return $thumb;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Check whether the item has an extract
 	 *
 	 * @return Boolean
