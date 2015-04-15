@@ -14,7 +14,7 @@ use ApiMain;
 use FauxRequest;
 use SpecialPage;
 
-class CollectionsList implements IteratorAggregate, ArraySerializable {
+class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage {
 
 	/**
 	 * @var CollectionInfo[] list of collection items
@@ -169,5 +169,29 @@ class CollectionsList implements IteratorAggregate, ArraySerializable {
 		}
 		return $collectionsList;
 	}
+
+	/**
+	 * Check whether the item has an image
+	 *
+	 * @return Boolean
+	 */
+	public function hasImage() {
+		return $this->getFile() !== null;
+	}
+
+	/**
+	 * @return File Get the file from this item
+	 */
+	public function getFile() {
+		$image = null;
+		foreach ( $this->collections as $collection ) {
+			if ( $collection->hasImage() ) {
+				$image = $collection->getFile();
+				break;
+			}
+		}
+		return $image;
+	}
+
 }
 

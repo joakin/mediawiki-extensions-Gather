@@ -174,6 +174,10 @@ class SpecialGather extends SpecialPage {
 			$this->getRequest()->getValues()
 		);
 		if ( $collectionsList->getCount() > 0 ) {
+			$this->addMetaInformation(
+				wfMessage( 'gather-meta-description', $user->getName() ),
+				models\Image::getThumbnail( $collectionsList->getFile() )
+			);
 			$this->render( new views\CollectionsList( $collectionsList ) );
 		} else {
 			$this->renderError( new views\NoPublic() );
