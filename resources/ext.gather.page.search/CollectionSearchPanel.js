@@ -114,9 +114,14 @@
 		 * Event handler for when search input changes
 		 */
 		onSearchInput: function () {
-			var self = this,
-				$input = this.$( 'input' ),
-				query = $input.val();
+			this.search( this.$( 'input' ).val() );
+		},
+		/**
+		 * Trigger search
+		 * @param {String} query
+		 */
+		search: function ( query ) {
+			var self = this;
 
 			if ( query !== this.lastQuery ) {
 				this.api.abort();
@@ -131,7 +136,7 @@
 
 							// check if we're getting the rights response in case of out of
 							// order responses (need to get the current value of the input)
-							if ( data.query === $input.val() ) {
+							if ( data.query === query ) {
 								results = $.map( data.results, function ( page ) {
 									page.isMember = self.hasMember( page.title );
 									return page;

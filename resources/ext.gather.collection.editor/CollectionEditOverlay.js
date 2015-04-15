@@ -16,6 +16,11 @@
 	 * @uses CollectionSearchPanel
 	 */
 	CollectionEditOverlay = Overlay.extend( {
+		_selectors: {
+			edit: '.continue-header, .editor-pane',
+			manage: '.save-header, .manage-members-pane .content, .manage-members-pane .results, .manage-members-pane .search',
+			search: '.search-header, .manage-members-pane .results'
+		},
 		/** @inheritdoc */
 		className: 'collection-editor-overlay overlay',
 		titleMaxLength: 90,
@@ -38,6 +43,9 @@
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {
 			'click .edit-action': 'onEditActionClick',
+			'focus .manage-members-pane input': 'onFocusSearch',
+			'input .search-header input': 'onRunSearch',
+			'click .search-header .back': 'onExitSearch',
 			'click .continue': 'onNextClick',
 			'click .back': 'onBackClick',
 			'click .save': 'onSaveClick'
@@ -70,7 +78,8 @@
 					collection: options.collection,
 					pages: pages,
 					el: self.$( '.panel' )
-				} ).show();
+				} );
+				self.searchPanel.show();
 			} );
 		},
 		/**
@@ -78,15 +87,58 @@
 		 * @private
 		 */
 		_switchToFirstPane: function () {
-			this.$( '.continue-header, .editor-pane' ).addClass( 'hidden' );
-			this.$( '.save-header, .manage-members-pane' ).removeClass( 'hidden' );
+			this.$( this._selectors.edit )
+				.add( this._selectors.search )
+				.addClass( 'hidden' );
+			this.$( this._selectors.manage ).removeClass( 'hidden' );
+		},
+		/**
+		 * Switch to search pane.
+		 * @private
+		 */
+		_switchToSearchPane: function () {
+			this.$( this._selectors.edit )
+				.add( this._selectors.manage )
+				.addClass( 'hidden' );
+			this.$( this._selectors.search ).removeClass( 'hidden' );
+			this.$( '.search-header input' ).focus();
+		},
+		/**
+		 * Switch to edit pane.
+		 * @private
+		 */
+		_switchToEditPane: function () {
+			this.$( this._selectors.manage )
+				.add( this._selectors.search )
+				.addClass( 'hidden' );
+			this.$( this._selectors.edit ).removeClass( 'hidden' );
+		},
+		/**
+		 * Event handler when the search input is focused
+		 */
+		onFocusSearch: function () {
+			this.searchPanel.search( this.$( '.search-header input' ).val() );
+			this._switchToSearchPane();
+		},
+		/**
+		 * Event handler when the edit button is clicked.
+		 * @param {jQuery.Event} ev
+		 */
+		onRunSearch: function ( ev ) {
+			this.searchPanel.search( $( ev.currentTarget ).val() );
+		},
+		/**
+		 * Event handler when the exit search button is clicked.
+		 */
+		onExitSearch: function () {
+			this.searchPanel.search( '' );
+			this._switchToFirstPane();
 		},
 		/**
 		 * Event handler when the edit button is clicked.
 		 */
 		onEditActionClick: function () {
-			this.$( '.save-header, .manage-members-pane' ).addClass( 'hidden' );
-			this.$( '.continue-header, .editor-pane' ).removeClass( 'hidden' );
+			this._switchToEditPane();
 		},
 		/**
 		 * Event handler when the back button is clicked on the title/edit description pane.
