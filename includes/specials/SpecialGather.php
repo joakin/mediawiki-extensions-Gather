@@ -40,9 +40,8 @@ class SpecialGather extends SpecialPage {
 			'ext.gather.icons',
 			'ext.gather.styles',
 		) );
-		if ( $subpage === '' || preg_match( '/^by\/?/', $subpage ) ) {
+		if ( $subpage === '' || $subpage === 'by' || $subpage === 'by/' ) {
 			// Root subpage. User owned collections.
-			// / = /by = /by/
 			// For listing own lists, you need to be logged in
 			$this->requireLogin( 'gather-anon-view-lists' );
 			$user = $this->getUser();
