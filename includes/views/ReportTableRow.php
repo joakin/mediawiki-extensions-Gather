@@ -64,11 +64,11 @@ class ReportTableRow extends View {
 
 		$ts = $lang->userTimeAndDate( $collection->getUpdated(), $user );
 		$owner = $collection->getOwner();
-		$label = $collection->getTitle();
+		$title = $collection->getTitle();
 		$id = $collection->getId();
 
 		$html = Html::openElement( 'li' )
-			. $this->collectionLink( $label, $owner, $id )
+			. $this->collectionLink( $title, $owner, $id )
 			. Html::element( 'span', array(), $collection->getDescription() )
 			. Html::element( 'span', array(), $collection->getCount() )
 			. $this->userLink( $owner )
@@ -88,7 +88,7 @@ class ReportTableRow extends View {
 					'class' => $className,
 					'data-id' => $id,
 					'data-action' => $action,
-					'data-label' => $label,
+					'data-label' => $title,
 					'data-owner' => $owner->getName(),
 				), $label )
 				. Html::closeElement( 'span' );

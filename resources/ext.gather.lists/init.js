@@ -20,11 +20,11 @@
 			key = 'gather-lists-' + data.action + '-collection';
 
 		if ( window.confirm( mw.msg( key, data.label, data.owner ) ) ) {
-			api.setVisible( data.id, data.action === 'show' ).always( function () {
+			api.setVisible( data.id, data.action === 'show' ).done( function () {
 				$button.closest( 'li' ).remove();
 				key = 'gather-lists-' + data.action + '-success-toast';
 				toast.show( mw.msg( key, data.label ), 'toast' );
-			}, function () {
+			} ).fail( function () {
 				key = 'gather-lists-' + data.action + '-failure-toast';
 				toast.show( mw.msg( key, data.label ), 'toast fail' );
 			} );
