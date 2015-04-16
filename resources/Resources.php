@@ -123,6 +123,25 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.collection.confirm' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.collection.base',
+		),
+		'styles' => array(
+			'ext.gather.collection.confirm/confirmationOverlay.less',
+		),
+		'messages' => array(
+			'gather-error-unknown-collection',
+			'gather-confirmation-cancel-button-label',
+		),
+		'templates' => array(
+			'confirmationOverlay.hogan' => 'ext.gather.collection.confirm/confirmationOverlay.hogan',
+		),
+		'scripts' => array(
+			'ext.gather.collection.confirm/ConfirmationOverlay.js',
+		),
+	),
+
 	'ext.gather.watchstar' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'mediawiki.util',
@@ -243,7 +262,7 @@ $wgResourceModules += array(
 
 	'ext.gather.collection.delete' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
-			'ext.gather.collection.base',
+			'ext.gather.collection.confirm',
 			'mobile.toast',
 			'ext.gather.api',
 			'mediawiki.util'
@@ -252,19 +271,11 @@ $wgResourceModules += array(
 			'gather-delete-collection-confirm',
 			'gather-delete-collection-heading',
 			'gather-delete-collection-delete-label',
-			'gather-delete-collection-cancel-label',
 			'gather-delete-collection-success',
 			'gather-delete-collection-failed-error',
-			'gather-error-unknown-collection',
-		),
-		'templates' => array(
-			'content.hogan' => 'ext.gather.collection.delete/content.hogan',
 		),
 		'scripts' => array(
 			'ext.gather.collection.delete/CollectionDeleteOverlay.js',
-		),
-		'styles' => array(
-			'ext.gather.collection.delete/deleteOverlay.less',
 		),
 	),
 

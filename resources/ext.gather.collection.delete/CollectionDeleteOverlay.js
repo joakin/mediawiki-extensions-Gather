@@ -4,60 +4,41 @@
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
 		toast = M.require( 'toast' ),
-		icons = M.require( 'icons' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
-		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' );
+		ConfirmationOverlay = M.require( 'ext.gather.confirm/ConfirmationOverlay' );
 
 	/**
 	 * Overlay for deleting a collection
-	 * @extends CollectionsContentOverlayBase
+	 * @extends ConfirmationOverlay
 	 * @class CollectionDeleteOverlay
 	 */
-	CollectionDeleteOverlay = CollectionsContentOverlayBase.extend( {
+	CollectionDeleteOverlay = ConfirmationOverlay.extend( {
 		/** @inheritdoc */
-		className: 'collection-delete-overlay content-overlay position-fixed',
-		/** @inheritdoc */
-		defaults: $.extend( {}, CollectionsContentOverlayBase.prototype.defaults, {
-			fixedHeader: false,
-			collection: null,
-			spinner: icons.spinner().toHtmlString(),
+		defaults: $.extend( {}, ConfirmationOverlay.prototype.defaults, {
 			deleteSuccessMsg: mw.msg( 'gather-delete-collection-success' ),
 			deleteFailedError: mw.msg( 'gather-delete-collection-failed-error' ),
-			unknownCollectionError: mw.msg( 'gather-error-unknown-collection' ),
-			subheadingDeleteCollection: mw.msg( 'gather-delete-collection-heading' ),
+			subheading: mw.msg( 'gather-delete-collection-heading' ),
 			confirmMessage: mw.msg( 'gather-delete-collection-confirm' ),
-			deleteButtonLabel: mw.msg( 'gather-delete-collection-delete-label' ),
-			cancelButtonLabel: mw.msg( 'gather-delete-collection-cancel-label' )
+			confirmButtonClass: 'mw-ui-destructive',
+			confirmButtonLabel: mw.msg( 'gather-delete-collection-delete-label' )
 		} ),
 		/** @inheritdoc */
-		events: $.extend( {}, CollectionsContentOverlayBase.prototype.events, {
-			'click .delete-collection': 'onDeleteClick',
-			'click .cancel-delete': 'onCancelClick'
+		events: $.extend( {}, ConfirmationOverlay.prototype.events, {
+			'click .confirm': 'onDeleteClick'
 		} ),
 		/** @inheritdoc */
-		templatePartials: $.extend( {}, CollectionsContentOverlayBase.prototype.templatePartials, {
-			content: mw.template.get( 'ext.gather.collection.delete', 'content.hogan' )
-		} ),
-		/** @inheritdoc */
-		initialize: function ( options ) {
-			var collection = options.collection;
-			if ( !collection ) {
-				// use toast
-				toast.show( options.unknownCollectionError, 'toast error' );
-			} else {
-				this.id = collection.id;
-				this.api = new CollectionsApi();
-				CollectionsContentOverlayBase.prototype.initialize.apply( this, arguments );
-			}
+		initialize: function () {
+			this.api = new CollectionsApi();
+			ConfirmationOverlay.prototype.initialize.apply( this, arguments );
 		},
 		/**
-		 * Event handler when the save button is clicked.
+		 * Event handler when the delete button is clicked.
 		 */
 		onDeleteClick: function () {
 			var self = this;
 			this.showSpinner();
 			// disable button and inputs
-			this.$( '.delete-collection, .cancel-delete' ).prop( 'disabled', true );
+			this.$( '.confirm, .cancel' ).prop( 'disabled', true );
 			this.api.removeCollection( this.id ).done( function () {
 				// Show toast
 				self.$( '.spinner' ).hide();
@@ -74,18 +55,12 @@
 				toast.show( self.options.deleteFailedError, 'toast error' );
 				self.hide();
 				// Make it possible to try again.
-				self.$( '.delete-collection, .cancel-delete' ).prop( 'disabled', false );
+				self.$( '.confirm, .cancel' ).prop( 'disabled', false );
 				schema.log( {
 					eventName: 'delete-collection-error',
 					errorText: errMsg
 				} );
 			} );
-		},
-		/**
-		 * Event handler when the cancel button is clicked.
-		 */
-		onCancelClick: function () {
-			this.hide();
 		}
 	} );
 

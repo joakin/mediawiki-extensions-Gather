@@ -1,0 +1,9 @@
+{{{spinner}}}
+<div class="confirm-collection-content">
+	<h3>{{subheading}}</h3>
+	<span>{{confirmMessage}}</span>
+	<div class="collection-confirm-actions">
+		<button class='mw-ui-button {{confirmButtonClass}} confirm'>{{confirmButtonLabel}}</button>
+		<button class='mw-ui-button {{cancelButtonClass}} cancel'>{{cancelButtonLabel}}</button>
+	</div>
+</div>
