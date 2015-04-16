@@ -45,8 +45,9 @@ class SpecialGather extends SpecialPage {
 			// For listing own lists, you need to be logged in
 			$this->requireLogin( 'gather-anon-view-lists' );
 			$user = $this->getUser();
-			$this->renderUserCollectionsList( $user );
-
+			$url = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )
+					->getSubPage( $user->getName() )->getLocalUrl();
+			$out->redirect( $url );
 		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/?$/', $subpage, $matches ) ) {
 			// User's collections
 			// /by/:user = /by/:user/
