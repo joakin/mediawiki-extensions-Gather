@@ -23,6 +23,20 @@
 			isPublic: false
 		},
 		/**
+		 * Add a list of titles to existing collection.
+		 * @method
+		 * @param {Number} id Identifier of collection
+		 * @param {String[]} titles array
+		 * @return {jQuery.Deferred}
+		 */
+		addPagesToCollection: function ( id, titles ) {
+			return this.postWithToken( 'watch', {
+				action: 'editlist',
+				id: id,
+				titles: titles
+			} );
+		},
+		/**
 		 * Add page to existing collection.
 		 * @method
 		 * @param {Number} id Identifier of collection
@@ -30,10 +44,21 @@
 		 * @return {jQuery.Deferred}
 		 */
 		addPageToCollection: function ( id, page ) {
+			return this.addPagesToCollection( id, [ page.getTitle() ] );
+		},
+		/**
+		 * Remove a list of pages from existing collection.
+		 * @method
+		 * @param {Number} id Identifier of collection
+		 * @param {String[]} titles
+		 * @return {jQuery.Deferred}
+		 */
+		removePagesFromCollection: function ( id, titles ) {
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
 				id: id,
-				titles: [ page.getTitle() ]
+				mode: 'remove',
+				titles: titles
 			} );
 		},
 		/**
@@ -44,12 +69,7 @@
 		 * @return {jQuery.Deferred}
 		 */
 		removePageFromCollection: function ( id, page ) {
-			return this.postWithToken( 'watch', {
-				action: 'editlist',
-				id: id,
-				mode: 'remove',
-				titles: [ page.getTitle() ]
-			} );
+			return this.removePagesFromCollection( id, [ page.getTitle() ] );
 		},
 		/**
 		 * Create a new collection

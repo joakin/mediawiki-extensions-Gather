@@ -41,6 +41,7 @@
 				additionalClassNames: 'cancel',
 				label: mw.msg( 'mobile-frontend-overlay-close' )
 			} ).options,
+			confirmExitMessage: mw.msg( 'gather-edit-collection-confirm' ),
 			editSuccessMsg: mw.msg( 'gather-update-collection-success' ),
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
 			unknownCollectionError: mw.msg( 'gather-error-unknown-collection' ),
@@ -196,17 +197,31 @@
 			this._switchToFirstPane();
 		},
 		/**
+		 * Refresh the page
+		 * @private
+		 */
+		_reloadCollection: function () {
+			window.setTimeout( function () {
+				router.navigate( '/' );
+				window.location.reload();
+			}, 100 );
+		},
+		/**
 		 * Event handler when the continue button is clicked in the title/edit description pane.
 		 */
 		onFirstPaneSaveClick: function () {
-			this.hide();
-			// Go back to the page we were and reload to avoid having to update the
-			// JavaScript state.
+			var self = this;
 			if ( this._stateChanged ) {
-				window.setTimeout( function () {
-					router.navigate( '/' );
-					window.location.reload();
-				}, 100 );
+				this.hide();
+				this._reloadCollection();
+			} else if ( this.searchPanel.hasChanges() ) {
+				this.$( '.save' ).prop( 'disabled', true );
+				this.searchPanel.saveChanges().done( function () {
+					self._reloadCollection();
+				} );
+			} else {
+				// nothing to do.
+				self.hide();
 			}
 		},
 		/**
@@ -246,6 +261,15 @@
 				toast.show( this.options.editFailedError, 'toast error' );
 			}
 
+		},
+		/** @inheritdoc */
+		hide: function () {
+			if ( this.searchPanel.hasChanges() ) {
+				if ( !window.confirm( this.options.confirmExitMessage ) ) {
+					return;
+				}
+			}
+			return Overlay.prototype.hide.apply( this, arguments );
 		},
 		/**
 		 * Tests if title is valid

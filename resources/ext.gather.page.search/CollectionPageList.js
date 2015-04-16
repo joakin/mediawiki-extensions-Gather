@@ -5,7 +5,6 @@
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
 		View = M.require( 'View' ),
 		Icon = M.require( 'Icon' ),
-		toast = M.require( 'toast' ),
 		CollectionPageList;
 
 	/**
@@ -44,6 +43,8 @@
 		},
 		/** @inheritdoc */
 		initialize: function () {
+			this._removals = [];
+			this._additions = [];
 			// FIXME: PageList in MobileFrontend should be rewritten as PageListWatchstar.
 			View.prototype.initialize.apply( this, arguments );
 			this.api = new CollectionsApi();
@@ -61,8 +62,8 @@
 		 * @param {jQuery.Event} ev
 		 */
 		onChangeMemberStatus: function ( ev ) {
-			var $target = $( ev.currentTarget ),
-				collection = this.options.collection,
+			var index,
+				$target = $( ev.currentTarget ),
 				$listThumb = $target.find( '.list-thumb' ),
 				self = this,
 				title = $target.data( 'title' ),
@@ -77,32 +78,59 @@
 			page.listThumbStyleAttribute = $listThumb.attr( 'style' );
 
 			if ( inCollection ) {
-				this.api.removePageFromCollection( collection.id, page ).done( function () {
-					$target.find( '.status' ).replaceWith( self.options.iconDisabledButton );
-					$target.data( 'is-member', false );
-					toast.show( mw.msg( 'gather-remove-toast', collection.title ), 'toast' );
-					/**
-					 * @event member-removed
-					 * @param {Page} page
-					 * Fired when member is removed from collection
-					 */
-					self.emit( 'member-removed', page );
-				} );
+				this._removals.push( title );
+				index = this._additions.indexOf( title );
+				if ( index > -1 ) {
+					this._additions.splice( index, 1 );
+				}
+				$target.find( '.status' ).replaceWith( self.options.iconDisabledButton );
+				$target.data( 'is-member', false );
+				/**
+				 * @event member-removed
+				 * @param {Page} page
+				 * Fired when member is removed from collection
+				 */
+				self.emit( 'member-removed', page );
 			} else {
-				this.api.addPageToCollection( collection.id, page ).done( function () {
-					$target.find( '.status' ).replaceWith( self.options.iconButton );
-					$target.data( 'is-member', true );
-					toast.show( mw.msg( 'gather-add-toast', collection.title ), 'toast' );
-					page.isMember = true;
-					/**
-					 * @event member-added
-					 * @param {Page} page
-					 * Fired when member is removed from collection
-					 */
-					self.emit( 'member-added', page );
-				} );
+				this._additions.push( title );
+				index = this._removals.indexOf( title );
+				if ( index > -1 ) {
+					this._removals.splice( index, 1 );
+				}
+				$target.find( '.status' ).replaceWith( self.options.iconButton );
+				$target.data( 'is-member', true );
+				page.isMember = true;
+				/**
+				 * @event member-added
+				 * @param {Page} page
+				 * Fired when member is removed from collection
+				 */
+				self.emit( 'member-added', page );
 			}
 			return false;
+		},
+		/**
+		 * Save any changes made to the collection.
+		 */
+		saveChanges: function () {
+			var self = this,
+				d = $.Deferred(),
+				additions = this._additions,
+				removals = self._removals,
+				collection = this.options.collection,
+				calls = [];
+
+			if ( additions.length || removals.length ) {
+				if ( additions.length ) {
+					calls.push( this.api.addPagesToCollection( collection.id, additions ) );
+				}
+				if ( removals.length ) {
+					calls.push( this.api.removePagesFromCollection( collection.id, removals ) );
+				}
+				return $.when.apply( $, calls );
+			} else {
+				return d.resolve();
+			}
 		}
 	} );
 

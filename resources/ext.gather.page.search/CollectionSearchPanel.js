@@ -76,6 +76,7 @@
 			} else {
 				this.options.pages.push( page );
 			}
+			this._hasChanged = true;
 		},
 		/**
 		 * Updates the rendering of the internal CollectionPageList
@@ -154,6 +155,21 @@
 				// keep track of last query to take into account backspace usage
 				this.lastQuery = query;
 			}
+		},
+		/**
+		 * Check if collection has changed.
+		 * @return {Boolean}
+		 */
+		hasChanges: function () {
+			return this._hasChanged;
+		},
+		/**
+		 * Save any changes made to the collection.
+		 * @return {jQuery.Deferred}
+		 */
+		saveChanges: function () {
+			this._hasChanged = false;
+			return this.pageList.saveChanges();
 		}
 	} );
 

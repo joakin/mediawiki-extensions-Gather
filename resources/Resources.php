@@ -229,6 +229,7 @@ $wgResourceModules += array(
 			'gather-delete-button',
 			'gather-edit-collection-clear-label',
 			'gather-update-collection-success',
+			'gather-edit-collection-confirm',
 		),
 		'templates' => array(
 			'header.hogan' => 'ext.gather.collection.editor/header.hogan',
