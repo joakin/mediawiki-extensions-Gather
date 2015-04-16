@@ -190,13 +190,14 @@
 		onSaveClick: function () {
 			var title = this.$( 'input.title' ).val(),
 				self = this,
+				isPrivate = !this.$( '.privacy' ).is( ':checked' ),
 				description = this.$( '.description' ).val();
 
 			if ( this.isTitleValid( title ) && this.isDescriptionValid( description ) ) {
 				// disable button and inputs
 				this.showSpinner();
 				this.$( '.mw-ui-input, .save' ).prop( 'disabled', true );
-				this.api.editCollection( this.id, title, description ).done( function () {
+				this.api.editCollection( this.id, title, description, isPrivate ).done( function () {
 					// Go back to the page we were and reload to avoid having to update the
 					// JavaScript state.
 					schema.log( {

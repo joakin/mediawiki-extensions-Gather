@@ -12,9 +12,8 @@
 	<textarea class="mw-ui-input description"
 		rows='2'>{{collection.description}}</textarea>
 	<div class="mw-ui-checkbox">
-		<input type="checkbox" id="collection-editor-privacy"
-			{{#collection.public}}checked{{/collection.public}}
-			disabled />
-		<label for="collection-editor-privacy">{{publicLabel}}</label>
+		<input type="checkbox" class="privacy" id="collection-editor-privacy-{{collection.id}}"
+			{{#collection.public}}checked{{/collection.public}} />
+		<label for="collection-editor-privacy-{{collection.id}}">{{publicLabel}}</label>
 	</div>
 </div>
