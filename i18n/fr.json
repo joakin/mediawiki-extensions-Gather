@@ -5,7 +5,8 @@
 			"Thibaut120094",
 			"Abaddon1337",
 			"MPlauche",
-			"Gomoko"
+			"Gomoko",
+			"Crochet.david"
 		]
 	},
 	"gather": "Regrouper",
@@ -37,6 +38,7 @@
 	"gather-edit-collection-label-privacy": "Collection privée",
 	"gather-edit-collection-save-label": "Terminé",
 	"gather-edit-collection-failed-error": "Il y a eu un problème avec votre tentative de modification ; veuillez essayer quelque chose d’autre.",
+	"gather-edit-collection-clear-label": "Effacer",
 	"gather-delete-collection-confirm": "Êtes-vous sûr de vouloir supprimer cette collection?",
 	"gather-delete-collection-heading": "Supprimer la collection",
 	"gather-delete-collection-delete-label": "Supprimer",
@@ -72,11 +74,13 @@
 	"gather-read-more": "En savoir plus",
 	"gather-private": "Privé",
 	"gather-public": "Public",
+	"gather-hidden": "Masqué",
 	"gather-article-count": "$1 {{PLURAL:$1|article|articles}}",
 	"gather-empty": "Rien dans cette collection pour le moment...",
 	"gather-empty-footer": "Je ne sais pas comment vous êtes arrivé ici mais il s'agit d'un endroit triste.",
 	"gather-edit-button": "Modifier",
 	"gather-delete-button": "Supprimer",
+	"gather-overlay-continue": "Suivant",
 	"right-gather-hidelist": "Forcer une liste publique d'utilisateurs à être masquée.",
 	"apihelp-gather-description": "Afficher et modifier des collections de regroupement.",
 	"apihelp-gather-param-gather": "Action à effectuer sur les collections.",

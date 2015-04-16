@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Phoenix303"
+			"Phoenix303",
+			"Sahilrathod"
 		]
 	},
 	"gather-lists-collection-last-updated": "अन्तिम अद्यतन",
@@ -11,5 +12,6 @@
 	"gather-delete-collection-cancel-label": "रद्द करें",
 	"gather-add-to-collection-cancel": "नहीं धन्यवाद",
 	"gather-public": "सार्वजनिक",
+	"gather-hidden": "छिपा हुआ",
 	"gather-delete-button": "हटाएँ"
 }

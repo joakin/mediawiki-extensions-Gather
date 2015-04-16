@@ -23,6 +23,7 @@
 	"gather-edit-collection-label-privacy": "Coleção privada",
 	"gather-edit-collection-save-label": "Feito",
 	"gather-edit-collection-failed-error": "Ocorreu um problema ao gravar as alterações, por favor, tente novamente.",
+	"gather-edit-collection-clear-label": "Limpar",
 	"gather-delete-collection-confirm": "Tem a certeza que pretende eliminar esta coleção?",
 	"gather-delete-collection-heading": "Eliminar coleção",
 	"gather-delete-collection-delete-label": "Eliminar",

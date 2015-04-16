@@ -4,6 +4,9 @@
 			"Robby"
 		]
 	},
+	"gather-purpose": "Dir kënnt elo Säiten a Sammlungen zesummesetze fir se mat Frënn ze deelen oder fir spéider ze späicheren.",
+	"gather-purpose-login-action": "Loggt Iech a fir ze probéieren.",
+	"gather-purpose-signup-action": "Schreift Iech a fir ze probéieren.",
 	"gather-lists-showhidden": "Verstoppt Lëschte weisen",
 	"gather-lists-collection-owner": "Besëtzer",
 	"gather-lists-collection-last-updated": "Lescht Aktualisatioun",
@@ -34,6 +37,7 @@
 	"gather-watchlist-description": "Eng Lëscht vu Säiten un deenen ech interesséiert sinn.",
 	"gather-lists-title": "Sammlungen",
 	"gather-lists-from-user-title": "Sammlunge vum $1",
+	"gather-meta-description": "Hei sinn d'Sammlungen déi $1 op {{SITENAME}} gemaach huet.",
 	"gather-read-more": "Liest méi",
 	"gather-private": "Privat",
 	"gather-public": "Ëffentlech",
