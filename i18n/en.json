@@ -11,7 +11,7 @@
 	"gather": "Gather",
 	"gathereditfeed": "Gather lists edit feed",
 	"gatherlists": "Gather lists",
-	"gather-checkuser-log-action": "performed action \"$1\" on $2 via the Gather extension",
+	"gather-checkuser-log-action": "performed action \"$1\" on [[$2]] via the Gather extension",
 	"gather-purpose-login-action": "<b>Now you can group pages into collections to share with friends or save for later.</b><br/>Log in to try.",
 	"gather-purpose-signup-action": "<b>Now you can group pages into collections to share with friends or save for later.</b><br/>Sign up to try.",
 	"gather-lists-showhidden": "Show hidden lists",

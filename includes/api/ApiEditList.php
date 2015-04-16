@@ -171,20 +171,26 @@ class ApiEditList extends ApiBase {
 	 */
 	private function logEntry( $action, $id ) {
 		// If CheckUser installed, give it a heads up
+		$user = $this->getUser();
+		$target = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'id' )
+			->getSubPage( $id );
+		$entry = new ManualLogEntry( 'gather', 'action' );
+		$entry->setPerformer( $user );
+		$entry->setTarget( $target );
+		$params = array(
+			'action' => $action,
+		);
+		$entry->setParameters( $params );
+		$rc = $entry->getRecentChange();
+
 		if ( is_callable( '\CheckUserHooks::updateCheckUserData' ) ) {
-			$user = $this->getUser();
-			$target = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )
-				->getSubPage( $user->getName() )->getSubPage( $id  );
-			$entry = new ManualLogEntry( 'gather', 'action' );
-			$entry->setPerformer( $user );
-			$entry->setTarget( $target );
-			$params = array(
-				'username' => 'bob',
-				'action' => $action,
-			);
-			$entry->setParameters( $params );
-			$rc = $entry->getRecentChange();
 			\CheckUserHooks::updateCheckUserData( $rc );
+		}
+
+		// Surface hide and unhide actions in Special:Log
+		if ( $action === 'hidelist' || $action === 'showlist' ) {
+			$logId = $entry->insert();
+			$entry->publish( $logId, 'udp' );
 		}
 	}
 
