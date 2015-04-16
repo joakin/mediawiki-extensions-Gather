@@ -40,6 +40,7 @@
 				additionalClassNames: 'cancel',
 				label: mw.msg( 'mobile-frontend-overlay-close' )
 			} ).options,
+			editSuccessMsg: mw.msg( 'gather-update-collection-success' ),
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
 			unknownCollectionError: mw.msg( 'gather-error-unknown-collection' ),
 			collection: null,
@@ -48,7 +49,6 @@
 			descriptionLabel: mw.msg( 'gather-edit-collection-label-description' ),
 			publicLabel: mw.msg( 'gather-edit-collection-label-public' ),
 			headerButtonsListClassName: 'overlay-action',
-			continueMsg: mw.msg( 'gather-overlay-continue' ),
 			editMsg: mw.msg( 'gather-edit-button' ),
 			deleteMsg: mw.msg( 'gather-delete-button' ),
 			saveMsg: mw.msg( 'gather-edit-collection-save-label' )
@@ -60,9 +60,9 @@
 			'focus .manage-members-pane input': 'onFocusSearch',
 			'input .search-header input': 'onRunSearch',
 			'click .search-header .back': 'onExitSearch',
-			'click .continue': 'onNextClick',
+			'click .save-description': 'onSaveDescriptionClick',
 			'click .back': 'onBackClick',
-			'click .save': 'onSaveClick'
+			'click .save': 'onFirstPaneSaveClick'
 		} ),
 		/** @inheritdoc */
 		templatePartials: $.extend( {}, Overlay.prototype.templatePartials, {
@@ -187,33 +187,41 @@
 		/**
 		 * Event handler when the continue button is clicked in the title/edit description pane.
 		 */
-		onNextClick: function () {
-			var newTitle = this.$( 'input.title' ).val();
-			this.$( '.save-header h2 span' ).text( newTitle );
-			this._switchToFirstPane();
+		onFirstPaneSaveClick: function () {
+			this.hide();
+			// Go back to the page we were and reload to avoid having to update the
+			// JavaScript state.
+			if ( this._stateChanged ) {
+				window.setTimeout( function () {
+					router.navigate( '/' );
+					window.location.reload();
+				}, 100 );
+			}
 		},
 		/**
 		 * Event handler when the save button is clicked.
 		 */
-		onSaveClick: function () {
+		onSaveDescriptionClick: function () {
 			var title = this.$( 'input.title' ).val(),
 				self = this,
 				isPrivate = !this.$( '.privacy' ).is( ':checked' ),
 				description = this.$( '.description' ).val();
 
 			if ( this.isTitleValid( title ) && this.isDescriptionValid( description ) ) {
+				this.$( '.save-header h2 span' ).text( title );
 				// disable button and inputs
 				this.showSpinner();
-				this.$( '.mw-ui-input, .save' ).prop( 'disabled', true );
+				this.$( '.mw-ui-input, .save-description' ).prop( 'disabled', true );
 				this.api.editCollection( this.id, title, description, isPrivate ).done( function () {
-					// Go back to the page we were and reload to avoid having to update the
-					// JavaScript state.
 					schema.log( {
 						eventName: 'edit-collection'
 					} ).always( function () {
-						router.navigate( '/' );
-						window.location.reload();
+						self._switchToFirstPane();
+						// Make sure when the user leaves the overlay the page gets refreshed
+						self._stateChanged = true;
 					} );
+					self.$( '.mw-ui-input, .save-description' ).prop( 'disabled', false );
+					toast.show( self.options.editSuccessMsg, 'toast' );
 				} ).fail( function ( errMsg ) {
 					toast.show( self.options.editFailedError, 'toast error' );
 					// Make it possible to try again.

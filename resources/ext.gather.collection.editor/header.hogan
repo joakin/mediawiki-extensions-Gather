@@ -16,7 +16,7 @@
 	<div class="overlay-title">
 		<h2><span class="truncated-text">{{collection.title}}</span></h2>
 	</div>
-	<div class="overlay-action"><button class="continue">{{continueMsg}}</button></div>
+	<div class="overlay-action"><button class="submit save-description">{{saveMsg}}</button></div>
 </div>
 <div class="overlay-header search-header hideable hidden">
 	<ul>
