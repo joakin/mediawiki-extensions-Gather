@@ -63,6 +63,7 @@ $wgResourceModules += array(
 		'images' => array(
 			'collections-read-more' => 'ext.gather.icons/next.svg',
 			'collection-owner' => 'ext.gather.icons/user.svg',
+			'collection-flag' => 'ext.gather.icons/flag.svg',
 		),
 	),
 
@@ -74,7 +75,7 @@ $wgResourceModules += array(
 		),
 		'skinStyles' => array(
 			'minerva' => 'ext.gather.styles/minerva.less',
-			'vector' => 'ext.gather.styles/vector.less'
+			'vector' => 'ext.gather.styles/vector.less',
 		),
 	),
 
@@ -97,6 +98,7 @@ $wgResourceModules += array(
 		),
 		'scripts' => array(
 			'ext.gather.logging/SchemaGather.js',
+			'ext.gather.logging/SchemaGatherFlags.js',
 		),
 	),
 
@@ -282,6 +284,24 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.collection.flag' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.collection.confirm',
+			'mobile.toast',
+			'ext.gather.api',
+			'mediawiki.util'
+		),
+		'messages' => array(
+			'gather-flag-collection-confirm',
+			'gather-flag-collection-heading',
+			'gather-flag-collection-flag-label',
+			'gather-flag-collection-success',
+		),
+		'scripts' => array(
+			'ext.gather.collection.flag/CollectionFlagOverlay.js',
+		),
+	),
+
 	'ext.gather.routes' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.api',
@@ -296,6 +316,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'ext.gather.collection.editor',
 			'ext.gather.routes',
+			'ext.gather.collection.flag',
 		),
 		'scripts' => array(
 			'ext.gather.special/init.js',
