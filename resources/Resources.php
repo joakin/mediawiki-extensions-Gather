@@ -220,7 +220,7 @@ $wgResourceModules += array(
 			'gather-edit-collection-save-label',
 			'gather-error-unknown-collection',
 			'gather-overlay-continue',
-			'gather-edit-button',
+			'gather-overlay-edit-button',
 			'gather-delete-button',
 			'gather-edit-collection-clear-label',
 			'gather-update-collection-success',
