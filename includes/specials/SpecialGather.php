@@ -40,7 +40,7 @@ class SpecialGather extends SpecialPage {
 			'ext.gather.icons',
 			'ext.gather.styles',
 		) );
-		if ( $subpage === '' || $subpage === 'by' || $subpage === 'by/' ) {
+		if ( !isset( $subpage ) || $subpage === '' || $subpage === 'by' || $subpage === 'by/' ) {
 			// Root subpage. User owned collections.
 			// For listing own lists, you need to be logged in
 			$this->requireLogin( 'gather-anon-view-lists' );
