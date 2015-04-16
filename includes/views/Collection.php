@@ -132,11 +132,15 @@ class Collection extends View {
 	}
 
 	/**
-	 * Return title of collection
-	 *
-	 * @return string collection title
+	 * Disable regular page title
+	 * @return string HTML
 	 */
 	public function getTitle() {
+		return '';
+	}
+
+	/** @inheritdoc */
+	public function getHTMLTitle() {
 		return $this->collection->getTitle();
 	}
 

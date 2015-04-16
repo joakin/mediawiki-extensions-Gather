@@ -28,6 +28,16 @@ abstract class View {
 	abstract public function getTitle();
 
 	/**
+	 * Returns the title for the HTML tag title
+	 *
+	 * @private
+	 * @return string Html
+	 */
+	public function getHTMLTitle() {
+		return $this->getTitle();
+	}
+
+	/**
 	 * Adds HTML of the view to the OutputPage.
 	 *
 	 * @param OutputPage $out

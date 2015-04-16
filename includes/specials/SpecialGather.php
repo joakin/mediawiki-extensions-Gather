@@ -184,7 +184,7 @@ class SpecialGather extends SpecialPage {
 	}
 
 	/**
-	 * Render the special page using CollectionView and given collection
+	 * Render the special page using a View
 	 *
 	 * @param views\View $view
 	 */
@@ -193,9 +193,9 @@ class SpecialGather extends SpecialPage {
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
 		// disable visible page title
-		$out->setPageTitle( '' );
+		$out->setPageTitle( $view->getTitle() );
 		// add title of the actual view to html title-tag
-		$out->setHTMLTitle( $view->getTitle() );
+		$out->setHTMLTitle( $view->getHTMLTitle() );
 		$view->render( $out );
 	}
 
