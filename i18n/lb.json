@@ -27,7 +27,7 @@
 	"gather-edit-collection-failed-error": "Et gouf e Problem beim Ärer versichter Ännerung, probéiert w.e.g. Eppes anescht.",
 	"gather-edit-collection-clear-label": "Eidel maachen",
 	"gather-delete-collection-delete-label": "Läschen",
-	"gather-delete-collection-cancel-label": "Ofbriechen",
+	"gather-confirmation-cancel-button-label": "Ofbriechen",
 	"gather-create-new-button-label": "Uleeën",
 	"gather-add-title-invalid-toast": "Et gouf e Problem mam Titel deen Dir aginn hutt. Probéiert w.e.g. eppes anescht.",
 	"gather-add-to-collection-cancel": "Nee, merci",

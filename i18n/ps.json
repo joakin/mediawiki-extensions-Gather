@@ -9,12 +9,14 @@
 	"gather-lists-collection-description": "څرگندونه",
 	"gather-lists-collection-count": "شمېرل",
 	"gather-lists-hide-collection-label": "پټول",
+	"gather-editfeed-show": "ښکاره کول",
 	"gather-edit-collection-heading": "ټولگه سمول",
 	"gather-edit-collection-label-name": "نوم",
 	"gather-edit-collection-label-description": "څرگندونه",
 	"gather-edit-collection-save-label": "ترسره شو",
+	"gather-edit-collection-clear-label": "سپينول",
 	"gather-delete-collection-delete-label": "ړنگول",
-	"gather-delete-collection-cancel-label": "ناگارل",
+	"gather-confirmation-cancel-button-label": "ناگارل",
 	"gather-create-new-button-label": "جوړول",
 	"gather-add-to-collection-summary": "غواړې چې د $1 مخ يوې ټولگې کې ورگډ کړې؟",
 	"gather-add-to-collection-confirm": "ټولگې کې ورگډول",
@@ -23,7 +25,9 @@
 	"gather-lists-title": "غونډونه",
 	"gather-read-more": "نور لوستل",
 	"gather-private": "ځاني",
-	"gather-article-count": "$1 {{PLURAL:$1|ليکنه|ليکنې}}",
+	"gather-hidden": "پټ",
+	"gather-article-count": "$1 {{PLURAL:$1|مخ|مخونه}}",
 	"gather-edit-button": "سمول",
-	"gather-delete-button": "ړنگول"
+	"gather-delete-button": "ړنگول",
+	"gather-watchstar-button-label": "ټولگې کې ورگډول"
 }
