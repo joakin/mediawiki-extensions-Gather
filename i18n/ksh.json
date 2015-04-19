@@ -67,7 +67,7 @@
 	"gather-watchlist-title": "Oppaßleß",
 	"gather-watchlist-description": "En Leß met Sigge, woh esch Enträße draan han.",
 	"gather-lists-title": "Leßte",
-	"gather-lists-from-user-title": "{{GENDER:$2|Däm|Däm|Däm Metmaacher|Dä|Däm}} $1 {{GENDER:$2|sing|sing|sing|ier|sing}} Sammlonge",
+	"gather-lists-from-user-title": "{{GENDER:$1|Däm|Däm|Däm Metmaacher|Dä|Däm}} $1 {{GENDER:$1|sing|sing|sing|ier|sing}} Sammlonge",
 	"gather-meta-description": "Heh sin de Sammlonge, di dä Metmaacher „$1“ heh em Wikki aanjelaat hät.",
 	"gather-read-more": "Mieh lässe",
 	"gather-private": "Nit öffentlesch",
