@@ -41,7 +41,11 @@
 			content: mw.msg( 'gather-anon-cta' ),
 			queryParams: {
 				campaign: 'gather',
-				returntoquery: 'article_action=add_to_collection'
+				returntoquery: 'article_action=add_to_collection',
+				warning: 'gather-purpose-login-action'
+			},
+			signupQueryParams: {
+				warning: 'gather-purpose-signup-action'
 			}
 		},
 		/**
