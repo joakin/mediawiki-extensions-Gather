@@ -71,6 +71,8 @@
 			} else {
 				CollectionsContentOverlayBase.prototype.initialize.call( this, options );
 			}
+			// This should be an event on the view itself.
+			M.on( 'resize', $.proxy( this, 'expandForm' ) );
 		},
 		/** @inheritdoc */
 		show: function () {
@@ -100,8 +102,13 @@
 			} );
 
 			$form.append( this.createButton.$element );
-			// Hide base overlay's spinner
-			this.hideSpinner();
+			CollectionsContentOverlayBase.prototype.postRender.apply( this, arguments );
+			this.expandForm();
+		},
+		expandForm: function () {
+			// FIXME: This selectors might change in future. Yuck.
+			var $btn = this.$( 'form .oo-ui-widget' );
+			this.$( 'form input' ).css( 'width', this.$( 'form' ).width() - $btn.width() - 10 );
 		},
 		/**
 		 * Tests if title is valid
