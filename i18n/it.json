@@ -2,11 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Giuseppe Forte",
-			"Nicoedeu"
+			"Nicoedeu",
+			"Beta16"
 		]
 	},
-	"gather-purpose": "Now you can group pages into collections to share with friends or save for later.\nAdesso e' possibile raggruppare le pagine in una raccolta da condividere con gli amici oppure da salvare successivamente.",
-	"gather-purpose-signup-action": "Effettua la registrazione per provare",
+	"gather-purpose": "Adesso è possibile raggruppare le pagine in una raccolta da condividere con gli amici oppure da salvare successivamente.",
+	"gather-purpose-signup-action": "Registrati per provare.",
 	"gather-lists-collection-owner": "Proprietario",
 	"gather-lists-collection-title": "Titolo",
 	"gather-lists-collection-description": "Descrizione",

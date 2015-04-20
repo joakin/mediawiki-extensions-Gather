@@ -15,7 +15,8 @@
 	"gather-lists-hide-failure-toast": "Mislukt om lijst \"$1\" te verbergen.",
 	"gather-remove-from-collection-failed-toast": "Kan pagina niet verwijderen uit collectie.",
 	"gather-add-to-collection-failed-toast": "Kan pagina niet toevoegen aan collectie.",
-	"gather-delete-collection-cancel-label": "Annuleer",
+	"gather-edit-collection-clear-label": "Legen",
+	"gather-confirmation-cancel-button-label": "Annuleer",
 	"gather-add-new-placeholder": "Voer een nieuwe naam in voor de collectie",
 	"gather-add-to-new": "Toevoegen aan nieuwe openbare collectie",
 	"gather-add-to-collection-summary": "Wilt u $1 toevoegen aan een collectie?",
@@ -26,6 +27,7 @@
 	"gather-read-more": "Meer lezen",
 	"gather-private": "Privé",
 	"gather-public": "Openbaar",
+	"gather-hidden": "Verborgen",
 	"gather-article-count": "$1 {{PLURAL:$1|artikel|artikelen}}",
 	"gather-empty": "Er zit nog niks in deze verzameling...",
 	"gather-delete-button": "Verwijder"
