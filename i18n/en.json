@@ -9,6 +9,7 @@
 		]
 	},
 	"gather": "Gather",
+	"gathereditfeed": "Gather lists edit feed",
 	"gatherlists": "Gather lists",
 	"gather-checkuser-log-action": "performed action \"$1\" on $2 via the Gather extension",
 	"gather-purpose": "Now you can group pages into collections to share with friends or save for later.",

@@ -12,6 +12,7 @@ $specialPageAliases = array();
 /** English (English) */
 $specialPageAliases['en'] = array(
 	'Gather' => array( 'Gather' ),
+	'GatherEditFeed' => array( 'GatherEditFeed' ),
 	'GatherLists' => array( 'GatherLists' ),
 );
 
