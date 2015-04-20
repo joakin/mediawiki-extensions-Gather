@@ -149,10 +149,12 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 		if ( isset( $data['query']['lists'] ) ) {
 			$lists = $data['query']['lists'];
 			foreach ( $lists as $list ) {
-				if ( $list['public'] || $includePrivate ) {
-					$image = $list['image'] ? wfFindFile( $list['image'] ) : false;
+				$public = $list['perm'] === 'public';
+
+				if ( $public || $includePrivate ) {
+					$image = isset( $list['image'] ) ? wfFindFile( $list['image'] ) : false;
 					$info = new models\CollectionInfo( $list['id'], $user,
-						$list['label'], $list['description'], $list['public'], $image );
+						$list['label'], $list['description'], $public, $image );
 					$info->setCount( $list['count'] );
 					if ( $list['perm'] === 'hidden' ) {
 						$info->setHidden();
