@@ -177,7 +177,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 
 		try {
 			$api->execute();
-			$data = $api->getResultData();
+			$data = $api->getResult()->getResultData( null, array( 'Strip' => 'all' ) );
 			if ( isset( $data['query']['lists'] ) ) {
 				$lists = $data['query']['lists'];
 				if ( count( $lists ) === 1 ) {

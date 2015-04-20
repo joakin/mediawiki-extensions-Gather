@@ -118,7 +118,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 			}
 		}
 		if ( !$isGenerator ) {
-			$this->getResult()->setIndexedTagName_internal( $this->modulePath, 'wr' );
+			$this->getResult()->addIndexedTagName( $this->modulePath, 'wr' );
 		} else {
 			$resultPageSet->populateFromTitles( $titles );
 		}
