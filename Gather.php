@@ -83,6 +83,8 @@ $wgSpecialPages['GatherEditFeed'] = 'Gather\SpecialGatherEditFeed';
 
 // Hooks
 $wgExtensionFunctions[] = 'Gather\Hooks::onExtensionSetup';
+$wgHooks['BeforeCreateEchoEvent'][] = 'Gather\Hooks::onBeforeCreateEchoEvent';
+$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'Gather\Hooks::onEchoGetDefaultNotifiedUsers';
 $wgHooks['MobilePersonalTools'][] = 'Gather\Hooks::onMobilePersonalTools';
 $wgHooks['UnitTestsList'][] = 'Gather\Hooks::onUnitTestsList';
 $wgHooks['SkinMinervaDefaultModules'][] = 'Gather\Hooks::onSkinMinervaDefaultModules';
@@ -91,6 +93,7 @@ $wgHooks['ResourceLoaderTestModules'][] = 'Gather\Hooks::onResourceLoaderTestMod
 $wgHooks['EventLoggingRegisterSchemas'][] = 'Gather\Hooks::onEventLoggingRegisterSchemas';
 $wgHooks['ResourceLoaderRegisterModules'][] = 'Gather\Hooks::onResourceLoaderRegisterModules';
 $wgHooks['LoginFormValidErrorMessages'][] = 'Gather\Hooks::onLoginFormValidErrorMessages';
+
 
 // Maintenance Hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'Gather\UpdaterHooks::onLoadExtensionSchemaUpdates';
@@ -115,6 +118,9 @@ $wgGroupPermissions['sysop']['gather-hidelist'] = true;
  * If true, user's watchlist can be made public
  */
 $wgGatherAllowPublicWatchlist = false;
+
+// Set default user options for Echo notifications
+$wgDefaultUserOptions['echo-subscriptions-web-gather'] = true;
 
 // ResourceLoader modules
 require_once __DIR__ . "/resources/Resources.php";

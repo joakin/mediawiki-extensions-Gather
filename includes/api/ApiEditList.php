@@ -45,6 +45,7 @@ use User;
 use ApiPageSet;
 use WatchAction;
 use SpecialPage;
+use EchoEvent;
 
 /**
  * API module to allow users to manage lists
@@ -128,6 +129,24 @@ class ApiEditList extends ApiBase {
 					}
 					$this->updateRow( $dbw, $row, $update );
 					$logEventName = $mode;
+					// Do echo notification
+					if ( class_exists( 'EchoEvent' ) ) {
+						$eventType = $mode === 'showlist' ? 'gather-unhide' : 'gather-hide';
+						$collectionTitle = SpecialPage::getTitleFor( 'Gather' )
+							->getSubpage( 'by' )
+							->getSubpage( User::newFromId( $row->gl_user ) )
+							->getSubpage( $row->gl_id );
+
+						EchoEvent::create( array(
+							'type' => $eventType,
+							'title' => $collectionTitle,
+							'extra' => array(
+								'collection-owner-id' => $row->gl_user,
+							),
+							'agent' => $user,
+						) );
+
+					}
 					break;
 			}
 		}

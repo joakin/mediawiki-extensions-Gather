@@ -11,6 +11,7 @@ use Gather\views\helpers\CSS;
 use MobileContext;
 use ResourceLoader;
 use PageImages;
+use User;
 
 /**
  * Hook handlers for Gather extension
@@ -43,6 +44,69 @@ class Hooks {
 		// exploits fact onEventLoggingRegisterSchemas runs after onResourceLoaderRegisterModules
 		if ( !isset( $wgResourceModules['ext.gather.schema'] ) || count( $dependencies ) > 0 ) {
 			$wgResourceModules['ext.gather.schema'] = $schema;
+		}
+		return true;
+	}
+
+	/**
+	 *  Add Gather notifications events to Echo
+	 *
+	 * @param $notifications array of Echo notifications
+	 * @param $notificationCategories array of Echo notification categories
+	 * @param $icons array of icon details
+	 * @return bool
+	 */
+	public static function onBeforeCreateEchoEvent(
+		&$notifications, &$notificationCategories, &$icons ) {
+
+		$notificationCategories['gather'] = array(
+			'priority' => 3,
+			'tooltip' => 'gather-echo-pref-tooltip',
+		);
+
+		$notifications['gather-hide'] = array(
+			'category' => 'gather',
+			'group' => 'negative',
+			'title-message' => 'gather-moderation-hidden',
+			'title-params' => array( 'title' ),
+			'email-subject-message' => 'gather-moderation-hidden-email-subject',
+			'email-subject-params' => array( 'title' ),
+			'email-body-batch-message' => 'gather-moderation-hidden-email-batch-body',
+			'email-body-batch-params' => array( 'title' ),
+		);
+
+		$notifications['gather-unhide'] = array(
+			'category' => 'gather',
+			'group' => 'positive',
+			'title-message' => 'gather-moderation-unhidden',
+			'title-params' => array( 'title' ),
+			'email-subject-message' => 'gather-moderation-unhidden-email-subject',
+			'email-subject-params' => array( 'title' ),
+			'email-body-batch-message' => 'gather-moderation-unhidden-email-batch-body',
+			'email-body-batch-params' => array( 'title' ),
+		);
+
+		return true;
+	}
+
+	/**
+	 * Add user to be notified on echo event
+	 * @param $event EchoEvent
+	 * @param $users array
+	 * @return bool
+	 */
+	public static function onEchoGetDefaultNotifiedUsers( $event, &$users ) {
+		switch ( $event->getType() ) {
+			case 'gather-hide':
+			case 'gather-unhide':
+				$extra = $event->getExtra();
+				if ( !$extra || !isset( $extra['collection-owner-id'] ) ) {
+					break;
+				}
+				$recipientId = $extra['collection-owner-id'];
+				$recipient = User::newFromId( $recipientId );
+				$users[$recipientId] = $recipient;
+				break;
 		}
 		return true;
 	}
