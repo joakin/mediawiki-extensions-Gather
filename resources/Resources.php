@@ -64,6 +64,7 @@ $wgResourceModules += array(
 			'collections-read-more' => 'ext.gather.icons/next.svg',
 			'collection-owner' => 'ext.gather.icons/user.svg',
 			'collection-flag' => 'ext.gather.icons/flag.svg',
+			'collection-hide' => 'ext.gather.icons/suppress.svg',
 		),
 	),
 
@@ -340,6 +341,7 @@ $wgResourceModules += array(
 			'ext.gather.collection.editor',
 			'ext.gather.routes',
 			'ext.gather.collection.flag',
+			'ext.gather.moderation',
 		),
 		'scripts' => array(
 			'ext.gather.special/init.js',
@@ -350,7 +352,7 @@ $wgResourceModules += array(
 		),
 	),
 
-	'ext.gather.lists' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+	'ext.gather.moderation' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
 			'mobile.toast',
 			'ext.gather.api',
@@ -364,7 +366,7 @@ $wgResourceModules += array(
 			'gather-lists-show-failure-toast',
 		),
 		'scripts' => array(
-			'ext.gather.lists/init.js',
+			'ext.gather.moderation/init.js',
 		),
 	),
 );

@@ -9,13 +9,12 @@
 		var flagIcon, $flag,
 			$collection = $( '.collection' );
 
-		// Only apply to mobile skin since EventLogging doesn't run there
 		if ( !$collection.data( 'is-owner' ) && mw.config.get( 'skin' ) === 'minerva' ) {
 			flagIcon = new Icon( {
 				name: 'collection-flag',
-				tagName: 'a',
 				title: mw.msg( 'gather-flag-collection-flag-label' )
 			} );
+			// FIXME: See T97077
 			$flag = $( flagIcon.toHtmlString() );
 			$flag.on( 'click', function ( ev ) {
 				var flagOverlay;
@@ -34,7 +33,7 @@
 					} );
 				}
 			} );
-			$flag.appendTo( '.collection-moderation' );
+			$flag.prependTo( '.collection-moderation' );
 		}
 
 		$( '.collection-actions' ).addClass( 'visible' );

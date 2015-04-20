@@ -175,6 +175,9 @@ class Collection extends View {
 		$html = Html::openElement( 'div', array(
 				'class' => 'collection content',
 				'data-id' => $collection->getId(),
+				'data-label' => $collection->getTitle(),
+				'data-owner' => $collection->getOwner()->getName(),
+				'data-is-admin' => $this->user->isAllowed( 'gather-hidelist' ),
 				'data-is-owner' => $collection->isOwner( $this->user ) ? true : false,
 			) ) .
 			$this->getHeaderHtml( $collection );

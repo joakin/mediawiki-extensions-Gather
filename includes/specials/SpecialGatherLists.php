@@ -29,7 +29,7 @@ class SpecialGatherLists extends SpecialPage {
 		) );
 		$out->addModules(
 			array(
-				'ext.gather.lists',
+				'ext.gather.moderation',
 			)
 		);
 	}

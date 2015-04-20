@@ -1,13 +1,30 @@
 ( function ( M, $ ) {
 	var CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
 		toast = M.require( 'toast' ),
+		Icon = M.require( 'Icon' ),
 		api = new CollectionsApi();
 
 	/**
 	 * Initialize the moderation buttons
 	 */
 	function init() {
-		$( 'ul' ).on( 'click', '.moderate-collection', onModerateCollection );
+		var $collection = $( '.collection' );
+		if ( $collection.length && $collection.data( 'is-admin' ) ) {
+			new Icon( {
+				name: 'collection-hide',
+				title: mw.msg( 'gather-lists-hide-collection' ),
+				additionalClassNames: 'moderate-collection'
+			} )
+			.appendTo( '.collection-moderation' );
+			// FIXME: Should be possible to apply data directly
+			$( '.moderate-collection' )
+				.data( 'label', $collection.data( 'label' ) )
+				.data( 'owner', $collection.data( 'owner' ) )
+				.data( 'id', $collection.data( 'id' ) )
+				.data( 'action', 'hide' );
+		}
+		// For Special:GatherEditFeed
+		$( '.moderate-collection' ).on( 'click', onModerateCollection );
 	}
 
 	/**
