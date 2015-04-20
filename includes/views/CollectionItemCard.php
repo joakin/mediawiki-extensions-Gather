@@ -49,6 +49,9 @@ class CollectionItemCard extends View {
 		$item = $this->item;
 		$title = $item->getTitle();
 		$img = $this->image->getHtml();
+		$pageUrl = $title->getLocalUrl();
+		$isMissing = $item->isMissing();
+
 		if ( $img ) {
 			$img = Html::openElement( 'a', array( 'href' => $title->getLocalUrl() ) ) .
 				$img .
@@ -57,37 +60,41 @@ class CollectionItemCard extends View {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-card' ) ) .
 			$img .
 			Html::openElement( 'h2', array( 'class' => 'collection-card-title', 'dir' => $dir ) ) .
-			Linker::link( $title ) .
+			Html::element( 'a', array( 'href' => $pageUrl, 'class' => $isMissing ? 'new' : '' ),
+				$title->getPrefixedText() ) .
 			Html::closeElement( 'h2' );
 		// Handle excerpt for titles with an extract or unknown pages
-		if ( $item->hasExtract() || !$title->isKnown() ) {
+		if ( $item->hasExtract() || $isMissing ) {
 			if ( $item->hasExtract() ) {
 				$itemExcerpt = $item->getExtract();
-			} elseif ( !$title->isKnown() ) {
+			} elseif ( $isMissing ) {
 				$itemExcerpt = wfMessage( 'gather-page-not-found' )->escaped();
 			}
 			$html .= Html::element(
 				'p', array( 'class' => 'collection-card-excerpt', 'dir' => $dir ), $itemExcerpt
 			);
 		}
-		$html .= Html::openElement( 'div', array( 'class' => 'collection-card-footer' ) )
-			. Html::openElement( 'a',
-				array(
-					'href' => $title->getLocalUrl(),
-					'class' => CSS::anchorClass( 'progressive' )
+
+		if ( !$isMissing ) {
+			$html .= Html::openElement( 'div', array( 'class' => 'collection-card-footer' ) )
+				. Html::openElement( 'a',
+					array(
+						'href' => $pageUrl,
+						'class' => CSS::anchorClass( 'progressive' )
+					)
 				)
-			)
-			. wfMessage( 'gather-read-more' )->escaped()
-			. Html::element(
-				'span',
-				array( 'class' => CSS::iconClass(
-					'collections-read-more', 'element', 'collections-read-more-arrow'
-				) ),
-				''
-			)
-			. Html::closeElement( 'a' )
-			. Html::closeElement( 'div' )
-			. Html::closeElement( 'div' );
+				. wfMessage( 'gather-read-more' )->escaped()
+				. Html::element(
+					'span',
+					array( 'class' => CSS::iconClass(
+						'collections-read-more', 'element', 'collections-read-more-arrow'
+					) ),
+					''
+				)
+				. Html::closeElement( 'a' )
+				. Html::closeElement( 'div' );
+		}
+		$html .= Html::closeElement( 'div' );
 
 		return $html;
 	}

@@ -208,7 +208,11 @@ class Collection extends CollectionBase implements IteratorAggregate {
 							$extract = $extract['*'];
 						}
 					}
-					$collection->add( new CollectionItem( $title, $pi, $extract ) );
+					$item = new CollectionItem( $title, $pi, $extract );
+					if ( isset( $page['missing'] ) ) {
+						$item->setMissing( true );
+					}
+					$collection->add( $item );
 				}
 			}
 			if ( isset( $data['continue'] ) ) {
