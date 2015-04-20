@@ -30,6 +30,8 @@ use ManualLogEntry;
 use AbuseFilter;
 use AbuseFilterVariableHolder;
 use ApiBase;
+use ApiContinuationManager;
+use ApiResult;
 use AppendIterator;
 use ArrayIterator;
 use DatabaseBase;
@@ -530,7 +532,8 @@ class ApiEditList extends ApiBase {
 	private function processTitles( array $params, User $user, $listId, DatabaseBase $dbw,
 		$isWatchlist ) {
 
-		$this->getResult()->beginContinuation( $params['continue'], array(), array() );
+		$continuationManager = new ApiContinuationManager( $this, array(), array() );
+		$this->setContinuationManager( $continuationManager );
 
 		$pageSet = $this->getPageSet();
 		$pageSet->execute();
@@ -604,9 +607,11 @@ class ApiEditList extends ApiBase {
 			}
 		}
 
-		$this->getResult()->setIndexedTagName( $res, 'w' );
+		ApiResult::setIndexedTagName( $res, 'w' );
 		$this->getResult()->addValue( $this->getModuleName(), 'pages', $res );
-		$this->getResult()->endContinuation();
+
+		$this->setContinuationManager( null );
+		$continuationManager->setContinuationIntoResult( $this->getResult() );
 	}
 
 	/**

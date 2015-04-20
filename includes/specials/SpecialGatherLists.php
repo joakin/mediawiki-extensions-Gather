@@ -71,7 +71,7 @@ class SpecialGatherLists extends SpecialPage {
 		), $req->getValues() ) ) );
 		try {
 			$api->execute();
-			$data = $api->getResultData();
+			$data = $api->getResult()->getResultData( null, array( 'Strip' => 'all' ) );
 			if ( isset( $data['query']['lists'] ) ) {
 				$lists = $data['query']['lists'];
 				if ( isset( $data['continue'] ) ) {

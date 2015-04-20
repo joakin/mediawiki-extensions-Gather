@@ -351,7 +351,7 @@ class ApiQueryLists extends ApiQueryBase {
 			$processRow( null );
 		}
 
-		$this->getResult()->setIndexedTagName_internal( $path, 'c' );
+		$this->getResult()->addIndexedTagName( $path, 'c' );
 
 		if ( $fld_count ) {
 			$this->updateCounts( $owner );
@@ -476,16 +476,16 @@ class ApiQueryLists extends ApiQueryBase {
 	 * @param User $wlOwner In case there is a watchlist, this is the user it belongs to
 	 */
 	private function updateCounts( User $wlOwner ) {
-		$data = $this->getResult()->getData();
-		if ( !isset( $data['query'] ) || !isset( $data['query'][$this->getModuleName()] ) ) {
+		$result = $this->getResult();
+		$data = $result->getResultData( array( 'query', $this->getModuleName() ) );
+		if ( $data === null ) {
 			return;
 		}
-		$data = $data['query'][$this->getModuleName()];
 
 		$ids = array();
 		$wlListId = false;
-		foreach ( $data as $page ) {
-			if ( is_array( $page ) ) {
+		foreach ( $data as $key => $page ) {
+			if ( !ApiResult::isMetadataKey( $key ) ) {
 				if ( $page['id'] === 0 || isset( $page['watchlist'] ) ) {
 					$wlListId = $page['id'];
 				} else {
@@ -516,15 +516,17 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 		}
 
-		foreach ( $data as &$page ) {
-			if ( is_array( $page ) ) {
+		foreach ( $data as $key => $page ) {
+			if ( !ApiResult::isMetadataKey( $key ) ) {
 				$id = $page['id'];
-				$page['count'] = isset( $counts[$id] ) ? $counts[$id] : 0;
+
+				// This really shouldn't be using ApiResult::NO_SIZE_CHECK, but
+				// there's no sane way to handle failure without rewriting a
+				// bunch of other code.
+				$result->addValue( array( 'query', $this->getModuleName(), $key ), 'count',
+					isset( $counts[$id] ) ? $counts[$id] : 0, ApiResult::NO_SIZE_CHECK );
 			}
 		}
-		// Replace result with the results with counts
-		$this->getResult()->addValue( 'query', $this->getModuleName(), $data,
-			ApiResult::OVERRIDE | ApiResult::NO_SIZE_CHECK );
 	}
 
 	/**
