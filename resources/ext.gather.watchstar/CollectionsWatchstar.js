@@ -111,13 +111,17 @@
 					pageImageUrl: mw.config.get( 'wgGatherPageImageThumbnail' ),
 					collections: options.collections
 				} );
-				overlay.on( 'collection-watch', function ( collection ) {
+				overlay.on( 'collection-watch', function ( collection, isNewCollection ) {
 					/**
 					 * @event completed
-					 * @param {Boolean} whether user was prompted
+					 * @param {Boolean} firstTimeUser whether user was prompted
+					 * @param {Boolean} newCollection whether the collection watched is new.
 					 */
-					self.emit( 'completed', options.wasUserPrompted ||
-						options.isNewlyAuthenticatedUser );
+					self.emit(
+						'completed',
+						options.wasUserPrompted || options.isNewlyAuthenticatedUser,
+						isNewCollection
+					);
 					if ( collection.isWatchlist ) {
 						self.newStatus( true );
 					}

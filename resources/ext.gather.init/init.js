@@ -97,18 +97,16 @@
 		if ( shouldShow ) {
 			showPointer( watchstar );
 		}
-		watchstar.on( 'completed', function ( firstTimeUser ) {
-			var p, tag;
-			if ( firstTimeUser ) {
+		watchstar.on( 'completed', function ( firstTimeUser, isNewCollection ) {
+			if ( isNewCollection ) {
 				// FIXME: Rename pointer overlay?
-				p = new PageActionOverlay( {
+				new PageActionOverlay( {
 					target: $( '#mw-mf-main-menu-button' ),
 					summary: mw.msg( 'gather-menu-guider' ),
 					cancelMsg: mw.msg( 'gather-add-to-collection-cancel' )
-				} );
-				p.show();
+				} ).show();
 				// FIXME: Hacky.. Should use MainMenu but Bug: T93257.
-				tag = new Tag( {
+				new Tag( {
 					label: 'new'
 				} ).appendTo( '#mw-mf-page-left .collection-menu-item' );
 			}

@@ -273,7 +273,7 @@
 			this.hide();
 
 			if ( currentPageIsMember ) {
-				this.emit( 'collection-watch', collection );
+				this.emit( 'collection-watch', collection, isNew );
 				// show toast
 				toast.show( mw.msg( 'gather-add-toast', collection.title ), 'toast' );
 			} else {
