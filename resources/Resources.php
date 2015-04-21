@@ -211,6 +211,7 @@ $wgResourceModules += array(
 			'mobile.overlays',
 			'mobile.toast',
 			'ext.gather.api',
+			'ext.gather.collection.delete',
 		),
 		'messages' => array(
 			"gather-edit-collection-failed-error",
@@ -294,7 +295,6 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'ext.gather.collection.editor',
 			'ext.gather.routes',
-			'ext.gather.collection.delete',
 		),
 		'scripts' => array(
 			'ext.gather.special/init.js',

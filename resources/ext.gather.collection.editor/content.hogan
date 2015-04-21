@@ -2,7 +2,7 @@
 	<div class="panel">{{{spinner}}}</div>
 	<div class="content">
 		<button class="mw-ui-button mw-ui-progressive edit-action action">{{editMsg}}</button>
-		<a class="mw-ui-button mw-ui-destructive action" href="#/collection/delete/{{collection.id}}">{{deleteMsg}}</a>
+		<a class="mw-ui-button mw-ui-destructive delete-action action">{{deleteMsg}}</a>
 	</div>
 </div>
 <div class="content editor-pane hidden">

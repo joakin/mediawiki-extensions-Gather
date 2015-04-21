@@ -8,7 +8,8 @@
 		Icon = M.require( 'Icon' ),
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
-		router = M.require( 'router' );
+		router = M.require( 'router' ),
+		CollectionDeleteOverlay = M.require( 'ext.gather.delete/CollectionDeleteOverlay' );
 
 	/**
 	 * Overlay for editing a collection
@@ -56,6 +57,7 @@
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {
 			'click .edit-action': 'onEditActionClick',
+			'click .delete-action': 'onDeleteActionClick',
 			'click .clear': 'onClearSearch',
 			'focus .manage-members-pane input': 'onFocusSearch',
 			'input .search-header input': 'onRunSearch',
@@ -172,6 +174,14 @@
 		 */
 		onEditActionClick: function () {
 			this._switchToEditPane();
+		},
+		/**
+		 * Event handler when the delete button is clicked.
+		 */
+		onDeleteActionClick: function () {
+			this.$el.append( new CollectionDeleteOverlay( {
+				collection: this.options.collection
+			} ).$el );
 		},
 		/**
 		 * Event handler when the back button is clicked on the title/edit description pane.

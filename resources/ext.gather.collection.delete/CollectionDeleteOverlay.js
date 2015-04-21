@@ -23,9 +23,10 @@
 			confirmButtonLabel: mw.msg( 'gather-delete-collection-delete-label' )
 		} ),
 		/** @inheritdoc */
-		events: $.extend( {}, ConfirmationOverlay.prototype.events, {
+		events: {
+			'click .cancel': 'onCancelClick',
 			'click .confirm': 'onDeleteClick'
-		} ),
+		},
 		/** @inheritdoc */
 		initialize: function () {
 			this.api = new CollectionsApi();
