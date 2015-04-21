@@ -38,7 +38,7 @@
 	"gather-edit-collection-heading": "Edit collection",
 	"gather-edit-collection-label-name": "Name",
 	"gather-edit-collection-label-description": "Description",
-	"gather-edit-collection-label-privacy": "Private collection",
+	"gather-edit-collection-label-public": "Public collection",
 	"gather-edit-collection-save-label": "Done",
 	"gather-edit-collection-failed-error": "There was an issue with your attempted change, please try something else.",
 	"gather-edit-collection-clear-label": "Clear",

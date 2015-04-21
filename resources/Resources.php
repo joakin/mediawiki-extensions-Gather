@@ -216,7 +216,7 @@ $wgResourceModules += array(
 			"gather-edit-collection-failed-error",
 			'gather-edit-collection-label-name',
 			'gather-edit-collection-label-description',
-			'gather-edit-collection-label-privacy',
+			'gather-edit-collection-label-public',
 			'gather-edit-collection-save-label',
 			'gather-error-unknown-collection',
 			'gather-overlay-continue',

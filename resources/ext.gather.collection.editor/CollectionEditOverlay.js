@@ -39,7 +39,7 @@
 			heading: mw.msg( 'gather-edit-collection-heading' ),
 			nameLabel: mw.msg( 'gather-edit-collection-label-name' ),
 			descriptionLabel: mw.msg( 'gather-edit-collection-label-description' ),
-			privateLabel: mw.msg( 'gather-edit-collection-label-privacy' ),
+			publicLabel: mw.msg( 'gather-edit-collection-label-public' ),
 			headerButtonsListClassName: 'overlay-action',
 			continueMsg: mw.msg( 'gather-overlay-continue' ),
 			editMsg: mw.msg( 'gather-edit-button' ),
