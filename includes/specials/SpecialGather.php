@@ -59,7 +59,11 @@ class SpecialGather extends SpecialPage {
 			} else {
 				$this->renderUserCollectionsList( $user );
 			}
-
+		} elseif ( preg_match( '/^id\/(?<id>\d+)$/', $subpage, $matches ) ) {
+			// Collection page
+			// /id/:id
+			$id = (int)$matches['id'];
+			$this->renderUserCollection( $id );
 		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
 			// Collection page
 			// /by/:user/:id
@@ -70,7 +74,7 @@ class SpecialGather extends SpecialPage {
 				// Invalid user
 				$this->renderError( new views\NotFound() );
 			} else {
-				$this->renderUserCollection( $user, $id );
+				$this->renderUserCollection( $id );
 			}
 
 		} elseif ( preg_match( '/^all(\/(?<mode>[^\/]+))?\/?$/', $subpage, $matches ) ) {
@@ -103,18 +107,16 @@ class SpecialGather extends SpecialPage {
 
 	/**
 	 * Renders a user collection
-	 *
-	 * @param User $user collection owner
 	 * @param int $id collection id
 	 */
-	public function renderUserCollection( User $user, $id ) {
+	public function renderUserCollection( $id ) {
 		if ( !is_int( $id ) ) {
 			throw new InvalidArgumentException(
-				__METHOD__ . ' requires the second parameter to be an integer, '
+				__METHOD__ . ' requires the parameter to be an integer, '
 				. gettype( $id ) . ' given.'
 			);
 		}
-		$collection = models\Collection::newFromApi( $id, $user, $this->getRequest()->getValues() );
+		$collection = models\Collection::newFromApi( $id, null, $this->getRequest()->getValues() );
 
 		if ( $collection === null ||
 			// If collection is private and current user doesn't own it
