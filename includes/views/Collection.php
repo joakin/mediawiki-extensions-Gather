@@ -123,11 +123,12 @@ class Collection extends View {
 	 * @return string HTML
 	 */
 	private function getEmptyCollectionMessage() {
-		// FIXME: i18n this messagesinclude 'Collection.php';
+		$key = $this->collection->isOwner( $this->user ) ? 'gather-empty-footer-mine' :
+			'gather-empty-footer';
 		return Html::openElement( 'div', array( 'class' => 'collection-empty' ) ) .
 			Html::element( 'h3', array(), wfMessage( 'gather-empty' )->text() ) .
 			Html::element( 'div', array(),
-				wfMessage( 'gather-empty-footer' )->parse() ) .
+				wfMessage( $key )->text() ) .
 			Html::closeElement( 'div' );
 	}
 
