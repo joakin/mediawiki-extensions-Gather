@@ -282,7 +282,6 @@ class ApiQueryLists extends ApiQueryBase {
 				}
 			}
 			if ( $fld_public ) {
-				$data['public'] = $row->gl_perm === ApiEditList::PERM_PUBLIC;
 				switch ( $row->gl_perm ) {
 					case ApiEditList::PERM_PRIVATE:
 						$data['perm'] = 'private';

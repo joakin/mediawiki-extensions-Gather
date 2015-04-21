@@ -222,7 +222,6 @@ class GatherTests extends ApiTestCase {
 
 		$expListsW = (object) array( 'id' => 0, 'watchlist' => true, 'label' => 'Watchlist' );
 		$expListsW2 = (object) array_merge( (array) $expListsW, array(
-			'public' => false,
 			'perm' => 'private',
 			'description' => '',
 			'image' => false,
@@ -336,7 +335,6 @@ class GatherTests extends ApiTestCase {
 		$idAs = '"id":' . $idA;
 		$expListsA = (object) array( 'id' => $idA, 'label' => 'A' );
 		$expListsA2 = (object) array_merge( (array) $expListsA, array(
-			'public' => false,
 			'perm' => 'private',
 			'description' => '',
 			'image' => false,
@@ -409,7 +407,6 @@ class GatherTests extends ApiTestCase {
 		$res = $this->editList( 'ed-k1', $usr, $token, '"label": "a", "perm": "public"' );
 		$this->getVal( 'ed-k1', '"status"', $res, 'updated' );
 		$this->getVal( 'ed-k1', '"id"', $res, $idA );
-		$expListsA2->public = true;
 		$expListsA2->perm = 'public';
 
 		$this->assertPages( 'ed-k2', $usr, $idA, $expPagesA );
@@ -480,7 +477,6 @@ class GatherTests extends ApiTestCase {
 
 		$expListsB = (object) array( 'id' => $idB, 'label' => 'B' );
 		$expListsB2 = (object) array_merge( (array) $expListsB, array(
-			'public' => true,
 			'perm' => 'public',
 			'description' => '',
 			'image' => false,
@@ -523,7 +519,6 @@ class GatherTests extends ApiTestCase {
 		$res = $this->editList( 'ed-o2', $usrS, $tokenS, $idBs . ', "mode":"hidelist"' );
 		$this->getVal( 'ed-o2', '"status"', $res, 'updated' );
 		$this->getVal( 'ed-o2', '"id"', $res, $idB );
-		$expListsB2->public = false;
 		$expListsB2->perm = 'hidden';
 
 		$this->assertPages( 'ed-o3', $usr, $idB, $expPagesB );
@@ -558,7 +553,6 @@ class GatherTests extends ApiTestCase {
 		$res = $this->editList( 'ed-p1', $usrS, $tokenS, $idBs . ', "mode":"showlist"' );
 		$this->getVal( 'ed-p1', '"status"', $res, 'updated' );
 		$this->getVal( 'ed-p1', '"id"', $res, $idB );
-		$expListsB2->public = true;
 		$expListsB2->perm = 'public';
 
 		$this->assertPages( 'ed-p2', $usr, $idB, $expPagesB );
@@ -732,7 +726,7 @@ class GatherTests extends ApiTestCase {
 		$res = $this->getLists( 'nc-a3', $u, '"lstprop": "label|description|public|count"' );
 		$this->assertListNoId( 'nc-a3', $res,
 			'[{"id":0,"watchlist":true,"count":0,"label":"Watchlist","description":"",' .
-			'"public":false,"perm":"private"}]'
+			'"perm":"private"}]'
 		);
 		$res = $this->getLists( 'nc-a4', $u, '"lsttitle": "Missing"' );
 		$this->assertListNoId( 'nc-a4', $res,
@@ -800,7 +794,7 @@ class GatherTests extends ApiTestCase {
 		$this->assertLists( 'nc-f4', $u, '"lstprop": "label|description|public|count"',
 			'[{"id":' . $id .
 			',"watchlist":true,"count":1,"label":"Watchlist","description":"aa",' .
-			'"public":false,"perm":"private"}]' );
+			'"perm":"private"}]' );
 		$this->assertLists( 'nc-f5', $u, '"lsttitle": "Gather-ListW"', '[{"id":' . $id .
 			',"watchlist":true,"label":"Watchlist","title":true}]' );
 
