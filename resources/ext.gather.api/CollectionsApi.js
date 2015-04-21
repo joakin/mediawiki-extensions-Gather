@@ -20,7 +20,7 @@
 			count: 0,
 			image: '',
 			// FIXME: Eek.
-			public: false
+			isPublic: false
 		},
 		/**
 		 * Add page to existing collection.
@@ -71,7 +71,7 @@
 					owner: user.getName(),
 					items: data.pages,
 					// FIXME: this value should come from UI
-					public: true
+					isPublic: true
 				} );
 			} );
 		},
@@ -127,6 +127,7 @@
 			list.titleInCollection = list.title;
 			list.title = list.label;
 			list.owner = list.owner;
+			list.isPublic = list.perm === 'public';
 			delete list.label;
 			return list;
 		},
