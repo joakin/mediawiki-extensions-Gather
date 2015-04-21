@@ -125,7 +125,6 @@ class SpecialGather extends SpecialPage {
 			$this->renderError( new views\NotFound() );
 		} else {
 			$out = $this->getOutput();
-			$out->addJsConfigVars( 'wgGatherCollections', $collection->toArray() );
 			$this->render( new views\Collection( $this->getUser(), $collection ) );
 			$this->updateCollectionImage( $collection );
 			$this->addMetaInformation(

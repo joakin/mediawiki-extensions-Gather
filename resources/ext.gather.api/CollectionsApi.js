@@ -117,6 +117,43 @@
 			} );
 		},
 		/**
+		 * Internal method for mapping API responses to JS objects
+		 * @private
+		 * @param {Object} list returned by api.
+		 */
+		_mapCollection: function ( list ) {
+			// FIXME: API should handle all these inconsistencies.
+			list.isWatchlist = list.watchlist;
+			list.titleInCollection = list.title;
+			list.title = list.label;
+			list.owner = list.owner;
+			delete list.label;
+			return list;
+		},
+		/**
+		 * Gets an object representing collection with given id
+		 * @method
+		 * @param {Number} id of collection
+		 * @returns {jQuery.Deferred}
+		 */
+		getCollection: function ( id ) {
+			var collection,
+				self = this,
+				args = {
+					action: 'query',
+					list: 'lists',
+					lstids: id,
+					lstprop: 'label|description|public|image|count|owner'
+				};
+
+			return this.get( args ).then( function ( resp ) {
+				if ( resp.query && resp.query.lists && resp.query.lists[0] ) {
+					collection = self._mapCollection( resp.query.lists[0] );
+				}
+				return collection;
+			} );
+		},
+		/**
 		 * Gets an object representing all the current users collections
 		 * @method
 		 * @param {String} owner of the collections
@@ -124,29 +161,22 @@
 		 * @param {Object} [queryArgs] parameters to send to api
 		 */
 		getCurrentUsersCollections: function ( owner, page, queryArgs ) {
-			var args = $.extend( {}, queryArgs || {}, {
-				action: 'query',
-				list: 'lists',
-				lstlimit: 50,
-				lsttitle: page.getTitle(),
-				lstprop: 'label|description|public|image|count',
-				lstowner: owner
-			} );
+			var self = this,
+				args = $.extend( {}, queryArgs || {}, {
+					action: 'query',
+					list: 'lists',
+					lstlimit: 50,
+					lsttitle: page.getTitle(),
+					lstprop: 'label|description|public|image|count|owner',
+					lstowner: owner
+				} );
 			return this.get( args ).then( function ( resp ) {
 				var result = {};
 				if ( resp['query-continue'] ) {
 					result.continueArgs = resp['query-continue'].lists;
 				}
 				if ( resp.query && resp.query.lists ) {
-					result.collections = $.map( resp.query.lists, function ( list ) {
-						// FIXME: API should handle all these inconsistencies.
-						list.isWatchlist = list.id === 0;
-						list.titleInCollection = list.title;
-						list.title = list.label;
-						list.owner = owner;
-						delete list.label;
-						return list;
-					} );
+					result.collections = $.map( resp.query.lists, self._mapCollection );
 				} else {
 					result.collections = [];
 				}
