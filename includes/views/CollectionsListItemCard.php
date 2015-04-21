@@ -44,7 +44,11 @@ class CollectionsListItemCard extends View {
 	 * Gets the privacy message
 	 */
 	public function getPrivacyMsg() {
-		$status = $this->collection->isPublic() ? 'gather-public' : 'gather-private';
+		if ( $this->collection->isHidden() ) {
+			$status = 'gather-hidden';
+		} else {
+			$status = $this->collection->isPublic() ? 'gather-public' : 'gather-private';
+		}
 		return wfMessage( $status )->text();
 	}
 
