@@ -5,6 +5,7 @@
 		]
 	},
 	"gather": "Собирање",
+	"gathereditfeed": "Канал со уредувања на списоците за собирање",
 	"gatherlists": "Јавни списоци",
 	"gather-checkuser-log-action": "извршено дејството „$1“ врз $2 преку додатокот „Собирање“",
 	"gather-purpose": "Како можете да групирате страници во збирки за да ги споделуате со пријатели или да ги зачувате за подоцна.",
@@ -33,7 +34,6 @@
 	"gather-edit-collection-heading": "Уреди збирка",
 	"gather-edit-collection-label-name": "Име",
 	"gather-edit-collection-label-description": "Опис",
-	"gather-edit-collection-label-privacy": "Приватна збирка",
 	"gather-edit-collection-save-label": "Готово",
 	"gather-edit-collection-failed-error": "Се јави проблем со обидот за промена. Обидете се со нешто друго.",
 	"gather-edit-collection-clear-label": "Исчисти",

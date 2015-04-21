@@ -24,7 +24,6 @@
 	"gather-add-to-collection-failed-toast": "D'Säit konnt net bäi d'Sammlung bäigesat ginn.",
 	"gather-edit-collection-label-name": "Numm",
 	"gather-edit-collection-label-description": "Beschreiwung",
-	"gather-edit-collection-label-privacy": "Privat Sammlung",
 	"gather-edit-collection-save-label": "Fäerdeg",
 	"gather-edit-collection-failed-error": "Et gouf e Problem beim Ärer versichter Ännerung, probéiert w.e.g. Eppes anescht.",
 	"gather-edit-collection-clear-label": "Eidel maachen",
@@ -46,9 +45,10 @@
 	"gather-hidden": "Verstoppt",
 	"gather-article-count": "{{PLURAL:$1|Eng Säit|$1 Säiten}}",
 	"gather-empty": "Nach näischt an dëser Sammlung...",
-	"gather-empty-footer": "Leet eng Sammlung un andeem Dir op d'Symbol vum Stär klickt wann Dir eng {{SITENAME}}-Säit liest.",
+	"gather-empty-footer": "Dëst ass eng eidel Sammlung.",
 	"gather-edit-button": "Änneren",
 	"gather-delete-button": "Läschen",
+	"gather-overlay-edit-button": "Titel a Beschreiwung änneren.",
 	"gather-overlay-continue": "Weider",
 	"gather-add-to-another": "Meng aner Sammlunge weisen"
 }

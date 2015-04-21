@@ -31,7 +31,6 @@
 	"gather-edit-collection-heading": "Editovat sbírku",
 	"gather-edit-collection-label-name": "Název",
 	"gather-edit-collection-label-description": "Popis",
-	"gather-edit-collection-label-privacy": "Soukromá sbírka",
 	"gather-edit-collection-save-label": "Hotovo",
 	"gather-edit-collection-failed-error": "Při ukládání změn došlo k chybě, zkuste prosím něco jiného.",
 	"gather-delete-collection-confirm": "Jste si {{GENDER:|jist|jista|jisti}}, že chcete tuto sbírku smazat?",

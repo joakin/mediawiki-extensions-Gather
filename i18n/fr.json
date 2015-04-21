@@ -35,7 +35,6 @@
 	"gather-edit-collection-heading": "Modifier la collection",
 	"gather-edit-collection-label-name": "Nom",
 	"gather-edit-collection-label-description": "Description",
-	"gather-edit-collection-label-privacy": "Collection privée",
 	"gather-edit-collection-save-label": "Terminé",
 	"gather-edit-collection-failed-error": "Il y a eu un problème avec votre tentative de modification ; veuillez essayer quelque chose d’autre.",
 	"gather-edit-collection-clear-label": "Effacer",
