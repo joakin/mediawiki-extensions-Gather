@@ -189,13 +189,16 @@
 		 * @param {Number} id unique identifier of collection
 		 * @param {String} title of collection
 		 * @param {String} description of collection
+		 * @param {Boolean} isPrivate whether it should be stored as private
+		 * @return {jQuery.Promise}
 		 */
-		editCollection: function ( id, title, description ) {
+		editCollection: function ( id, title, description, isPrivate ) {
 			return this.postWithToken( 'watch', {
 				action: 'editlist',
 				id: id,
 				label: title,
-				description: description
+				description: description,
+				perm: isPrivate ? 'private' : 'public'
 			} );
 		},
 		/**
