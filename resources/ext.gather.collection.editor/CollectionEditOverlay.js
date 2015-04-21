@@ -32,7 +32,14 @@
 				name: 'clear',
 				label: mw.msg( 'gather-edit-collection-clear-label' ),
 				additionalClassNames: 'clear hidden'
-			} ).toHtmlString(),
+			} ).options,
+			// FIXME: Should live in MobileFrontend
+			cancelArrowIcon: new Icon( {
+				tagName: 'button',
+				name: 'back',
+				additionalClassNames: 'cancel',
+				label: mw.msg( 'mobile-frontend-overlay-close' )
+			} ).options,
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
 			unknownCollectionError: mw.msg( 'gather-error-unknown-collection' ),
 			collection: null,
@@ -59,6 +66,7 @@
 		} ),
 		/** @inheritdoc */
 		templatePartials: $.extend( {}, Overlay.prototype.templatePartials, {
+			icon: Icon.prototype.template,
 			header: mw.template.get( 'ext.gather.collection.editor', 'header.hogan' ),
 			content: mw.template.get( 'ext.gather.collection.editor', 'content.hogan' )
 		} ),
