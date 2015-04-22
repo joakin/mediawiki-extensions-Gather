@@ -25,6 +25,17 @@ class SpecialGather extends SpecialPage {
 	}
 
 	/**
+	 * Check whether the given route matches a known route.
+	 * Return matches if route matches or false when it doesn't.
+	 * @param string $subpage
+	 * @return boolean|Array
+	 */
+	public function checkRoute( $subpage ) {
+		$matched = preg_match( '/^id\/(?<id>\d+)(\/.*$|$)/', $subpage, $matches );
+		return $matched ? $matches : false;
+	}
+
+	/**
 	 * Render the special page
 	 *
 	 * @param string $subpage
@@ -59,7 +70,7 @@ class SpecialGather extends SpecialPage {
 			} else {
 				$this->renderUserCollectionsList( $user );
 			}
-		} elseif ( preg_match( '/^id\/(?<id>\d+)$/', $subpage, $matches ) ) {
+		} elseif ( $this->checkRoute( $subpage ) ) {
 			// Collection page
 			// /id/:id
 			$id = (int)$matches['id'];

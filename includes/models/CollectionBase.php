@@ -155,9 +155,9 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 */
 	public function getUrl( $args = array() ) {
 		return SpecialPage::getTitleFor( 'Gather' )
-			->getSubpage( 'by' )
-			->getSubpage( $this->getOwner() )
+			->getSubpage( 'id' )
 			->getSubpage( $this->getId() )
+			->getSubpage( $this->getTitle() )
 			->getLocalURL( $args );
 	}
 
