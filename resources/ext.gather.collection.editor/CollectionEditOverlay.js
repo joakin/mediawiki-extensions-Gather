@@ -179,9 +179,10 @@
 		 * Event handler when the delete button is clicked.
 		 */
 		onDeleteActionClick: function () {
-			this.$el.append( new CollectionDeleteOverlay( {
+			var deleteOverlay = new CollectionDeleteOverlay( {
 				collection: this.options.collection
-			} ).$el );
+			} );
+			this.$el.append( deleteOverlay.$el );
 		},
 		/**
 		 * Event handler when the back button is clicked on the title/edit description pane.

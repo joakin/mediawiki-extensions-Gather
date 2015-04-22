@@ -197,6 +197,7 @@ $wgResourceModules += array(
 
 	'ext.gather.init' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
+			'ext.gather.alerts.init',
 			'ext.gather.watchstar',
 		),
 		'messages' => array(
@@ -265,10 +266,30 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.alerts.futureToasts' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'mobile.settings',
+			'mobile.toast',
+		),
+		'scripts' => array(
+			'ext.gather.alerts/futureToasts.js',
+		),
+	),
+
+	'ext.gather.alerts.init' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.alerts.futureToasts',
+		),
+		'scripts' => array(
+			'ext.gather.alerts/init.js',
+		),
+	),
+
 	'ext.gather.collection.delete' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.collection.confirm',
 			'mobile.toast',
+			'ext.gather.alerts.futureToasts',
 			'ext.gather.api',
 			'mediawiki.util'
 		),
@@ -314,6 +335,7 @@ $wgResourceModules += array(
 
 	'ext.gather.special' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
+			'ext.gather.alerts.init',
 			'ext.gather.collection.editor',
 			'ext.gather.routes',
 			'ext.gather.collection.flag',
