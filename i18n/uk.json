@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Alex Blokha"
+		]
+	},
+	"gather-purpose-login-action": "Увійдіть у систему, щоб спробувати.",
+	"gather-purpose-signup-action": "Зареєструйтесь, щоб спробувати.",
+	"gather-edit-collection-clear-label": "Очистити",
+	"gather-overlay-edit-button": "Редагувати заголовок та опис"
+}
