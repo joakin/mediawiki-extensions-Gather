@@ -45,6 +45,7 @@ class CollectionItemCard extends View {
 	 * @inheritdoc
 	 */
 	protected function getHtml( $data = array() ) {
+		$dir = isset( $data['langdir'] ) ? $data['langdir'] : 'ltr';
 		$item = $this->item;
 		$title = $item->getTitle();
 		$img = $this->image->getHtml();
@@ -55,7 +56,7 @@ class CollectionItemCard extends View {
 		}
 		$html = Html::openElement( 'div', array( 'class' => 'collection-card' ) ) .
 			$img .
-			Html::openElement( 'h2', array( 'class' => 'collection-card-title' ) ) .
+			Html::openElement( 'h2', array( 'class' => 'collection-card-title', 'dir' => $dir ) ) .
 			Linker::link( $title ) .
 			Html::closeElement( 'h2' );
 		// Handle excerpt for titles with an extract or unknown pages
@@ -66,7 +67,7 @@ class CollectionItemCard extends View {
 				$itemExcerpt = wfMessage( 'gather-page-not-found' )->escaped();
 			}
 			$html .= Html::element(
-				'p', array( 'class' => 'collection-card-excerpt' ), $itemExcerpt
+				'p', array( 'class' => 'collection-card-excerpt', 'dir' => $dir ), $itemExcerpt
 			);
 		}
 		$html .= Html::openElement( 'div', array( 'class' => 'collection-card-footer' ) )
