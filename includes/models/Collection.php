@@ -185,7 +185,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 					$image = $list['image'] ? wfFindFile( $list['image'] ) : null;
 					$owner = User::newFromName( $list['owner'] );
 					$collection = new Collection( $id, $owner, $list['label'], $list['description'],
-						$list['public'], $image );
+						$list['perm'] === 'public', $image );
 					if ( $list['perm'] === 'hidden' ) {
 						$collection->setHidden();
 					}
