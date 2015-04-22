@@ -38,6 +38,23 @@
 	background-repeat: no-repeat;
 	.background-image('images/watchstar.svg');
 
+	&.content-overlay {
+		background-color: white;
+		color: @grayDark;
+		top: 5%;
+		bottom: 5%;
+		left: 3%;
+		right: 3%;
+		width: auto;
+		margin: auto;
+		max-width: 500px;
+
+		&.compact {
+			top: 1px;
+			bottom: 1px;
+		}
+	}
+
 	.overlay-header-container .overlay-header {
 		li {
 			// Make the heading row normal height
@@ -138,25 +155,21 @@
 		margin: 32px 0 12px;
 	}
 
-	&.content-overlay {
-		background-color: white;
-		color: @grayDark;
+	.more-collections {
+		margin: auto;
+		display: block;
+	}
+}
+
+/**
+ * Tablet/desktop styles
+ */
+
+@media all and (min-width: @wgMFDeviceWidthTablet) {
+	.overlay.collection-overlay.content-overlay {
 		top: @headerHeight * 1.2;
 		bottom: @headerHeight * 1.2;
 		left: 2em;
 		right: 2em;
-		width: auto;
-		margin: auto;
-		max-width: 500px;
-
-		&.compact {
-			top: 1px;
-			bottom: 1px;
-		}
-	}
-
-	.more-collections {
-		margin: auto;
-		display: block;
 	}
 }
