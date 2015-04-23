@@ -103,6 +103,7 @@ class Collection extends View {
 
 	/**
 	 * Get the edit button html if user should edit
+	 * FIXME: Move this to JavaScript.
 	 */
 	public function getEditButtonHtml() {
 		$id = $this->collection->getId();
@@ -171,7 +172,11 @@ class Collection extends View {
 	protected function getHtml( $data = array() ) {
 		$collection = $this->collection;
 
-		$html = Html::openElement( 'div', array( 'class' => 'collection content' ) ) .
+		$html = Html::openElement( 'div', array(
+				'class' => 'collection content',
+				'data-id' => $collection->getId(),
+				'data-is-owner' => $collection->isOwner( $this->user ) ? true : false,
+			) ) .
 			$this->getHeaderHtml( $collection );
 
 		if ( $collection->getCount() > 0 ) {
