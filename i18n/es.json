@@ -76,7 +76,7 @@
 	"gather-hidden": "Oculta",
 	"gather-article-count": "$1 {{PLURAL:$1|página|páginas}}",
 	"gather-empty": "Aún no hay nada en esta colección.",
-	"gather-empty-footer-mine": "Agregar páginas a esta colección haciendo clic en el botón de edición.",
+	"gather-empty-footer-mine": "Añade páginas a esta colección pulsando en el botón «Editar».",
 	"gather-empty-footer": "Esta es una colección vacía.",
 	"gather-edit-button": "Editar",
 	"gather-delete-button": "Borrar",
