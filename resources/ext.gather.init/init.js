@@ -108,7 +108,9 @@
 				} );
 				p.show();
 				// FIXME: Hacky.. Should use MainMenu but Bug: T93257.
-				tag = new Tag( { label: 'new' } ).appendTo( '#mw-mf-page-left .collection-menu-item' );
+				tag = new Tag( {
+					label: 'new'
+				} ).appendTo( '#mw-mf-page-left .collection-menu-item' );
 			}
 		} );
 	}

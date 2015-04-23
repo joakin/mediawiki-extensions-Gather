@@ -105,6 +105,9 @@
 			CollectionsContentOverlayBase.prototype.postRender.apply( this, arguments );
 			this.expandForm();
 		},
+		/**
+		 * Adjust the form so that it takes up the available screen.
+		 */
 		expandForm: function () {
 			// FIXME: This selectors might change in future. Yuck.
 			var $btn = this.$( 'form .oo-ui-widget' );

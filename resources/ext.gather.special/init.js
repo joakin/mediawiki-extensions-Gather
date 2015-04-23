@@ -33,7 +33,9 @@
 				ev.stopPropagation();
 				ev.preventDefault();
 				if ( !$flag.hasClass( 'disabled' ) ) {
-					flagOverlay = new CollectionFlagOverlay( { collection: collection } );
+					flagOverlay = new CollectionFlagOverlay( {
+						collection: collection
+					} );
 					flagOverlay.show();
 					flagOverlay.on( 'collection-flagged', function () {
 						// After flagging, prevent click from opening flag confirmation again
