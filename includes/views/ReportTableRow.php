@@ -29,15 +29,13 @@ class ReportTableRow extends View {
 
 	/**
 	 * Renders a html link for a collection page
-	 * @param string $text of the link
-	 * @param User $user owner of the collection
-	 * @param int $id of the collection
+	 * @param models\CollectionInfo $collection
 	 * @return string
 	 */
-	private function collectionLink( $text, $user, $id ) {
+	private function collectionLink( $collection ) {
 		return Html::element( 'a', array(
-			'href' => SpecialPage::getTitleFor( 'Gather', 'by/' . $user.'/'.$id )->getLocalUrl()
-		), $text );
+			'href' => $collection->getUrl()
+		), $collection->getTitle() );
 	}
 
 	/**
@@ -68,7 +66,7 @@ class ReportTableRow extends View {
 		$id = $collection->getId();
 
 		$html = Html::openElement( 'li' )
-			. $this->collectionLink( $title, $owner, $id )
+			. $this->collectionLink( $collection )
 			. Html::element( 'span', array(), $collection->getDescription() )
 			. Html::element( 'span', array(), $collection->getCount() )
 			. $this->userLink( $owner )
