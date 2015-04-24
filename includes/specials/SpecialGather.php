@@ -51,6 +51,7 @@ class SpecialGather extends SpecialPage {
 			'ext.gather.icons',
 			'ext.gather.styles',
 		) );
+		$routeMatch = $this->checkRoute( $subpage );
 		if ( !isset( $subpage ) || $subpage === '' || $subpage === 'by' || $subpage === 'by/' ) {
 			// Root subpage. User owned collections.
 			// For listing own lists, you need to be logged in
@@ -70,10 +71,10 @@ class SpecialGather extends SpecialPage {
 			} else {
 				$this->renderUserCollectionsList( $user );
 			}
-		} elseif ( $this->checkRoute( $subpage ) ) {
+		} elseif ( $routeMatch !== false ) {
 			// Collection page
 			// /id/:id
-			$id = (int)$matches['id'];
+			$id = (int)$routeMatch['id'];
 			$this->renderUserCollection( $id );
 		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
 			// Collection page
