@@ -56,6 +56,8 @@ class CollectionsListItemCard extends View {
 	 * @inheritdoc
 	 */
 	public function getHtml( $data = array() ) {
+		$dir = isset( $data['langdir'] ) ? $data['langdir'] : 'ltr';
+
 		$articleCountMsg = wfMessage(
 			'gather-article-count',
 			$this->collection->getCount()
@@ -72,7 +74,7 @@ class CollectionsListItemCard extends View {
 			) ) .
 			$this->image->getHtml() .
 			Html::closeElement( 'a' ) .
-			Html::openElement( 'div', array( 'class' => 'collection-card-overlay' ) ) .
+			Html::openElement( 'div', array( 'class' => 'collection-card-overlay', 'dir' => $dir ) ) .
 			Html::openElement( 'div', array( 'class' => 'collection-card-title' ) ) .
 			Html::element( 'a', array( 'href' => $collectionUrl ), $this->getTitle() ) .
 			Html::closeElement( 'div' ) .

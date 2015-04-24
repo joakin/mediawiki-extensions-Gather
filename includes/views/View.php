@@ -43,6 +43,7 @@ abstract class View {
 	 * @param OutputPage $out
 	 */
 	public function render( OutputPage $out, $data = array() ) {
+		$data['langdir'] = $out->getLanguage()->getDir();
 		$out->addHTML( $this->getHtml( $data ) );
 	}
 }
