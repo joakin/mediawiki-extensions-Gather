@@ -132,10 +132,12 @@ class ApiEditList extends ApiBase {
 					// Do echo notification
 					if ( class_exists( 'EchoEvent' ) ) {
 						$eventType = $mode === 'showlist' ? 'gather-unhide' : 'gather-hide';
+						// FIXME: better long term solution for generating collection urls needed
+						// Model currently handles it which is not accessible from here
 						$collectionTitle = SpecialPage::getTitleFor( 'Gather' )
-							->getSubpage( 'by' )
-							->getSubpage( User::newFromId( $row->gl_user ) )
-							->getSubpage( $row->gl_id );
+							->getSubpage( 'id' )
+							->getSubpage( $row->gl_id )
+							->getSubpage( $row->gl_label );
 
 						EchoEvent::create( array(
 							'type' => $eventType,
