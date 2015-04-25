@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bikarhêner"
+			"Bikarhêner",
+			"George Animal"
 		]
 	},
 	"gather": "Civîn",
@@ -16,10 +17,11 @@
 	"gather-delete-collection-confirm": "Tu piştrastî ko tu dixazî koleksiyonê jê bibi?",
 	"gather-delete-collection-heading": "Koleksiyonê jê bibe",
 	"gather-delete-collection-delete-label": "Jê bibe",
-	"gather-delete-collection-cancel-label": "Betal bike",
+	"gather-confirmation-cancel-button-label": "Betal bike",
 	"gather-add-to-collection-confirm": "Bixe nav kolesiyone",
 	"gather-add-to-collection-cancel": "Na spas",
 	"gather-edit-button": "Biguherîne",
 	"gather-delete-button": "Jê bibe",
-	"gather-watchstar-button-label": "Bixe nav kolesiyone"
+	"gather-overlay-edit-button": "Sernav û danasîna biguherîne",
+	"gather-watchstar-button-label": "Bixe nav koleksiyone"
 }
