@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Semso98"
+		]
+	},
+	"gather-flag-collection-confirm": "Da li ste sigurni da želite označiti ovu kolekciju za pregled?",
+	"gather-flag-collection-success": "Kolekcija je uspješno osnačena.",
+	"gather-moderation-unhidden-email-subject": "Vaša kolekcija $1 je bila neotkrivena.",
+	"gather-moderation-unhidden-email-body": "Vaša kolekcija $1 je bila neskrivena. To znači da se može ponovo javno pregledati.",
+	"gather-echo-pref-tooltip": "Obavjesti me o promjenama na mojim kolekcijama."
+}
