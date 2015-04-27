@@ -20,15 +20,21 @@
 				var flagOverlay;
 				ev.stopPropagation();
 				ev.preventDefault();
+
 				if ( !$flag.hasClass( 'disabled' ) ) {
+					// Prevent multiple clicks
+					$flag.addClass( 'disabled' );
 					api.getCollection( $collection.data( 'id' ) ).done( function ( collection ) {
 						flagOverlay = new CollectionFlagOverlay( {
 							collection: collection
 						} );
 						flagOverlay.show();
 						flagOverlay.on( 'collection-flagged', function () {
-							// After flagging, prevent click from opening flag confirmation again
-							$flag.addClass( 'disabled' );
+							// After flagging, remove flag icon.
+							$flag.detach();
+						} );
+						flagOverlay.on( 'hide', function () {
+							$flag.removeClass( 'disabled' );
 						} );
 					} );
 				}
