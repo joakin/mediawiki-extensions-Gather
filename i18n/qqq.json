@@ -43,7 +43,7 @@
 	"gather-edit-collection-heading": "Heading for collection editor overlay",
 	"gather-edit-collection-label-name": "Label above input field for name of collection\n{{Identical|Name}}",
 	"gather-edit-collection-label-description": "Label above input field for description of collection\n{{Identical|Description}}",
-	"gather-edit-collection-save-label": "Label for save button in collection editor.\n{{Identical|Done}}",
+	"gather-edit-collection-save-label": "Label for save button in collection editor.\n{{Identical|Save}}",
 	"gather-edit-collection-failed-error": "There was a problem saving the changes.",
 	"gather-edit-collection-clear-label": "Label for button that clears search.\n{{Identical|Clear}}",
 	"gather-delete-collection-confirm": "Text under the heading asking the user if they would like to delete a collection.",
