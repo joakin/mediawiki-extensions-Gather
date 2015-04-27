@@ -130,7 +130,7 @@ class Collection extends View {
 		return Html::openElement( 'div', array( 'class' => 'collection-empty' ) ) .
 			Html::element( 'h3', array(), wfMessage( 'gather-empty' )->text() ) .
 			Html::element( 'div', array(),
-				wfMessage( $key )->text() ) .
+				wfMessage( $key, $user->getName() )->text() ) .
 			Html::closeElement( 'div' );
 	}
 
