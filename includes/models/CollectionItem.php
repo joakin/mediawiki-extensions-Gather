@@ -38,6 +38,22 @@ class CollectionItem implements WithImage, ArraySerializable {
 		$this->title = $title;
 		$this->file = $file;
 		$this->extract = $extract;
+		$this->missing = false;
+	}
+
+	/**
+	 * Cheap method for determining whether the page is in the collection or not.
+	 * @return Boolean
+	 */
+	public function isMissing() {
+		return $this->missing;
+	}
+
+	/**
+	 * @param Boolean $missing whether the associated title exists.
+	 */
+	public function setMissing( $missing ) {
+		$this->missing = $missing;
 	}
 
 	/**
