@@ -17,7 +17,6 @@
 	"gathereditfeed": "Title of special page shown on Special:SpecialPages that shows a feed of edits for Gather collections.",
 	"gatherlists": "Title of special page shown on Special:SpecialPages that allows you to view all publicly created lists.",
 	"gather-checkuser-log-action": "Message that shows up in Special:CheckUser when an action on a collection is made.\nParameters:\n* $1 - action performed on collection.\n* $2 - a link to the collection being operated on.",
-	"gather-purpose": "Shows on [[Special:UserLogin]] explains why someone would want to login to add to a collection.",
 	"gather-purpose-login-action": "Shows on [[Special:UserLogin]] prompting user to login.",
 	"gather-purpose-signup-action": "Shows on [[Special:UserLogin]] prompting user to sign up.",
 	"gather-lists-showhidden": "Link title to show hidden lists on [[Special:GatherLists]].",
