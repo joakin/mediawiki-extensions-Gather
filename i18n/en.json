@@ -55,6 +55,7 @@
 	"gather-error-unknown-collection": "Cannot find the requested collection to edit.",
 	"gather-collection-member": "Is member of collection.",
 	"gather-collection-non-member": "Is not member of collection.",
+	"gather-collection-owner-text": "A collection by $1",
 	"gather-anon-cta": "Add this page to a collection that you can share with the world.",
 	"gather-create-new-button-label": "Create",
 	"gather-add-new-placeholder": "Enter a new collection name",
