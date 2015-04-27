@@ -3,11 +3,12 @@
 		"authors": [
 			"Giuseppe Forte",
 			"Nicoedeu",
-			"Beta16"
+			"Beta16",
+			"Fringio"
 		]
 	},
-	"gather-purpose": "Adesso è possibile raggruppare le pagine in una raccolta da condividere con gli amici oppure da salvare successivamente.",
-	"gather-purpose-signup-action": "Registrati per provare.",
+	"gather-checkuser-log-action": "azione eseguita \"$1\" [[$2]] tramite l'estensione Gather",
+	"gather-purpose-signup-action": "<b>Ora è possibile raggruppare le pagine in collezioni da condividere con amici o salvare per dopo.</b><br />Iscriviti per provare.",
 	"gather-lists-collection-owner": "Proprietario",
 	"gather-lists-collection-title": "Titolo",
 	"gather-lists-collection-description": "Descrizione",

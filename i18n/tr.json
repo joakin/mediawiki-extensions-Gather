@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Gokalpselamet"
+			"Gokalpselamet",
+			"Watermelon juice"
 		]
 	},
 	"gather-delete-collection-delete-label": "Sil",
+	"gather-flag-collection-flag-label": "Bayrak",
 	"gather-edit-button": "Düzenle",
 	"gather-delete-button": "Sil"
 }

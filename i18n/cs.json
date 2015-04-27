@@ -7,7 +7,7 @@
 	},
 	"gather": "Sbírky",
 	"gatherlists": "Seznam sbírek",
-	"gather-checkuser-log-action": "provedl na $2 akci „$1“ prostřednictvím rozšíření Sbírky",
+	"gather-checkuser-log-action": "provedl na [[$2]] akci „$1“ prostřednictvím rozšíření Sbírky",
 	"gather-lists-showhidden": "Zobrazit skryté sbírky",
 	"gather-lists-showvisible": "Zobrazit viditelné sbírky",
 	"gather-lists-collection-owner": "Vlastník",

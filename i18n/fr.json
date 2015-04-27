@@ -11,7 +11,7 @@
 	},
 	"gather": "Regrouper",
 	"gatherlists": "Regrouper des listes",
-	"gather-checkuser-log-action": "action « $1 » effectuée sur $2 via l’extension Gather",
+	"gather-checkuser-log-action": "action « $1 » effectuée sur [[$2]] via l’extension Gather",
 	"gather-lists-showhidden": "Afficher les listes cachées",
 	"gather-lists-showvisible": "Afficher les listes visibles",
 	"gather-lists-collection-owner": "propriétaire",
