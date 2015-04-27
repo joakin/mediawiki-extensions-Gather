@@ -159,9 +159,6 @@ class Collection extends View {
 			$view = new CollectionItemCard( $item );
 			$html .= $view->getHtml();
 		}
-		// FIXME: Pagination(??) currently we
-		// limit the size of the collection
-		// Pagination may or may not be needed.
 		$html .= Html::closeElement( 'div' );
 		return $html;
 	}
