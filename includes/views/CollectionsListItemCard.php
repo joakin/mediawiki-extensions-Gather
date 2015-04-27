@@ -6,6 +6,7 @@
 namespace Gather\views;
 
 use Gather\models;
+use Gather\views\helpers\Template;
 use Html;
 
 /**
@@ -56,33 +57,16 @@ class CollectionsListItemCard extends View {
 	 * @inheritdoc
 	 */
 	public function getHtml( $data = array() ) {
-		$dir = isset( $data['langdir'] ) ? $data['langdir'] : 'ltr';
-
-		$articleCountMsg = wfMessage(
-			'gather-article-count',
-			$this->collection->getCount()
-		)->text();
-		$followingMsg = $this->getPrivacyMsg();
-		$collectionUrl = $this->collection->getUrl();
-		$hasImage = $this->collection->hasImage();
-
-		$html = Html::openElement( 'div', array(
-			'class' => 'collection-card ' . ( $hasImage ? '' : 'without-image' )
-			) ) .
-			Html::openElement( 'a', array(
-				'href' => $collectionUrl, 'class' => 'collection-card-image',
-			) ) .
-			$this->image->getHtml() .
-			Html::closeElement( 'a' ) .
-			Html::openElement( 'div', array( 'class' => 'collection-card-overlay', 'dir' => $dir ) ) .
-			Html::openElement( 'div', array( 'class' => 'collection-card-title' ) ) .
-			Html::element( 'a', array( 'href' => $collectionUrl ), $this->getTitle() ) .
-			Html::closeElement( 'div' ) .
-			Html::element( 'span', array( 'class' => 'collection-card-following' ), $followingMsg ) .
-			Html::element( 'span', array(), '•' ) .
-			Html::element( 'span', array( 'class' => 'collectoin-card-article-count' ), $articleCountMsg ) .
-			Html::closeElement( 'div' ) .
-			Html::closeElement( 'div' );
-		return $html;
+		$collection = $this->collection;
+		$defaults = array(
+			'langdir' => 'ltr',
+			'articleCountMsg' => wfMessage( 'gather-article-count', $collection->getCount() )->text(),
+			'privacyMsg' => $this->getPrivacyMsg(),
+			'collectionUrl' => $collection->getUrl(),
+			'hasImage' => $collection->hasImage(),
+			'image' => $this->image->getHtml(),
+			'title' => $this->getTitle(),
+		);
+		return Template::render( 'CollectionsListItemCard', array_merge( $defaults, $data ) );
 	}
 }
