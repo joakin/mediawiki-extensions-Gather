@@ -46,6 +46,6 @@
 		onExit: function () {}
 	} );
 
-	M.define( 'ext.gather.flag/CollectionFlagOverlay', CollectionFlagOverlay );
+	M.define( 'ext.gather.collection.flag/CollectionFlagOverlay', CollectionFlagOverlay );
 
 }( mw.mobileFrontend, jQuery ) );

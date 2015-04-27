@@ -365,6 +365,7 @@ $wgResourceModules += array(
 		),
 		'scripts' => array(
 			'ext.gather.collection.flag/CollectionFlagOverlay.js',
+			'ext.gather.collection.flag/CollectionFlagButton.js',
 		),
 	),
 
