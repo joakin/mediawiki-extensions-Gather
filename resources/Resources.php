@@ -135,6 +135,8 @@ $wgResourceModules += array(
 			'mobile.infiniteScroll',
 			'mobile.toast',
 			'ext.gather.api',
+			'ext.gather.menu.icon',
+			'ext.gather.collection.editor',
 		),
 		'styles' => array(
 		),
@@ -144,6 +146,7 @@ $wgResourceModules += array(
 			'gather-public',
 			'gather-private',
 			'gather-hidden',
+			'gather-create-collection-button-label',
 		),
 		'templates' => array(
 			'CollectionsList.hogan' => '../templates/CollectionsList.mustache',
@@ -151,6 +154,7 @@ $wgResourceModules += array(
 			'CardImage.hogan' => '../templates/CardImage.mustache',
 		),
 		'scripts' => array(
+			'ext.gather.collections.list/CreateCollectionButton.js',
 			'ext.gather.collections.list/CollectionsList.js',
 		),
 	),

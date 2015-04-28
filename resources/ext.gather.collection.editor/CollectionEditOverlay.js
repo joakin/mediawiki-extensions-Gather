@@ -78,24 +78,36 @@
 		} ),
 		/** @inheritdoc */
 		initialize: function ( options ) {
-			var collection = options.collection;
-			if ( !collection ) {
-				// use toast
-				toast.show( options.unknownCollectionError, 'toast error' );
-			} else {
-				this.id = collection.id;
-				this.api = new CollectionsApi();
-				Overlay.prototype.initialize.apply( this, arguments );
+			if ( options && options.collection ) {
+				this.id = options.collection.id;
 			}
+			this.api = new CollectionsApi();
+			Overlay.prototype.initialize.apply( this, arguments );
 			this.$clear = this.$( '.search-header .clear' );
 		},
 		/** @inheritdoc */
 		postRender: function () {
-			var self = this,
-				id = this.id;
+			var id = this.id;
+			Overlay.prototype.postRender.apply( this, arguments );
 
-			Overlay.prototype.postRender.apply( this );
-			this.api.getCollectionMembers( id ).done( function ( pages ) {
+			if ( id ) {
+				this._populateCollectionMembers();
+			} else {
+				this.id = null;
+				// New collection privacy default to public
+				this.$( '.privacy' ).prop( 'checked', true );
+				this._switchToEditPane();
+			}
+
+		},
+		/**
+		 * Set up collection search panel with existing members
+		 * @private
+		 */
+		_populateCollectionMembers: function () {
+			var self = this;
+			this.$( '.manage-members-pane' ).removeClass( 'hidden' );
+			this.api.getCollectionMembers( this.id ).done( function ( pages ) {
 				self.searchPanel = new CollectionSearchPanel( {
 					collection: self.options.collection,
 					pages: pages,
@@ -192,12 +204,15 @@
 		 * Event handler when the back button is clicked on the title/edit description pane.
 		 */
 		onBackClick: function () {
-			var collection = this.options.collection;
-			// reset the values to their original values.
-			this.$( 'input.title' ).val( collection.title );
-			this.$( '.description' ).val( collection.description );
-			// Note: we will need to reset checkbox when enabling private/public toggle.
-			this._switchToFirstPane();
+			if ( this.id ) {
+				// reset the values to their original values.
+				this.$( 'input.title' ).val( this.options.collection.title );
+				this.$( '.description' ).val( this.options.collection.description );
+				// Note: we will need to reset checkbox when enabling private/public toggle.
+				this._switchToFirstPane();
+			} else {
+				Overlay.prototype.hide.apply( this, arguments );
+			}
 		},
 		/**
 		 * Refresh the page
@@ -217,10 +232,8 @@
 		 */
 		onFirstPaneSaveClick: function () {
 			var self = this;
-			if ( this._stateChanged ) {
-				this.hide();
-				this._reloadCollection();
-			} else if ( this.searchPanel.hasChanges() ) {
+
+			if ( this.searchPanel.hasChanges() ) {
 				this.$( '.save' ).prop( 'disabled', true );
 				this.searchPanel.saveChanges().done( function () {
 					if ( self.options.reloadOnSave ) {
@@ -230,6 +243,9 @@
 					}
 					self._reloadCollection();
 				} );
+			} else if ( this._stateChanged ) {
+				this.hide();
+				this._reloadCollection();
 			} else {
 				// nothing to do.
 				self.hide();
@@ -249,16 +265,29 @@
 				// disable button and inputs
 				this.showSpinner();
 				this.$( '.mw-ui-input, .save-description' ).prop( 'disabled', true );
-				this.api.editCollection( this.id, title, description, isPrivate ).done( function () {
-					schema.log( {
+				this.api.editCollection( this.id, title, description, isPrivate ).done( function ( data ) {
+					var eventParams = {
 						eventName: 'edit-collection'
-					} ).always( function () {
+					};
+					self.$( '.mw-ui-input, .save-description' ).prop( 'disabled', false );
+					toast.show( self.options.editSuccessMsg, 'toast' );
+					if ( self.id === null ) {
+						// Set the overlay id to the newly created collection id
+						self.id = data.editlist.id;
+						self.options.collection = {
+							id: data.editlist.id,
+							title: title,
+							description: description
+						};
+						self._populateCollectionMembers();
+						eventParams.eventName = 'new-collection';
+						eventParams.source = 'special-gather';
+					}
+					schema.log( eventParams ).always( function () {
 						self._switchToFirstPane();
 						// Make sure when the user leaves the overlay the page gets refreshed
 						self._stateChanged = true;
 					} );
-					self.$( '.mw-ui-input, .save-description' ).prop( 'disabled', false );
-					toast.show( self.options.editSuccessMsg, 'toast' );
 				} ).fail( function ( errMsg ) {
 					toast.show( self.options.editFailedError, 'toast error' );
 					// Make it possible to try again.

@@ -13,9 +13,11 @@ use Gather\views\helpers\Template;
  */
 class CollectionsList extends View {
 	/**
+	 * @param User $user that is viewing the collection
 	 * @param models\CollectionsList $collectionsList
 	 */
-	public function __construct( $collectionsList ) {
+	public function __construct( $user, $collectionsList ) {
+		$this->user = $user;
 		$this->collectionsList = $collectionsList;
 	}
 
@@ -53,9 +55,11 @@ class CollectionsList extends View {
 	 * @inheritdoc
 	 */
 	public function getHtml( $data = array() ) {
+
 		$defaults = array(
 			'items' => $this->getListItemsHtml( $this->collectionsList ),
 			'owner' => $this->collectionsList->getOwner()->getName(),
+			'isOwner' => $this->collectionsList->isOwner( $this->user ) ? true : false,
 		);
 		return Template::render( 'CollectionsList', array_merge( $defaults, $data ) );
 	}

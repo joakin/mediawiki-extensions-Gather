@@ -1,4 +1,4 @@
-<div class="manage-members-pane">
+<div class="manage-members-pane hidden">
 	<div class="panel">{{{spinner}}}</div>
 	<div class="content">
 		<button class="mw-ui-button mw-ui-progressive edit-action action">{{editMsg}}</button>

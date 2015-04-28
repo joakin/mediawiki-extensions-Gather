@@ -60,6 +60,7 @@
 	"gather-collection-owner-text": "A collection by $1",
 	"gather-anon-cta": "Add this page to a collection that you can share with the world.",
 	"gather-create-new-button-label": "Create",
+	"gather-create-collection-button-label": "Create a collection",
 	"gather-add-new-placeholder": "Enter a new collection name",
 	"gather-add-to-new": "Add to new public collection",
 	"gather-add-to-existing": "Add to existing collection",

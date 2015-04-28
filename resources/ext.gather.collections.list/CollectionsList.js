@@ -5,7 +5,8 @@
 		icons = M.require( 'icons' ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		toast = M.require( 'toast' ),
-		View = M.require( 'View' );
+		View = M.require( 'View' ),
+		CreateCollectionButton = M.require( 'ext.gather.collections.list/CreateCollectionButton' );
 
 	CollectionsList = View.extend( {
 		defaults: {
@@ -32,6 +33,17 @@
 				this.infiniteScroll.setElement( this.$el );
 				this.infiniteScroll.on( 'load', $.proxy( this, '_loadCollections' ) );
 			}
+		},
+		/** @inheritdoc */
+		postRender: function () {
+			// Look for rendered list in the dom
+			var $collectionsList = $( '.collections-list' );
+			// Add a create button at the bottom if the list owner is viewing in minerva skin
+			if ( $collectionsList.data( 'is-owner' ) && mw.config.get( 'skin' ) === 'minerva' ) {
+				new CreateCollectionButton()
+					.appendTo( $collectionsList.find( '.collection-actions' ) );
+			}
+			View.prototype.postRender.apply( this, arguments );
 		},
 		/**
 		 * Replace html link pagination controls with components for the infinite

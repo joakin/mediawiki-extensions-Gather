@@ -93,6 +93,15 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 	}
 
 	/**
+	 * Returns if the user is the owner of the list of collections
+	 * @param User $user user to check if it is the owner
+	 * @return boolean
+	 */
+	public function isOwner( User $user ) {
+		return $this->user->equals( $user );
+	}
+
+	/**
 	 * Return local url for list of collections
 	 * Example: /wiki/Special:Gather/by/user
 	 *

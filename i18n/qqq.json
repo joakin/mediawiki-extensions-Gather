@@ -64,6 +64,7 @@
 	"gather-collection-owner-text": "Informative message about who wrote the collection.\nParameters\n* $1 - the user that created the collection. Note this parameter is passed as a link with an icon.",
 	"gather-anon-cta": "Message that shows to anonymous users when they click the add to collection button.",
 	"gather-create-new-button-label": "Label for a button that is used to create a new collection.\n{{Identical|Create}}",
+	"gather-create-collection-button-label": "Label for a button that is used to create a new collection on Special:Gather",
 	"gather-add-new-placeholder": "Placeholder text for input field for new collection.",
 	"gather-add-to-new": "Heading that shows in the watchstar content overlay above a form to create a new public collection.",
 	"gather-add-to-existing": "Heading that shows in the watchstar content overlay above a list of your existing collections.",

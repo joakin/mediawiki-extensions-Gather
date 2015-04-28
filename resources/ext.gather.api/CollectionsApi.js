@@ -207,20 +207,23 @@
 		/**
 		 * Edits a collection
 		 * @method
-		 * @param {Number} id unique identifier of collection
+		 * @param {Number} [id] unique identifier of collection
 		 * @param {String} title of collection
 		 * @param {String} description of collection
 		 * @param {Boolean} isPrivate whether it should be stored as private
 		 * @return {jQuery.Promise}
 		 */
 		editCollection: function ( id, title, description, isPrivate ) {
-			return this.postWithToken( 'watch', {
+			var params = {
 				action: 'editlist',
-				id: id,
 				label: title,
 				description: description,
 				perm: isPrivate ? 'private' : 'public'
-			} );
+			};
+			if ( id !== null ) {
+				params.id = id;
+			}
+			return this.postWithToken( 'watch', params );
 		},
 		/**
 		 * Set collection privacy

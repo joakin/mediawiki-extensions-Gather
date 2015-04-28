@@ -126,7 +126,7 @@ class Hooks {
 	 */
 	public static function onEventLoggingRegisterSchemas( &$schemas ) {
 		$schemas += array(
-			'GatherClicks' => 11770314,
+			'GatherClicks' => 12114785,
 			'GatherFlags' => 11793295,
 		);
 		self::registerSchemas( array( 'schema.GatherClicks', 'schema.GatherFlags' ) );

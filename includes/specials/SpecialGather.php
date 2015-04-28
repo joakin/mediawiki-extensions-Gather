@@ -181,7 +181,7 @@ class SpecialGather extends SpecialPage {
 				wfMessage( 'gather-meta-description', $user->getName() ),
 				models\Image::getThumbnail( $collectionsList->getFile() )
 			);
-			$this->render( new views\CollectionsList( $collectionsList ) );
+			$this->render( new views\CollectionsList( $this->getUser(), $collectionsList ) );
 		} else {
 			$this->renderError( new views\NoPublic() );
 		}
