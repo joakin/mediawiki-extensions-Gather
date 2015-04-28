@@ -360,22 +360,41 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'ext.gather.routes/routes.js',
 		),
+		'messages' => array(
+			'gather-no-such-action',
+			'gather-unknown-error',
+		),
 	),
 
-	'ext.gather.special' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+	'ext.gather.special.base' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.alerts.init',
 			'ext.gather.collection.editor',
 			'ext.gather.routes',
+		),
+	),
+
+	'ext.gather.special.usercollections' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.special.base',
+		),
+	),
+
+	'ext.gather.special.collection' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.special.base',
 			'ext.gather.collection.flag',
 			'ext.gather.moderation',
 		),
 		'scripts' => array(
-			'ext.gather.special/init.js',
+			'ext.gather.special.collection/init.js',
 		),
-		'messages' => array(
-			'gather-no-such-action',
-			'gather-unknown-error',
+	),
+
+	'ext.gather.special' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+		'dependencies' => array(
+			'ext.gather.special.collection',
+			'ext.gather.special.usercollections',
 		),
 	),
 

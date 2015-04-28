@@ -42,9 +42,7 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function execute( $subpage ) {
 		$out = $this->getOutput();
-		$out->addModules( array(
-			'ext.gather.special',
-		) );
+		$out->addModules( array( 'ext.gather.special' ) );
 		$out->addModuleStyles( array(
 			'mediawiki.ui.anchor',
 			'mediawiki.ui.icon',
@@ -64,7 +62,6 @@ class SpecialGather extends SpecialPage {
 			// User's collections
 			// /by/:user = /by/:user/
 			$user = User::newFromName( $matches['user'] );
-
 			if ( !( $user && $user->getId() ) ) {
 				// Invalid user
 				$this->renderError( new views\NotFound() );
@@ -78,10 +75,10 @@ class SpecialGather extends SpecialPage {
 			$this->renderUserCollection( $id );
 		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
 			// Collection page
+			// FIXME: Redirect this location to /id/:id and get rid of all this
 			// /by/:user/:id
 			$id = (int)$matches['id'];
 			$user = User::newFromName( $matches['user'] );
-
 			if ( !( $user && $user->getId() ) ) {
 				// Invalid user
 				$this->renderError( new views\NotFound() );
