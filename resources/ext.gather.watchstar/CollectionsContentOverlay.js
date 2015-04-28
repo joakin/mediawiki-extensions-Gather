@@ -317,6 +317,13 @@
 			} );
 		},
 		/**
+		 * Launches editor mode for given collection
+		 * @param {Number} id of collection
+		 */
+		loadEditor: function ( id ) {
+			window.location.hash = '#/collection/edit/' + id;
+		},
+		/**
 		 * Communicate with API to create a collection
 		 * @param {String} title of collection
 		 * @param {Page} page to add to collection
@@ -330,7 +337,7 @@
 				api.addPageToCollection( collection.id, page ).done( function () {
 					// open the editor
 					self._collectionStateChange( collection, true );
-					window.location.hash = '#/collection/edit/' + collection.id;
+					self.loadEditor( collection.id );
 				} ).fail( function () {
 					toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );
 					// Hide since collection was created properly and list is outdated

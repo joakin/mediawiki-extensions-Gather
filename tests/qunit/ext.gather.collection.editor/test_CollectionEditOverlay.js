@@ -1,22 +1,41 @@
-( function ( M ) {
+( function ( M, $ ) {
 	var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' ),
-		collection,
-		overlay;
+		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' );
 
 	QUnit.module( 'Gather', {
 		setup: function () {
-			collection = {
+			var collection,
+				maxLengthDesc = CollectionEditOverlay.prototype.descriptionMaxLength,
+				maxLength = CollectionEditOverlay.prototype.titleMaxLength;
+
+			collection = this.collection = {
 				id: 1,
 				title: 'Cool title',
 				description: 'Hey, I\'m a collection description.'
 			};
-			overlay = new CollectionEditOverlay( {
-				collection: collection
-			} );
-			this.validTitle = getStringWithLength( overlay.titleMaxLength );
-			this.invalidTitle = getStringWithLength( overlay.titleMaxLength + 1 );
-			this.validDescription = getStringWithLength( overlay.descriptionMaxLength );
-			this.invalidDescription = getStringWithLength( overlay.descriptionMaxLength + 1 );
+			this.sandbox.stub( CollectionsApi.prototype, 'getCollectionMembers' )
+				.returns(
+					$.Deferred().resolve( {} )
+				);
+			this.sandbox.stub( CollectionsApi.prototype, 'getCollection' )
+				.returns(
+					$.Deferred().resolve( {
+						query: {
+							lists: [
+								{
+									watchlist: '',
+									id: collection.id,
+									description: collection.description,
+									label: collection.title
+								}
+							]
+						}
+					} )
+				);
+			this.validTitle = getStringWithLength( maxLength );
+			this.invalidTitle = getStringWithLength( maxLength + 1 );
+			this.validDescription = getStringWithLength( maxLengthDesc );
+			this.invalidDescription = getStringWithLength( maxLengthDesc + 1 );
 
 		}
 	} );
@@ -26,6 +45,9 @@
 	}
 
 	QUnit.test( 'Collection title validation', 2, function ( assert ) {
+		var overlay = new CollectionEditOverlay( {
+			collection: this.collection
+		} );
 		assert.strictEqual( overlay.isTitleValid( this.validTitle ), true,
 			'Check that a valid title is correctly evaluated' );
 		assert.strictEqual( overlay.isTitleValid( this.invalidTitle ), false,
@@ -33,10 +55,13 @@
 	} );
 
 	QUnit.test( 'Collection description validation', 2, function ( assert ) {
+		var overlay = new CollectionEditOverlay( {
+			collection: this.collection
+		} );
 		assert.strictEqual( overlay.isDescriptionValid( this.validDescription ), true,
 			'Check that a valid description is correctly evaluated' );
 		assert.strictEqual( overlay.isDescriptionValid( this.invalidDescription ), false,
 			'Check that an invalid description is correctly evaluated' );
 	} );
 
-}( mw.mobileFrontend ) );
+}( mw.mobileFrontend, jQuery ) );
