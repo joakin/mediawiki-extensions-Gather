@@ -50,6 +50,7 @@ $wgGatherMobileSpecialPageResourceBoilerplate = $wgGatherResourceFileModuleBoile
 $wgResourceModules += array(
 
 	'ext.gather.menu.icon' => $wgGatherResourceFileModuleBoilerplate + array(
+		'position' => 'top',
 		'class' => 'ResourceLoaderImageModule',
 		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
@@ -58,6 +59,7 @@ $wgResourceModules += array(
 	),
 
 	'ext.gather.icons' => $wgGatherResourceFileModuleBoilerplate + array(
+		'position' => 'top',
 		'class' => 'ResourceLoaderImageModule',
 		'selector' => '.mw-ui-icon-{name}:before',
 		'images' => array(
@@ -69,6 +71,7 @@ $wgResourceModules += array(
 	),
 
 	'ext.gather.styles' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+		'position' => 'top',
 		'styles' => array(
 			'ext.gather.styles/collections.less',
 			'ext.gather.styles/lists.less',
