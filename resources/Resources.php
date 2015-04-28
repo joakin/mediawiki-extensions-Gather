@@ -116,6 +116,22 @@ $wgResourceModules += array(
 		),
 	),
 
+	'ext.gather.collections.list' => $wgGatherResourceFileModuleBoilerplate + array(
+		'dependencies' => array(
+		),
+		'styles' => array(
+		),
+		'messages' => array(
+		),
+		'templates' => array(
+			'CollectionsList.hogan' => '../templates/CollectionsList.mustache',
+			'CollectionsListItemCard.hogan' => '../templates/CollectionsListItemCard.mustache',
+		),
+		'scripts' => array(
+			'ext.gather.collections.list/CollectionsList.js',
+		),
+	),
+
 	'ext.gather.collection.base' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.logging',
@@ -377,6 +393,10 @@ $wgResourceModules += array(
 	'ext.gather.special.usercollections' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.special.base',
+			'ext.gather.collections.list',
+		),
+		'scripts' => array(
+			'ext.gather.special.usercollections/init.js',
 		),
 	),
 

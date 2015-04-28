@@ -6,7 +6,7 @@
 namespace Gather\views;
 
 use Gather\models;
-use Html;
+use Gather\views\helpers\Template;
 
 /**
  * Renders a mobile collection card list
@@ -25,16 +25,15 @@ class CollectionsList extends View {
 	 * @return string Html
 	 */
 	public static function getListItemsHtml( $collectionsList ) {
-		$html = Html::openElement( 'div', array( 'class' => 'collection-cards' ) );
+		$html = '';
 		foreach ( $collectionsList as $item ) {
-			$view = new CollectionsListItemCard( $item );
-			$html .= $view->getHtml();
+			$collectionsListItemCard = new CollectionsListItemCard( $item );
+			$html .= $collectionsListItemCard->getHtml();
 		}
 		$url = $collectionsList->getContinueUrl();
 		if ( $url ) {
 			$html .= Pagination::more( $url, wfMessage( 'gather-lists-more' )->text() );
 		}
-		$html .= Html::closeElement( 'div' );
 		return $html;
 	}
 
@@ -54,13 +53,9 @@ class CollectionsList extends View {
 	 * @inheritdoc
 	 */
 	public function getHtml( $data = array() ) {
-		$html = Html::openElement(
-			'div',
-			array( 'class' => 'collections-list content view-border-box' )
+		$defaults = array(
+			'items' => $this->getListItemsHtml( $this->collectionsList )
 		);
-		// Get items
-		$html .= $this->getListItemsHtml( $this->collectionsList );
-		$html .= Html::closeElement( 'div' );
-		return $html;
+		return Template::render( 'CollectionsList', array_merge( $defaults, $data ) );
 	}
 }
