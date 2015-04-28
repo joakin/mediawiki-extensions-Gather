@@ -1,0 +1,13 @@
+<div class='collection-card {{^hasImage}}without-image{{/hasImage}}'>
+	<a href='{{collectionUrl}}' class='collection-card-image'>
+		{{{image}}}
+	</a>
+	<div class='collection-card-overlay' dir='{{langdir}}'>
+		<div class='collection-card-title'>
+			<a href='{{collectionUrl}}'>{{title}}</a>
+		</div>
+		<span class='collection-card-following'>{{privacyMsg}}</span>
+		<span>•</span>
+		<span class='collection-card-article-count'>{{articleCountMsg}}</span>
+	</div>
+</div>

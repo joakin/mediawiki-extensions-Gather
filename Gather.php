@@ -61,6 +61,7 @@ $autoloadClasses = array(
 	'Gather\views\ReportTable' => 'views/ReportTable',
 
 	'Gather\views\helpers\CSS' => 'views/helpers/CSS',
+	'Gather\views\helpers\Template' => 'views/helpers/Template',
 
 	'Gather\SpecialGather' => 'specials/SpecialGather',
 	'Gather\SpecialGatherLists' => 'specials/SpecialGatherLists',
