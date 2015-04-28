@@ -1,7 +1,7 @@
 ( function ( M, $ ) {
 
 	var CollectionFlagOverlay,
-		ConfirmationOverlay = M.require( 'ext.gather.confirm/ConfirmationOverlay' ),
+		ConfirmationOverlay = M.require( 'ext.gather.collection.confirm/ConfirmationOverlay' ),
 		SchemaGatherFlags = M.require( 'ext.gather.logging/SchemaGatherFlags' ),
 		schema = new SchemaGatherFlags(),
 		toast = M.require( 'toast' );

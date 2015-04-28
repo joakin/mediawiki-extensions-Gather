@@ -6,7 +6,7 @@
 		toast = M.require( 'toast' ),
 		futureToasts = M.require( 'ext.gather.alerts/futureToasts' ),
 		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
-		ConfirmationOverlay = M.require( 'ext.gather.confirm/ConfirmationOverlay' );
+		ConfirmationOverlay = M.require( 'ext.gather.collection.confirm/ConfirmationOverlay' );
 
 	/**
 	 * Overlay for deleting a collection
@@ -65,6 +65,6 @@
 		}
 	} );
 
-	M.define( 'ext.gather.delete/CollectionDeleteOverlay', CollectionDeleteOverlay );
+	M.define( 'ext.gather.collection.delete/CollectionDeleteOverlay', CollectionDeleteOverlay );
 
 }( mw.mobileFrontend, jQuery ) );

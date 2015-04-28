@@ -12,7 +12,7 @@
 			if ( collection ) {
 				if ( action === 'edit' ) {
 					mw.loader.using( 'ext.gather.collection.editor' ).done( function () {
-						var CollectionEditOverlay = M.require( 'ext.gather.edit/CollectionEditOverlay' );
+						var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' );
 						d.resolve(
 							new CollectionEditOverlay( {
 								collection: collection
@@ -21,7 +21,7 @@
 					} );
 				} else if ( action === 'delete' ) {
 					mw.loader.using( 'ext.gather.collection.delete' ).done( function () {
-						var CollectionDeleteOverlay = M.require( 'ext.gather.delete/CollectionDeleteOverlay' );
+						var CollectionDeleteOverlay = M.require( 'ext.gather.collection.delete/CollectionDeleteOverlay' );
 						d.resolve(
 							new CollectionDeleteOverlay( {
 								collection: collection

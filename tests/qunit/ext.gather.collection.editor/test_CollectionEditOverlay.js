@@ -1,5 +1,5 @@
 ( function ( M ) {
-	var CollectionEditOverlay = M.require( 'ext.gather.edit/CollectionEditOverlay' ),
+	var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' ),
 		collection,
 		overlay;
 
