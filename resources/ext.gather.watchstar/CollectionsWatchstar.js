@@ -64,15 +64,15 @@
 			collections: undefined
 		},
 		/** @inheritdoc */
-		preRender: function ( options ) {
-			options.watchIconClass = options.isWatched ? watchedIcon.getClassName() :
+		preRender: function () {
+			this.options.watchIconClass = this.options.isWatched ? watchedIcon.getClassName() :
 				watchIcon.getClassName();
 		},
 		/** @inheritdoc */
-		postRender: function ( options ) {
+		postRender: function () {
 			var $el = this.$el;
 			// For newly authenticated users via CTA force dialog to open.
-			if ( options.isNewlyAuthenticatedUser ) {
+			if ( this.options.isNewlyAuthenticatedUser ) {
 				setTimeout( function () {
 					$el.trigger( 'click' );
 				}, 500 );

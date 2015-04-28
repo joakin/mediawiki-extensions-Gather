@@ -43,14 +43,14 @@
 			this.api = new SearchApi();
 			Panel.prototype.initialize.call( this, options );
 			this._members = {};
-			$.each( options.pages, function ( i, page ) {
+			$.each( this.options.pages, function ( i, page ) {
 				self._members[page.title] = true;
 			} );
 		},
 		/** @inheritdoc */
-		postRender: function ( options ) {
-			Panel.prototype.postRender.apply( this, arguments );
-			this._renderResults( options.pages );
+		postRender: function () {
+			Panel.prototype.postRender.apply( this );
+			this._renderResults( this.options.pages );
 		},
 		/**
 		 * Updates the members of the collection associated with the panel

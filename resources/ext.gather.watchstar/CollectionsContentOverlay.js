@@ -102,7 +102,7 @@
 			} );
 
 			$form.append( this.createButton.$element );
-			CollectionsContentOverlayBase.prototype.postRender.apply( this, arguments );
+			CollectionsContentOverlayBase.prototype.postRender.apply( this );
 			this.expandForm();
 		},
 		/**

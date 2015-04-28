@@ -55,7 +55,6 @@
 		 */
 		postRender: function () {
 			// FIXME: PageList in MobileFrontend should be rewritten as PageListWatchstar.
-			View.prototype.postRender.apply( this, arguments );
 		},
 		/**
 		 * Event handler for when a member changes status in the collection

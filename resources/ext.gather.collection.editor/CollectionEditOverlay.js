@@ -87,14 +87,14 @@
 			this.$clear = this.$( '.search-header .clear' );
 		},
 		/** @inheritdoc */
-		postRender: function ( options ) {
+		postRender: function () {
 			var self = this,
 				id = this.id;
 
-			Overlay.prototype.postRender.apply( this, arguments );
+			Overlay.prototype.postRender.apply( this );
 			this.api.getCollectionMembers( id ).done( function ( pages ) {
 				self.searchPanel = new CollectionSearchPanel( {
-					collection: options.collection,
+					collection: self.options.collection,
 					pages: pages,
 					el: self.$( '.panel' )
 				} );
