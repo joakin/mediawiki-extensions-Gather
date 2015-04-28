@@ -2,7 +2,7 @@
 
 	var PageList = M.require( 'modules/PageList' ),
 		Page = M.require( 'Page' ),
-		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		View = M.require( 'View' ),
 		Icon = M.require( 'Icon' ),
 		CollectionPageList;

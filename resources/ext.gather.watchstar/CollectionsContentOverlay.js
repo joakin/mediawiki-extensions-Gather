@@ -6,7 +6,7 @@
 		toast = M.require( 'toast' ),
 		user = M.require( 'user' ),
 		Icon = M.require( 'Icon' ),
-		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' ),
 		ButtonWithSpinner = M.require( 'ButtonWithSpinner' );
 

@@ -2,7 +2,7 @@
 
 	var CollectionEditOverlay,
 		toast = M.require( 'toast' ),
-		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		CollectionSearchPanel = M.require( 'ext.gather.page.search/CollectionSearchPanel' ),
 		Overlay = M.require( 'Overlay' ),
 		Icon = M.require( 'Icon' ),
