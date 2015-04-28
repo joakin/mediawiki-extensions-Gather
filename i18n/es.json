@@ -5,7 +5,8 @@
 			"Awesomecat5",
 			"Fitoschido",
 			"Laurenslimb",
-			"Tusca"
+			"Tusca",
+			"Larjona"
 		]
 	},
 	"gather-lists-showhidden": "Mostrar listas ocultas",
@@ -32,7 +33,7 @@
 	"gather-edit-collection-label-name": "Nombre",
 	"gather-edit-collection-label-description": "Descripción",
 	"gather-edit-collection-label-public": "Colección pública",
-	"gather-edit-collection-save-label": "Hecho",
+	"gather-edit-collection-save-label": "Guardar",
 	"gather-edit-collection-failed-error": "Hubo un problema al guardar los cambios.",
 	"gather-edit-collection-clear-label": "Vaciar",
 	"gather-delete-collection-confirm": "¿Estás seguro que quieres eliminar esta colección?",

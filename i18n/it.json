@@ -7,8 +7,8 @@
 			"Fringio"
 		]
 	},
-	"gather-checkuser-log-action": "azione eseguita \"$1\" [[$2]] tramite l'estensione Gather",
-	"gather-purpose-signup-action": "<b>Ora è possibile raggruppare le pagine in collezioni da condividere con amici o salvare per dopo.</b><br />Iscriviti per provare.",
+	"gather-checkuser-log-action": "azione \"$1\" eseguita su [[$2]] tramite l'estensione Gather",
+	"gather-purpose-signup-action": "<b>Ora è possibile raggruppare le pagine in collezioni da condividere con amici o salvare per dopo.</b><br />Registrati per provare.",
 	"gather-lists-collection-owner": "Proprietario",
 	"gather-lists-collection-title": "Titolo",
 	"gather-lists-collection-description": "Descrizione",

@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Csega"
+		]
+	},
+	"gather-edit-collection-save-label": "Mentés",
+	"gather-edit-collection-clear-label": "Törlés",
+	"gather-hidden": "Rejtett"
+}
