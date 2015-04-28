@@ -9,7 +9,7 @@
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
 		router = M.require( 'router' ),
-		CollectionDeleteOverlay = M.require( 'ext.gather.delete/CollectionDeleteOverlay' );
+		CollectionDeleteOverlay = M.require( 'ext.gather.collection.delete/CollectionDeleteOverlay' );
 
 	/**
 	 * Overlay for editing a collection
@@ -291,6 +291,6 @@
 		}
 	} );
 
-	M.define( 'ext.gather.edit/CollectionEditOverlay', CollectionEditOverlay );
+	M.define( 'ext.gather.collection.edit/CollectionEditOverlay', CollectionEditOverlay );
 
 }( mw.mobileFrontend, jQuery ) );

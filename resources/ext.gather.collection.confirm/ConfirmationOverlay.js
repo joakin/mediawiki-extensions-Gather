@@ -49,6 +49,6 @@
 		}
 	} );
 
-	M.define( 'ext.gather.confirm/ConfirmationOverlay', ConfirmationOverlay );
+	M.define( 'ext.gather.collection.confirm/ConfirmationOverlay', ConfirmationOverlay );
 
 }( mw.mobileFrontend, jQuery ) );
