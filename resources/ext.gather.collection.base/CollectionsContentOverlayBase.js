@@ -1,7 +1,7 @@
 ( function ( M ) {
 
 	var CollectionsContentOverlayBase,
-		ContentOverlay = M.require( 'modules/tutorials/ContentOverlay' );
+		ContentOverlay = M.require( 'ContentOverlay' );
 
 	/**
 	 * A clickable watchstar for managing collections
@@ -13,7 +13,7 @@
 		 * FIXME: re-evaluate content overlay default classes/css.
 		 * @inheritdoc
 		 */
-		appendTo: 'body',
+		appendToElement: 'body',
 		/** @inheritdoc */
 		hasFixedHeader: false,
 		/** @inheritdoc */
