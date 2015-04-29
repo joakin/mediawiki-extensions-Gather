@@ -14,6 +14,8 @@
 	"gather-checkuser-log-action": "performed action \"$1\" on [[$2]] via the Gather extension",
 	"gather-purpose-login-action": "<b>Now you can group pages into collections to share with friends or save for later.</b><br/>Log in to try.",
 	"gather-purpose-signup-action": "<b>Now you can group pages into collections to share with friends or save for later.</b><br/>Sign up to try.",
+	"beta-feature-gather": "Gather collections",
+	"beta-feature-gather-description": "Collect pages in lists other than your watchlist and share them with readers and editors.",
 	"gather-lists-showhidden": "Show hidden lists",
 	"gather-lists-showvisible": "Show visible lists",
 	"gather-lists-collection-owner": "Owner",

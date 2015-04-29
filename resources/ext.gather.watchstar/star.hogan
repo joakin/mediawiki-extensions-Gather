@@ -1,1 +1,1 @@
-<button class="{{watchIconClass}}">{{label}}</button>
+<a class="{{watchIconClass}}">{{label}}</a>

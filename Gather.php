@@ -94,6 +94,8 @@ $wgHooks['ResourceLoaderTestModules'][] = 'Gather\Hooks::onResourceLoaderTestMod
 $wgHooks['EventLoggingRegisterSchemas'][] = 'Gather\Hooks::onEventLoggingRegisterSchemas';
 $wgHooks['ResourceLoaderRegisterModules'][] = 'Gather\Hooks::onResourceLoaderRegisterModules';
 $wgHooks['LoginFormValidErrorMessages'][] = 'Gather\Hooks::onLoginFormValidErrorMessages';
+$wgHooks['BeforePageDisplay'][] = 'Gather\Hooks::onBeforePageDisplay';
+$wgHooks['GetBetaFeaturePreferences'][] =  'Gather\Hooks::onGetBetaFeaturePreferences';
 
 
 // Maintenance Hooks
@@ -119,6 +121,11 @@ $wgGroupPermissions['sysop']['gather-hidelist'] = true;
  * If true, user's watchlist can be made public
  */
 $wgGatherAllowPublicWatchlist = false;
+
+/**
+ * Enable the Gather beta feature
+ */
+$wgGatherEnableBetaFeature = false;
 
 // Set default user options for Echo notifications
 $wgDefaultUserOptions['echo-subscriptions-web-gather'] = true;

@@ -11,7 +11,7 @@ use Gather\views\helpers\CSS;
 use MobileContext;
 use ResourceLoader;
 use PageImages;
-use User;
+use BetaFeatures;
 
 /**
  * Hook handlers for Gather extension
@@ -139,6 +139,59 @@ class Hooks {
 			echo "Gather extension requires MobileFrontend.\n";
 			die( -1 );
 		}
+	}
+
+	/**
+	 * BeforePageDisplay hook handler
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
+	 *
+	 * @param OutputPage $out
+	 * @param Skin $sk
+	 * @return bool
+	 */
+	public static function onBeforePageDisplay( &$out, &$sk ) {
+		global $wgGatherEnableBetaFeature;
+
+		$desktopBetaFeatureEnabled = class_exists( 'BetaFeatures' ) &&
+				BetaFeatures::isFeatureEnabled( $out->getUser(), 'betafeatures-gather' ) &&
+				$wgGatherEnableBetaFeature;
+
+		if ( $desktopBetaFeatureEnabled ) {
+			$out->addModules( 'ext.gather.desktop' );
+			$out->addModuleStyles( array(
+				'mediawiki.ui.input',
+				'mediawiki.ui.icon',
+			) );
+		}
+	}
+
+	/**
+	 * GetBetaFeaturePreferences hook handler
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
+	 *
+	 * @param User $user
+	 * @param array $preferences
+	 *
+	 * @return bool
+	 */
+	public static function onGetBetaFeaturePreferences( $user, &$preferences ) {
+		global $wgExtensionAssetsPath, $wgGatherEnableBetaFeature;
+
+		if ( $wgGatherEnableBetaFeature ) {
+			// Enable the mobile skin on desktop
+			$preferences['betafeatures-gather'] = array(
+				'label-message' => 'beta-feature-gather',
+				'desc-message' => 'beta-feature-gather-description',
+				'info-link' => '//www.mediawiki.org/wiki/Extension:Gather',
+				'discussion-link' => '//www.mediawiki.org/wiki/Extension talk:Gather',
+				'screenshot' => array(
+					'ltr' => "$wgExtensionAssetsPath/Gather/images/beta-feature-ltr.svg",
+					'rtl' => "$wgExtensionAssetsPath/Gather/images/beta-feature-rtl.svg",
+				),
+			);
+		}
+
+		return true;
 	}
 
 	/**

@@ -6,6 +6,7 @@
 		"Hogan": true,
 		"QUnit": true,
 		"mw": true,
+		"mediaWiki": true,
 		"OO": true
 	},
 
