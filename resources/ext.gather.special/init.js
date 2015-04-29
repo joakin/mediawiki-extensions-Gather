@@ -1,6 +1,6 @@
 ( function ( M, $ ) {
 
-	var CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+	var CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		CollectionFlagOverlay = M.require( 'ext.gather.flag/CollectionFlagOverlay' ),
 		Icon = M.require( 'Icon' ),
 		api = new CollectionsApi();

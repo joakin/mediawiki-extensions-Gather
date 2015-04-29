@@ -1,6 +1,6 @@
 ( function ( M, $ ) {
 
-	var CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+	var CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		toast = M.require( 'toast' ),
 		overlayManager = M.require( 'overlayManager' );
 

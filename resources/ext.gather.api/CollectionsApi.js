@@ -252,6 +252,6 @@
 		}
 	} );
 
-	M.define( 'ext.gather.watchstar/CollectionsApi', CollectionsApi );
+	M.define( 'ext.gather.api/CollectionsApi', CollectionsApi );
 
 }( mw.mobileFrontend, jQuery ) );

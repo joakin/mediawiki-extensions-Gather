@@ -5,7 +5,7 @@
 		schema = new SchemaGather(),
 		toast = M.require( 'toast' ),
 		futureToasts = M.require( 'ext.gather.alerts/futureToasts' ),
-		CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		ConfirmationOverlay = M.require( 'ext.gather.collection.confirm/ConfirmationOverlay' );
 
 	/**

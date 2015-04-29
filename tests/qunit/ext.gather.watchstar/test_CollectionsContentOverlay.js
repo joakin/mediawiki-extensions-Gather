@@ -4,7 +4,7 @@
 // update state
 // mw.config.set( 'wgGatherCollections', state );
 ( function ( M, $ ) {
-	var CollectionsApi = M.require( 'ext.gather.watchstar/CollectionsApi' ),
+	var CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		CollectionsContentOverlay = M.require( 'ext.gather.watchstar/CollectionsContentOverlay' );
 
 	QUnit.module( 'Gather', {
