@@ -15,6 +15,7 @@
 				d2 = $.Deferred().resolve();
 			this.sandbox.stub( CollectionsApi.prototype, 'addCollection' ).returns( d );
 			this.sandbox.stub( CollectionsApi.prototype, 'addPageToCollection' ).returns( d2 );
+			this.sandbox.stub( CollectionsContentOverlay.prototype, 'loadEditor' );
 			this.watchlist = {
 				id: 0,
 				title: 'Watchlist',
@@ -28,7 +29,7 @@
 		}
 	} );
 
-	QUnit.asyncTest( 'Internal updates to overlay', 2, function ( assert ) {
+	QUnit.test( 'Internal updates to overlay', 2, function ( assert ) {
 		var overlay = new CollectionsContentOverlay( {
 			collections: [ this.watchlist, this.collection ]
 		} );
@@ -37,11 +38,10 @@
 				'Check that the internal state does not get changed by this.' );
 			assert.strictEqual( overlay.options.collections[1].titleInCollection, true,
 				'Check that the internal state gets changed by this.' );
-			QUnit.start();
 		} );
 	} );
 
-	QUnit.asyncTest( 'Internal updates to overlay when new collection', 2, function ( assert ) {
+	QUnit.test( 'Internal updates to overlay when new collection', 2, function ( assert ) {
 		var overlay = new CollectionsContentOverlay( {
 			collections: [ this.watchlist ]
 		} );
@@ -50,7 +50,6 @@
 		overlay.addCollection( 'Bar', M.getCurrentPage() ).done( function () {
 			assert.strictEqual( overlay.options.collections.length, 2,
 				'Check we now have 2 collections.' );
-			QUnit.start();
 		} );
 	} );
 
