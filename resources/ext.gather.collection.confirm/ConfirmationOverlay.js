@@ -12,7 +12,7 @@
 	 */
 	ConfirmationOverlay = CollectionsContentOverlayBase.extend( {
 		/** @inheritdoc */
-		className: 'collection-confirmation-overlay content-overlay position-fixed',
+		className: 'overlay collection-confirmation-overlay content-overlay position-fixed',
 		/** @inheritdoc */
 		defaults: $.extend( {}, CollectionsContentOverlayBase.prototype.defaults, {
 			fixedHeader: false,
