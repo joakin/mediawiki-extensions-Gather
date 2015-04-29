@@ -59,6 +59,7 @@
 	"gather-error-unknown-collection": "Error message test when you try to edit a collection you do not own or that does not exist.",
 	"gather-collection-member": "Alternative text displayed next to collection name when page is a member.",
 	"gather-collection-non-member": "Alternative text displayed next to collection name when page is not a member.",
+	"gather-collection-owner-text": "Informative message about who wrote the collection.\nParameters\n * $1 - the user that created the collection. Note this parameter is passed as a link with an icon.",
 	"gather-anon-cta": "Message that shows to anonymous users when they click the add to collection button.",
 	"gather-create-new-button-label": "Label for a button that is used to create a new collection.\n{{Identical|Create}}",
 	"gather-add-new-placeholder": "Placeholder text for input field for new collection.",

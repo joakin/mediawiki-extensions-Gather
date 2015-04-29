@@ -60,9 +60,9 @@ class Collection extends View {
 			$html .= Html::element( 'div', array( 'class' => 'collection-privacy' ), $privacyMsg );
 		}
 		$html .= Html::closeElement( 'div' ) .
+			$this->getOwnerHtml( $owner ) .
 			Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() ) .
 			Html::element( 'div', array( 'class' => 'collection-description' ), $description ) .
-			$this->getOwnerHtml( $owner ) .
 			$this->getActionButtonsHtml() .
 			Html::closeElement( 'div' );
 
@@ -76,15 +76,18 @@ class Collection extends View {
 	 * @return string Html
 	 */
 	private function getOwnerHtml( $owner ) {
-		return Html::openElement( 'a', array(
+		$userIconLink = Html::openElement( 'a', array(
 				'href' => SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )->
-						getSubPage( $owner->getName() )->getLocalUrl(),
-				'class' => 'collection-owner',
+					getSubPage( $owner->getName() )->getLocalUrl(),
 			) ) .
 			Html::element( 'span', array(
 				'class' => CSS::iconClass( 'collection-owner', 'before', 'collection-owner-icon' ) ) ) .
 			$owner->getName() .
 			Html::closeElement( 'a' );
+
+		return Html::openElement( 'div', array( 'class' => 'collection-owner' ) )
+				. wfMessage( 'gather-collection-owner-text' )->rawParams( $userIconLink )->parse()
+				. Html::closeElement( 'div' );
 	}
 
 	/**
