@@ -52,6 +52,7 @@
 	"gather-error-unknown-collection": "Die angeforderte Sammlung, die bearbeitet werden soll, konnte nicht gefunden werden.",
 	"gather-collection-member": "Ist Mitglied der Sammlung.",
 	"gather-collection-non-member": "Ist kein Mitglied der Sammlung.",
+	"gather-collection-owner-text": "Eine Sammlung von $1",
 	"gather-anon-cta": "Fügt diese Seite zu einer Sammlung hinzu, die du mit der Welt teilen kannst.",
 	"gather-create-new-button-label": "Erstellen",
 	"gather-add-new-placeholder": "Einen neuen Sammlungsnamen eingeben",
