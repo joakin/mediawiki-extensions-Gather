@@ -12,6 +12,8 @@
 	"gather-checkuser-log-action": "führte die Aktion „$1“ auf „[[$2]]“ über die Gather-Erweiterung aus",
 	"gather-purpose-login-action": "<b>Jetzt kannst du Seiten in Sammlungen gruppieren, um sie mit Freunden zu teilen oder um sie für später zu speichern.</b><br />Anmelden zum Versuchen.",
 	"gather-purpose-signup-action": "<b>Jetzt kannst du Seiten in Sammlungen gruppieren, um sie mit Freunden zu teilen oder um sie für später zu speichern.</b><br />Registrieren zum Versuchen.",
+	"beta-feature-gather": "Gather-Sammlungen",
+	"beta-feature-gather-description": "Sammle Seiten in Listen (nicht in deine Beobachtungsliste) und teile sie mit Lesern und Autoren.",
 	"gather-lists-showhidden": "Versteckte Listen anzeigen",
 	"gather-lists-showvisible": "Sichtbare Listen anzeigen",
 	"gather-lists-collection-owner": "Besitzer",

@@ -45,6 +45,7 @@
 	"gather-error-unknown-collection": "No se puede encontrar la colección solicitada para editar.",
 	"gather-collection-member": "Es miembro de la colección.",
 	"gather-collection-non-member": "No es miembro de la colección.",
+	"gather-collection-owner-text": "Una colección de $1",
 	"gather-anon-cta": "Añadir esta página a un colección que puedes compartir con el mundo.",
 	"gather-create-new-button-label": "Crear",
 	"gather-add-new-placeholder": "Escribe un nombre de colección nuevo",

@@ -19,6 +19,8 @@ $specialPageAliases['en'] = array(
 /** Arabic (العربية) */
 $specialPageAliases['ar'] = array(
 	'Gather' => array( 'تجمع' ),
+	'GatherEditFeed' => array( 'تلقيم_تعديل_تجمع' ),
+	'GatherLists' => array( 'قوائم_تجمع' ),
 );
 
 /** German (Deutsch) */

@@ -4,6 +4,7 @@
 			"Умар"
 		]
 	},
+	"beta-feature-gather": "Гулъе коллекци",
 	"gather-lists-collection-owner": "Ерг",
 	"gather-lists-collection-title": "ЦӀе",
 	"gather-lists-collection-description": "Цуьнах лаьцна",
@@ -12,6 +13,7 @@
 	"gather-edit-collection-save-label": "Кийчча ю",
 	"gather-edit-collection-clear-label": "ЦӀанъян",
 	"gather-delete-collection-delete-label": "ДӀаяккха",
+	"gather-flag-collection-flag-label": "Байракх",
 	"gather-confirmation-cancel-button-label": "Цаоьшу",
 	"gather-create-new-button-label": "Кхолла",
 	"gather-add-to-collection-cancel": "ХӀахӀа, баркалла",
