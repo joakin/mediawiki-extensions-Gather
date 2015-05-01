@@ -202,7 +202,8 @@
 				"mobile.toast",
 				"ext.gather.api",
 				"ext.gather.menu.icon",
-				"ext.gather.collection.editor"
+				"ext.gather.collection.editor",
+				"mobile.startup"
 			],
 			"styles": [],
 			"messages": [
