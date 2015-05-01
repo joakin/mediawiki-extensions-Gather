@@ -6,6 +6,9 @@
 		toast = M.require( 'toast' ),
 		user = M.require( 'user' ),
 		Icon = M.require( 'Icon' ),
+		Button = M.require( 'Button' ),
+		ToastPanel = M.require( 'ext.gather.toastpanel/ToastPanel' ),
+		toastPanel = new ToastPanel().appendTo( document.body ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' ),
 		ButtonWithSpinner = M.require( 'ButtonWithSpinner' );
@@ -252,7 +255,9 @@
 		 * @param {Boolean} currentPageIsMember whether the current page is in this collection
 		 */
 		_collectionStateChange: function ( collection, currentPageIsMember ) {
-			var isNew = true;
+			var msg,
+				isNew = true;
+
 			// update the stored state of the collection
 			$.each( this.options.collections, function () {
 				if ( this.id === collection.id ) {
@@ -274,12 +279,22 @@
 
 			if ( currentPageIsMember ) {
 				this.emit( 'collection-watch', collection, isNew );
-				// show toast
-				toast.show( mw.msg( 'gather-add-toast', collection.title ), 'toast' );
+				msg = mw.msg( 'gather-add-toast', collection.title );
 			} else {
 				this.emit( 'collection-unwatch', collection );
-				toast.show( mw.msg( 'gather-remove-toast', collection.title ), 'toast' );
+				msg = mw.msg( 'gather-remove-toast', collection.title );
 			}
+			toastPanel.render( {
+				msg: msg,
+				actions: [
+					new Button( {
+						progressive: true,
+						href: mw.util.getUrl( 'Special:Gather/id/' + collection.id ),
+						label: mw.msg( 'gather-view-collection' )
+					} ).options
+				]
+			} );
+			toastPanel.show();
 		},
 		/**
 		 * Communicate with API to remove page from collection
