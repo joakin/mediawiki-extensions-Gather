@@ -64,10 +64,11 @@ class ReportTableRow extends View {
 		$owner = $collection->getOwner();
 		$title = $collection->getTitle();
 		$id = $collection->getId();
+		$desc = $collection->getDescription();
 
 		$html = Html::openElement( 'li' )
 			. $this->collectionLink( $collection )
-			. Html::element( 'span', array(), $collection->getDescription() )
+			. Html::element( 'span', $desc ? array() : array( 'class' => 'empty' ), $desc )
 			. Html::element( 'span', array(), $collection->getCount() )
 			. $this->userLink( $owner )
 			. Html::element( 'span', array(), $ts );
