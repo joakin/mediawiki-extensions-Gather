@@ -28,6 +28,7 @@
 	"gather-edit-collection-clear-label": "Eidel maachen",
 	"gather-delete-collection-delete-label": "Läschen",
 	"gather-confirmation-cancel-button-label": "Ofbriechen",
+	"gather-collection-owner-text": "Eng Sammlung vum $1",
 	"gather-create-new-button-label": "Uleeën",
 	"gather-add-title-invalid-toast": "Et gouf e Problem mam Titel deen Dir aginn hutt. Probéiert w.e.g. eppes anescht.",
 	"gather-add-to-collection-cancel": "Nee, merci",

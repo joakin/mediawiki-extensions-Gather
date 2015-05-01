@@ -31,7 +31,7 @@
 	"gather-lists-title": "Samlingar",
 	"gather-read-more": "Läs mer",
 	"gather-private": "Privat",
-	"gather-article-count": "$1 {{PLURAL:$1|artikel|artiklar}}",
+	"gather-article-count": "$1 {{PLURAL:$1|sida|sidor}}",
 	"gather-empty": "Ingenting i denna samling ännu...",
 	"gather-empty-footer": "Jag vet inte hur du kom hit, men det här är en sorglig plats.",
 	"gather-edit-button": "Redigera",

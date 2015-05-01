@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Chrumps",
-			"VerMa"
+			"VerMa",
+			"Devwebtel"
 		]
 	},
 	"gather-lists-collection-owner": "Właściciel",
@@ -20,8 +21,10 @@
 	"gather-editfeed-show": "Pokaż",
 	"gather-edit-collection-label-name": "Nazwa",
 	"gather-edit-collection-label-description": "Opis",
+	"gather-edit-collection-label-public": "Publiczna kolekcja",
 	"gather-edit-collection-save-label": "Zapisz",
 	"gather-edit-collection-clear-label": "Wyczyść",
+	"gather-flag-collection-flag-label": "Oznaczenie",
 	"gather-confirmation-cancel-button-label": "Anuluj",
 	"gather-create-new-button-label": "Utwórz",
 	"gather-add-to-new": "Dodaj do nowej kolekcji publicznej",
@@ -31,7 +34,12 @@
 	"gather-watchlist-title": "Obserwowane",
 	"gather-watchlist-description": "Lista stron, które mnie interesują.",
 	"gather-read-more": "Czytaj więcej",
+	"gather-hidden": "Ukryty",
+	"gather-moderation-hidden-email-subject": "Twoja kolekcja $1 została ukryta.",
+	"gather-echo-pref-tooltip": "Informuj mnie o zmianach w moich kolekcjach.",
 	"gather-article-count": "$1 {{PLURAL:$1|strona|strony|stron}}",
 	"gather-edit-button": "Edytuj",
-	"gather-delete-button": "Usuń"
+	"gather-delete-button": "Usuń",
+	"gather-overlay-continue": "Następny",
+	"gather-watchstar-button-label": "Dodać do kolekcji"
 }

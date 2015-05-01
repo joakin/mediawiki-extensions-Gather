@@ -2,14 +2,31 @@
 	"@metadata": {
 		"authors": [
 			"Otokoume",
-			"赤城。"
+			"赤城。",
+			"Shirayuki"
 		]
 	},
 	"gather-lists-collection-owner": "所有者",
+	"gather-lists-collection-last-updated": "最終更新",
 	"gather-lists-collection-title": "タイトル",
+	"gather-lists-collection-description": "説明",
+	"gather-edit-collection-label-name": "名前",
+	"gather-edit-collection-label-description": "説明",
 	"gather-edit-collection-label-public": "公開コレクション",
+	"gather-edit-collection-save-label": "保存",
+	"gather-delete-collection-delete-label": "削除",
+	"gather-confirmation-cancel-button-label": "キャンセル",
+	"gather-create-new-button-label": "作成",
 	"gather-add-to-collection-summary": "コレクションに$1を追加しますか？",
 	"gather-add-to-collection-confirm": "コレクションに追加",
 	"gather-add-to-collection-cancel": "不要です",
-	"gather-overlay-edit-button": "題名と説明を編集する"
+	"gather-page-not-found": "ページが見つかりません",
+	"gather-watchlist-title": "ウォッチリスト",
+	"gather-private": "非公開",
+	"gather-public": "公開",
+	"gather-article-count": "$1 {{PLURAL:$1|ページ}}",
+	"gather-edit-button": "編集",
+	"gather-delete-button": "削除",
+	"gather-overlay-edit-button": "題名と説明を編集する",
+	"gather-overlay-continue": "次へ"
 }
