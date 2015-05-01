@@ -5,7 +5,7 @@
 	$( function () {
 		var $collection = $( '.collection' );
 
-		if ( !$collection.data( 'is-owner' ) && mw.config.get( 'skin' ) === 'minerva' ) {
+		if ( !$collection.data( 'is-owner' ) ) {
 			new CollectionFlagButton( {
 				collectionId: $collection.data( 'id' )
 			} ).prependTo( '.collection-moderation' );
