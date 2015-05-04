@@ -67,8 +67,10 @@ $autoloadClasses = array(
 	'Gather\SpecialGatherLists' => 'specials/SpecialGatherLists',
 	'Gather\SpecialGatherEditFeed' => 'specials/SpecialGatherEditFeed',
 
+	'Gather\api\ApiMixinListAccess' => 'api/ApiMixinListAccess',
 	'Gather\api\ApiEditList' => 'api/ApiEditList',
 	'Gather\api\ApiQueryLists' => 'api/ApiQueryLists',
+	'Gather\api\ApiQueryListMembership' => 'api/ApiQueryListMembership',
 	'Gather\api\ApiQueryListPages' => 'api/ApiQueryListPages',
 
 );
@@ -104,6 +106,7 @@ $wgHooks['LoadExtensionSchemaUpdates'][] = 'Gather\UpdaterHooks::onLoadExtension
 // Api
 $wgAPIModules['editlist'] = 'Gather\api\ApiEditList';
 $wgAPIListModules['lists'] = 'Gather\api\ApiQueryLists';
+$wgAPIPropModules['listmembership'] = 'Gather\api\ApiQueryListMembership';
 $wgAPIListModules['listpages'] = 'Gather\api\ApiQueryListPages';
 
 // Configuration

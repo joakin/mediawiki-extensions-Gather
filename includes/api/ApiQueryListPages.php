@@ -62,60 +62,15 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 	 * @throws \UsageException
 	 */
 	private function run( $resultPageSet = null ) {
-
 		$params = $this->extractRequestParams();
-		$p = $this->getModulePrefix();
-
-		$useOwner = $params['owner'] !== null;
-		if ( $useOwner !== ( $params['token'] !== null ) ) {
-			$this->dieUsage( "Both {$p}owner and {$p}token must be given or missing",
-				'invalidparammix' );
-		}
-
 		$isGenerator = $resultPageSet !== null;
 
-		if ( !$params['id'] ) {
-			// If id is not given (or equals to 0), permissions the same as watchlistraw access
-			$user = $this->getWatchlistUser( $params );
-			$titles = $this->queryLegacyWatchlist( $params, $isGenerator, $user->getId() );
+		ApiMixinListAccess::checkListAccess( $this->getDB(), $this, $params, $isWatchlist, $ownerId );
+
+		if ( $isWatchlist ) {
+			$titles = $this->queryLegacyWatchlist( $params, $isGenerator, $ownerId );
 		} else {
-			// Id was given, this could be public or private list, legacy watchlist or regular
-			// Allow access to any public list/watchlist, and to private with proper owner/self
-			$db = $this->getDB();
-			$listRow = ApiEditList::normalizeRow( $db->selectRow( 'gather_list',
-				array( 'gl_label', 'gl_user', 'gl_perm' ),
-				array( 'gl_id' => $params['id'] ), __METHOD__ ) );
-			if ( $listRow === false ) {
-				$this->dieUsage( "List does not exist", 'badid' );
-			}
-			if ( $useOwner ) {
-				// Caller supplied token: treat them as trusted, someone who could see even private
-				// At the same time, owner param must match list's owner
-				// TODO: if we allow non-matching owner, we could treat it as public-only,
-				// but that might be unexpected behavior
-				$user = $this->getWatchlistUser( $params );
-				if ( $listRow->gl_user !== $user->getId() ) {
-					$this->dieUsage( 'The owner supplied does not match the list\'s owner',
-						'permissiondenied' );
-				}
-				$showPrivate = true;
-			} else {
-				$user = $this->getUser();
-				$showPrivate = $user->isLoggedIn() && $listRow->gl_user === $user->getId()
-					&& $user->isAllowed( 'viewmywatchlist' );
-			}
-
-			// Check if this is a public list (if required)
-			if ( !$showPrivate && $listRow->gl_perm !== ApiEditList::PERM_PUBLIC ) {
-				$this->dieUsage( "You have no rights to see this list", 'badid' );
-			}
-
-			if ( $listRow->gl_label === '' ) {
-				// This is actually a watchlist, and it is either public or belongs to current user
-				$titles = $this->queryLegacyWatchlist( $params, $isGenerator, $listRow->gl_user );
-			} else {
-				$titles = $this->queryListItems( $params, $isGenerator );
-			}
+			$titles = $this->queryListItems( $params, $isGenerator );
 		}
 		if ( !$isGenerator ) {
 			$this->getResult()->addIndexedTagName( $this->modulePath, 'wr' );
@@ -244,14 +199,9 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 	}
 
 	public function getAllowedParams() {
-		return array(
+		return array_merge( ApiMixinListAccess::getListAccessParams(), array(
 			'continue' => array(
 				ApiBase::PARAM_HELP_MSG => 'api-help-param-continue',
-			),
-			'id' => array(
-				ApiBase::PARAM_DFLT => 0,
-				ApiBase::PARAM_TYPE => 'integer',
-				ApiBase::PARAM_MIN => 0,
 			),
 			'namespace' => array(
 				ApiBase::PARAM_ISMULTI => true,
@@ -264,12 +214,6 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				ApiBase::PARAM_MAX => ApiBase::LIMIT_BIG1,
 				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2,
 			),
-			'owner' => array(
-				ApiBase::PARAM_TYPE => 'user',
-			),
-			'token' => array(
-				ApiBase::PARAM_TYPE => 'string',
-			),
 			'dir' => array(
 				ApiBase::PARAM_DFLT => 'ascending',
 				ApiBase::PARAM_TYPE => array(
@@ -278,7 +222,7 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				),
 				ApiBase::PARAM_HELP_MSG => 'api-help-param-direction',
 			),
-		);
+		) );
 	}
 
 	protected function getExamplesMessages() {
