@@ -293,7 +293,7 @@ $wgResourceModules += array(
 	'ext.gather.page.search' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
 			'ext.gather.api',
-			'mobile.pagelist.scripts',
+			'mobile.pagelist',
 			'mobile.search',
 		),
 		'messages' => array(
