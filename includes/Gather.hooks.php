@@ -12,6 +12,7 @@ use MobileContext;
 use ResourceLoader;
 use PageImages;
 use BetaFeatures;
+use User;
 
 /**
  * Hook handlers for Gather extension
