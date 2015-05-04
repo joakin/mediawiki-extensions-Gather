@@ -9,9 +9,9 @@
 	"gather-delete-collection-confirm": "راه مأكّد بلّي باغي تمحي المحرزة (collection)؟",
 	"gather-delete-collection-heading": "امحي المحرزة (collection)",
 	"gather-delete-collection-delete-label": "امحي",
-	"gather-delete-collection-cancel-label": "بطّل",
 	"gather-delete-collection-success": "المحرزة (collection) راهي تنمحات كيما لازم.",
 	"gather-delete-collection-failed-error": "صرا مشكل فل محيان تاع هاد المحرزة (collection).",
+	"gather-confirmation-cancel-button-label": "بطّل",
 	"gather-add-to-collection-confirm": "زيد فل محرزة",
 	"gather-public": "عامّي",
 	"gather-delete-button": "امحي"
