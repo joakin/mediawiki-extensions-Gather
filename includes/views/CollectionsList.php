@@ -54,7 +54,8 @@ class CollectionsList extends View {
 	 */
 	public function getHtml( $data = array() ) {
 		$defaults = array(
-			'items' => $this->getListItemsHtml( $this->collectionsList )
+			'items' => $this->getListItemsHtml( $this->collectionsList ),
+			'owner' => $this->collectionsList->getOwner()->getName(),
 		);
 		return Template::render( 'CollectionsList', array_merge( $defaults, $data ) );
 	}

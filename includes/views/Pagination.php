@@ -17,14 +17,15 @@ class Pagination {
 	 * Get the HTML for the more collections button (infinite scrolling)
 	 * @param string $url url where the more button will point to
 	 * @param string $text text for the button
+	 * @param string $data data attributes for the button
 	 * @param string $classes Additional css classes for the pagination button
 	 */
-	public static function more( $url, $text, $classes = '' ) {
+	public static function more( $url, $text, $data = array(), $classes = '' ) {
 		return Html::openElement( 'div', array( 'class' => 'collections-pagination' ) )
-			. Html::element( 'a', array(
+			. Html::element( 'a', array_merge( array(
 				'href' => $url,
 				'class' => CSS::buttonClass( 'progressive', $classes ),
-			), $text )
+			), $data ), $text )
 			. Html::closeElement( 'div' );
 	}
 

@@ -187,7 +187,7 @@
 					action: 'query',
 					list: 'lists',
 					lstlimit: 50,
-					lsttitle: page.getTitle(),
+					lsttitle: page ? page.getTitle() : null,
 					lstprop: 'label|description|public|image|count|owner',
 					lstowner: owner
 				} );

@@ -132,14 +132,23 @@ $wgResourceModules += array(
 
 	'ext.gather.collections.list' => $wgGatherResourceFileModuleBoilerplate + array(
 		'dependencies' => array(
+			'mobile.infiniteScroll',
+			'mobile.toast',
+			'ext.gather.api',
 		),
 		'styles' => array(
 		),
 		'messages' => array(
+			'gather-lists-more-failed',
+			'gather-article-count',
+			'gather-public',
+			'gather-private',
+			'gather-hidden',
 		),
 		'templates' => array(
 			'CollectionsList.hogan' => '../templates/CollectionsList.mustache',
 			'CollectionsListItemCard.hogan' => '../templates/CollectionsListItemCard.mustache',
+			'CardImage.hogan' => '../templates/CardImage.mustache',
 		),
 		'scripts' => array(
 			'ext.gather.collections.list/CollectionsList.js',
