@@ -152,6 +152,9 @@ $wgResourceModules += array(
 		'styles' => array(
 			'ext.gather.collection.confirm/confirmationOverlay.less',
 		),
+		'skinStyles' => array(
+			'vector' => 'ext.gather.collection.confirm/vector.less',
+		),
 		'messages' => array(
 			'gather-error-unknown-collection',
 			'gather-confirmation-cancel-button-label',
