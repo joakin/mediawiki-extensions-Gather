@@ -44,7 +44,6 @@ class ApiQueryLists extends ApiQueryBase {
 	}
 
 	public function execute() {
-		$self = $this; // php 5.3 support - closures can't access $this
 		$p = $this->getModulePrefix();
 		$params = $this->extractRequestParams();
 		$continue = $params['continue'];
@@ -194,19 +193,19 @@ class ApiQueryLists extends ApiQueryBase {
 			// The ordering has to be unique so that we can safely
 			// continue iteration even if subsequent timestamps are the same
 			$this->addOption( 'ORDER BY', 'gl_perm, gl_updated DESC, gl_id DESC' );
-			$setContinue = function( $row ) use ( $self ) {
-				$self->setContinueEnumParameter( 'continue', "{$row->gl_updated}|{$row->gl_id}" );
+			$getContinueEnumParameter = function( $row ) {
+				return "{$row->gl_updated}|{$row->gl_id}";
 			};
 		} elseif ( !$singleUser ) {
 			$this->addFields( 'gl_user' );
 			$this->addOption( 'ORDER BY', 'gl_user, gl_label' );
-			$setContinue = function( $row ) use ( $self ) {
-				$self->setContinueEnumParameter( 'continue', "{$row->gl_user}|{$row->gl_label}" );
+			$getContinueEnumParameter = function( $row ) {
+				return "{$row->gl_user}|{$row->gl_label}";
 			};
 		} else {
 			$this->addOption( 'ORDER BY', 'gl_label' );
-			$setContinue = function( $row ) use ( $self ) {
-				$self->setContinueEnumParameter( 'continue', $row->gl_label );
+			$getContinueEnumParameter = function( $row ) {
+				return $row->gl_label;
 			};
 		}
 
@@ -238,120 +237,36 @@ class ApiQueryLists extends ApiQueryBase {
 		$count = 0;
 		$path = array( 'query', $this->getModuleName() );
 
-		// This closure will process one row, even if that row is fake watchlist
-		$processRow = function( $row ) use ( $self, &$count, $mode, $limit,  $useInfo, $title,
-			$fld_label, $fld_description, $fld_public, $fld_image, $fld_updated, $fld_owner,
-			$path, $owner, $setContinue
-		) {
-			if ( $row === null ) {
-				// Fake watchlist row
-				$row = (object) array(
-					'gl_id' => 0,
-					'gl_label' => '',
-					'gl_perm' => ApiEditList::PERM_PRIVATE,
-					'gl_updated' => '',
-					'gl_info' => '',
-				);
-			} else {
-				$row = ApiEditList::normalizeRow( $row );
-			}
-
-			$count++;
-			if ( $count > $limit ) {
-				// We've reached the one extra which shows that there are
-				// additional pages to be had. Stop here...
-				$setContinue( $row );
-				return false;
-			}
-
-			$isWatchlist = property_exists( $row, 'isWl' ) ? $row->isWl : $row->gl_label === '';
-
-			$data = array( 'id' => $row->gl_id );
-			if ( $isWatchlist ) {
-				$data['watchlist'] = true;
-			}
-			if ( $fld_label ) {
-				// TODO: check if this is the right wfMessage to show
-				$data['label'] = !$isWatchlist ? $row->gl_label : wfMessage( 'watchlist' )->plain();
-			}
-			if ( $fld_owner ) {
-				$data['owner'] = property_exists( $row, 'user_name' ) ?
-					$row->user_name : $owner->getName();
-			}
-			if ( $title ) {
-				if ( $isWatchlist ) {
-					$data['title'] = $self->isTitleInWatchlist( $owner, $title );
-				} else {
-					$data['title'] = isset( $row->isIn );
-				}
-			}
-			if ( $fld_public ) {
-				switch ( $row->gl_perm ) {
-					case ApiEditList::PERM_PRIVATE:
-						$data['perm'] = 'private';
-						break;
-					case ApiEditList::PERM_PUBLIC:
-						$data['perm'] = 'public';
-						break;
-					case ApiEditList::PERM_HIDDEN:
-						$data['perm'] = 'hidden';
-						break;
-					default:
-						$self->dieDebug( __METHOD__,
-							"Unknown gather perm={$row->gl_perm} for id {$row->gl_id}" );
-				}
-			}
-			if ( $useInfo ) {
-				$info = ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false );
-				if ( $fld_description ) {
-					$data['description'] = property_exists( $info, 'description' ) ? $info->description : '';
-				}
-				if ( $fld_image ) {
-					if ( property_exists( $info, 'image' ) && $info->image ) {
-						$data['image'] = $info->image;
-						$file = wfFindFile( $info->image );
-						if ( !$file ) {
-							$data['badimage'] = true;
-						} else {
-							$data['imageurl'] = $file->getFullUrl();
-							$data['imagewidth'] = intval( $file->getWidth() );
-							$data['imageheight'] = intval( $file->getHeight() );
-						}
-					} else {
-						$data['image'] = false;
-					}
-				}
-			}
-			if ( $fld_updated ) {
-				$data['updated'] = wfTimestamp( TS_ISO_8601, $row->gl_updated );
-			}
-
-			$fit = $self->getResult()->addValue( $path, null, $data );
-			if ( !$fit ) {
-				$setContinue( $row );
-				return false;
-			}
-			return true;
-		};
-
 		foreach ( $this->select( __METHOD__ ) as $row ) {
 			if ( $injectWatchlist ) {
 				if ( property_exists( $row, 'isWl' ) ? !$row->isWl : $row->gl_label !== '' ) {
 					// The very first DB row already has a label, so inject a fake
-					if ( !$processRow( null ) ) {
+					if ( !$this->processRow(
+						null, $count, $mode, $limit, $useInfo, $title, $fld_label,
+						$fld_description, $fld_public, $fld_image, $fld_updated, $fld_owner, $path,
+						$owner, $getContinueEnumParameter
+					) ) {
 						break;
 					}
 				}
 				$injectWatchlist = false;
 			}
-			if ( !$processRow( $row ) ) {
+			if ( !$this->processRow(
+				$row, $count, $mode, $limit, $useInfo, $title, $fld_label, $fld_description,
+				$fld_public, $fld_image, $fld_updated, $fld_owner, $path, $owner,
+				$getContinueEnumParameter
+			) ) {
 				break;
 			}
 		}
 
 		if ( $injectWatchlist ) {
 			// There are no records in the database, and we need to inject watchlist row
-			$processRow( null );
+			$this->processRow(
+				null, $count, $mode, $limit, $useInfo, $title, $fld_label, $fld_description,
+				$fld_public, $fld_image, $fld_updated, $fld_owner, $path, $owner,
+				$getContinueEnumParameter
+			);
 		}
 
 		$this->getResult()->addIndexedTagName( $path, 'c' );
@@ -423,6 +338,122 @@ class ApiQueryLists extends ApiQueryBase {
 
 	public function getHelpUrls() {
 		return '//www.mediawiki.org/wiki/Extension:Gather';
+	}
+
+	/**
+	 * Process one row, even if that row is a fake watchlist.
+	 * @param object|null $row A result row, e.g. from iterating a ResultWrapper. Null for the
+	 *   fake watchlist.
+	 * @param int $count Row count, will be incremented on each call.
+	 * @param string $mode Mode API parameter.
+	 * @param int $limit Row limit; used to detect when to set continuation parameters.
+	 * @param bool $useInfo True if one of the info fields was requested.
+	 * @param Title|null $title Title object corresponding to the title parameter of the API.
+	 * @param bool $fld_label True if the label property is requested.
+	 * @param bool $fld_description True if the description property is requested.
+	 * @param bool $fld_public True if the public property is requested.
+	 * @param bool $fld_image True if the image property is requested.
+	 * @param bool $fld_updated True if the updated property is requested.
+	 * @param bool $fld_owner True if the owner property is requested.
+	 * @param array $path API module path.
+	 * @param User|null $owner The user whose lists are being shown.
+	 * @param callable $getContinueEnumParameter A function that receives $row and returns a
+	 *   continuation key that corresponds to the ordering of the query.
+	 * @return bool
+	 */
+	private function processRow(
+		$row, &$count, $mode, $limit,  $useInfo, $title, $fld_label, $fld_description, $fld_public,
+		$fld_image, $fld_updated, $fld_owner, $path, $owner, $getContinueEnumParameter
+	) {
+		if ( $row === null ) {
+			// Fake watchlist row
+			$row = (object) array(
+				'gl_id' => 0,
+				'gl_label' => '',
+				'gl_perm' => ApiEditList::PERM_PRIVATE,
+				'gl_updated' => '',
+				'gl_info' => '',
+			);
+		} else {
+			$row = ApiEditList::normalizeRow( $row );
+		}
+
+		$count++;
+		if ( $count > $limit ) {
+			// We've reached the one extra which shows that there are
+			// additional pages to be had. Stop here...
+			$this->setContinueEnumParameter( 'continue', $getContinueEnumParameter( $row ) );
+			return false;
+		}
+
+		$isWatchlist = property_exists( $row, 'isWl' ) ? $row->isWl : $row->gl_label === '';
+
+		$data = array( 'id' => $row->gl_id );
+		if ( $isWatchlist ) {
+			$data['watchlist'] = true;
+		}
+		if ( $fld_label ) {
+			// TODO: check if this is the right wfMessage to show
+			$data['label'] = !$isWatchlist ? $row->gl_label : wfMessage( 'watchlist' )->plain();
+		}
+		if ( $fld_owner ) {
+			$data['owner'] = property_exists( $row, 'user_name' ) ?
+				$row->user_name : $owner->getName();
+		}
+		if ( $title ) {
+			if ( $isWatchlist ) {
+				$data['title'] = $this->isTitleInWatchlist( $owner, $title );
+			} else {
+				$data['title'] = isset( $row->isIn );
+			}
+		}
+		if ( $fld_public ) {
+			switch ( $row->gl_perm ) {
+				case ApiEditList::PERM_PRIVATE:
+					$data['perm'] = 'private';
+					break;
+				case ApiEditList::PERM_PUBLIC:
+					$data['perm'] = 'public';
+					break;
+				case ApiEditList::PERM_HIDDEN:
+					$data['perm'] = 'hidden';
+					break;
+				default:
+					$this->dieDebug( __METHOD__,
+						"Unknown gather perm={$row->gl_perm} for id {$row->gl_id}" );
+			}
+		}
+		if ( $useInfo ) {
+			$info = ApiEditList::parseListInfo( $row->gl_info, $row->gl_id, false );
+			if ( $fld_description ) {
+				$data['description'] = property_exists( $info, 'description' ) ? $info->description : '';
+			}
+			if ( $fld_image ) {
+				if ( property_exists( $info, 'image' ) && $info->image ) {
+					$data['image'] = $info->image;
+					$file = wfFindFile( $info->image );
+					if ( !$file ) {
+						$data['badimage'] = true;
+					} else {
+						$data['imageurl'] = $file->getFullUrl();
+						$data['imagewidth'] = intval( $file->getWidth() );
+						$data['imageheight'] = intval( $file->getHeight() );
+					}
+				} else {
+					$data['image'] = false;
+				}
+			}
+		}
+		if ( $fld_updated ) {
+			$data['updated'] = wfTimestamp( TS_ISO_8601, $row->gl_updated );
+		}
+
+		$fit = $this->getResult()->addValue( $path, null, $data );
+		if ( !$fit ) {
+			$this->setContinueEnumParameter( 'continue', $getContinueEnumParameter( $row ) );
+			return false;
+		}
+		return true;
 	}
 
 	/**
