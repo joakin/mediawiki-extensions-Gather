@@ -1,4 +1,4 @@
 <div class="search">
-	{{{searchIcon}}}<input type="text">
+	{{{searchIcon}}}<input type="text" placeholder="{{emptyInputMsg}}">
 </div>
 <div class="results"></div>

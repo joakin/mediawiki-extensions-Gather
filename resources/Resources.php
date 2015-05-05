@@ -277,6 +277,7 @@ $wgResourceModules += array(
 			'gather-edit-collection-clear-label',
 			'gather-update-collection-success',
 			'gather-edit-collection-confirm',
+			'gather-overlay-search-empty',
 		),
 		'templates' => array(
 			'header.hogan' => 'ext.gather.collection.editor/header.hogan',
@@ -300,6 +301,7 @@ $wgResourceModules += array(
 			// FIXME: Duplicates messages in ext.gather.watchstar
 			'gather-remove-toast',
 			'gather-add-toast',
+			'gather-overlay-search-empty',
 		),
 		'templates' => array(
 			'CollectionSearchPanel.hogan' => 'ext.gather.page.search/CollectionSearchPanel.hogan',

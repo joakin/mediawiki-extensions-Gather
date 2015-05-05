@@ -34,7 +34,8 @@
 				// FIXME:
 				label: mw.msg( 'search' ),
 				additionalClassNames: 'indicator'
-			} ).toHtmlString()
+			} ).toHtmlString(),
+			emptyInputMsg: mw.msg( 'gather-overlay-search-empty' )
 		},
 		/** @inheritdoc */
 		initialize: function ( options ) {

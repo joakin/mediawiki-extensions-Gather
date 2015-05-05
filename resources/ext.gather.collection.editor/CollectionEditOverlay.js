@@ -53,7 +53,8 @@
 			headerButtonsListClassName: 'overlay-action',
 			editMsg: mw.msg( 'gather-overlay-edit-button' ),
 			deleteMsg: mw.msg( 'gather-delete-button' ),
-			saveMsg: mw.msg( 'gather-edit-collection-save-label' )
+			saveMsg: mw.msg( 'gather-edit-collection-save-label' ),
+			emptyInputMsg: mw.msg( 'gather-overlay-search-empty' )
 		} ),
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {

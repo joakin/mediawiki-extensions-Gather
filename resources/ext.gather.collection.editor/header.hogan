@@ -24,7 +24,7 @@
 	</ul>
 	<div class="overlay-title">
 		<div class="search">
-			<input class="search" type="text">
+			<input class="search" type="text" placeholder="{{emptyInputMsg}}">
 			{{#clearIcon}}{{>icon}}{{/clearIcon}}
 		</div>
 	</div>
