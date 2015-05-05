@@ -125,5 +125,6 @@
 	"gather-api-help-param-listowner": "{{doc-apihelp-param|lsm|owner|listmembership|query+listmembership}}",
 	"gather-api-help-param-listtoken": "{{doc-apihelp-param|lsm|token|listmembership|query+listmembership}}",
 	"apihelp-query+listmembership-description": "{{doc-apihelp-description|lsm|listmembership|query+listmembership}}",
-	"apihelp-query+listmembership-example-1": "{{doc-apihelp-example|lsm|listmembership|query+listmembership}}"
+	"apihelp-query+listmembership-example-1": "{{doc-apihelp-example|lsm|listmembership|query+listmembership}}",
+	"gather-view-collection": "Label for button that takes you to a collection."
 }

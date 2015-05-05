@@ -48,6 +48,20 @@ $wgGatherMobileSpecialPageResourceBoilerplate = $wgGatherResourceFileModuleBoile
 );
 
 $wgResourceModules += array(
+	'ext.gather.toastpanel' => $wgGatherMobileSpecialPageResourceBoilerplate + array(
+		'dependencies' => array(
+			'mobile.startup',
+		),
+		'templates' => array(
+			'ToastPanel.hogan' => 'ext.gather.toastpanel/ToastPanel.hogan',
+		),
+		'styles' => array(
+			'ext.gather.toastpanel/toastPanel.less',
+		),
+		'scripts' => array(
+			'ext.gather.toastpanel/ToastPanel.js',
+		),
+	),
 
 	'ext.gather.menu.icon' => $wgGatherResourceFileModuleBoilerplate + array(
 		'position' => 'top',
@@ -136,7 +150,9 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'ext.gather.logging',
 			'mobile.contentOverlays',
+			// FIXME: Remove?
 			'mobile.toast',
+			'ext.gather.toastpanel',
 			'ext.gather.api',
 			'mediawiki.util'
 		),
@@ -207,6 +223,7 @@ $wgResourceModules += array(
 			'gather-add-to-collection-cancel',
 			'gather-add-to-another',
 			'gather-watchstar-button-label',
+			'gather-view-collection',
 		),
 		'templates' => array(
 			'star.hogan' => 'ext.gather.watchstar/star.hogan',

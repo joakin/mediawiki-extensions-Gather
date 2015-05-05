@@ -1,0 +1,2 @@
+<div class="content">{{msg}}</div>
+{{#actions}}{{>button}}{{/actions}}
