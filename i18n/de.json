@@ -103,6 +103,7 @@
 	"gather-delete-button": "Löschen",
 	"gather-overlay-edit-button": "Titel und Beschreibung bearbeiten",
 	"gather-overlay-continue": "Nächste",
+	"gather-overlay-search-empty": "Nach einer Seite suchen, um sie zu dieser Sammlung hinzuzufügen",
 	"right-gather-hidelist": "Das Verstecken einer öffentlichen Benutzerliste erzwingen",
 	"apihelp-gather-description": "Auflisten und Bearbeiten von Sammlungen.",
 	"apihelp-gather-param-gather": "Aktion, die auf die Sammlungen angewendet werden soll.",
@@ -110,8 +111,13 @@
 	"apihelp-gather-example-1": "Die Sammlungen des Benutzers <kbd>john</kbd> auflisten.",
 	"gather-lists-collection-more-link-label": "Weitere öffentliche Sammlungen ansehen.",
 	"gather-lists-more": "Weitere Sammlungen von diesem Benutzer ansehen.",
+	"gather-lists-more-failed": "Das Laden weiterer Sammlungen ist fehlgeschlagen.",
 	"gather-collection-more": "Weitere Seiten in dieser Sammlung ansehen",
 	"gather-add-to-another": "Meine anderen Sammlungen anzeigen",
 	"gather-watchstar-button-label": "Zu Sammlung hinzufügen",
-	"gather-menu-guider": "Tippe auf das Menüsymbol, um deine neue Sammlung anzusehen."
+	"gather-menu-guider": "Tippe auf das Menüsymbol, um deine neue Sammlung anzusehen.",
+	"gather-api-help-param-listid": "Listenkennung; auslassen oder auf 0 setzen, um die Beobachtungsliste zu verwenden.",
+	"gather-api-help-param-listowner": "Benutzerkennung des Listenbesitzers. Macht nur Sinn für Beobachtungslisten.",
+	"gather-api-help-param-listtoken": "Beobachtungslisten-Token (siehe Beobachtungslisten-API); erforderlich beim Betrachten der Beobachtungsliste eines anderen Benutzers.",
+	"gather-view-collection": "Sammlung ansehen"
 }

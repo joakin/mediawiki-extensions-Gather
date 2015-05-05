@@ -87,7 +87,7 @@
 	"gather-hidden": "Скриена",
 	"gather-moderation-hidden": "Вашата збирка $1 е скриена. Ова значи дека ќе биде видлива само за вас. Збирките се скриваат доколку не се во согласност со [[Project:Gather/Moderation_Criteria|критериумите за модерација]]. Оваа одлука можете да ја оспорите [[Project:Gather/User_Feedback|тука]]",
 	"gather-moderation-hidden-email-subject": "Вашата збирка $1 е скриена.",
-	"gather-moderation-hidden-email-body": "Вашата збирка $1 е скриена. Ова значи дека ќе биде видлива само за вас. Збирките се скриваат доколку не се во согласност со [https://en.wikipedia.org/wiki/Wikipedia:Gather/Moderation_Criteria критериумите за модерација]. Ова можете да го оспорите [https://en.wikipedia.org/wiki/Wikipedia:Gather/User_Feedback тука]",
+	"gather-moderation-hidden-email-body": "Вашата збирка $1 е скриена. Ова значи дека само вие можете да ја видите. Збирките се скриваат ако не се во согласност со критериумите за модерација:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/Moderation_Criteria\n\nМожете да го оспорите ова на следнава страница:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/User_Feedback",
 	"gather-moderation-unhidden": "Вашата збирка $1 е откриена. Ова значи дека повторно е јавно видлива.",
 	"gather-moderation-unhidden-email-subject": "Вашата збирка $1 е откриена.",
 	"gather-moderation-unhidden-email-body": "Вашата збирка $1 е откриена. Ова значи дека повторно е јавно видлива.",
@@ -101,6 +101,7 @@
 	"gather-delete-button": "Избриши",
 	"gather-overlay-edit-button": "Уреди наслов и опис",
 	"gather-overlay-continue": "Следно",
+	"gather-overlay-search-empty": "Пребарајте страница за додавање во збиркава",
 	"right-gather-hidelist": "Наметни скривање на јавен список на корисници.",
 	"apihelp-gather-description": "Испис и уредување на насобрани збирки",
 	"apihelp-gather-param-gather": "Дејство што треба да се изврши врз збирките.",
@@ -108,8 +109,15 @@
 	"apihelp-gather-example-1": "Испиши ги збирките за корисникот <kbd>митко</kbd>.",
 	"gather-lists-collection-more-link-label": "Преглед на повеќе јавни збирки.",
 	"gather-lists-more": "Преглед на збирки од овој корисник.",
+	"gather-lists-more-failed": "Вчитувањето на уште збирки не успеа.",
 	"gather-collection-more": "Уште страници во збиркава",
 	"gather-add-to-another": "Други мои збирки",
 	"gather-watchstar-button-label": "Додај во збирка",
-	"gather-menu-guider": "Допрете ја иконата за мени за да ја погледате вашата нова збирка"
+	"gather-menu-guider": "Допрете ја иконата за мени за да ја погледате вашата нова збирка",
+	"gather-api-help-param-listid": "Назнака на списокот; изостави или задај 0 за употреба во набљудуваните.",
+	"gather-api-help-param-listowner": "Корисничка назнака на сопственикот на списокот. Има смисла само за набљудувани.",
+	"gather-api-help-param-listtoken": "Шифра на набљудуваните (погл. извршникот на набљудуваните). Се бара кога гледате нечии набљудувани.",
+	"apihelp-query+listmembership-description": "Дава кој збир страници се на даден список.",
+	"apihelp-query+listmembership-example-1": "Провери дали „Страница“ е во набљудуваните.",
+	"gather-view-collection": "Погл. збирка"
 }

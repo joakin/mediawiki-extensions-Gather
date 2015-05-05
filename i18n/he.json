@@ -89,7 +89,7 @@
 	"gather-hidden": "מוסתר",
 	"gather-moderation-hidden": "הלקט שלך $1 הוסתר. זה אומר שהוא יוצג רק לך. הלקטים מוסתרים אם הם מנוגדים ל[[Project:Gather/Moderation_Criteria|דרישות הפיקוח]] שלנו. אפשר לערער על כך [[Project:Gather/User_Feedback|כאן]]",
 	"gather-moderation-hidden-email-subject": "הלקט שלך $1 הוסתר.",
-	"gather-moderation-hidden-email-body": "הלקט שלך $1 הוסתר. זה אומר שהוא יוצג רק לך. הלקטים מוסתרים אם הם מנוגדים לדרישות הפיקוח שלנו: https://en.wikipedia.org/wiki/Wikipedia:Gather/Moderation_Criteria . אפשר לערער על כך בדף https://en.wikipedia.org/wiki/Wikipedia:Gather/User_Feedback",
+	"gather-moderation-hidden-email-body": "הלקט שלך $1 הוסתר. זה אומר שהוא יוצג רק לך. הלקטים מוסתרים אם הם מנוגדים לדרישות הפיקוח שלנו:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/Moderation_Criteria\n\nאפשר לערער על כך בדף הבא:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/User_Feedback",
 	"gather-moderation-unhidden": "ההסתרה של הלקט שלך $1 בוטלה. זה אומר שעכשיו אפשר להציג אותו שוב לכולם.",
 	"gather-moderation-unhidden-email-subject": "ההסתרה של הלקט שלך $1 בוטלה.",
 	"gather-moderation-unhidden-email-body": "ההסתרה של הלקט שלך $1 בוטלה. זה אומר שעכשיו אפשר להציג אותו שוב לכולם.",
@@ -113,5 +113,10 @@
 	"gather-collection-more": "הצגת דפים נוספים בלקט הזה",
 	"gather-add-to-another": "הצגת הלקטים האחרים שלי",
 	"gather-watchstar-button-label": "הוספה ללקט",
-	"gather-menu-guider": "נא ללחוץ על על כפתור התפריט כדי לראות את הלקט החדש שלך."
+	"gather-menu-guider": "נא ללחוץ על על כפתור התפריט כדי לראות את הלקט החדש שלך.",
+	"gather-api-help-param-listid": "מזהה רשימה; יש להשמיט או להשתמש ב־0 כדי להשתמש ברשימת המעקב.",
+	"gather-api-help-param-listowner": "מזהה המשתמש של בעל הרשימה. זה מתאים רק לרשימות מעקב.",
+	"gather-api-help-param-listtoken": "אסימון רשימת מעקב (ר' API של רשימת מעקב); נחוץ בעת חיפוש רשימת מעקב.",
+	"apihelp-query+listmembership-description": "מחזיר אילו דפים מתוך ערכה נמצאים ברשימה נתונה.",
+	"apihelp-query+listmembership-example-1": "בדיקה האם \"Page\" נמצא ברשימת המעקב."
 }
