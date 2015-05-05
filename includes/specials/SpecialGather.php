@@ -49,7 +49,6 @@ class SpecialGather extends SpecialPage {
 			'ext.gather.icons',
 			'ext.gather.styles',
 		) );
-		$routeMatch = $this->checkRoute( $subpage );
 		if ( !isset( $subpage ) || $subpage === '' || $subpage === 'by' || $subpage === 'by/' ) {
 			// Root subpage. User owned collections.
 			// For listing own lists, you need to be logged in
@@ -68,24 +67,18 @@ class SpecialGather extends SpecialPage {
 			} else {
 				$this->renderUserCollectionsList( $user );
 			}
-		} elseif ( $routeMatch !== false ) {
+		} elseif ( preg_match( '/^id\/(?<id>\d+)(\/.*$|$)/', $subpage, $matches ) ) {
 			// Collection page
 			// /id/:id
-			$id = (int)$routeMatch['id'];
+			$id = (int)$matches['id'];
 			$this->renderUserCollection( $id );
 		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/(?<id>\d+)$/', $subpage, $matches ) ) {
 			// Collection page
-			// FIXME: Redirect this location to /id/:id and get rid of all this
-			// /by/:user/:id
+			// /by/:user/:id -- Deprecated -- Redirects to /id/:id
 			$id = (int)$matches['id'];
-			$user = User::newFromName( $matches['user'] );
-			if ( !( $user && $user->getId() ) ) {
-				// Invalid user
-				$this->renderError( new views\NotFound() );
-			} else {
-				$this->renderUserCollection( $id );
-			}
-
+			$this->getOutput()->redirect(
+				SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'id' )->getSubPage( $id )->getLocalURL()
+			);
 		} elseif ( preg_match( '/^all(\/(?<mode>[^\/]+))?\/?$/', $subpage, $matches ) ) {
 			// All collections. Public or hidden
 			// /all = /all/ = /all/public = /all/public/
