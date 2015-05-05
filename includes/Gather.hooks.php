@@ -263,6 +263,11 @@ class Hooks {
 			'targets' => array( 'desktop', 'mobile' ),
 		);
 
+		$modules['qunit']['ext.gather.api.tests'] = $boilerplate + array(
+			'scripts' => array(
+			),
+			'dependencies' => array( 'ext.gather.api' ),
+		);
 		$modules['qunit']['ext.gather.watchstar.tests'] = $boilerplate + array(
 			'scripts' => array(
 				'ext.gather.watchstar/test_CollectionsContentOverlay.js',
