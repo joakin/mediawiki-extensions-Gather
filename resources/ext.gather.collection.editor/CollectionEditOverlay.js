@@ -262,7 +262,7 @@
 				} ).fail( function ( errMsg ) {
 					toast.show( self.options.editFailedError, 'toast error' );
 					// Make it possible to try again.
-					this.$( '.mw-ui-input, .save' ).prop( 'disabled', false );
+					self.$( '.mw-ui-input, .save-description' ).prop( 'disabled', false );
 					schema.log( {
 						eventName: 'edit-collection-error',
 						errorMessage: errMsg
