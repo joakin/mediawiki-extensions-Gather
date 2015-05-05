@@ -90,26 +90,47 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 		$this->addWhereFld( 'gli_gl_id', $params['id'] );
 		$this->addWhereFld( 'gli_namespace', $params['namespace'] );
 
-		if ( isset( $params['continue'] ) ) {
-			$cont = $params['continue'];
-			$this->dieContinueUsageIf( strval( floatval( $cont ) ) !== $cont );
-			$cont = $this->getDB()->addQuotes( $cont );
-			$op = $params['dir'] == 'ascending' ? '>=' : '<=';
-			$this->addWhere( "gli_order $op $cont" );
-		}
 		$sort = ( $params['dir'] == 'descending' ? ' DESC' : '' );
-		$this->addOption( 'ORDER BY', 'gli_order' . $sort );
+		$sortField = 'gli_order' . $sort;
+		if ( $params['sort'] === 'namespace' ) {
+			$sortField = array( 'gli_namespace' . $sort, 'gli_title' . $sort );
+		}
+		$this->addOption( 'ORDER BY', $sortField );
+
+		if ( isset( $params['continue'] ) ) {
+			if ( $params['sort'] === 'namespace' ) {
+				$cont = explode( '|', $params['continue'] );
+				$this->dieContinueUsageIf( count( $cont ) !== 2 );
+				$continueFromNamespace = intval( $cont[0] );
+				$continueFromTitle = $cont[1];
+				$this->dieContinueUsageIf( strval( $continueFromNamespace ) !== $cont[0] );
+				$continueFromNamespace = $this->getDB()->addQuotes( $continueFromNamespace );
+				$continueFromTitle = $this->getDB()->addQuotes( $continueFromTitle );
+				$op = $params['dir'] == 'ascending' ? '>' : '<';
+				$this->addWhere(
+					"gli_namespace $op $continueFromNamespace OR " .
+					"(gli_namespace = $continueFromNamespace AND gli_title $op= $continueFromTitle)"
+				);
+			} else {
+				$continueFromOrder = floatval( $params['continue'] );
+				$this->dieContinueUsageIf( strval( $continueFromOrder ) !== $params['continue'] );
+				$cont = $this->getDB()->addQuotes( $continueFromOrder );
+				$op = $params['dir'] == 'ascending' ? '>=' : '<=';
+				$this->addWhere( "gli_order $op $cont" );
+			}
+		}
 
 		$this->addOption( 'LIMIT', $params['limit'] + 1 );
 		$res = $this->select( __METHOD__ );
 
 		$titles = array();
 		$count = 0;
+		$needContinue = false;
 		foreach ( $res as $row ) {
 			if ( ++$count > $params['limit'] ) {
 				// We've reached the one extra which shows that there are
 				// additional pages to be had. Stop here...
-				$this->setContinueEnumParameter( 'continue', $row->gli_order );
+				$needContinue = true;
 				break;
 			}
 			$t = Title::makeTitle( $row->gli_namespace, $row->gli_title );
@@ -118,11 +139,19 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				ApiQueryBase::addTitleInfo( $vals, $t );
 				$fit = $this->getResult()->addValue( $this->modulePath, null, $vals );
 				if ( !$fit ) {
-					$this->setContinueEnumParameter( 'continue', $row->gli_order );
+					$needContinue = true;
 					break;
 				}
 			} else {
 				$titles[] = $t;
+			}
+		}
+		if ( $needContinue ) {
+			// PHP does not scope iterators to the loop, which is handy here.
+			if ( $params['sort'] === 'namespace' ) {
+				$this->setContinueEnumParameter( 'continue', $row->gli_namespace . '|' . $row->gli_title );
+			} else {
+				$this->setContinueEnumParameter( 'continue', $row->gli_order );
 			}
 		}
 		return $titles;
@@ -171,11 +200,12 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 
 		$titles = array();
 		$count = 0;
+		$needContinue = false;
 		foreach ( $res as $row ) {
 			if ( ++$count > $params['limit'] ) {
 				// We've reached the one extra which shows that there are
 				// additional pages to be had. Stop here...
-				$this->setContinueEnumParameter( 'continue', $row->wl_namespace . '|' . $row->wl_title );
+				$needContinue = true;
 				break;
 			}
 			$t = Title::makeTitle( $row->wl_namespace, $row->wl_title );
@@ -184,12 +214,16 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				ApiQueryBase::addTitleInfo( $vals, $t );
 				$fit = $this->getResult()->addValue( $this->modulePath, null, $vals );
 				if ( !$fit ) {
-					$this->setContinueEnumParameter( 'continue', $row->wl_namespace . '|' . $row->wl_title );
+					$needContinue = true;
 					break;
 				}
 			} else {
 				$titles[] = $t;
 			}
+		}
+		if ( $needContinue ) {
+			// PHP does not scope iterators to the loop, which is handy here.
+			$this->setContinueEnumParameter( 'continue', $row->wl_namespace . '|' . $row->wl_title );
 		}
 		return $titles;
 	}
@@ -207,12 +241,13 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 				ApiBase::PARAM_ISMULTI => true,
 				ApiBase::PARAM_TYPE => 'namespace',
 			),
-			'limit' => array(
-				ApiBase::PARAM_DFLT => 10,
-				ApiBase::PARAM_TYPE => 'limit',
-				ApiBase::PARAM_MIN => 1,
-				ApiBase::PARAM_MAX => ApiBase::LIMIT_BIG1,
-				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2,
+			'sort' => array(
+				ApiBase::PARAM_DFLT => 'position',
+				ApiBase::PARAM_TYPE => array(
+					'position',
+					'namespace',
+				),
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => array(),
 			),
 			'dir' => array(
 				ApiBase::PARAM_DFLT => 'ascending',
@@ -220,14 +255,22 @@ class ApiQueryListPages extends ApiQueryGeneratorBase {
 					'ascending',
 					'descending',
 				),
-				ApiBase::PARAM_HELP_MSG => 'api-help-param-direction',
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => array(),
+			),
+			'limit' => array(
+				ApiBase::PARAM_DFLT => 10,
+				ApiBase::PARAM_TYPE => 'limit',
+				ApiBase::PARAM_MIN => 1,
+				ApiBase::PARAM_MAX => ApiBase::LIMIT_BIG1,
+				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2,
 			),
 		) );
 	}
 
 	protected function getExamplesMessages() {
 		return array(
-			'action=query&list=listpages' => 'apihelp-query+listpages',
+			'action=query&list=listpages' => 'apihelp-query+listpages-example-1',
+			'action=query&list=listpages&lspid=2' => 'apihelp-query+listpages-example-2',
 		);
 	}
 

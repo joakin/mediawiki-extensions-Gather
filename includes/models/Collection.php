@@ -159,6 +159,7 @@ class Collection extends CollectionBase implements IteratorAggregate {
 			'lstprop' => 'label|description|public|image|owner',
 			'prop' => 'pageimages|extracts',
 			'generator' => 'listpages',
+			'glspsort' => 'namespace',
 			'glspid' => $id,
 			'explaintext' => true,
 			'exintro' => true,
