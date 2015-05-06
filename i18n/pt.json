@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Vitorvicentevalente",
-			"Fabulous"
+			"Fabulous",
+			"Macofe"
 		]
 	},
 	"gather": "Coleções",
@@ -103,5 +104,6 @@
 	"gather-lists-more": "Ver mais coleções deste utilizador.",
 	"gather-collection-more": "Ver mais páginas nesta coleção",
 	"gather-add-to-another": "Mostrar outras coleções minhas",
-	"gather-watchstar-button-label": "Adicionar à coleção"
+	"gather-watchstar-button-label": "Adicionar à coleção",
+	"gather-view-collection": "Ver coleção"
 }

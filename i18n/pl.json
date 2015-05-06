@@ -41,5 +41,6 @@
 	"gather-edit-button": "Edytuj",
 	"gather-delete-button": "Usuń",
 	"gather-overlay-continue": "Następny",
-	"gather-watchstar-button-label": "Dodać do kolekcji"
+	"gather-watchstar-button-label": "Dodać do kolekcji",
+	"gather-view-collection": "Zobacz kolekcję"
 }

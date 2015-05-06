@@ -2,11 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"Gokalpselamet",
-			"Watermelon juice"
+			"Watermelon juice",
+			"Captantrips"
 		]
 	},
 	"gather-delete-collection-delete-label": "Sil",
 	"gather-flag-collection-flag-label": "Bayrak",
+	"gather-moderation-unhidden": "[[$1|Your collection]] gizliliği kaldırıldı. Bu, yeniden herkes tarafından görülebileceği anlamına gelir.",
 	"gather-edit-button": "Düzenle",
-	"gather-delete-button": "Sil"
+	"gather-delete-button": "Sil",
+	"gather-overlay-search-empty": "Bu koleksiyona eklemek için bir sayfa ara",
+	"gather-lists-more-failed": "Daha fazla koleksiyon yükleme başarısız oldu.",
+	"gather-view-collection": "Koleksiyonu göster"
 }

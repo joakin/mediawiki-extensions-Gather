@@ -87,10 +87,10 @@
 	"gather-private": "פרטי",
 	"gather-public": "ציבורי",
 	"gather-hidden": "מוסתר",
-	"gather-moderation-hidden": "הלקט שלך $1 הוסתר. זה אומר שהוא יוצג רק לך. הלקטים מוסתרים אם הם מנוגדים ל[[Project:Gather/Moderation_Criteria|דרישות הפיקוח]] שלנו. אפשר לערער על כך [[Project:Gather/User_Feedback|כאן]]",
+	"gather-moderation-hidden": "[[$1|הלקט שלך]] הוסתר. זה אומר שהוא יוצג רק לך. הלקטים מוסתרים אם הם מנוגדים ל[[Project:Gather/Moderation_Criteria|דרישות הפיקוח]] שלנו. אפשר לערער על כך [[Project:Gather/User_Feedback|כאן]].",
 	"gather-moderation-hidden-email-subject": "הלקט שלך $1 הוסתר.",
 	"gather-moderation-hidden-email-body": "הלקט שלך $1 הוסתר. זה אומר שהוא יוצג רק לך. הלקטים מוסתרים אם הם מנוגדים לדרישות הפיקוח שלנו:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/Moderation_Criteria\n\nאפשר לערער על כך בדף הבא:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/User_Feedback",
-	"gather-moderation-unhidden": "ההסתרה של הלקט שלך $1 בוטלה. זה אומר שעכשיו אפשר להציג אותו שוב לכולם.",
+	"gather-moderation-unhidden": "ההסתרה של [[$1|הלקט שלך]] בוטלה. זה אומר שעכשיו אפשר להציג אותו שוב לכולם.",
 	"gather-moderation-unhidden-email-subject": "ההסתרה של הלקט שלך $1 בוטלה.",
 	"gather-moderation-unhidden-email-body": "ההסתרה של הלקט שלך $1 בוטלה. זה אומר שעכשיו אפשר להציג אותו שוב לכולם.",
 	"echo-category-title-gather": "לקטים",
@@ -103,6 +103,7 @@
 	"gather-delete-button": "מחיקה",
 	"gather-overlay-edit-button": "עריכת שם ותיאור",
 	"gather-overlay-continue": "הבא",
+	"gather-overlay-search-empty": "חיפוש דף להוסיף ללקט הזה",
 	"right-gather-hidelist": "לכפות על רשימה ציבורית שיצר משתמש להיות מוסתרת",
 	"apihelp-gather-description": "קבלת רשימה ועריכה של לקטים.",
 	"apihelp-gather-param-gather": "איזו פעולה לעשות על הלקטים.",
@@ -110,6 +111,7 @@
 	"apihelp-gather-example-1": "רשימת לקטים עבור המשתמש <kbd>john</kbd>.",
 	"gather-lists-collection-more-link-label": "תצוגה של לקטים ציבוריים נוספים.",
 	"gather-lists-more": "הצגת לקטים נוספים של אותו המשתמש.",
+	"gather-lists-more-failed": "טעינת לקטים נוספים נכשלה.",
 	"gather-collection-more": "הצגת דפים נוספים בלקט הזה",
 	"gather-add-to-another": "הצגת הלקטים האחרים שלי",
 	"gather-watchstar-button-label": "הוספה ללקט",
@@ -118,5 +120,6 @@
 	"gather-api-help-param-listowner": "מזהה המשתמש של בעל הרשימה. זה מתאים רק לרשימות מעקב.",
 	"gather-api-help-param-listtoken": "אסימון רשימת מעקב (ר' API של רשימת מעקב); נחוץ בעת חיפוש רשימת מעקב.",
 	"apihelp-query+listmembership-description": "מחזיר אילו דפים מתוך ערכה נמצאים ברשימה נתונה.",
-	"apihelp-query+listmembership-example-1": "בדיקה האם \"Page\" נמצא ברשימת המעקב."
+	"apihelp-query+listmembership-example-1": "בדיקה האם \"Page\" נמצא ברשימת המעקב.",
+	"gather-view-collection": "הצגת לקט"
 }

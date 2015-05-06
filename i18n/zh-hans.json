@@ -101,6 +101,7 @@
 	"gather-delete-button": "删除",
 	"gather-overlay-edit-button": "编辑标题和描述",
 	"gather-overlay-continue": "下一步",
+	"gather-overlay-search-empty": "搜索页面以添加至此收藏中",
 	"right-gather-hidelist": "强制隐藏一个公开的用户列表",
 	"apihelp-gather-description": "列举并编辑聚集收藏。",
 	"apihelp-gather-param-gather": "在收藏中执行的操作。",
@@ -108,8 +109,15 @@
 	"apihelp-gather-example-1": "列出用于用户<kbd>john</kbd>的收藏。",
 	"gather-lists-collection-more-link-label": "查看更多公开收藏。",
 	"gather-lists-more": "查理来自此用户的更多收藏。",
+	"gather-lists-more-failed": "载入更多收藏失败。",
 	"gather-collection-more": "查看此收藏中的更多页面",
 	"gather-add-to-another": "显示我的其他收藏",
 	"gather-watchstar-button-label": "添加至收藏",
-	"gather-menu-guider": "点击菜单图标以检查您的新收藏。"
+	"gather-menu-guider": "点击菜单图标以检查您的新收藏。",
+	"gather-api-help-param-listid": "列表ID；省略或设置为0以使用监视列表。",
+	"gather-api-help-param-listowner": "列表主人的用户ID。只对监视列表有意义。",
+	"gather-api-help-param-listtoken": "监视列表令牌（见监视列表API）；当查看其他人监视列表时需要。",
+	"apihelp-query+listmembership-description": "返回指定列表上的哪一组页面。",
+	"apihelp-query+listmembership-example-1": "检查监视列表上是否有“Page”。",
+	"gather-view-collection": "查看收藏"
 }
