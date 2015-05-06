@@ -41,11 +41,12 @@
 				additionalClassNames: 'cancel',
 				label: mw.msg( 'mobile-frontend-overlay-close' )
 			} ).options,
+			collection: null,
+			reloadOnSave: false,
 			confirmExitMessage: mw.msg( 'gather-edit-collection-confirm' ),
 			editSuccessMsg: mw.msg( 'gather-update-collection-success' ),
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
 			unknownCollectionError: mw.msg( 'gather-error-unknown-collection' ),
-			collection: null,
 			heading: mw.msg( 'gather-edit-collection-heading' ),
 			nameLabel: mw.msg( 'gather-edit-collection-label-name' ),
 			descriptionLabel: mw.msg( 'gather-edit-collection-label-description' ),
@@ -202,9 +203,12 @@
 		 * @private
 		 */
 		_reloadCollection: function () {
+			var self = this;
 			window.setTimeout( function () {
 				router.navigate( '/' );
-				window.location.reload();
+				if ( self.options.reloadOnSave ) {
+					window.location.reload();
+				}
 			}, 100 );
 		},
 		/**

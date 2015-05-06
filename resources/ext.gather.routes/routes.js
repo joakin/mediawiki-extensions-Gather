@@ -13,11 +13,13 @@
 			if ( collection ) {
 				if ( action === 'edit' ) {
 					loader.loadModule( 'ext.gather.collection.editor', true ).done( function ( loadingOverlay ) {
-						var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' );
+						var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' ),
+							isSpecialPage = mw.config.get( 'wgNamespaceNumber' ) === mw.config.get( 'wgNamespaceIds' ).special;
 						loadingOverlay.hide();
 						d.resolve(
 							new CollectionEditOverlay( {
-								collection: collection
+								collection: collection,
+								reloadOnSave: isSpecialPage
 							} )
 						);
 					} );
