@@ -2,7 +2,8 @@
 
 	var CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		toast = M.require( 'toast' ),
-		overlayManager = M.require( 'overlayManager' );
+		overlayManager = M.require( 'overlayManager' ),
+		loader = M.require( 'loader' );
 
 	overlayManager.add( /^\/collection\/(.*)\/(.*)$/, function ( action, id ) {
 		var d = $.Deferred(),
@@ -11,8 +12,9 @@
 		api.getCollection( id ).done( function ( collection ) {
 			if ( collection ) {
 				if ( action === 'edit' ) {
-					mw.loader.using( 'ext.gather.collection.editor' ).done( function () {
+					loader.loadModule( 'ext.gather.collection.editor', true ).done( function ( loadingOverlay ) {
 						var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' );
+						loadingOverlay.hide();
 						d.resolve(
 							new CollectionEditOverlay( {
 								collection: collection
