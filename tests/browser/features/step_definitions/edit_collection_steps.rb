@@ -18,6 +18,10 @@ Then(/^I click done$/) do
   on(GatherPage).edit_overlay_done_element.when_present.click
 end
 
+Then(/^I click to save description$/) do
+  on(GatherPage).edit_overlay_save_desc_element.when_present.click
+end
+
 Then(/^the page has reloaded$/) do
   sleep 2
 end
@@ -25,3 +29,8 @@ end
 Then(/^the description of my collection is "(.*?)"$/) do |text|
   expect(on(GatherPage).collection_description_element.when_present.text).to match text
 end
+
+When(/^I click to edit name and description$/) do
+  on(GatherPage).edit_name_and_description_element.when_present.click
+end
+
