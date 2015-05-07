@@ -4,7 +4,7 @@ Feature: Add to a collection
   Background:
     Given I am logged into the mobile website
       And I am using the mobile site
-      And I am in alpha mode
+      And I have Gather
       And I am on the "Selenium Gather test" page
 
   Scenario: Check the default watchstar has been replaced

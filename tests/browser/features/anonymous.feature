@@ -14,7 +14,7 @@ Feature: Anonymous users
     Then I see the error page
 
   Scenario: Anons see watchstar and CTA
-    Given I am in alpha mode
+    Given I have Gather
       And I am on the "Selenium Gather test" page
     When I click the watchstar
     Then I see the anonymous CTA

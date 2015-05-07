@@ -4,7 +4,7 @@ Feature: Editing collections
   Background:
     Given I am using the mobile site
       And I am logged into the mobile website
-      And I am in alpha mode
+      And I have Gather
       And I view one of my public collections
 
   Scenario: Edit button shown
@@ -20,6 +20,7 @@ Feature: Editing collections
         And I click to edit name and description
         And I enter "All work and no play makes Jack a dull boy" as the description
         And I click to save description
+        And I wait
         And I click done
         And the page has reloaded
     Then the description of my collection is "All work and no play makes Jack a dull boy"
@@ -30,6 +31,7 @@ Feature: Editing collections
         And I click to edit name and description
         And I enter "" as the description
         And I click to save description
+        And I wait
         And I click done
         And the page has reloaded
     Then the description of my collection is empty

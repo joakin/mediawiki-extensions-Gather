@@ -17,11 +17,15 @@ Given(/^I am logged into the mobile website$/) do
   visit(LoginPage).login_with(ENV['MEDIAWIKI_USER'], ENV['MEDIAWIKI_PASSWORD'], false)
 end
 
-Given(/^I am in alpha mode$/) do
+Then(/^I wait$/) do
+  sleep 5
+end
+
+Given(/^I have Gather$/) do
   on(MainPage) do |page|
     page.goto
     # A domain is explicitly given to avoid a bug in earlier versions of Chrome
-    page.browser.cookies.add 'optin', 'alpha', domain: URI.parse(page.page_url_value).host
+    page.browser.cookies.add 'optin', 'beta', domain: URI.parse(page.page_url_value).host
     page.refresh
   end
 end
