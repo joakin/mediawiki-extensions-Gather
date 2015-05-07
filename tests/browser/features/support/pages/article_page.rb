@@ -5,7 +5,7 @@ class ArticlePage
   page_url URL.url('<%=params[:article_name]%><%=params[:hash]%>')
 
   # UI elements
-  li(:watch_star, id: 'ca-watch')
+  li(:watch_star, css: '.collection-star-container')
 
   # toast
   div(:toast, class: 'toast')
