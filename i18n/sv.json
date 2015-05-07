@@ -4,7 +4,8 @@
 			"Jenniesarina",
 			"Dan Koehl",
 			"Jopparn",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Josve05a"
 		]
 	},
 	"gather-lists-collection-owner": "Ägare",
@@ -38,5 +39,6 @@
 	"gather-lists-collection-more-link-label": "Visa fler offentliga samlingar.",
 	"gather-lists-more": "Visa fler samlingar från denna användare.",
 	"gather-collection-more": "Visa fler sidor i denna samling",
-	"gather-add-to-another": "Visa mina andra samlingar"
+	"gather-add-to-another": "Visa mina andra samlingar",
+	"apihelp-query+listmembership-example-1": "Kontrollera om \"Page\" är på bevakningslistan."
 }
