@@ -85,13 +85,19 @@
 	"gather-edit-button": "Ändere",
 	"gather-delete-button": "Fottschmiiße",
 	"gather-overlay-continue": "Wigger",
+	"gather-overlay-search-empty": "söhk noh Sigge, öm se en heh di Sammlong opzenämme.",
 	"right-gather-hidelist": "Öffentlesche Sammlong verscheijsche",
 	"apihelp-gather-param-gather": "Wat mer met Sammlong anschtälle kann.",
 	"apihelp-gather-param-owner": "Dä Besezer vun dä Sammlong. Lohß läddesch för der aktoälle Metmaacher.",
 	"apihelp-gather-example-1": "Donn de Sammlonge för dä Metmaacher <kbd lang=\"en\" xml:lang=\"en\" dir=\"ltr\">john</kbd> opleste.",
 	"gather-lists-collection-more-link-label": "Mieh öffentlesche Sammlonge aanzeije.",
 	"gather-lists-more": "Mieh Sammlonge vun dä Metmaacher zeije",
+	"gather-lists-more-failed": "Mieh Samlonge kunnte nit jelahde wähde.",
 	"gather-collection-more": "Mieh Sigge uß dä Sammlong zeije",
 	"gather-add-to-another": "Zeisch min andere Sammlonge aan",
-	"gather-watchstar-button-label": "Lohß Jonn!"
+	"gather-watchstar-button-label": "Lohß Jonn!",
+	"gather-api-help-param-listtoken": "En makkehrong för de Oppaßßleß es nühdesch, wam_mer sesch enem andere sing Oppaßßleß belohre well. Süsch och noh dem <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Application Programming Interface\">API</i> för de Oppaßßleßte.",
+	"apihelp-query+listmembership-description": "Jidd uß, wat för en Sigge uß enem Pöngel en ene beschtemmpte Leß es.",
+	"apihelp-query+listmembership-example-1": "Lohr, ov <code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">Page</code>“ en dä Oppaßßleß es.",
+	"gather-view-collection": "De Sammlong aanlohre"
 }

@@ -85,7 +85,7 @@
 	"gather-public": "Pública",
 	"gather-hidden": "Agochada",
 	"gather-moderation-hidden-email-subject": "A súa colección $1 foi ocultada.",
-	"gather-moderation-unhidden": "A súa colección $1 mostrouse. Isto quere dicir que é pública de novo.",
+	"gather-moderation-unhidden": "[[$1|A súa colección]] mostrouse. Isto quere dicir que é pública de novo.",
 	"gather-moderation-unhidden-email-subject": "A súa colección $1 mostrouse.",
 	"gather-moderation-unhidden-email-body": "A súa colección $1 mostrouse. Isto quere dicir que é pública de novo.",
 	"echo-category-title-gather": "Agrupar",
@@ -98,6 +98,7 @@
 	"gather-delete-button": "Borrar",
 	"gather-overlay-edit-button": "Editar o título e a descrición",
 	"gather-overlay-continue": "Seguinte",
+	"gather-overlay-search-empty": "Buscar unha páxina para engadir a esta colección",
 	"right-gather-hidelist": "Forzar o ocultamento dunha lista de usuario pública",
 	"apihelp-gather-description": "Listar e editar coleccións agrupadas.",
 	"apihelp-gather-param-gather": "Acción a realizar nas coleccións.",
@@ -105,8 +106,10 @@
 	"apihelp-gather-example-1": "Listar as coleccións do usuario <kbd>john</kbd>.",
 	"gather-lists-collection-more-link-label": "Ver máis coleccións públicas.",
 	"gather-lists-more": "Ver máis coleccións deste usuario.",
+	"gather-lists-more-failed": "Houbo un erro cargando máis coleccións.",
 	"gather-collection-more": "Ver máis páxinas desta colección",
 	"gather-add-to-another": "Mostrar as miñas outras coleccións",
 	"gather-watchstar-button-label": "Engadir á colección",
-	"gather-menu-guider": "Prema na icona do menú para consultar a súa nova colección."
+	"gather-menu-guider": "Prema na icona do menú para consultar a súa nova colección.",
+	"gather-view-collection": "Ver colección"
 }
