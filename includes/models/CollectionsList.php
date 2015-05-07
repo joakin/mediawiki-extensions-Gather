@@ -109,10 +109,16 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 	 * @return string localized url for collection
 	 */
 	public function getUrl( $query = array() ) {
-		return SpecialPage::getTitleFor( 'Gather' )
-			->getSubpage( 'by' )
-			->getSubpage( $this->getOwner() )
-			->getLocalURL( $query );
+		if ( $this->getOwner() ) {
+			return SpecialPage::getTitleFor( 'Gather' )
+				->getSubpage( 'by' )
+				->getSubpage( $this->getOwner() )
+				->getLocalURL( $query );
+		} else {
+			return SpecialPage::getTitleFor( 'GatherLists' )
+				->getSubpage( $this->listMode )
+				->getLocalURL( $query );
+		}
 	}
 
 	/**
@@ -120,14 +126,15 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 	 * @return string|null
 	 */
 	public function getContinueUrl() {
-		return $this->continue ? $this->getUrl( $this->continue ) : false;
+		return $this->continue ? $this->getUrl( $this->continue, $this->listMode ) : false;
 	}
 
 	/**
 	 * @param array $continue information to obtain further lists
 	 */
-	public function setContinueQueryString( $continue ) {
+	public function setContinueQueryString( $continue, $mode ) {
 		$this->continue = $continue;
+		$this->listMode = $mode;
 	}
 
 	/**
@@ -136,21 +143,30 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 	 * @param boolean [$includePrivate] if the list should show private collections or not
 	 * @param string|boolean [$memberTitle] title of member to check for
 	 * @param array [$continue] generate collection list from continue parameter
+	 * @param string [$mode] to run
+	 * @param integer [$limit] of number of collections to show
 	 * @return models\CollectionsList List of collections.
 	 */
-	public static function newFromApi( User $user, $includePrivate = false,
-		$memberTitle = false, $continue = array() ) {
+	public static function newFromApi( $user = null, $includePrivate = false,
+		$memberTitle = false, $continue = array(), $mode = null, $limit = 50 ) {
 		$collectionsList = new CollectionsList( $user, $includePrivate );
 		$query = array_merge( $continue, array(
 			'action' => 'query',
 			'list' => 'lists',
-			'lstprop' => 'label|description|public|image|count',
-			'lstlimit' => 50,
-			'lstowner' => $user->getName(),
+			'lstprop' => 'label|description|public|image|count|updated|owner',
+			'lstlimit' => $limit,
 			'continue' => '',
 			) );
 		if ( $memberTitle ) {
 			$query['lsttitle'] = $memberTitle;
+		}
+		if ( $user ) {
+			$query['lstowner'] = $user->getName();
+		}
+		if ( $mode ) {
+			$query['lstmode'] = $mode;
+		} else {
+			$mode = '';
 		}
 		$api = new ApiMain( new FauxRequest( $query ) );
 		$api->execute();
@@ -162,9 +178,10 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 
 				if ( $public || $includePrivate ) {
 					$image = isset( $list['image'] ) ? wfFindFile( $list['image'] ) : false;
-					$info = new models\CollectionInfo( $list['id'], $user,
+					$info = new models\CollectionInfo( $list['id'], User::newFromName( $list['owner'] ),
 						$list['label'], $list['description'], $public, $image );
 					$info->setCount( $list['count'] );
+					$info->setUpdated( $list['updated'] );
 					if ( $list['perm'] === 'hidden' ) {
 						$info->setHidden();
 					}
@@ -176,7 +193,7 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 			}
 		}
 		if ( isset( $data['continue'] ) ) {
-			$collectionsList->setContinueQueryString( $data['continue'] );
+			$collectionsList->setContinueQueryString( $data['continue'], $mode );
 		}
 		return $collectionsList;
 	}
