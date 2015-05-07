@@ -144,7 +144,7 @@
 		_mapCollection: function ( list ) {
 			// FIXME: API should handle all these inconsistencies.
 			list.isWatchlist = list.watchlist !== undefined;
-			list.titleInCollection = list.title;
+			list.titleInCollection = list.title !== undefined;
 			list.title = list.label;
 			list.owner = list.owner;
 			list.isPublic = list.perm === 'public';
