@@ -27,6 +27,9 @@ CREATE TABLE /*_*/gather_list_item (
 -- Also, enforce one title per list uniqueness
 CREATE UNIQUE INDEX /*i*/gli_ns_title ON /*_*/gather_list_item (gli_namespace, gli_title, gli_gl_id);
 
+-- For displaying single lists, sorted by ns+title
+CREATE UNIQUE INDEX /*i*/gli_id_ns_title ON /*_*/gather_list_item (gli_gl_id, gli_namespace, gli_title);
+
 -- Define index -- enumerate titles in this order
 -- Enforce uniqueness to ensure proper iteration continuation
 CREATE UNIQUE INDEX /*i*/gli_id_order ON /*_*/gather_list_item (gli_gl_id, gli_order);
