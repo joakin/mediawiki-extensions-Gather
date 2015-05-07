@@ -198,7 +198,7 @@
 			var deleteOverlay = new CollectionDeleteOverlay( {
 				collection: this.options.collection
 			} );
-			this.$el.append( deleteOverlay.$el );
+			deleteOverlay.show();
 		},
 		/**
 		 * Event handler when the back button is clicked on the title/edit description pane.

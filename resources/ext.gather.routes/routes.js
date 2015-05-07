@@ -23,15 +23,6 @@
 							} )
 						);
 					} );
-				} else if ( action === 'delete' ) {
-					mw.loader.using( 'ext.gather.collection.delete' ).done( function () {
-						var CollectionDeleteOverlay = M.require( 'ext.gather.collection.delete/CollectionDeleteOverlay' );
-						d.resolve(
-							new CollectionDeleteOverlay( {
-								collection: collection
-							} )
-						);
-					} );
 				} else {
 					toast.show( mw.msg( 'gather-no-such-action' ), 'error' );
 				}
