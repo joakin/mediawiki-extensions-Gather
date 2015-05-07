@@ -255,8 +255,7 @@
 		 * @param {Boolean} currentPageIsMember whether the current page is in this collection
 		 */
 		_collectionStateChange: function ( collection, currentPageIsMember ) {
-			var msg,
-				isNew = true;
+			var isNew = true;
 
 			// update the stored state of the collection
 			$.each( this.options.collections, function () {
@@ -269,6 +268,7 @@
 			if ( isNew ) {
 				// by default this will be true.
 				collection.titleInCollection = true;
+				collection.isNew = true;
 				this.options.collections.push( collection );
 			}
 			// refresh the ui
@@ -276,9 +276,17 @@
 			// update UI
 			this.hideSpinner();
 			this.hide();
-
+		},
+		/**
+		 * Emit events for the actions taken and show notifications (panel)
+		 * @private
+		 * @param {Object} collection
+		 * @param {Boolean} currentPageIsMember whether the current page is in this collection
+		 */
+		_notifyChanges: function ( collection, currentPageIsMember ) {
+			var msg;
 			if ( currentPageIsMember ) {
-				this.emit( 'collection-watch', collection, isNew );
+				this.emit( 'collection-watch', collection, collection.isNew );
 				msg = mw.msg( 'gather-add-toast', collection.title );
 			} else {
 				this.emit( 'collection-unwatch', collection );
@@ -303,9 +311,10 @@
 		 */
 		removeFromCollection: function ( collection, page ) {
 			var self = this;
-			return this.api.removePageFromCollection( collection.id, page ).done(
-				$.proxy( this, '_collectionStateChange', collection, false )
-			).fail( function ( errMsg ) {
+			return this.api.removePageFromCollection( collection.id, page ).done( function () {
+				self._collectionStateChange( collection, false );
+				self._notifyChanges( collection, false );
+			} ).fail( function ( errMsg ) {
 				schema.log( {
 					eventName: 'remove-collection-error',
 					errorText: errMsg
@@ -321,9 +330,10 @@
 		 */
 		addToCollection: function ( collection, page ) {
 			var self = this;
-			return this.api.addPageToCollection( collection.id, page ).done(
-				$.proxy( this, '_collectionStateChange', collection, true )
-			).fail( function () {
+			return this.api.addPageToCollection( collection.id, page ).done( function () {
+				self._collectionStateChange( collection, true );
+				self._notifyChanges( collection, true );
+			} ).fail( function () {
 				schema.log( {
 					eventName: 'add-collection-error'
 				} );
@@ -350,8 +360,10 @@
 			this.createButton.showSpinner();
 			return api.addCollection( title ).done( function ( collection ) {
 				api.addPageToCollection( collection.id, page ).done( function () {
-					// open the editor
 					self._collectionStateChange( collection, true );
+					M.on( 'collection-edit-completed', function () {
+						self._notifyChanges( collection, true );
+					} );
 					self.loadEditor( collection.id );
 				} ).fail( function () {
 					toast.show( mw.msg( 'gather-add-failed-toast', title ), 'toast' );

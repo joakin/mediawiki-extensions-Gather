@@ -242,13 +242,15 @@
 						toast.show( self.options.editSuccessMsg, 'toast' );
 					}
 					self._reloadCollection();
+					self._emitCompleted();
 				} );
 			} else if ( this._stateChanged ) {
 				this.hide();
 				this._reloadCollection();
+				this._emitCompleted();
 			} else {
 				// nothing to do.
-				self.hide();
+				this.hide();
 			}
 		},
 		/**
@@ -309,6 +311,7 @@
 					return;
 				}
 			}
+			this._emitCompleted();
 			return Overlay.prototype.hide.apply( this, arguments );
 		},
 		/**
@@ -328,6 +331,12 @@
 		isDescriptionValid: function ( description ) {
 			// FIXME: Need to consider other languages
 			return description.length <= this.descriptionMaxLength;
+		},
+		/**
+		 * Emit a global edit-completed event
+		*/
+		_emitCompleted: function () {
+			M.emit( 'collection-edit-completed', this.options.collection );
 		}
 	} );
 
