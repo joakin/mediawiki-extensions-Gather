@@ -98,7 +98,6 @@
 				this.$( '.privacy' ).prop( 'checked', true );
 				this._switchToEditPane();
 			}
-
 		},
 		/**
 		 * Set up collection search panel with existing members
@@ -255,10 +254,14 @@
 		 * Event handler when the save button is clicked.
 		 */
 		onSaveDescriptionClick: function () {
-			var title = this.$( 'input.title' ).val(),
+			var isPrivate,
+				title = this.$( 'input.title' ).val(),
 				self = this,
-				isPrivate = !this.$( '.privacy' ).is( ':checked' ),
 				description = this.$( '.description' ).val();
+
+			if ( this.$( '.privacy' ).length ) {
+				isPrivate = !this.$( '.privacy' ).is( ':checked' );
+			}
 
 			if ( this.isTitleValid( title ) && this.isDescriptionValid( description ) ) {
 				this.$( '.save-header h2 span' ).text( title );
