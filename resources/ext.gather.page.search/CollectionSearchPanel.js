@@ -18,7 +18,8 @@
 		template: mw.template.get( 'ext.gather.page.search', 'CollectionSearchPanel.hogan' ),
 		/** @inheritdoc */
 		events: $.extend( {}, Panel.prototype.events, {
-			'input .search input': 'onSearchInput'
+			'input .search input': 'onSearchInput',
+			'click .empty-results a': 'onSearchLinkClick'
 		} ),
 		/**
 		 * @inheritdoc
@@ -35,7 +36,8 @@
 				label: mw.msg( 'search' ),
 				additionalClassNames: 'indicator'
 			} ).toHtmlString(),
-			emptyInputMsg: mw.msg( 'gather-overlay-search-empty' )
+			emptyInputMsg: mw.msg( 'gather-overlay-search-empty' ),
+			newSearchMsg: mw.msg( 'gather-overlay-search-new' )
 		},
 		/** @inheritdoc */
 		initialize: function ( options ) {
@@ -103,6 +105,12 @@
 				} );
 			}
 			this.pageList.renderPageImages();
+			if ( !pages.length ) {
+				this.$( '.empty-results h2' ).text( mw.msg( 'gather-overlay-search-results-empty', $( '.search input' ).val() ) );
+				this.$( '.empty-results' ).show();
+			} else {
+				this.$( '.empty-results' ).hide();
+			}
 		},
 		/**
 		 * Check whether a member is a known member of the current collection.
@@ -111,6 +119,13 @@
 		 */
 		hasMember: function ( title ) {
 			return this._members[title] !== undefined;
+		},
+		/**
+		 * Event handler for when try another search link is clicked
+		 */
+		onSearchLinkClick: function () {
+			$( '.search input' ).val( '' ).focus().trigger( 'input' );
+			return false;
 		},
 		/**
 		 * Event handler for when search input changes

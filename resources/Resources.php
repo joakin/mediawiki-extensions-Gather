@@ -332,6 +332,8 @@ $wgResourceModules += array(
 			'gather-remove-toast',
 			'gather-add-toast',
 			'gather-overlay-search-empty',
+			'gather-overlay-search-new',
+			'gather-overlay-search-results-empty',
 		),
 		'templates' => array(
 			'CollectionSearchPanel.hogan' => 'ext.gather.page.search/CollectionSearchPanel.hogan',

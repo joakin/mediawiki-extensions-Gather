@@ -1,4 +1,9 @@
 <div class="search">
 	{{{searchIcon}}}<input type="text" placeholder="{{emptyInputMsg}}">
 </div>
-<div class="results"></div>
+<div class="results">
+</div>
+<div class="empty-results">
+	<h2></h2>
+	<a href="#">{{newSearchMsg}}</a>
+</div>

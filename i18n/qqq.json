@@ -111,6 +111,8 @@
 	"gather-overlay-edit-button": "Label for button that enables editing of description and name of a collection.",
 	"gather-overlay-continue": "Label for button inside overlay to take you to another screen.",
 	"gather-overlay-search-empty": "Message shown on a search input when empty, for searching and adding/removing items from a collection",
+	"gather-overlay-search-new": "Link label to start a new search (focus search input) when no results are found.",
+	"gather-overlay-search-results-empty": "Message shown on search results page when no pages are found.\nParameters:\n* $1 - search query.",
 	"right-gather-hidelist": "With gather, users can create lists and make them public. This right gives admins a way to hide or restore a list that violates WP policy.\n\n{{Doc-right|gather-hidelist}}",
 	"apihelp-gather-description": "{{doc-apihelp-description|gather}}",
 	"apihelp-gather-param-gather": "{{doc-apihelp-param|gather|gather}}",
