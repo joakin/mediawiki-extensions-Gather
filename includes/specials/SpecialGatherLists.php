@@ -57,32 +57,10 @@ class SpecialGatherLists extends SpecialPage {
 			$out->addSubtitle( $this->getSubTitle( true ) );
 		}
 		$req = $this->getRequest();
-		$limit = 100;
-
-		// FIXME: Make method on CollectionsList
-		$api = new ApiMain( new FauxRequest( array_merge( array(
-			'action' => 'query',
-			'list' => 'lists',
-			'lstmode' => $subPage === 'hidden' ? 'allhidden' : 'allpublic',
-			'lstlimit' => $limit,
-			// FIXME: Need owner to link to collection
-			'lstprop' => 'label|description|image|count|updated|owner',
-			'continue' => '',
-		), $req->getValues() ) ) );
-		try {
-			$api->execute();
-			$data = $api->getResult()->getResultData( null, array( 'Strip' => 'all' ) );
-			if ( isset( $data['query']['lists'] ) ) {
-				$lists = $data['query']['lists'];
-				if ( isset( $data['continue'] ) ) {
-					$nextPageUrl = $this->getTitle()->getLocalUrl( $data['continue'] );
-				} else {
-					$nextPageUrl = '';
-				}
-				$this->render( $lists, $subPage === 'hidden' ? 'show' : 'hide', $nextPageUrl );
-			}
-		} catch ( Exception $e ) {
-		}
+		$continue = $req->getValues();
+		$cList = models\CollectionsList::newFromApi( null, false,
+			false, $continue, $subPage === 'hidden' ? 'allhidden' : 'allpublic', 100 );
+		$this->render( $cList, $subPage === 'hidden' ? 'show' : 'hide' );
 	}
 
 	/**
@@ -100,11 +78,11 @@ class SpecialGatherLists extends SpecialPage {
 	/**
 	 * Render the special page
 	 *
-	 * @param array $lists
+	 * @param CollectionsList $lists
 	 * @param string $action hide or show - action to associate with the row.
 	 * @param string $nextPageUrl url to access the next page of results.
 	 */
-	public function render( $lists, $action, $nextPageUrl = '' ) {
+	public function render( $cList, $action ) {
 		$out = $this->getOutput();
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
@@ -112,17 +90,9 @@ class SpecialGatherLists extends SpecialPage {
 		$data = array(
 			'canHide' => $this->canHideLists(),
 			'action' => $action,
-			'nextPageUrl' => $nextPageUrl,
+			'nextPageUrl' => $cList->getContinueUrl(),
 		);
 
-		$cList = new models\CollectionsList();
-		foreach ( $lists as $list ) {
-			$collection = new models\CollectionInfo( $list['id'], User::newFromName( $list['owner'] ),
-				$list['label'], $list['description'] );
-			$collection->setCount( $list['count'] );
-			$collection->setUpdated( $list['updated'] );
-			$cList->add( $collection );
-		}
 		$view = new views\ReportTable( $this->getUser(), $this->getLanguage(), $cList );
 		$view->render( $this->getOutput(), $data );
 	}
