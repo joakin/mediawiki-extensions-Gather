@@ -148,6 +148,7 @@
 			list.title = list.label;
 			list.owner = list.owner;
 			list.isPublic = list.perm === 'public';
+			list.isHidden = list.perm === 'hidden';
 			delete list.label;
 			return list;
 		},
@@ -217,9 +218,11 @@
 			var params = {
 				action: 'editlist',
 				label: title,
-				description: description,
-				perm: isPrivate ? 'private' : 'public'
+				description: description
 			};
+			if ( isPrivate !== undefined ) {
+				params.perm = isPrivate ? 'private' : 'public';
+			}
 			if ( id !== null ) {
 				params.id = id;
 			}
