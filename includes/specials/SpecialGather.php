@@ -104,7 +104,7 @@ class SpecialGather extends SpecialPage {
 			}
 			$req = $this->getRequest();
 			$continue = $req->getValues();
-			$cList = models\CollectionsList::newFromApi( null, false,
+			$cList = models\CollectionsList::newFromApi( null, $mode === 'hidden',
 				false, $continue, $mode === 'hidden' ? 'allhidden' : 'allpublic', 100 );
 			$this->renderRows( $cList, $mode === 'hidden' ? 'show' : 'hide' );
 
