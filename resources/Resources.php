@@ -408,6 +408,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'ext.gather.api',
 			'mobile.toast',
+			'mobile.overlays',
 		),
 		'scripts' => array(
 			'ext.gather.routes/routes.js',
