@@ -14,6 +14,7 @@ use DerivativeRequest;
 use ApiMain;
 use InvalidArgumentException;
 use Html;
+use Linker;
 
 /**
  * Render a collection of articles.
@@ -42,7 +43,10 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function execute( $subpage ) {
 		$out = $this->getOutput();
-		$out->addModules( array( 'ext.gather.special' ) );
+		$out->addModules( array(
+			'ext.gather.special',
+			'ext.gather.moderation',
+		) );
 		$out->addModuleStyles( array(
 			'mediawiki.ui.anchor',
 			'mediawiki.ui.icon',
@@ -87,15 +91,67 @@ class SpecialGather extends SpecialPage {
 			// mode can be hidden or public only
 			$mode = isset( $matches['mode'] ) && $matches['mode'] === 'hidden' ?
 				'hidden' : 'public';
-			// FIXME: Migrate Special:GatherLists here instead of redirecting
-			$this->getOutput()->redirect(
-				SpecialPage::getTitleFor( 'GatherLists', $mode )->getLocalURL() );
+
+			if ( $mode === 'hidden' ) {
+				if ( !$this->canHideLists() ) {
+					$view = new views\NotFound();
+					$this->renderError( $view );
+					return;
+				}
+				$out->addSubtitle( $this->getSubTitle() );
+			} elseif ( $this->canHideLists() ) {
+				$out->addSubtitle( $this->getSubTitle( true ) );
+			}
+			$req = $this->getRequest();
+			$continue = $req->getValues();
+			$cList = models\CollectionsList::newFromApi( null, false,
+				false, $continue, $mode === 'hidden' ? 'allhidden' : 'allpublic', 100 );
+			$this->renderRows( $cList, $mode === 'hidden' ? 'show' : 'hide' );
 
 		} else {
 			// Unknown subpage
 			$this->renderError( new views\NotFound() );
 		}
 
+	}
+
+	/**
+	 * Get subtitle text with a link to show the (un-)hidden collections.
+	 * @param boolean $hidden Whether to get a link to show the hidden collections
+	 * @return string
+	 */
+	public function getSubTitle( $hidden = false ) {
+		return Linker::link(
+			SpecialPage::getTitleFor( 'GatherLists', ( $hidden ? 'hidden' : false ) ),
+			( $hidden ? $this->msg( 'gather-lists-showhidden' ) : $this->msg( 'gather-lists-showvisible' ) )
+		);
+	}
+
+	/**
+	 * Render the special page
+	 *
+	 * @param CollectionsList $lists
+	 * @param string $action hide or show - action to associate with the row.
+	 */
+	public function renderRows( $cList, $action ) {
+		$out = $this->getOutput();
+		$out->setPageTitle( wfMessage( 'gather-lists-title' ) );
+		$data = array(
+			'canHide' => $this->canHideLists(),
+			'action' => $action,
+			'nextPageUrl' => $cList->getContinueUrl(),
+		);
+
+		$view = new views\ReportTable( $this->getUser(), $this->getLanguage(), $cList );
+		$view->render( $this->getOutput(), $data );
+	}
+
+	/**
+	 * Returns if the current user can hide public lists
+	 * @return bool
+	 */
+	private function canHideLists() {
+		return $this->getUser()->isAllowed( 'gather-hidelist' );
 	}
 
 	/**
@@ -192,7 +248,7 @@ class SpecialGather extends SpecialPage {
 	 *
 	 * @param views\View $view
 	 */
-	public function render( $view ) {
+	public function render( $view, $data = array() ) {
 		$out = $this->getOutput();
 		$this->setHeaders();
 		$out->setProperty( 'unstyledContent', true );
@@ -200,7 +256,7 @@ class SpecialGather extends SpecialPage {
 		$out->setPageTitle( $view->getTitle() );
 		// add title of the actual view to html title-tag
 		$out->setHTMLTitle( $view->getHTMLTitle() );
-		$view->render( $out );
+		$view->render( $out, $data );
 	}
 
 	// FIXME: Re-evaluate when UI supports editing image of collection.
