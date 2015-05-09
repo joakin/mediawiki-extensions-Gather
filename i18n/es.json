@@ -48,6 +48,7 @@
 	"gather-collection-owner-text": "Una colección de $1",
 	"gather-anon-cta": "Añadir esta página a un colección que puedes compartir con el mundo.",
 	"gather-create-new-button-label": "Crear",
+	"gather-create-collection-button-label": "Crear una colección",
 	"gather-add-new-placeholder": "Escribe un nombre de colección nuevo",
 	"gather-add-to-new": "Añadir a una colección pública nueva",
 	"gather-add-to-existing": "Añadir a la colección existente",

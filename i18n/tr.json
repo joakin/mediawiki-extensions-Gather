@@ -3,15 +3,22 @@
 		"authors": [
 			"Gokalpselamet",
 			"Watermelon juice",
-			"Captantrips"
+			"Captantrips",
+			"Stultiwikia"
 		]
 	},
 	"gather-delete-collection-delete-label": "Sil",
 	"gather-flag-collection-flag-label": "Bayrak",
+	"gather-create-collection-button-label": "Bir derleme oluştur",
+	"gather-moderation-hidden": "[[$1|Derlemeniz]] gizlendi. Bu sadece sizin gördüğünüz anlamına gelir. Derlemeler [[Project:Gather/Moderation_Criteria|denetleme kriterlerimizi]] sağlamıyorsa gizlenir. İtirazınızı [[Project:Gather/User_Feedback|Burada]] belirtebilirsiniz.",
 	"gather-moderation-unhidden": "[[$1|Your collection]] gizliliği kaldırıldı. Bu, yeniden herkes tarafından görülebileceği anlamına gelir.",
 	"gather-edit-button": "Düzenle",
 	"gather-delete-button": "Sil",
-	"gather-overlay-search-empty": "Bu koleksiyona eklemek için bir sayfa ara",
-	"gather-lists-more-failed": "Daha fazla koleksiyon yükleme başarısız oldu.",
-	"gather-view-collection": "Koleksiyonu göster"
+	"gather-overlay-search-empty": "Bu derlemeye eklemek için sayfa ara",
+	"gather-lists-more-failed": "Daha fazla derleme yükleme başarısız oldu.",
+	"gather-api-help-param-listid": "Liste kimliği; izleme listesini kullanmak için boş bırakın veya 0 yazın.",
+	"gather-api-help-param-listowner": "Liste sahibinin kullanıcı adı. Sadece izleme listeleri için anlamlıdır.",
+	"gather-api-help-param-listtoken": "İzleme listesi jetonu (izleme listesi API'sine bakın) -başkasının izleme listesine bakmak için gerekir.",
+	"apihelp-query+listmembership-example-1": "\"Sayfa\" izleme listesinde mi diye kontrol et.",
+	"gather-view-collection": "Derlemeyi göster"
 }

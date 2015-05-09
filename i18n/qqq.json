@@ -10,7 +10,8 @@
 			"Amire80",
 			"Yuri Astrakhan",
 			"Yurik",
-			"Florian Schmidt"
+			"Florian Schmidt",
+			"Macofe"
 		]
 	},
 	"gather": "Title of special page shown on Special:SpecialPages for viewing your own lists.",
@@ -53,7 +54,7 @@
 	"gather-delete-collection-delete-label": "Label for delete button in delete confirmation overlay.\n{{Identical|Delete}}",
 	"gather-delete-collection-success": "Toast message indicating that deletion was successful.",
 	"gather-delete-collection-failed-error": "Toast error indicating there was a problem deleting the collection.",
-	"gather-flag-collection-heading": "Heading text for collection flag conirmation overlay",
+	"gather-flag-collection-heading": "Heading text for collection flag confirmation overlay",
 	"gather-flag-collection-confirm": "Text under the heading asking the user if they would like to flag a collection for review.",
 	"gather-flag-collection-flag-label": "Label for flag button in flag collection confirmation overlay.",
 	"gather-flag-collection-success": "Toast message indicating that flagging the collection was successful.",
