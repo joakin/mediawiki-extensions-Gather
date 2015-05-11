@@ -112,6 +112,8 @@
 					pages: pages,
 					el: self.$( '.panel' )
 				} );
+				self.searchPanel.on( 'member-removed', $.proxy( self, '_switchToFirstPane' ) );
+				self.searchPanel.on( 'member-added', $.proxy( self, '_switchToFirstPane' ) );
 				self.searchPanel.show();
 			} );
 		},

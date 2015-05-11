@@ -99,9 +99,17 @@
 				} );
 				this.pageList.on( 'member-removed', function ( page ) {
 					self._updateCollectionMembers( page, true );
+					/**
+					 * @event member-removed
+					 */
+					self.emit( 'member-removed' );
 				} );
 				this.pageList.on( 'member-added', function ( page ) {
 					self._updateCollectionMembers( page );
+					/**
+					 * @event member-added
+					 */
+					self.emit( 'member-added' );
 				} );
 			}
 			this.pageList.renderPageImages();
