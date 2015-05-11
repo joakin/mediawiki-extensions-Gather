@@ -4,6 +4,7 @@
 @backgroundHeight: 1.4em;
 @backgroundYOffset: 0.75em;
 @topPadding: 1em;
+@thumbnailSize: 72px;
 
 .gather-overlay-enabled {
 	#mw-mf-page-center {
@@ -76,15 +77,17 @@
 		position: absolute;
 
 		.snapshot {
-			margin-bottom: 32px;
+			overflow: hidden;
+
+			margin-bottom: 0.5em;
 			border: solid 1px @grayLightest;
 			padding: .3em;
 			border-radius: 3px;
 
 			.thumbnail {
 				float: left;
-				height: 72px;
-				width: 72px;
+				height: @thumbnailSize/2;
+				width: @thumbnailSize/2;
 				margin-right: 8px;
 				text-align: center;
 				overflow: hidden;
@@ -95,16 +98,15 @@
 					background-repeat: no-repeat;
 					.background-image-svg-quick('images/noimage');
 				}
+
+				img {
+					max-width: 100%;
+				}
 			}
 
 			strong {
 				font-size: 1.1em;
 				display: block;
-			}
-
-			hr {
-				margin: 0;
-				clear: both;
 			}
 		}
 
@@ -147,13 +149,13 @@
 		}
 
 		hr {
-			margin: 1em 0;
+			margin: 0.5em 0;
 			visibility: hidden;
 		}
 	}
 
 	h3 {
-		margin: 32px 0 12px;
+		margin: 12px 0;
 	}
 
 	.more-collections {
@@ -177,6 +179,21 @@
 
 		.overlay-content {
 			margin-top: @backgroundYOffset*2 + @backgroundHeight*2;
+		}
+	}
+
+	.overlay.collection-overlay {
+		.overlay-content {
+			hr {
+				margin: 1em 0;
+			}
+
+			.snapshot {
+				.thumbnail {
+					height: @thumbnailSize;
+					width: @thumbnailSize;
+				}
+			}
 		}
 	}
 }
