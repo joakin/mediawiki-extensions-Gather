@@ -1,8 +1,10 @@
 @import "minerva.variables";
 @import "minerva.mixins";
 
-@backgroundHeight: 2.8em;
+@backgroundHeight: 1.4em;
 @backgroundYOffset: 0.75em;
+@topPadding: 1em;
+
 .gather-overlay-enabled {
 	#mw-mf-page-center {
 		position: fixed;
@@ -63,9 +65,8 @@
 		}
 	}
 
-	@topPadding: 1em;
 	.overlay-content {
-		margin-top: ( @backgroundYOffset * 4) + @backgroundHeight - @topPadding;
+		margin-top: ( @backgroundYOffset * 2) + @backgroundHeight;
 		padding: @topPadding 1em 1em;
 		overflow-y: scroll;
 		top: 0;
@@ -171,5 +172,11 @@
 		bottom: @headerHeight * 1.2;
 		left: 2em;
 		right: 2em;
+
+		.background-size(auto, @backgroundHeight*2);
+
+		.overlay-content {
+			margin-top: @backgroundYOffset*2 + @backgroundHeight*2;
+		}
 	}
 }
