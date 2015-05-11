@@ -319,7 +319,7 @@
 		},
 		/**
 		 * Tests if title is valid
-		 * @param {[type]} title Proposed collection title
+		 * @param {String} title Proposed collection title
 		 * @returns {Boolean}
 		 */
 		isTitleValid: function ( title ) {
@@ -328,7 +328,7 @@
 		},
 		/**
 		 * Tests if description is valid
-		 * @param {[type]} description Proposed collection description
+		 * @param {String} description Proposed collection description
 		 * @returns {Boolean}
 		 */
 		isDescriptionValid: function ( description ) {
