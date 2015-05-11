@@ -373,6 +373,7 @@
 				"ext.gather.logging",
 				"mobile.overlays",
 				"mobile.toast",
+				"mediawiki.ui.checkbox",
 				"ext.gather.api",
 				"ext.gather.collection.delete"
 			],
