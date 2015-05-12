@@ -52,6 +52,7 @@ class SpecialGather extends SpecialPage {
 			'mediawiki.ui.icon',
 			'ext.gather.icons',
 			'ext.gather.styles',
+			'ext.gather.menu.icon',
 		) );
 		if ( !isset( $subpage ) || $subpage === '' || $subpage === 'by' || $subpage === 'by/' ) {
 			// Root subpage. User owned collections.
