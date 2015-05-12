@@ -5,6 +5,7 @@
 @backgroundYOffset: 0.75em;
 @topPadding: 1em;
 @thumbnailSize: 72px;
+@fontSize: .9em;
 
 .gather-overlay-enabled {
 	#mw-mf-page-center {
@@ -24,7 +25,7 @@
 }
 
 .overlay.collection-overlay {
-	font-size: .9em;
+	font-size: @fontSize;
 	text-align: left;
 	left: 3.4em;
 	right: 3.4em;
@@ -126,6 +127,9 @@
 
 			input {
 				width: 150px;
+				// In ios auto zoom happens when font size is less than 16px. Assume 1em = 16px.
+				// See https://coderwall.com/p/2uymzw/prevent-auto-zoom-on-ios-when-entering-an-input-field
+				font-size: 16 / (16 * .9em);
 			}
 			button {
 				margin-left: 1px;
