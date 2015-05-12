@@ -4,7 +4,8 @@
 			"Giuseppe Forte",
 			"Nicoedeu",
 			"Beta16",
-			"Fringio"
+			"Fringio",
+			"^musaz"
 		]
 	},
 	"gather-checkuser-log-action": "azione \"$1\" eseguita su [[$2]] tramite l'estensione Gather",
@@ -14,6 +15,8 @@
 	"gather-lists-collection-description": "Descrizione",
 	"gather-lists-collection-count": "Conteggio",
 	"gather-lists-hide-success-toast": "Lista \"$1\" occultata con successo.",
+	"gather-create-collection-button-label": "Crea una collezione",
 	"gather-add-to-collection-cancel": "No, grazie.",
-	"gather-page-not-found": "Pagina non trovata"
+	"gather-page-not-found": "Pagina non trovata",
+	"gather-overlay-search-results-empty": "Siamo spiacenti, non è stato possibile trovare alcuna pagina per \"$1\""
 }

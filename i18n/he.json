@@ -105,6 +105,8 @@
 	"gather-overlay-edit-button": "עריכת שם ותיאור",
 	"gather-overlay-continue": "הבא",
 	"gather-overlay-search-empty": "חיפוש דף להוסיף ללקט הזה",
+	"gather-overlay-search-new": "לנסות לחפש משהו אחר...",
+	"gather-overlay-search-results-empty": "סליחה, אל מצאנו שום דפים שמתאימים לחיפוש \"$1\"",
 	"right-gather-hidelist": "לכפות על רשימה ציבורית שיצר משתמש להיות מוסתרת",
 	"apihelp-gather-description": "קבלת רשימה ועריכה של לקטים.",
 	"apihelp-gather-param-gather": "איזו פעולה לעשות על הלקטים.",

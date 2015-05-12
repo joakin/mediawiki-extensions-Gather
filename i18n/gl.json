@@ -86,6 +86,7 @@
 	"gather-private": "Privado",
 	"gather-public": "Pública",
 	"gather-hidden": "Agochada",
+	"gather-moderation-hidden": "[[$1|A súa colección]] foi ocultada. Isto significa que só vostede pode visualizala. As coleccións ocúltanse en caso de que non cumpran os nosos [[Project:Gather/Moderation_Criteria|criterios de moderación]]. Pode contestar a acción [[Project:Gather/User_Feedback|aquí]]",
 	"gather-moderation-hidden-email-subject": "A súa colección $1 foi ocultada.",
 	"gather-moderation-unhidden": "[[$1|A súa colección]] mostrouse. Isto quere dicir que é pública de novo.",
 	"gather-moderation-unhidden-email-subject": "A súa colección $1 mostrouse.",
@@ -115,6 +116,8 @@
 	"gather-add-to-another": "Mostrar as miñas outras coleccións",
 	"gather-watchstar-button-label": "Engadir á colección",
 	"gather-menu-guider": "Prema na icona do menú para consultar a súa nova colección.",
+	"gather-api-help-param-listowner": "Identificador de usuario do propietario da lista. Só ten sentido para listas de vixiancia.",
+	"gather-api-help-param-listtoken": "Identificador de lista de vixiancia (consulte a API de lista de vixiancia); necesario cando se quere consultar a lista de vixiancia doutro usuario.",
 	"apihelp-query+listmembership-description": "Dun conxunto de páxinas devuelve cales están nunha lista dada.",
 	"apihelp-query+listmembership-example-1": "Verificar se \"Page\" (páxina) está na lista de seguimento.",
 	"gather-view-collection": "Ver colección"
