@@ -26,8 +26,8 @@ Given(/^I am in alpha mode$/) do
   end
 end
 
-Then(/^I see a toast$/) do
-  expect(on(ArticlePage).toast_element.when_present).to be_visible
+Then(/^I see a toast panel$/) do
+  expect(on(ArticlePage).toast_panel_element.when_present).to be_visible
 end
 
 Given(/^I am on the "(.+)" page$/) do |article|
