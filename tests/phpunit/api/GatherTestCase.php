@@ -2,6 +2,7 @@
 
 class GatherTestCase extends ApiTestCase {
 	private static $gatherUsers = array();
+	private static $listCount = 0;
 
 	public function setUp() {
 		parent::setUp();
@@ -33,10 +34,14 @@ class GatherTestCase extends ApiTestCase {
 	 * @return int List ID
 	 */
 	protected function createList(
-		$user, array $pages = array(), $label = 'New list', array $properties = array()
+		$user, array $pages = array(), $label = null, array $properties = array()
 	) {
 		if ( is_string( $user ) ) {
 			$user = static::$users[$user]->getUser();
+		}
+		self::$listCount += 1;
+		if ( $label === null ) { // labels must be unique
+			$label = 'New list ' . self::$listCount;
 		}
 
 		$params = array_merge( array(
@@ -60,6 +65,7 @@ class GatherTestCase extends ApiTestCase {
 		$fullResults = $ret[0];
 		switch ( $module ) {
 			case 'tokens':
+			case 'lists':
 			case 'listpages':
 				return $fullResults['query'][$module];
 			case 'editlist':

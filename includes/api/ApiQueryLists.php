@@ -159,6 +159,10 @@ class ApiQueryLists extends ApiQueryBase {
 			$this->addWhere( $db->makeList( $cond, LIST_OR ) );
 		}
 
+		if ( $params['minitems'] ) {
+			$this->addWhere( '(gl_label = \'\' OR gl_item_count >= ' . $params['minitems'] . ')' );
+		}
+
 		if ( $continue ) {
 			if ( $singleUser ) {
 				// Single value continue
@@ -381,6 +385,9 @@ class ApiQueryLists extends ApiQueryBase {
 					'updated',
 					'owner',
 				)
+			),
+			'minitems' => array(
+				ApiBase::PARAM_TYPE => 'integer',
 			),
 			'ids' => array(
 				ApiBase::PARAM_ISMULTI => true,

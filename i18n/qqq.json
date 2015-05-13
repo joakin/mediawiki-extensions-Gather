@@ -145,5 +145,6 @@
 	"apihelp-query+listpages-paramvalue-dir-descending": "{{doc-apihelp-paramvalue|lsp|dir|listpages|query+listpages|descending}}",
 	"apihelp-query+listpages-param-limit": "{{doc-apihelp-param|lsp|limit|listpages|query+listpages}}",
 	"apihelp-query+listpages-paramvalue-sort-position": "{{doc-apihelp-paramvalue|lsp|sort|listpages|query+listpages|sortkey}}",
-	"apihelp-query+listpages-paramvalue-sort-namespace": "{{doc-apihelp-paramvalue|lsp|sort|listpages|query+listpages|namespace}}"
+	"apihelp-query+listpages-paramvalue-sort-namespace": "{{doc-apihelp-paramvalue|lsp|sort|listpages|query+listpages|namespace}}",
+	"apihelp-query+lists-param-minitems": "{{doc-apihelp-param|lst|minitems|lists|query+lists}}"
 }

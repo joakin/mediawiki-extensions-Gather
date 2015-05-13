@@ -35,7 +35,7 @@ use MWException;
 use Title;
 
 /**
- * Query module to enumerate all available lists
+ * Query module to enumerate pages in a list
  *
  * @ingroup API
  */
