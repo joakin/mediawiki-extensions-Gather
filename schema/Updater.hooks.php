@@ -16,4 +16,16 @@ class UpdaterHooks {
 
 		return true;
 	}
+
+	/**
+	 * Migrates older schemas to the current version.
+	 * @param DatabaseUpdater $du
+	 * @return bool
+	 */
+	public static function onLoadExtensionSchemaUpdatesBC( DatabaseUpdater $du ) {
+		$du->addExtensionField( 'gather_list', 'gl_item_count',
+			__DIR__ . '/archive/add-gl_item_count.sql' );
+
+		return true;
+	}
 }
