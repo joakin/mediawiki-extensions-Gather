@@ -42,6 +42,7 @@
 		/** @inheritdoc */
 		initialize: function ( options ) {
 			var self = this;
+			this.query = '';
 			// FIXME: In future we'll want to use CollectionApi for this
 			this.api = new SearchApi();
 			Panel.prototype.initialize.call( this, options );
@@ -87,7 +88,8 @@
 		 * @param {Page[]} pages
 		 */
 		_renderResults: function ( pages ) {
-			var self = this;
+			var self = this,
+				emptyResultsMsg;
 			if ( this.pageList ) {
 				this.pageList.options.pages = pages;
 				this.pageList.render();
@@ -114,7 +116,12 @@
 			}
 			this.pageList.renderPageImages();
 			if ( !pages.length ) {
-				this.$( '.empty-results h2' ).text( mw.msg( 'gather-overlay-search-results-empty', $( '.search input' ).val() ) );
+				if ( this.query ) {
+					emptyResultsMsg = mw.msg( 'gather-overlay-search-results-empty', this.query );
+				} else {
+					emptyResultsMsg = '';
+				}
+				this.$( '.empty-results h2' ).text( emptyResultsMsg );
 				this.$( '.empty-results' ).show();
 			} else {
 				this.$( '.empty-results' ).hide();
@@ -147,6 +154,8 @@
 		 */
 		search: function ( query ) {
 			var self = this;
+
+			this.query = query;
 
 			if ( query !== this.lastQuery ) {
 				this.api.abort();
