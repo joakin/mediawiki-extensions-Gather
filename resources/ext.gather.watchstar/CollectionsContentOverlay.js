@@ -361,7 +361,7 @@
 			return api.addCollection( title ).done( function ( collection ) {
 				api.addPageToCollection( collection.id, page ).done( function () {
 					self._collectionStateChange( collection, true );
-					M.on( 'collection-edit-completed', function () {
+					M.once( 'collection-edit-completed', function () {
 						self._notifyChanges( collection, true );
 					} );
 					self.loadEditor( collection.id );

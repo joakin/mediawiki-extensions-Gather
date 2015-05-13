@@ -98,17 +98,24 @@
 			showPointer( watchstar );
 		}
 		watchstar.on( 'completed', function ( firstTimeUser, isNewCollection ) {
+			var $menuItem = $( '#mw-mf-page-left .collection-menu-item' );
 			if ( isNewCollection ) {
 				// FIXME: Rename pointer overlay?
-				new PageActionOverlay( {
-					target: $( '#mw-mf-main-menu-button' ),
-					summary: mw.msg( 'gather-menu-guider' ),
-					cancelMsg: mw.msg( 'gather-add-to-collection-cancel' )
-				} ).show();
+				// Only append the overlay if it is not there yet
+				if ( $( '#mw-mf-page-center .tutorial-overlay' ).length === 0 ) {
+					new PageActionOverlay( {
+						target: $( '#mw-mf-main-menu-button' ),
+						summary: mw.msg( 'gather-menu-guider' ),
+						cancelMsg: mw.msg( 'gather-add-to-collection-cancel' )
+					} ).show();
+				}
 				// FIXME: Hacky.. Should use MainMenu but Bug: T93257.
-				new Tag( {
-					label: 'new'
-				} ).appendTo( '#mw-mf-page-left .collection-menu-item' );
+				// Only append the tag if there is none.
+				if ( $menuItem.find( '.gather-tag' ).length === 0 ) {
+					new Tag( {
+						label: 'new'
+					} ).appendTo( $menuItem );
+				}
 			}
 		} );
 	}

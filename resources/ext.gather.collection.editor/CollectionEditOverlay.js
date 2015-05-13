@@ -242,13 +242,12 @@
 					} else {
 						toast.show( self.options.editSuccessMsg, 'toast' );
 					}
+					self.hide();
 					self._reloadCollection();
-					self._emitCompleted();
 				} );
 			} else if ( this._stateChanged ) {
 				this.hide();
 				this._reloadCollection();
-				this._emitCompleted();
 			} else {
 				// nothing to do.
 				this.hide();
