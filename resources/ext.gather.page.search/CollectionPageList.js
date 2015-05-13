@@ -55,7 +55,6 @@
 			var index,
 				$target = $( ev.currentTarget ),
 				$listThumb = $target.find( '.list-thumb' ),
-				self = this,
 				title = $target.data( 'title' ),
 				inCollection = $target.data( 'is-member' ),
 				page = new Page( {
@@ -73,21 +72,21 @@
 				if ( index > -1 ) {
 					this._additions.splice( index, 1 );
 				}
-				$target.find( '.status' ).replaceWith( self.options.iconDisabledButton );
+				$target.find( '.status' ).replaceWith( this.options.iconDisabledButton );
 				$target.data( 'is-member', false );
 				/**
 				 * @event member-removed
 				 * @param {Page} page
 				 * Fired when member is removed from collection
 				 */
-				self.emit( 'member-removed', page );
+				this.emit( 'member-removed', page );
 			} else {
 				this._additions.push( title );
 				index = this._removals.indexOf( title );
 				if ( index > -1 ) {
 					this._removals.splice( index, 1 );
 				}
-				$target.find( '.status' ).replaceWith( self.options.iconButton );
+				$target.find( '.status' ).replaceWith( this.options.iconButton );
 				$target.data( 'is-member', true );
 				page.isMember = true;
 				/**
@@ -95,7 +94,7 @@
 				 * @param {Page} page
 				 * Fired when member is removed from collection
 				 */
-				self.emit( 'member-added', page );
+				this.emit( 'member-added', page );
 			}
 			return false;
 		},
@@ -103,10 +102,9 @@
 		 * Save any changes made to the collection.
 		 */
 		saveChanges: function () {
-			var self = this,
-				d = $.Deferred(),
+			var d = $.Deferred(),
 				additions = this._additions,
-				removals = self._removals,
+				removals = this._removals,
 				collection = this.options.collection,
 				calls = [];
 

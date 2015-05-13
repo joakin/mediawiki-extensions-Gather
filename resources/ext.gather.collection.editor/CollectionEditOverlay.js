@@ -81,6 +81,7 @@
 			if ( options && options.collection ) {
 				this.id = options.collection.id;
 			}
+			this.activePane = 'main';
 			this.api = new CollectionsApi();
 			Overlay.prototype.initialize.apply( this, arguments );
 			this.$clear = this.$( '.search-header .clear' );
@@ -112,8 +113,7 @@
 					pages: pages,
 					el: self.$( '.panel' )
 				} );
-				self.searchPanel.on( 'member-removed', $.proxy( self, '_switchToFirstPane' ) );
-				self.searchPanel.on( 'member-added', $.proxy( self, '_switchToFirstPane' ) );
+				self.searchPanel.on( 'change', $.proxy( self, 'onCollectionMembersChange' ) );
 				self.searchPanel.show();
 			} );
 		},
@@ -122,31 +122,40 @@
 		 * @private
 		 */
 		_switchToFirstPane: function () {
-			this.$( this._selectors.edit )
-				.add( this._selectors.search )
-				.addClass( 'hidden' );
-			this.$( this._selectors.manage ).removeClass( 'hidden' );
+			if ( this.activePane !== 'main' ) {
+				this.activePane = 'main';
+				this.$( this._selectors.edit )
+					.add( this._selectors.search )
+					.addClass( 'hidden' );
+				this.$( this._selectors.manage ).removeClass( 'hidden' );
+			}
 		},
 		/**
 		 * Switch to search pane.
 		 * @private
 		 */
 		_switchToSearchPane: function () {
-			this.$( this._selectors.edit )
-				.add( this._selectors.manage )
-				.addClass( 'hidden' );
-			this.$( this._selectors.search ).removeClass( 'hidden' );
-			this.$( '.search-header input' ).focus();
+			if ( this.activePane !== 'search' ) {
+				this.activePane = 'search';
+				this.$( this._selectors.edit )
+					.add( this._selectors.manage )
+					.addClass( 'hidden' );
+				this.$( this._selectors.search ).removeClass( 'hidden' );
+				this.$( '.search-header input' ).focus();
+			}
 		},
 		/**
 		 * Switch to edit pane.
 		 * @private
 		 */
 		_switchToEditPane: function () {
-			this.$( this._selectors.manage )
-				.add( this._selectors.search )
-				.addClass( 'hidden' );
-			this.$( this._selectors.edit ).removeClass( 'hidden' );
+			if ( this.activePane !== 'edit' ) {
+				this.activePane = 'edit';
+				this.$( this._selectors.manage )
+					.add( this._selectors.search )
+					.addClass( 'hidden' );
+				this.$( this._selectors.edit ).removeClass( 'hidden' );
+			}
 		},
 		/**
 		 * Event handler when the search input is cleared
@@ -156,6 +165,16 @@
 			this.searchPanel.search( '' );
 			this.$clear.addClass( 'hidden' );
 			this.$( '.search-header input' ).focus();
+		},
+		/**
+		 * Event handler for when the collection members change. If the search pane
+		 * is active then clear the input and go back to the main pane.
+		 */
+		onCollectionMembersChange: function () {
+			if ( this.activePane === 'search' ) {
+				this.onClearSearch();
+				this.onExitSearch();
+			}
 		},
 		/**
 		 * Event handler when the search input is focused
