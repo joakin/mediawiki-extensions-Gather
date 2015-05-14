@@ -5,7 +5,8 @@
 			"Nicoedeu",
 			"Beta16",
 			"Fringio",
-			"^musaz"
+			"^musaz",
+			"Macofe"
 		]
 	},
 	"gather-checkuser-log-action": "azione \"$1\" eseguita su [[$2]] tramite l'estensione Gather",
@@ -15,6 +16,7 @@
 	"gather-lists-collection-description": "Descrizione",
 	"gather-lists-collection-count": "Conteggio",
 	"gather-lists-hide-success-toast": "Lista \"$1\" occultata con successo.",
+	"gather-edit-collection-save-label": "Salva",
 	"gather-create-collection-button-label": "Crea una collezione",
 	"gather-add-to-collection-cancel": "No, grazie.",
 	"gather-page-not-found": "Pagina non trovata",

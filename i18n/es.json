@@ -86,7 +86,7 @@
 	"gather-overlay-edit-button": "Editar el título y la descripción",
 	"gather-overlay-continue": "Siguiente",
 	"gather-overlay-search-empty": "Buscar una página para añadir a esta colección",
-	"gather-overlay-search-new": "Intenta otra búsqueda...",
+	"gather-overlay-search-new": "Iniciar una nueva búsqueda...",
 	"right-gather-hidelist": "Forzar el ocultamiento de una lista de usuario pública",
 	"apihelp-gather-param-gather": "Acción que realizar en las colecciones.",
 	"apihelp-gather-param-owner": "Propietario de las colecciones que buscar. Si se omite, se toma al usuario actual.",

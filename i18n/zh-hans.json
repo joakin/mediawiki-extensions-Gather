@@ -103,7 +103,7 @@
 	"gather-overlay-edit-button": "编辑标题和描述",
 	"gather-overlay-continue": "下一步",
 	"gather-overlay-search-empty": "搜索页面以添加至此收藏中",
-	"gather-overlay-search-new": "尝试另一次搜索……",
+	"gather-overlay-search-new": "开始新的搜索……",
 	"gather-overlay-search-results-empty": "抱歉，我们无法找到与“$1”相关的任何页面",
 	"right-gather-hidelist": "强制隐藏一个公开的用户列表",
 	"apihelp-gather-description": "列举并编辑聚集收藏。",

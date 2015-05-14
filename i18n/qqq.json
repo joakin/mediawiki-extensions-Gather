@@ -11,7 +11,8 @@
 			"Yuri Astrakhan",
 			"Yurik",
 			"Florian Schmidt",
-			"Macofe"
+			"Macofe",
+			"Nemo bis"
 		]
 	},
 	"gather": "Title of special page shown on Special:SpecialPages for viewing your own lists.",
@@ -38,7 +39,7 @@
 	"gather-lists-show-success-toast": "Label for toast displaying that specified list was shown successfully. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
 	"gather-lists-show-failure-toast": "Label for toast diaplaying that showing specified list failed. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
 	"gather-lists-hide-protocol": "Text shown to administrator to a moderation policy which outlines moderation expectations on [[Special:GatherLists]] (optional)",
-	"gather-editfeed-show": "Label for button that toggles list on feed of edits.\n{{Identical|Show}}",
+	"gather-editfeed-show": "Label for a button to switch to a list of pages from the list of updates to said pages.\n\n{{Identical|Show}}",
 	"gather-editfeed-title": "Title for page that allows you to view edits inside a collection.",
 	"gather-editfeed-empty": "Message that shows when no edits have been made recently to any pages inside a collection.",
 	"gather-remove-from-collection-failed-toast": "Error message displayed to user when remove from collection action fails.",
@@ -129,7 +130,7 @@
 	"gather-api-help-param-listid": "{{doc-apihelp-param|lsm|id|listmembership|query+listmembership}}",
 	"gather-api-help-param-listowner": "{{doc-apihelp-param|lsm|owner|listmembership|query+listmembership}}",
 	"gather-api-help-param-listtoken": "{{doc-apihelp-param|lsm|token|listmembership|query+listmembership}}",
-	"apihelp-query+listmembership-description": "{{doc-apihelp-description|lsm|listmembership|query+listmembership}}",
+	"apihelp-query+listmembership-description": "\"List\" here means the specific way, provided by the Gather extension, to store a list of wiki page titles in the wiki database.\n----\n{{doc-apihelp-description|lsm|listmembership|query+listmembership}}",
 	"apihelp-query+listmembership-example-1": "{{doc-apihelp-example|lsm|listmembership|query+listmembership}}",
 	"gather-view-collection": "Label for button that takes you to a collection."
 }

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"SeoJeongHo",
-			"Macofe"
+			"Macofe",
+			"LiteHell"
 		]
 	},
 	"gather-lists-collection-owner": "소유자",
@@ -33,6 +34,7 @@
 	"gather-delete-button": "삭제",
 	"gather-overlay-edit-button": "제목과 설명 수정",
 	"gather-overlay-search-empty": "추가 할 페이지 검색",
+	"gather-overlay-search-new": "다시 검색하기...",
 	"right-gather-hidelist": "강제로 공용 사용자 목록을 숨기기 위해서",
 	"gather-lists-collection-more-link-label": "더 많은 공용 컬렉션 보기",
 	"gather-lists-more": "사용자에게서 더 많은 컬렉션 보기",

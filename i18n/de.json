@@ -105,7 +105,7 @@
 	"gather-overlay-edit-button": "Titel und Beschreibung bearbeiten",
 	"gather-overlay-continue": "Nächste",
 	"gather-overlay-search-empty": "Nach einer Seite suchen, um sie zu dieser Sammlung hinzuzufügen",
-	"gather-overlay-search-new": "Eine andere Suche versuchen …",
+	"gather-overlay-search-new": "Eine neue Suche beginnen …",
 	"gather-overlay-search-results-empty": "Leider konnten wir keine Seiten für „$1“ finden",
 	"right-gather-hidelist": "Das Verstecken einer öffentlichen Benutzerliste erzwingen",
 	"apihelp-gather-description": "Auflisten und Bearbeiten von Sammlungen.",

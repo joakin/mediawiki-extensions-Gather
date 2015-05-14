@@ -6,7 +6,9 @@
 			"Abaddon1337",
 			"MPlauche",
 			"Gomoko",
-			"Crochet.david"
+			"Crochet.david",
+			"Charlene86",
+			"Macofe"
 		]
 	},
 	"gather": "Regrouper",
@@ -35,7 +37,7 @@
 	"gather-edit-collection-heading": "Modifier la collection",
 	"gather-edit-collection-label-name": "Nom",
 	"gather-edit-collection-label-description": "Description",
-	"gather-edit-collection-save-label": "Terminé",
+	"gather-edit-collection-save-label": "Enregistrer",
 	"gather-edit-collection-failed-error": "Il y a eu un problème avec votre tentative de modification ; veuillez essayer quelque chose d’autre.",
 	"gather-edit-collection-clear-label": "Effacer",
 	"gather-delete-collection-confirm": "Êtes-vous sûr de vouloir supprimer cette collection?",
@@ -80,6 +82,7 @@
 	"gather-edit-button": "Modifier",
 	"gather-delete-button": "Supprimer",
 	"gather-overlay-continue": "Suivant",
+	"gather-overlay-search-new": "Lancer une nouvelle recherche...",
 	"right-gather-hidelist": "Forcer une liste publique d'utilisateurs à être masquée.",
 	"apihelp-gather-description": "Afficher et modifier des collections de regroupement.",
 	"apihelp-gather-param-gather": "Action à effectuer sur les collections.",
