@@ -349,8 +349,8 @@
 			],
 			"dependencies": [
 				"ext.gather.menu.icon",
-				"ext.gather.alerts.init",
-				"ext.gather.watchstar"
+				"ext.gather.watchstar",
+				"mobile.toast"
 			],
 			"messages": [
 				"gather-menu-guider"
@@ -432,31 +432,6 @@
 				"resources/ext.gather.page.search/CollectionSearchPanel.js"
 			]
 		},
-		"ext.gather.alerts.futureToasts": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
-			"dependencies": [
-				"mobile.settings",
-				"mobile.toast"
-			],
-			"scripts": [
-				"resources/ext.gather.alerts/futureToasts.js"
-			]
-		},
-		"ext.gather.alerts.init": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
-			"dependencies": [
-				"ext.gather.alerts.futureToasts"
-			],
-			"scripts": [
-				"resources/ext.gather.alerts/init.js"
-			]
-		},
 		"ext.gather.collection.delete": {
 			"targets": [
 				"mobile",
@@ -465,7 +440,6 @@
 			"dependencies": [
 				"ext.gather.collection.confirm",
 				"mobile.toast",
-				"ext.gather.alerts.futureToasts",
 				"ext.gather.api",
 				"mediawiki.util"
 			],
@@ -528,7 +502,7 @@
 			],
 			"group": "other",
 			"dependencies": [
-				"ext.gather.alerts.init",
+				"mobile.toast",
 				"ext.gather.collection.editor",
 				"ext.gather.routes"
 			]

@@ -2,7 +2,6 @@
 
 	var CollectionEditOverlay,
 		toast = M.require( 'toast' ),
-		futureToast = M.require( 'ext.gather.alerts/futureToasts' ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		CollectionSearchPanel = M.require( 'ext.gather.page.search/CollectionSearchPanel' ),
 		Overlay = M.require( 'Overlay' ),
@@ -257,7 +256,7 @@
 				this.$( '.save' ).prop( 'disabled', true );
 				this.searchPanel.saveChanges().done( function () {
 					if ( self.options.reloadOnSave ) {
-						futureToast.add( self.options.editSuccessMsg, 'toast' );
+						toast.showOnPageReload( self.options.editSuccessMsg, 'toast' );
 					} else {
 						toast.show( self.options.editSuccessMsg, 'toast' );
 					}

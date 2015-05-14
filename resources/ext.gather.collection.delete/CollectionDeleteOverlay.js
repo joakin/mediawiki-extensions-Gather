@@ -4,7 +4,6 @@
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
 		toast = M.require( 'toast' ),
-		futureToasts = M.require( 'ext.gather.alerts/futureToasts' ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		ConfirmationOverlay = M.require( 'ext.gather.collection.confirm/ConfirmationOverlay' );
 
@@ -47,7 +46,7 @@
 				} ).always( function () {
 					self.$( '.spinner' ).hide();
 					// Show toast after reloading
-					futureToasts.add( self.options.deleteSuccessMsg, 'toast' );
+					toast.showOnPageReload( self.options.deleteSuccessMsg, 'toast' );
 					self.hide();
 					// Go to the collections list page as collection will no longer exist
 					window.location.href = mw.util.getUrl( 'Special:Gather' );
