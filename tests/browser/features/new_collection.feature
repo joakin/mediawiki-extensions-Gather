@@ -14,4 +14,4 @@ Feature: Creating new collections
   Scenario: Inserting a new collection
     When I type "My collection" into the new collection form
      And I click the create collection button
-    Then I see a toast
+    Then I see the collection editor overlay

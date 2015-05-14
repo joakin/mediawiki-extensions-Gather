@@ -14,4 +14,4 @@ Feature: Add to a collection
   Scenario: Adding item to existing collection.
     When I click the watchstar
      And I select a collection
-    Then I see a toast
+    Then I see a toast panel

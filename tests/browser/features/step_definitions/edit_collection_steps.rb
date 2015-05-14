@@ -11,6 +11,7 @@ Then(/^I see the collection editor overlay$/) do
 end
 
 Then(/^I enter "(.*?)" as the description$/) do |keys|
+  on(GatherPage).edit_overlay_description_element.when_present.clear
   on(GatherPage).edit_overlay_description_element.when_present.send_keys(keys)
 end
 
