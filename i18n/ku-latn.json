@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Bikarhêner",
-			"George Animal"
+			"George Animal",
+			"Ghybu"
 		]
 	},
 	"gather": "Civîn",
@@ -19,10 +20,12 @@
 	"gather-delete-collection-heading": "Koleksiyonê jê bibe",
 	"gather-delete-collection-delete-label": "Jê bibe",
 	"gather-confirmation-cancel-button-label": "Betal bike",
+	"gather-create-collection-button-label": "Koleksiyonek çêke",
 	"gather-add-to-collection-confirm": "Bixe nav kolesiyone",
 	"gather-add-to-collection-cancel": "Na spas",
 	"gather-edit-button": "Biguherîne",
 	"gather-delete-button": "Jê bibe",
 	"gather-overlay-edit-button": "Sernav û danasîna biguherîne",
-	"gather-watchstar-button-label": "Bixe nav koleksiyone"
+	"gather-watchstar-button-label": "Bixe nav koleksiyone",
+	"gather-view-collection": "Koleksîyone nîşan bide"
 }

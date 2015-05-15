@@ -4,7 +4,8 @@
 			"Gokalpselamet",
 			"Watermelon juice",
 			"Captantrips",
-			"Stultiwikia"
+			"Stultiwikia",
+			"Sayginer"
 		]
 	},
 	"gather-delete-collection-delete-label": "Sil",
@@ -15,6 +16,7 @@
 	"gather-edit-button": "Düzenle",
 	"gather-delete-button": "Sil",
 	"gather-overlay-search-empty": "Bu derlemeye eklemek için sayfa ara",
+	"gather-overlay-search-new": "Yeni bir arama başlat...",
 	"gather-lists-more-failed": "Daha fazla derleme yükleme başarısız oldu.",
 	"gather-api-help-param-listid": "Liste kimliği; izleme listesini kullanmak için boş bırakın veya 0 yazın.",
 	"gather-api-help-param-listowner": "Liste sahibinin kullanıcı adı. Sadece izleme listeleri için anlamlıdır.",

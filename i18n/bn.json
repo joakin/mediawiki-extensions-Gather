@@ -9,6 +9,7 @@
 	"gather-read-more": "আরও পড়ুন",
 	"gather-private": "ব্যক্তিগত",
 	"gather-article-count": "$1টি {{PLURAL:$1|পাতা}}",
+	"gather-overlay-search-new": "একটি নতুন অনুসন্ধান শুরু করুন...",
 	"gather-lists-more-failed": "আরও সংগ্রহ লোড করা ব্যর্থ হয়েছে।",
 	"gather-view-collection": "সংগ্রহ দেখুন"
 }
