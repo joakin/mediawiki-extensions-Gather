@@ -92,6 +92,7 @@
 	"gather-overlay-search-new": "Versöhk, neu ze söhke!",
 	"gather-overlay-search-results-empty": "Padong, mer kunnte kein Sigge fö „$1“ fenge.",
 	"right-gather-hidelist": "Öffentlesche Sammlong verscheijsche",
+	"apihelp-gather-description": "\"Gather collections\" opleste un beärbeijde.<!--\nlang=\"en\">URL</i>:\thttps://translatewiki.net/wiki/Thread:Support/About_MediaWiki:Apihelp-gather-description/ksh\n-->",
 	"apihelp-gather-param-gather": "Wat mer met Sammlong anschtälle kann.",
 	"apihelp-gather-param-owner": "Dä Besezer vun dä Sammlong. Lohß läddesch för der aktoälle Metmaacher.",
 	"apihelp-gather-example-1": "Donn de Sammlonge för dä Metmaacher <kbd lang=\"en\" xml:lang=\"en\" dir=\"ltr\">john</kbd> opleste.",

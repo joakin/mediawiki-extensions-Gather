@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Dinhxuanduyet",
-			"Macofe"
+			"Macofe",
+			"KhangND"
 		]
 	},
 	"gather-lists-collection-last-updated": "Lần cập nhật cuối",
@@ -12,5 +13,6 @@
 	"gather-lists-hide-failure-toast": "Ẩn danh sách \"$1\" thất bại.",
 	"gather-add-to-collection-failed-toast": "Không thể thêm trang vào bộ sưu tập",
 	"gather-add-to-collection-cancel": "Không, cám ơn",
+	"gather-overlay-search-new": "Bắt đầu tìm kiếm mới...",
 	"right-gather-hidelist": "Cưỡng ép ẩn một danh sách người dùng công cộng"
 }
