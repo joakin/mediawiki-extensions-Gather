@@ -1,9 +1,36 @@
 {
 	"@metadata": {
 		"authors": [
-			"Danialbehzadi"
+			"Danialbehzadi",
+			"Mjbmr"
 		]
 	},
+	"gather-lists-collection-owner": "مالک",
+	"gather-lists-collection-last-updated": "آخرین بار به روز رسانی شده",
+	"gather-lists-collection-title": "عنوان",
+	"gather-lists-collection-description": "توضیحات",
+	"gather-lists-collection-count": "تعداد",
+	"gather-lists-hide-collection-label": "مخفی‌کردن",
+	"gather-lists-hide-success-toast": "فهرست «$1» با موفقیت مخفی شد.",
+	"gather-lists-hide-failure-toast": "نتوانستیم «$1» را مخفی کنیم.",
+	"gather-lists-show-collection-label": "لو دادن",
+	"gather-editfeed-show": "نمایش",
+	"gather-edit-collection-label-name": "نام",
+	"gather-edit-collection-label-description": "توضیحات",
+	"gather-edit-collection-save-label": "ذخیره",
+	"gather-edit-collection-clear-label": "پاک‌سازی",
+	"gather-delete-collection-delete-label": "حذف",
+	"gather-confirmation-cancel-button-label": "لغو",
+	"gather-create-new-button-label": "ایجاد",
+	"gather-add-to-collection-cancel": "نه، ممنون",
+	"gather-page-not-found": "صفحه یافت نشد",
+	"gather-watchlist-title": "فهرست پی‌گیری",
+	"gather-read-more": "بیشتر بخوانید",
+	"gather-private": "خصوصی",
+	"gather-public": "عمومی",
+	"gather-edit-button": "ویرایش",
+	"gather-delete-button": "حذف",
+	"gather-overlay-continue": "بعدی",
 	"gather-lists-collection-more-link-label": "دیدن مجموعه‌های عمومی بیش‌تر",
 	"gather-lists-more": "دیدن مجموعه‌های بیش‌تر از این کاربر",
 	"gather-collection-more": "دیدن صفحات بیش‌تر در این مجموعه",

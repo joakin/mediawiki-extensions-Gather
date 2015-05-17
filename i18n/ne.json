@@ -1,18 +1,24 @@
 {
 	"@metadata": {
 		"authors": [
-			"सरोज कुमार ढकाल"
+			"सरोज कुमार ढकाल",
+			"Nirjal stha"
 		]
 	},
+	"beta-feature-gather": "संग्रह संकल्न गर्नुहोस्",
 	"gather-lists-collection-owner": "सर्जक",
 	"gather-lists-collection-title": "शीर्षक",
 	"gather-lists-collection-description": "वर्णन",
+	"gather-edit-collection-save-label": "रक्षण गर्ने",
 	"gather-delete-collection-heading": "संग्रह मेट्नुहोस",
 	"gather-delete-collection-delete-label": "मेट्ने",
 	"gather-confirmation-cancel-button-label": "रद्द गर्ने",
 	"gather-create-new-button-label": "सृजना गर्ने",
+	"gather-create-collection-button-label": "संग्रह तयार गर्नुहोस्",
 	"gather-add-to-collection-confirm": "संग्रहमा थप्नुहोस्",
 	"gather-add-to-collection-cancel": "हैन पर्दैन",
 	"gather-public": "सार्वजनिक",
-	"gather-delete-button": "मेट्ने"
+	"gather-delete-button": "मेट्ने",
+	"gather-overlay-search-new": "नयाँ खोज शुरू गर्नुहोस...",
+	"gather-view-collection": "संग्रह हेर्न"
 }

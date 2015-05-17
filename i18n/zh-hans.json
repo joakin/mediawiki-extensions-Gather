@@ -106,7 +106,7 @@
 	"gather-overlay-search-new": "开始新的搜索……",
 	"gather-overlay-search-results-empty": "抱歉，我们无法找到与“$1”相关的任何页面",
 	"right-gather-hidelist": "强制隐藏一个公开的用户列表",
-	"apihelp-gather-description": "列举并编辑聚集收藏。",
+	"apihelp-gather-description": "列举并编辑Gather收藏。",
 	"apihelp-gather-param-gather": "在收藏中执行的操作。",
 	"apihelp-gather-param-owner": "要搜索的收藏主人。如果省略，默认为当前用户。",
 	"apihelp-gather-example-1": "列出用于用户<kbd>john</kbd>的收藏。",

@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"David1010"
+		]
+	},
+	"gather-lists-collection-last-updated": "ბოლო განახლება",
+	"gather-lists-collection-title": "სათაური",
+	"gather-lists-collection-description": "აღწერა",
+	"gather-lists-collection-count": "რაოდენობა",
+	"gather-lists-hide-collection-label": "დამალვა",
+	"gather-editfeed-show": "ჩვენება",
+	"gather-edit-collection-heading": "კოლექციის რედაქტირება",
+	"gather-edit-collection-label-name": "სახელი",
+	"gather-edit-collection-label-description": "აღწერა",
+	"gather-edit-collection-label-public": "საჯარო კოლექცია",
+	"gather-edit-collection-save-label": "შენახვა",
+	"gather-edit-collection-clear-label": "გასუფთავება",
+	"gather-delete-collection-delete-label": "წაშლა",
+	"gather-flag-collection-flag-label": "დროშა",
+	"gather-confirmation-cancel-button-label": "გაუქმება",
+	"gather-create-new-button-label": "შექმნა",
+	"gather-create-collection-button-label": "კოლექციის შექმნა",
+	"gather-add-new-placeholder": "შეიყვანეთ ახალი კოლექციის სახელი",
+	"gather-add-to-collection-confirm": "კოლექციაში დამატება",
+	"gather-add-to-collection-cancel": "არა, გმადლობთ",
+	"gather-page-not-found": "გვერდი ვერ მოიძებნა",
+	"gather-watchlist-title": "კონტროლის სია",
+	"gather-lists-title": "კოლექცია",
+	"gather-read-more": "წაიკითხეთ მეტი",
+	"gather-private": "პირადი",
+	"gather-public": "საჯარო",
+	"gather-hidden": "დამალული",
+	"gather-edit-button": "რედაქტირება",
+	"gather-delete-button": "წაშლა",
+	"gather-overlay-edit-button": "სათაურისა და აღწერის რედაქტირება",
+	"gather-overlay-continue": "შემდეგი"
+}
