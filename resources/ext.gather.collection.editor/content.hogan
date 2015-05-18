@@ -1,8 +1,16 @@
-<div class="manage-members-pane hidden">
+<div class="manage-members-pane hidden collection">
+	<div class="collection-header">
+		<h1>{{collection.title}}</h1>
+		<div class='collection-description'>
+			<span>{{collection.description}}</span>
+			{{#editIcon}}{{>icon}}{{/editIcon}}
+		</div>
+	</div>
 	<div class="panel">{{{spinner}}}</div>
 	<div class="content">
-		<button class="mw-ui-button mw-ui-progressive edit-action action">{{editMsg}}</button>
-		<a class="mw-ui-button mw-ui-destructive delete-action action">{{deleteMsg}}</a>
+		<div class="actions">
+			<a class="mw-ui-button delete-action action">{{deleteMsg}}</a>
+		</div>
 	</div>
 </div>
 <div class="content editor-pane hidden">

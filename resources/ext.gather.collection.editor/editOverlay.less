@@ -3,13 +3,12 @@
 
 .overlay.collection-editor-overlay {
 	.content {
-		.action {
-			display: block;
-			margin: auto;
+		.actions {
+			padding-top: 2em;
 			text-align: center;
-			width: 100%;
-			max-width: 320px;
-			margin-bottom: .2em;
+			.action {
+				margin-bottom: .2em;
+			}
 		}
 
 		label {
@@ -41,5 +40,26 @@
 	.panel {
 		border: none;
 		padding: 0;
+	}
+
+	.collection {
+		h1 {
+			font-size: 1.25em;
+			font-weight: bold;
+			word-break: normal;
+			word-wrap: break-word;
+		}
+		.collection-header {
+			cursor: pointer;
+			margin: 1.5em 1em;
+			.edit-action {
+				display: inline-block;
+				vertical-align: sub;
+				// FIXME: Find a way to manipulate icon size without refering explicitly to :before (implementation detail).
+				&:before {
+					background-size: 75% auto;
+				}
+			}
+		}
 	}
 }

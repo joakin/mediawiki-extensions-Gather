@@ -3,7 +3,7 @@
 		<li>{{#cancelArrowIcon}}{{>icon}}{{/cancelArrowIcon}}</li>
 	</ul>
 	<div class="overlay-title">
-		<h2><span class="truncated-text">{{collection.title}}</span></h2>
+		<h2><span class="truncated-text">{{titleMsg}}</span></h2>
 	</div>
 	<div class="overlay-action">
 		<button class="submit save">{{saveMsg}}</button>

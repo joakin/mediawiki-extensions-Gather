@@ -20,7 +20,13 @@
 	CollectionEditOverlay = Overlay.extend( {
 		_selectors: {
 			edit: '.continue-header, .editor-pane',
-			manage: '.save-header, .manage-members-pane .content, .manage-members-pane .results, .manage-members-pane .search',
+			manage: [
+				'.save-header',
+				'.manage-members-pane .collection-header',
+				'.manage-members-pane .content',
+				'.manage-members-pane .results',
+				'.manage-members-pane .search'
+			].join( ', ' ),
 			search: '.search-header, .manage-members-pane .results'
 		},
 		/** @inheritdoc */
@@ -41,6 +47,11 @@
 				additionalClassNames: 'cancel',
 				label: mw.msg( 'mobile-frontend-overlay-close' )
 			} ).options,
+			editIcon: new Icon( {
+				tagName: 'a',
+				name: 'edit-enabled',
+				additionalClassNames: 'edit-action'
+			} ).options,
 			collection: null,
 			reloadOnSave: false,
 			confirmExitMessage: mw.msg( 'gather-edit-collection-confirm' ),
@@ -55,11 +66,13 @@
 			editMsg: mw.msg( 'gather-overlay-edit-button' ),
 			deleteMsg: mw.msg( 'gather-delete-button' ),
 			saveMsg: mw.msg( 'gather-edit-collection-save-label' ),
+			titleMsg: mw.msg( 'gather-edit-collection-title-label' ),
 			emptyInputMsg: mw.msg( 'gather-overlay-search-empty' )
 		} ),
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {
 			'click .edit-action': 'onEditActionClick',
+			'click .collection-header': 'onEditActionClick',
 			'click .delete-action': 'onDeleteActionClick',
 			'click .clear': 'onClearSearch',
 			'focus .manage-members-pane input': 'onFocusSearch',
@@ -98,6 +111,15 @@
 				this.$( '.privacy' ).prop( 'checked', true );
 				this._switchToEditPane();
 			}
+		},
+		/**
+		 * Update title and description on the overlay
+		 */
+		_populateTitleAndDescription: function () {
+			var collection = this.options.collection;
+			this.$( '.collection-header h1' ).text( collection.title );
+			this.$( '.collection-header .collection-description span' )
+				.text( collection.description );
 		},
 		/**
 		 * Set up collection search panel with existing members
@@ -285,7 +307,6 @@
 			}
 
 			if ( this.isTitleValid( title ) && this.isDescriptionValid( description ) ) {
-				this.$( '.save-header h2 span' ).text( title );
 				// disable button and inputs
 				this.showSpinner();
 				this.$( '.mw-ui-input, .save-description' ).prop( 'disabled', true );
@@ -298,11 +319,11 @@
 					if ( self.id === null ) {
 						// Set the overlay id to the newly created collection id
 						self.id = data.editlist.id;
-						self.options.collection = {
+						$.extend( self.options.collection, {
 							id: data.editlist.id,
 							title: title,
 							description: description
-						};
+						} );
 						self._populateCollectionMembers();
 						eventParams.eventName = 'new-collection';
 						eventParams.source = 'special-gather';
@@ -313,6 +334,7 @@
 							isPublic: !isPrivate
 						} );
 					}
+					self._populateTitleAndDescription();
 					schema.log( eventParams ).always( function () {
 						self._switchToFirstPane();
 						// Make sure when the user leaves the overlay the page gets refreshed
