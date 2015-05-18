@@ -13,12 +13,16 @@
 	"gather-delete-collection-heading": "संग्रह मेट्नुहोस",
 	"gather-delete-collection-delete-label": "मेट्ने",
 	"gather-confirmation-cancel-button-label": "रद्द गर्ने",
+	"gather-collection-owner-text": "$1 को संकलन",
 	"gather-create-new-button-label": "सृजना गर्ने",
 	"gather-create-collection-button-label": "संग्रह तयार गर्नुहोस्",
 	"gather-add-to-collection-confirm": "संग्रहमा थप्नुहोस्",
 	"gather-add-to-collection-cancel": "हैन पर्दैन",
 	"gather-public": "सार्वजनिक",
 	"gather-delete-button": "मेट्ने",
+	"gather-overlay-search-empty": "यो संग्रह थप गर्नको लागी पृष्ठ खोज्नुहोस्",
 	"gather-overlay-search-new": "नयाँ खोज शुरू गर्नुहोस...",
+	"gather-overlay-search-results-empty": "माफ गर्नुहोला, हामीले $1 को कुनै पनि पृष्ठ भेटाउन सकेनौ",
+	"gather-lists-more-failed": "थप संग्रह चालु गर्न समर्थ ।",
 	"gather-view-collection": "संग्रह हेर्न"
 }

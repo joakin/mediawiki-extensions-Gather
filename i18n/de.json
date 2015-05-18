@@ -3,7 +3,8 @@
 		"authors": [
 			"Metalhead64",
 			"Purodha",
-			"Inkowik"
+			"Inkowik",
+			"Tiin"
 		]
 	},
 	"gather": "Gather",
@@ -122,5 +123,7 @@
 	"gather-api-help-param-listid": "Listenkennung; auslassen oder auf 0 setzen, um die Beobachtungsliste zu verwenden.",
 	"gather-api-help-param-listowner": "Benutzerkennung des Listenbesitzers. Macht nur Sinn für Beobachtungslisten.",
 	"gather-api-help-param-listtoken": "Beobachtungslisten-Token (siehe Beobachtungslisten-API); erforderlich beim Betrachten der Beobachtungsliste eines anderen Benutzers.",
+	"apihelp-query+listmembership-description": "Gibt zurück, welche von einer Reihe von Seiten in einer vorgegebenen Liste sind.",
+	"apihelp-query+listmembership-example-1": "Überprüft, ob „Seite“ auf der Beobachtungsliste ist.",
 	"gather-view-collection": "Sammlung ansehen"
 }

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Mormegil",
-			"Cvanca"
+			"Cvanca",
+			"Vks"
 		]
 	},
 	"gather": "Sbírky",
@@ -36,6 +37,7 @@
 	"gather-edit-collection-label-public": "Veřejná sbírka",
 	"gather-edit-collection-save-label": "Uložit",
 	"gather-edit-collection-failed-error": "Při ukládání změn došlo k chybě, zkuste prosím něco jiného.",
+	"gather-edit-collection-clear-label": "Vyčistit",
 	"gather-delete-collection-confirm": "Jste si {{GENDER:|jist|jista|jisti}}, že chcete tuto sbírku smazat?",
 	"gather-delete-collection-heading": "Smazat sbírku",
 	"gather-delete-collection-delete-label": "Smazat",
