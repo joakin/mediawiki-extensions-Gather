@@ -262,6 +262,7 @@
 				if ( this.id === collection.id ) {
 					isNew = false;
 					this.titleInCollection = currentPageIsMember;
+					$.extend( this, collection );
 				}
 			} );
 			// push the newly created collection
@@ -361,7 +362,9 @@
 			return api.addCollection( title ).done( function ( collection ) {
 				api.addPageToCollection( collection.id, page ).done( function () {
 					self._collectionStateChange( collection, true );
-					M.once( 'collection-edit-completed', function () {
+					M.once( 'collection-edit-completed', function ( newCollection ) {
+						collection = $.extend( collection, newCollection );
+						self._collectionStateChange( collection, true );
 						self._notifyChanges( collection, true );
 					} );
 					self.loadEditor( collection.id );

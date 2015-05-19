@@ -112,8 +112,7 @@
 					// FIXME: Should be retrievable from Page
 					description: mw.config.get( 'wgMFDescription' ),
 					// FIXME: Should be retrievable from Page
-					pageImageUrl: mw.config.get( 'wgGatherPageImageThumbnail' ),
-					collections: options.collections
+					pageImageUrl: mw.config.get( 'wgGatherPageImageThumbnail' )
 				} );
 				overlay.on( 'collection-watch', function ( collection, isNewCollection ) {
 					/**

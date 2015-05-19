@@ -306,6 +306,12 @@
 						self._populateCollectionMembers();
 						eventParams.eventName = 'new-collection';
 						eventParams.source = 'special-gather';
+					} else {
+						$.extend( self.options.collection, {
+							title: title,
+							description: description,
+							isPublic: !isPrivate
+						} );
 					}
 					schema.log( eventParams ).always( function () {
 						self._switchToFirstPane();
