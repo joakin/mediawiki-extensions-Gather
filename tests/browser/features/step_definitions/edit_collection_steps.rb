@@ -24,11 +24,15 @@ Then(/^I click to save description$/) do
 end
 
 Then(/^the page has reloaded$/) do
-  sleep 2
+  sleep 5
 end
 
 Then(/^the description of my collection is "(.*?)"$/) do |text|
-  expect(on(GatherPage).collection_description_element.when_present.text).to match text
+  expect(on(GatherPage).collection_description_element.when_present.text).to eq text
+end
+
+Then(/^the description of my collection is empty$/) do
+  expect(on(GatherPage).collection_description_element.when_not_present).to be_nil
 end
 
 When(/^I click to edit name and description$/) do

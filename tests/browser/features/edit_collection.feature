@@ -32,4 +32,4 @@ Feature: Editing collections
         And I click to save description
         And I click done
         And the page has reloaded
-    Then the description of my collection is ""
+    Then the description of my collection is empty

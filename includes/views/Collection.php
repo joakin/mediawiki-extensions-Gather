@@ -61,9 +61,12 @@ class Collection extends View {
 		}
 		$html .= Html::closeElement( 'div' ) .
 			$this->getOwnerHtml( $owner ) .
-			Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() ) .
-			Html::element( 'div', array( 'class' => 'collection-description' ), $description ) .
-			$this->getActionButtonsHtml() .
+			Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() );
+		if ( $description ) {
+			$html .= Html::element( 'div', array( 'class' => 'collection-description' ), $description );
+		}
+
+		$html .= $this->getActionButtonsHtml() .
 			Html::closeElement( 'div' );
 
 		return $html;

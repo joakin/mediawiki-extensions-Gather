@@ -6,7 +6,7 @@ class GatherPage
   a(:my_first_public_collection, css: '.collection-card-title a', index:1)
   a(:edit, css: '.edit-collection')
   div(:edit_overlay, css: '.collection-editor-overlay')
-  text_field(:edit_overlay_description, css: '.collection-editor-overlay .description')
+  textarea(:edit_overlay_description, css: '.collection-editor-overlay .description')
   button(:edit_overlay_save_desc,
     css: '.collection-editor-overlay .save-description')
   button(:edit_overlay_done,
