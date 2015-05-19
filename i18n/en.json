@@ -107,7 +107,7 @@
 	"gather-delete-button": "Delete",
 	"gather-overlay-edit-button": "Edit title and description",
 	"gather-overlay-continue": "Next",
-	"gather-overlay-search-empty": "Search for a page to add to this collection",
+	"gather-overlay-search-empty": "Search to add pages",
 	"gather-overlay-search-new": "Start a new search...",
 	"gather-overlay-search-results-empty": "Sorry, we couldn't find any pages for \"$1\"",
 	"right-gather-hidelist": "Force a public user list to become hidden",
