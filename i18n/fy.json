@@ -4,5 +4,8 @@
 			"Robin0van0der0vliet"
 		]
 	},
-	"gather-edit-collection-save-label": "Bewarje"
+	"gather-edit-collection-save-label": "Bewarje",
+	"gather-delete-collection-delete-label": "Fuortsmite",
+	"gather-edit-button": "Bewurkje",
+	"gather-delete-button": "Fuortsmite"
 }
