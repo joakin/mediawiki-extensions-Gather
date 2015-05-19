@@ -115,7 +115,6 @@
 				"mobile",
 				"desktop"
 			],
-			"position": "top",
 			"class": "ResourceLoaderImageModule",
 			"selector": ".mw-ui-icon-{name}:before",
 			"images": {
@@ -349,6 +348,7 @@
 				"desktop"
 			],
 			"dependencies": [
+				"ext.gather.menu.icon",
 				"ext.gather.alerts.init",
 				"ext.gather.watchstar"
 			],

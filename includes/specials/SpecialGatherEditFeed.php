@@ -45,6 +45,7 @@ class SpecialGatherEditFeed extends SpecialPage {
 		$out->addModuleStyles( array(
 			'mediawiki.ui.input',
 			'ext.gather.styles',
+			'ext.gather.menu.icon'
 		) );
 		$out->setProperty( 'unstyledContent', true );
 

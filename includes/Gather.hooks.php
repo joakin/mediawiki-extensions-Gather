@@ -208,8 +208,6 @@ class Hooks {
 		if ( MobileContext::singleton()->isBetaGroupMember() ) {
 			$modules['watch'] = array( 'ext.gather.init' );
 		}
-		// FIXME: abuse of the hook.
-		$skin->getOutput()->addModuleStyles( 'ext.gather.menu.icon' );
 		return true;
 	}
 
@@ -227,7 +225,6 @@ class Hooks {
 							array(
 								'text' => wfMessage( 'gather-lists-title' )->escaped(),
 								'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
-								// FIXME: Temporarily watchlist icon
 								'class' => CSS::iconClass( 'collections-icon', 'before', 'collection-menu-item' ),
 								'data-event-name' => 'collections',
 							),
