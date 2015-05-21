@@ -283,7 +283,7 @@
 				"resources/ext.gather.buttonspinner/ButtonWithSpinner.js"
 			]
 		},
-		"ext.gather.watchstar": {
+		"ext.gather.collection.contentOverlay": {
 			"targets": [
 				"mobile",
 				"desktop"
@@ -299,11 +299,10 @@
 				"ext.gather.buttonspinner"
 			],
 			"skinStyles": {
-				"vector": "resources/ext.gather.watchstar/vector.less"
+				"vector": "resources/ext.gather.collection.contentOverlay/vector.less"
 			},
 			"styles": [
-				"resources/ext.gather.watchstar/contentOverlay.less",
-				"resources/ext.gather.watchstar/tag.less"
+				"resources/ext.gather.collection.contentOverlay/contentOverlay.less"
 			],
 			"messages": [
 				"gather-remove-from-collection-failed-toast",
@@ -315,26 +314,51 @@
 				"gather-add-failed-toast",
 				"gather-add-title-invalid-toast",
 				"gather-remove-toast",
-				"gather-anon-cta",
 				"gather-collection-member",
 				"gather-create-new-button-label",
 				"gather-add-to-new",
 				"gather-collection-non-member",
 				"gather-add-new-placeholder",
-				"gather-add-to-collection-summary",
-				"gather-add-to-collection-confirm",
-				"gather-add-to-collection-cancel",
 				"gather-add-to-another",
-				"gather-watchstar-button-label",
 				"gather-view-collection"
 			],
 			"templates": {
+				"content.hogan": "resources/ext.gather.collection.contentOverlay/content.hogan"
+			},
+			"scripts": [
+				"resources/ext.gather.collection.contentOverlay/CollectionsContentOverlay.js"
+			]
+		},
+		"ext.gather.watchstar": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.collection.contentOverlay",
+				"ext.gather.routes",
+				"mediawiki.util",
+				"mobile.user",
+				"mobile.contentOverlays",
+				"ext.gather.logging",
+				"ext.gather.watchstar.icons"
+			],
+			"styles": [
+				"resources/ext.gather.watchstar/star.less",
+				"resources/ext.gather.watchstar/tag.less"
+			],
+			"messages": [
+				"gather-anon-cta",
+				"gather-add-to-collection-summary",
+				"gather-add-to-collection-confirm",
+				"gather-add-to-collection-cancel",
+				"gather-watchstar-button-label"
+			],
+			"templates": {
 				"star.hogan": "resources/ext.gather.watchstar/star.hogan",
-				"content.hogan": "resources/ext.gather.watchstar/content.hogan",
 				"Tag.hogan": "resources/ext.gather.watchstar/Tag.hogan"
 			},
 			"scripts": [
-				"resources/ext.gather.watchstar/CollectionsContentOverlay.js",
 				"resources/ext.gather.watchstar/CollectionsWatchstar.js",
 				"resources/ext.gather.watchstar/WatchstarPageActionOverlay.js",
 				"resources/ext.gather.watchstar/Tag.js"
