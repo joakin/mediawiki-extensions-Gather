@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Danialbehzadi",
-			"Mjbmr"
+			"Mjbmr",
+			"Reza1615"
 		]
 	},
 	"gather-lists-collection-owner": "مالک",
@@ -20,14 +21,18 @@
 	"gather-edit-collection-save-label": "ذخیره",
 	"gather-edit-collection-clear-label": "پاک‌سازی",
 	"gather-delete-collection-delete-label": "حذف",
+	"gather-flag-collection-flag-label": "علامت",
 	"gather-confirmation-cancel-button-label": "لغو",
 	"gather-create-new-button-label": "ایجاد",
 	"gather-add-to-collection-cancel": "نه، ممنون",
 	"gather-page-not-found": "صفحه یافت نشد",
 	"gather-watchlist-title": "فهرست پی‌گیری",
+	"gather-lists-title": "مجموعه‌ها",
 	"gather-read-more": "بیشتر بخوانید",
 	"gather-private": "خصوصی",
 	"gather-public": "عمومی",
+	"gather-hidden": "پنهان",
+	"gather-article-count": "$1 {{PLURAL:$1|صفحه|صفحه}}",
 	"gather-edit-button": "ویرایش",
 	"gather-delete-button": "حذف",
 	"gather-overlay-continue": "بعدی",
