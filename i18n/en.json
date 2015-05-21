@@ -61,7 +61,7 @@
 	"gather-anon-cta": "Add this page to a collection that you can share with the world.",
 	"gather-create-new-button-label": "Create",
 	"gather-create-collection-button-label": "Create a collection",
-	"gather-add-new-placeholder": "Enter a new collection name",
+	"gather-add-new-placeholder": "Name of the collection",
 	"gather-add-to-new": "Add to new public collection",
 	"gather-add-to-existing": "Add to existing collection",
 	"gather-add-toast": "The page has been added to your \"$1\" collection.",
