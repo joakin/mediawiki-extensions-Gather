@@ -722,7 +722,8 @@
 		"GatherShouldShowTutorial": true,
 		"GatherAllowPublicWatchlist": false,
 		"GatherEnableBetaFeature": false,
-		"GatherRecompileTemplates": false
+		"GatherRecompileTemplates": false,
+		"GatherAutohideFlagLimit": 1000000
 	},
 	"manifest_version": 1
 }

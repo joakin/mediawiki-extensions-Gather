@@ -30,6 +30,33 @@ class ApiEditListTest extends GatherTestCase {
 		$this->assertItemCount( 5, $listId );
 	}
 
+	public function testPermissionOverrideChangeOnEdit() {
+		$listId = $this->createList( 'gatherUser', array( 'P1' ) );
+		$this->setListPermissionOverride( $listId, 'approve' );
+		$this->doApiRequestWithWatchToken( array(
+			'action' => 'editlist',
+			'id' => $listId,
+			'label' => 'new test label',
+		), null, false, static::$users['gatherUser']->getUser() );
+
+		$listData = $this->getListData( $listId );
+		$this->assertArrayNotHasKey( 'perm_override', $listData );
+	}
+
+	public function testOneFlagPerUser() {
+		$this->addTestUsers( 'flagger' );
+		$user = static::$users['flagger']->getUser();
+		$listId = $this->createList( 'gatherUser', array( 'P1' ) );
+		$params = array(
+			'action' => 'editlist',
+			'mode' => 'flag',
+			'id' => $listId,
+		);
+
+		$this->doApiRequestWithWatchToken( $params, null, false, $user );
+		$this->assertRequestFails( $params, $user, true );
+	}
+
 	/**
 	 * Verifies (via direct DB access) gather_list.gl_item_count
 	 * @param int $expected

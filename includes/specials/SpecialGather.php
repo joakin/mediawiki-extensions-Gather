@@ -156,19 +156,23 @@ class SpecialGather extends SpecialPage {
 				SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'id' )->getSubPage( $id )->getLocalURL()
 			);
 		} elseif ( preg_match( '/^all(\/(?<cond>[^\/]+))?\/?$/', $subpage, $matches ) ) {
-			// All collections. Public or hidden
+			// All collections. Public or hidden or pending review
 			// /all = /all/ = /all/public = /all/public/
 			// /all/hidden = /all/hidden/
 			// /all/recent = /all/recent/
+			// /all/review = /all/review/
 
 			$apiParams = array();
 			$displayAsTable = true;
 
 			// Mode defaults to public
+			$allowedModes = array( 'public', 'hidden', 'recent', 'review' );
 			if ( !isset( $matches['cond'] ) ) {
 				$mode = 'public';
-			} else {
+			} elseif ( in_array( $matches['cond'], $allowedModes ) ) {
 				$mode = $matches['cond'];
+			} else {
+				$mode = 'error';
 			}
 			$originalMode = $mode;
 
@@ -182,7 +186,7 @@ class SpecialGather extends SpecialPage {
 				// Active is a concrete view of public with different params.
 				$mode = 'public';
 
-			} elseif ( $mode === 'hidden' ) {
+			} elseif ( $mode === 'hidden' || $mode === 'review' ) {
 				// Table list of hidden collections.
 
 				// If user doesn't have permissions, bail out.
@@ -207,7 +211,7 @@ class SpecialGather extends SpecialPage {
 
 			$req = $this->getRequest();
 			$apiParams = array_merge( $apiParams, $req->getValues() );
-			$cList = models\CollectionsList::newFromApi( null, $mode === 'hidden',
+			$cList = models\CollectionsList::newFromApi( null, $mode,
 				false, $apiParams, $mode, 100 );
 			$cList->setMode( $originalMode );
 			if ( $displayAsTable ) {

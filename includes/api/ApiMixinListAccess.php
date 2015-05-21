@@ -68,6 +68,8 @@ class ApiMixinListAccess {
 	public static function checkListAccess(
 		DatabaseBase $db, ApiBase $module, array $params, &$isWatchlist, &$ownerId
 	) {
+		global $wgGatherAutohideFlagLimit;
+
 		if ( is_null( $params['owner'] ) !== is_null( $params['token'] ) ) {
 			$p = $module->getModulePrefix();
 			$module->dieUsage( "Both {$p}owner and {$p}token must be given or missing",
@@ -85,7 +87,8 @@ class ApiMixinListAccess {
 		// Id was given, this could be public or private list, legacy watchlist or regular
 		// Allow access to any public list/watchlist, and to private with proper owner/self
 		$listRow = $db->selectRow( 'gather_list',
-			array( 'gl_label', 'gl_user', 'gl_perm' ),
+			array( 'gl_label', 'gl_user', 'gl_perm', 'gl_perm_override', 'gl_flag_count',
+				'gl_needs_review' ),
 			array( 'gl_id' => $params['id'] ),
 			__METHOD__ );
 		if ( $listRow === false ) {
@@ -112,7 +115,12 @@ class ApiMixinListAccess {
 		}
 
 		// Check if this is a public list (if required)
-		if ( !$showPrivate && $listRow->gl_perm !== ApiEditList::PERM_PUBLIC ) {
+		if ( !$showPrivate && (
+			$listRow->gl_perm !== ApiEditList::PERM_PUBLIC
+			|| $listRow->gl_perm_override === ApiEditList::PERM_OVERRIDE_HIDDEN
+			|| $listRow->gl_flag_count >= $wgGatherAutohideFlagLimit
+			   && $listRow->gl_perm_override !== ApiEditList::PERM_OVERRIDE_APPROVED
+		) ) {
 			$module->dieUsage( 'You have no rights to see this list', 'badid' );
 		}
 

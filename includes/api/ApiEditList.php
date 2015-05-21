@@ -26,6 +26,7 @@
 
 namespace Gather\api;
 
+use Gather\models\Collection;
 use ManualLogEntry;
 use AbuseFilter;
 use AbuseFilterVariableHolder;
@@ -57,17 +58,51 @@ class ApiEditList extends ApiBase {
 
 	const PERM_PRIVATE = 0;
 	const PERM_PUBLIC = 1;
-	const PERM_HIDDEN = 2;
+	const PERM_OVERRIDE_NONE = 0;
+	const PERM_OVERRIDE_HIDDEN = 1; // like private but cannot be published by owner
+	const PERM_OVERRIDE_APPROVED = 2; // like public but cannot be autohidden
+
+	/**
+	 * Maps API actions (perm parameter values) to PERM_* constants (DB values);
+	 * also DB values to lists API properties
+	 * @var array
+	 */
+	public static $permMap = array(
+		'public' => self::PERM_PUBLIC,
+		'private' => self::PERM_PRIVATE,
+	);
+
+	/**
+	 * Maps API actions (mode parameter values) to PERM_OVERRIDE_* constants (DB values)
+	 * @var array
+	 */
+	public static $permOverrideMap = array(
+		'hidelist' => self::PERM_OVERRIDE_HIDDEN,
+		'showlist' => self::PERM_OVERRIDE_NONE,
+		'approve' => self::PERM_OVERRIDE_APPROVED,
+	);
+
+	/**
+	 * Maps API actions (mode parameter values) to Echo notification types
+	 * @var array
+	 */
+	public static $permOverrideNotificationMap = array(
+		'hidelist' => 'gather-hide',
+		'showlist' => 'gather-unhide',
+		'approve' => 'gather-approve',
+	);
+
 
 	/**
 	 * @param string $type Log type
 	 * @param string $action Log action
 	 * @param Title|null $title Title object or null
-	 * @param Skin|null $skin Skin object or null. If null, we want to use the wiki
+	 * @param \Skin|null $skin Skin object or null. If null, we want to use the wiki
 	 *   content language, since that will go to the IRC feed.
 	 * @param array $params Parameters
+	 * @return string
 	 */
-	public static function getGatherLogFormattedString( $type, $action, $title, $sk, $params ) {
+	public static function getGatherLogFormattedString( $type, $action, $title, $skin, $params ) {
 		return wfMessage( 'gather-checkuser-log-action' )
 			->rawParams( $params['action'], '[[' . $title->getPrefixedText() . ']]' )->parse();
 	}
@@ -116,39 +151,78 @@ class ApiEditList extends ApiBase {
 				case 'deletelist':
 					// ACTION: delete list (items + list itself)
 					$dbw->delete( 'gather_list_item', array( 'gli_gl_id' => $listId ), __METHOD__ );
+					$dbw->delete( 'gather_list_flag', array( 'glf_gl_id' => $listId ), __METHOD__ );
 					$dbw->delete( 'gather_list', array( 'gl_id' => $listId ), __METHOD__ );
 					$this->setResultStatus( $listId, 'deleted' );
 					$logEventName = $mode;
 					break;
 				case 'hidelist':
 				case 'showlist':
-					$update = array();
-					$perm = $mode === 'showlist' ? self::PERM_PUBLIC : self::PERM_HIDDEN;
-					if ( $row->gl_perm !== $perm ) {
-						$update['gl_perm'] = $perm;
-					}
+				case 'approve':
+					$update = array( 'gl_flag_count' => 0, 'gl_needs_review' => 0 );
+					$permOverride = self::$permOverrideMap[$mode];
+					$update['gl_perm_override'] = $permOverride;
+					$update = array_diff_assoc( $update, (array)$row ); // remove fields with no changes
+
+					$dbw->begin( __METHOD__ );
 					$this->updateRow( $dbw, $row, $update );
-					$logEventName = $mode;
-					// Do echo notification
-					if ( class_exists( 'EchoEvent' ) ) {
-						$eventType = $mode === 'showlist' ? 'gather-unhide' : 'gather-hide';
-						// FIXME: better long term solution for generating collection urls needed
-						// Model currently handles it which is not accessible from here
-						$collectionTitle = SpecialPage::getTitleFor( 'Gather' )
-							->getSubpage( 'id' )
-							->getSubpage( $row->gl_id )
-							->getSubpage( $row->gl_label );
-
-						EchoEvent::create( array(
-							'type' => $eventType,
-							'title' => $collectionTitle,
-							'extra' => array(
-								'collection-owner-id' => $row->gl_user,
-							),
-							'agent' => $user,
-						) );
-
+					if ( $dbw->affectedRows() ) {
+						$logEventName = $mode;
 					}
+					$dbw->update( 'gather_list_flag',
+						array( 'glf_reviewed' => 1 ),
+						array( 'glf_gl_id' => $listId ),
+					__METHOD__ );
+					$dbw->commit( __METHOD__ );
+
+					if ( $logEventName ) {
+						// do echo notification, unless the action was a noop
+						if ( class_exists( 'EchoEvent' ) && in_array( $mode, self::$permOverrideNotificationMap ) ) {
+							$eventType = self::$permOverrideNotificationMap[$mode];
+							// FIXME: better long term solution for generating collection urls needed
+							// Model currently handles it which is not accessible from here
+							$collectionTitle = SpecialPage::getTitleFor( 'Gather' )
+								->getSubpage( 'id' )
+								->getSubpage( $row->gl_id )
+								->getSubpage( $row->gl_label );
+
+							EchoEvent::create( array(
+								'type' => $eventType,
+								'title' => $collectionTitle,
+								'extra' => array(
+									'collection-owner-id' => $row->gl_user,
+								),
+								'agent' => $user,
+							) );
+						}
+					}
+					break;
+				case 'flag':
+					$dbw->begin( __METHOD__ );
+					// lock list to avoid race condition with a show/hide/approve
+					$dbw->select( 'gather_list', 'gl_id', array( 'gl_id' => $listId ), __METHOD__,
+						array( 'FOR UPDATE' ) );
+					$dbw->insert( 'gather_list_flag',
+						array(
+							'glf_user_id' => $user->getId(),
+							'glf_user_ip' => $user->getId() ? '' : $this->getRequest()->getIP(),
+							'glf_gl_id' => $listId,
+						),
+						__METHOD__,
+						array( 'IGNORE' )
+					);
+					if ( !$dbw->affectedRows() ) {
+						$dbw->rollback( __METHOD__ );
+						$this->dieUsage( "List already flagged by user",
+							'alreadyflagged' );
+					}
+					$dbw->update( 'gather_list',
+						array( 'gl_flag_count = gl_flag_count + 1' ),
+						array( 'gl_id' => $listId ),
+						__METHOD__ );
+					$dbw->commit( __METHOD__ );
+					$this->setResultStatus( $row->gl_id, 'flagged' );
+					$logEventName = $mode;
 					break;
 			}
 		}
@@ -187,8 +261,8 @@ class ApiEditList extends ApiBase {
 			\CheckUserHooks::updateCheckUserData( $rc );
 		}
 
-		// Surface hide and unhide actions in Special:Log
-		if ( $action === 'hidelist' || $action === 'showlist' ) {
+		// Surface hide, unhide and approve actions in Special:Log
+		if ( $action === 'hidelist' || $action === 'showlist' || $action === 'approve' ) {
 			$logId = $entry->insert();
 			$entry->publish( $logId, 'udp' );
 		}
@@ -251,11 +325,12 @@ class ApiEditList extends ApiBase {
 		$label = $params['label'];
 		// These modes cannot change list items or change other params like label/description/...
 		// Incidentally, these are also modes that cannot be applied to the watchlist
-		$isNoUpdatesMode = in_array( $mode, array( 'showlist', 'hidelist', 'deletelist' ) );
+		$isNoUpdatesMode = in_array( $mode,
+			array( 'showlist', 'hidelist', 'deletelist', 'approve', 'flag' ) );
 
-		if ( !$user->isLoggedIn() ) {
+		if ( !$user->isLoggedIn() && $mode !== 'flag' ) {
 			$this->dieUsage( 'You must be logged-in to edit a list', 'notloggedin' );
-		} elseif ( !$user->isAllowed( 'editmywatchlist' ) ) {
+		} elseif ( !$user->isAllowed( 'editmywatchlist' ) && $mode !== 'flag' ) {
 			$this->dieUsage( 'You don\'t have permission to edit your list', 'permissiondenied' );
 		} elseif ( $user->isBlocked() ) {
 			$this->dieUsage( 'You are blocked from editing your list', 'blocked' );
@@ -281,15 +356,21 @@ class ApiEditList extends ApiBase {
 			}
 		}
 		if ( $isNew ) {
-			if ( $isNoUpdatesMode ) {
+			if ( $isNoUpdatesMode || $mode === 'remove' ) {
 				// These modes are not allowed for the new list (no ID)
 				$this->dieUsage( "List must be identified with {$p}id when {$p}mode=$mode is used",
 					'invalidparammix' );
-			} elseif ( $mode === 'remove' ) {
-				$this->dieUsage( "List must be identified with {$p}id when {$p}mode=remove is used",
-					'invalidparammix' );
 			} elseif ( $label === null ) {
 				$this->dieUsage( "List {$p}label must be given for new lists", 'invalidparammix' );
+			}
+		}
+		if ( $params['perm'] ) {
+			if ( $mode !== 'update' ) {
+				$this->dieUsage( "{$p}mode and {$p}perm cannot be used together", 'invalidparammix' );
+			}
+			if ( $row && $row->gl_perm_override !== self::PERM_OVERRIDE_NONE ) {
+				$this->dieUsage( "Cannot change visibility when it is overriden by an admin",
+					'invalidparammix' );
 			}
 		}
 		switch ( $mode ) {
@@ -300,13 +381,10 @@ class ApiEditList extends ApiBase {
 					$this->dieUsage( "List {$p}id does not belong to the current user",
 						'permissiondenied' );
 				}
-				if ( $row && $params['perm'] !== null && $row->gl_perm === self::PERM_HIDDEN ) {
-					$this->dieUsage( "Hidden list may not be made private or public",
-						'permissiondenied' );
-				}
 				break;
 			case 'hidelist':
 			case 'showlist':
+			case 'approve':
 				if ( !$user->isAllowed( 'gather-hidelist' ) ) {
 					$this->dieUsage( "{$p}mode=$mode requires gather-hidelist permissions",
 						'permissiondenied' );
@@ -314,8 +392,11 @@ class ApiEditList extends ApiBase {
 				if ( $row &&
 					 $row->gl_perm === self::PERM_PRIVATE && $row->gl_user !== $user->getId()
 				) {
-					$this->dieUsage( "Private list may not be made hidden", 'invalidparammix' );
+					$this->dieUsage( "Visibility of private list may only be changed by author",
+						'invalidparammix' );
 				}
+				break;
+			case 'flag':
 				break;
 			default:
 				$this->dieDebug( __METHOD__, 'Unknown mode=' . $mode );
@@ -400,6 +481,8 @@ class ApiEditList extends ApiBase {
 					'deletelist',
 					'hidelist',
 					'showlist',
+					'flag',
+					'approve',
 				),
 				ApiBase::PARAM_HELP_MSG_PER_VALUE => array(),
 			),
@@ -422,11 +505,14 @@ class ApiEditList extends ApiBase {
 	 * Given an info object, update it with arguments from params, and return JSON str if changed
 	 * @param stdClass $v
 	 * @param Array $params
+	 * @param bool $resetPermission true if the list has been edited in such a way that the
+	 *   review status is reset (APPROVED becomes plain PUBLIC, HIDDEN becomes flagged for review)
 	 * @return string JSON encoded info object in case it changed, or NULL if update is not needed
 	 * @throws \UsageException
 	 */
-	private function updateInfo( stdClass $v, array $params ) {
+	private function updateInfo( stdClass $v, array $params, &$resetPermission = null ) {
 		$updated = false;
+		$resetPermission = false;
 
 		// Set default
 		if ( !property_exists( $v, 'description' ) ) {
@@ -440,6 +526,7 @@ class ApiEditList extends ApiBase {
 		if ( $params['description'] !== null && $v->description !== $params['description'] ) {
 			$v->description = $params['description'];
 			$updated = true;
+			$resetPermission = true;
 		}
 		if ( $params['image'] !== null && $v->image !== $params['image'] ) {
 			if ( $params['image'] === '' ) {
@@ -483,6 +570,7 @@ class ApiEditList extends ApiBase {
 		$label = $isWatchlist ? '' : $params['label'];
 		$info = $this->updateInfo( new stdClass(), $params );
 		$createRow = !$isWatchlist || $info || $params['perm'] === 'public';
+		$perm = $params['perm'] ? self::$permMap[$params['perm']] : self::PERM_PRIVATE;
 
 		if ( $createRow ) {
 			$id = $dbw->nextSequenceValue( 'gather_list_gl_id_seq' );
@@ -491,7 +579,7 @@ class ApiEditList extends ApiBase {
 				'gl_user' => $user->getId(),
 				'gl_label' => $label,
 				'gl_info' => $info,
-				'gl_perm' => $params['perm'] === 'public' ? self::PERM_PUBLIC : self::PERM_PRIVATE,
+				'gl_perm' => $perm,
 				'gl_updated' => $dbw->timestamp( wfTimestampNow() ),
 			), __METHOD__, 'IGNORE' );
 			$id = $dbw->insertId();
@@ -531,12 +619,20 @@ class ApiEditList extends ApiBase {
 	private function updateListDb( DatabaseBase $dbw, array $params, $row ) {
 		$update = array();
 		$info = self::parseListInfo( $row->gl_info, $row->gl_id, true );
-		$info = $this->updateInfo( $info, $params );
+		$info = $this->updateInfo( $info, $params, $resetPermission );
 		if ( $info ) {
 			$update['gl_info'] = $info;
 		}
 		if ( $params['label'] !== null && $row->gl_label !== $params['label'] ) {
 			$update['gl_label'] = $params['label'];
+			$resetPermission = true;
+		}
+		if ( $resetPermission ) {
+			if ( $row->gl_perm_override === self::PERM_OVERRIDE_HIDDEN ) {
+				$update['gl_needs_review'] = 1;
+			} elseif ( $row->gl_perm_override === self::PERM_OVERRIDE_APPROVED ) {
+				$update['gl_perm_override'] = self::PERM_OVERRIDE_NONE;
+			}
 		}
 		if ( $params['perm'] !== null ) {
 			$perm = $params['perm'] === 'public' ?
@@ -719,7 +815,8 @@ class ApiEditList extends ApiBase {
 	 */
 	private function getListRow( array $params, DatabaseBase $dbw, array $conds ) {
 		$row = self::normalizeRow( $dbw->selectRow( 'gather_list',
-			array( 'gl_id', 'gl_user', 'gl_label', 'gl_perm', 'gl_info' ), $conds, __METHOD__ ) );
+			array( 'gl_id', 'gl_user', 'gl_label', 'gl_perm', 'gl_perm_override', 'gl_item_count',
+				   'gl_flag_count', 'gl_needs_review', 'gl_info' ), $conds, __METHOD__ ) );
 		if ( $row ) {
 			$this->checkPermissions( $params, $row );
 		}
@@ -737,6 +834,10 @@ class ApiEditList extends ApiBase {
 			self::normalizeInt( $row, 'gl_id' );
 			self::normalizeInt( $row, 'gl_user' );
 			self::normalizeInt( $row, 'gl_perm' );
+			self::normalizeInt( $row, 'gl_perm_override' );
+			self::normalizeInt( $row, 'gl_item_count' );
+			self::normalizeInt( $row, 'gl_flag_count' );
+			self::normalizeInt( $row, 'gl_needs_review' );
 		}
 		return $row;
 	}

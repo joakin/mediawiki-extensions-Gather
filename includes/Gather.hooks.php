@@ -13,6 +13,7 @@ use ResourceLoader;
 use PageImages;
 use BetaFeatures;
 use User;
+use EchoEvent;
 
 /**
  * Hook handlers for Gather extension
@@ -87,6 +88,17 @@ class Hooks {
 			'email-body-batch-params' => array( 'title' ),
 		);
 
+		$notifications['gather-approve'] = array(
+			'category' => 'gather',
+			'group' => 'positive',
+			'title-message' => 'gather-moderation-approved',
+			'title-params' => array( 'title' ),
+			'email-subject-message' => 'gather-moderation-approved-email-subject',
+			'email-subject-params' => array( 'title' ),
+			'email-body-batch-message' => 'gather-moderation-approved-email-batch-body',
+			'email-body-batch-params' => array( 'title' ),
+		);
+
 		return true;
 	}
 
@@ -100,6 +112,7 @@ class Hooks {
 		switch ( $event->getType() ) {
 			case 'gather-hide':
 			case 'gather-unhide':
+			case 'gather-approve':
 				$extra = $event->getExtra();
 				if ( !$extra || !isset( $extra['collection-owner-id'] ) ) {
 					break;
@@ -339,6 +352,8 @@ class Hooks {
 	public static function onUserMergeAccountFields( array &$updateFields ) {
 		$updateFields[] = array( 'gather_list', 'gl_user', 'batchKey' => 'gl_id',
 			'options' => array( 'IGNORE' ) );
+		$updateFields[] = array( 'gather_list_flag', 'glf_user_id', 'batchKey' => 'glf_gl_id',
+			'options' => array( 'IGNORE' ) );
 	}
 
 	/**
@@ -364,5 +379,8 @@ class Hooks {
 			array( 'gl_user' => $newId, "gl_label = CONCAT(gl_label, $disambiguator )" ),
 			array( 'gl_user' => $oldId ),
 		__METHOD__, array( 'IGNORE' ) );
+
+		// If both users flagged a list, just discard the flags made by the old user.
+		$dbw->delete( 'gather_list_flag', array( 'glf_user_id' => $oldId ), __METHOD__ );
 	}
 }

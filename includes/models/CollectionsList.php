@@ -145,12 +145,13 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 	 * @param boolean [$includePrivate] if the list should show private collections or not
 	 * @param string|boolean [$memberTitle] title of member to check for
 	 * @param array [$params] generate collection list with additional api parameters
-	 * @param string [$mode] to run
+	 * @param string [$mode] listing mode (public/private/review)
 	 * @param integer [$limit] of number of collections to show
 	 * @return models\CollectionsList List of collections.
 	 */
 	public static function newFromApi( $user = null, $includePrivate = false,
-		$memberTitle = false, $params = array(), $mode = null, $limit = 50 ) {
+		$memberTitle = false, $params = array(), $mode = null, $limit = 50
+	) {
 		$collectionsList = new CollectionsList( $user, $includePrivate );
 		$query = array_merge( $params, array(
 			'action' => 'query',
@@ -166,7 +167,7 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 			$query['lstowner'] = $user->getName();
 		}
 		if ( $mode ) {
-			$query['lstmode'] = "all$mode";
+			$query['lstmode'] = ( $mode === 'review' ) ? $mode : "all$mode";
 		} else {
 			$mode = '';
 		}

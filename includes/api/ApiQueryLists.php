@@ -39,11 +39,23 @@ use User;
  * @ingroup API
  */
 class ApiQueryLists extends ApiQueryBase {
+	/**
+	 * Maps DB values to API property values
+	 * @var array
+	 */
+	public static $permOverrideApiMap = array(
+		ApiEditList::PERM_OVERRIDE_NONE => '',
+		ApiEditList::PERM_OVERRIDE_HIDDEN => 'hidden',
+		ApiEditList::PERM_OVERRIDE_APPROVED => 'approved',
+	);
+
 	public function __construct( ApiQuery $query, $moduleName ) {
 		parent::__construct( $query, $moduleName, 'lst' );
 	}
 
 	public function execute() {
+		global $wgGatherAutohideFlagLimit;
+
 		$p = $this->getModulePrefix();
 		$params = $this->extractRequestParams();
 		$continue = $params['continue'];
@@ -53,6 +65,7 @@ class ApiQueryLists extends ApiQueryBase {
 		$fld_label = in_array( 'label', $params['prop'] );
 		$fld_description = in_array( 'description', $params['prop'] );
 		$fld_public = in_array( 'public', $params['prop'] );
+		$fld_review = in_array( 'review', $params['prop'] );
 		$fld_image = in_array( 'image', $params['prop'] );
 		$fld_updated = in_array( 'updated', $params['prop'] );
 		$fld_owner = in_array( 'owner', $params['prop'] );
@@ -111,6 +124,9 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 		$this->addFieldsIf( 'gl_updated', $fld_updated || $mode );
 		$this->addFieldsIf( 'gl_perm', $fld_public );
+		$this->addFieldsIf( 'gl_perm_override', $fld_public );
+		$this->addFieldsIf( 'gl_flag_count', $fld_public );
+		$this->addFieldsIf( 'gl_needs_review', $fld_review );
 
 		if ( $fld_owner && !$owner ) {
 			// Join user table to get user name
@@ -149,9 +165,33 @@ class ApiQueryLists extends ApiQueryBase {
 		}
 
 		if ( $mode === 'allhidden' ) {
-			$this->addWhereFld( 'gl_perm', ApiEditList::PERM_HIDDEN );
+			// lists made private by their owners are not considered hidden
+			$this->addWhereFld( 'gl_perm', ApiEditList::PERM_PUBLIC );
+			$this->addWhere( $db->makeList( array(
+				'gl_perm_override' => ApiEditList::PERM_OVERRIDE_HIDDEN,
+				$db->makeList( array(
+					'gl_flag_count >= ' . $wgGatherAutohideFlagLimit,
+					'gl_perm_override != ' . ApiEditList::PERM_OVERRIDE_APPROVED,
+				), LIST_AND ),
+			), LIST_OR ) );
+		} elseif ( $mode === 'review' ) {
+			$this->addWhereFld( 'gl_perm', ApiEditList::PERM_PUBLIC );
+			$this->addWhere( $db->makeList( array(
+				'gl_needs_review' => 1,
+				'gl_flag_count >= ' . $wgGatherAutohideFlagLimit,
+			), LIST_OR ) );
+
 		} elseif ( $showPrivate !== true ) {
-			$cond = array( 'gl_perm' => ApiEditList::PERM_PUBLIC );
+			$cond = array();
+			$cond[] = $db->makeList( array(
+				'gl_perm' => ApiEditList::PERM_PUBLIC,
+				'gl_perm_override' => ApiEditList::PERM_OVERRIDE_APPROVED,
+			), LIST_AND );
+			$cond[] = $db->makeList( array(
+				'gl_perm' => ApiEditList::PERM_PUBLIC,
+				'gl_perm_override != ' . ApiEditList::PERM_OVERRIDE_HIDDEN,
+				'gl_flag_count < ' . $wgGatherAutohideFlagLimit,
+			), LIST_AND );
 			if ( $showPrivate === null ) {
 				$cond['gl_user'] = $this->getUser()->getId();
 			}
@@ -243,8 +283,8 @@ class ApiQueryLists extends ApiQueryBase {
 					// The very first DB row already has a label, so inject a fake
 					if ( !$this->processRow(
 						null, $count, $mode, $limit, $useInfo, $title, $fld_label,
-						$fld_description, $fld_public, $fld_image, $fld_updated, $fld_owner, $path,
-						$owner, $getContinueEnumParameter
+						$fld_description, $fld_public, $fld_review, $fld_image, $fld_updated,
+						$fld_owner, $path, $owner, $getContinueEnumParameter
 					) ) {
 						break;
 					}
@@ -253,7 +293,7 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 			if ( !$this->processRow(
 				$row, $count, $mode, $limit, $useInfo, $title, $fld_label, $fld_description,
-				$fld_public, $fld_image, $fld_updated, $fld_owner, $path, $owner,
+				$fld_public, $fld_review, $fld_image, $fld_updated, $fld_owner, $path, $owner,
 				$getContinueEnumParameter
 			) ) {
 				break;
@@ -264,7 +304,7 @@ class ApiQueryLists extends ApiQueryBase {
 			// There are no records in the database, and we need to inject watchlist row
 			$this->processRow(
 				null, $count, $mode, $limit, $useInfo, $title, $fld_label, $fld_description,
-				$fld_public, $fld_image, $fld_updated, $fld_owner, $path, $owner,
+				$fld_public, $fld_review, $fld_image, $fld_updated, $fld_owner, $path, $owner,
 				$getContinueEnumParameter
 			);
 		}
@@ -297,6 +337,7 @@ class ApiQueryLists extends ApiQueryBase {
 					'label',
 					'description',
 					'public',
+					'review',
 					'image',
 					'count',
 					'updated',
@@ -326,7 +367,7 @@ class ApiQueryLists extends ApiQueryBase {
 				ApiBase::PARAM_TYPE => 'limit',
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => ApiBase::LIMIT_BIG1,
-				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2
+				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2,
 			),
 			'continue' => array(
 				ApiBase::PARAM_HELP_MSG => 'api-help-param-continue',
@@ -356,6 +397,7 @@ class ApiQueryLists extends ApiQueryBase {
 	 * @param bool $fld_label True if the label property is requested.
 	 * @param bool $fld_description True if the description property is requested.
 	 * @param bool $fld_public True if the public property is requested.
+	 * @param bool $fld_review True if the review property is requested.
 	 * @param bool $fld_image True if the image property is requested.
 	 * @param bool $fld_updated True if the updated property is requested.
 	 * @param bool $fld_owner True if the owner property is requested.
@@ -367,14 +409,19 @@ class ApiQueryLists extends ApiQueryBase {
 	 */
 	private function processRow(
 		$row, &$count, $mode, $limit,  $useInfo, $title, $fld_label, $fld_description, $fld_public,
-		$fld_image, $fld_updated, $fld_owner, $path, $owner, $getContinueEnumParameter
+		$fld_review, $fld_image, $fld_updated, $fld_owner, $path, $owner, $getContinueEnumParameter
 	) {
+		global $wgGatherAutohideFlagLimit;
+
 		if ( $row === null ) {
 			// Fake watchlist row
 			$row = (object) array(
 				'gl_id' => 0,
 				'gl_label' => '',
 				'gl_perm' => ApiEditList::PERM_PRIVATE,
+				'gl_perm_override' => ApiEditList::PERM_OVERRIDE_NONE,
+				'gl_needs_review' => 0,
+				'gl_flag_count' => 0,
 				'gl_updated' => '',
 				'gl_info' => '',
 			);
@@ -412,19 +459,34 @@ class ApiQueryLists extends ApiQueryBase {
 			}
 		}
 		if ( $fld_public ) {
-			switch ( $row->gl_perm ) {
-				case ApiEditList::PERM_PRIVATE:
-					$data['perm'] = 'private';
-					break;
-				case ApiEditList::PERM_PUBLIC:
-					$data['perm'] = 'public';
-					break;
-				case ApiEditList::PERM_HIDDEN:
-					$data['perm'] = 'hidden';
-					break;
-				default:
-					$this->dieDebug( __METHOD__,
-						"Unknown gather perm={$row->gl_perm} for id {$row->gl_id}" );
+			$permMap = array_flip( ApiEditList::$permMap );
+			$permOverrideMap = self::$permOverrideApiMap;
+			if ( !array_key_exists( $row->gl_perm, $permMap ) ) {
+				$this->dieDebug( __METHOD__,
+					"Unknown gather perm={$row->gl_perm} for id {$row->gl_id}" );
+			}
+			if ( !array_key_exists( $row->gl_perm_override, $permOverrideMap ) ) {
+				$this->dieDebug( __METHOD__, "Unknown gather "
+					. "perm_override={$row->gl_perm_override} for id {$row->gl_id}" );
+			}
+			$data['perm'] = $permMap[$row->gl_perm];
+			if ( $permOverrideMap[$row->gl_perm_override] ) {
+				$data['perm_override'] = $permOverrideMap[$row->gl_perm_override];
+			}
+			if ( $row->gl_flag_count >= $wgGatherAutohideFlagLimit ) {
+				$data['flagged'] = true;
+			}
+			if (
+				$row->gl_perm_override === ApiEditList::PERM_OVERRIDE_HIDDEN
+				|| $row->gl_perm_override === ApiEditList::PERM_OVERRIDE_NONE
+					&& $row->gl_flag_count >= $wgGatherAutohideFlagLimit
+			) {
+				$data['hidden'] = true;
+			}
+		}
+		if ( $fld_review ) {
+			if ( $row->gl_needs_review || $row->gl_flag_count >= $wgGatherAutohideFlagLimit ) {
+				$data['review'] = true;
 			}
 		}
 		if ( $useInfo ) {

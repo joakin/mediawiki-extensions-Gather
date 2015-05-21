@@ -548,7 +548,8 @@ class GatherTests extends ApiTestCase {
 		$res = $this->editList( 'ed-o2', $usrS, $tokenS, $idBs . ', "mode":"hidelist"' );
 		$this->getVal( 'ed-o2', '"status"', $res, 'updated' );
 		$this->getVal( 'ed-o2', '"id"', $res, $idB );
-		$expListsB2->perm = 'hidden';
+		$expListsB2->perm_override = 'hidden';
+		$expListsB2->hidden = true;
 
 		$this->assertPages( 'ed-o3', $usr, $idB, $expPagesB );
 		$this->assertLists( 'ed-o4', $usr, $idB, $expListsB, $expListsB2 );
@@ -586,7 +587,8 @@ class GatherTests extends ApiTestCase {
 		$res = $this->editList( 'ed-p1', $usrS, $tokenS, $idBs . ', "mode":"showlist"' );
 		$this->getVal( 'ed-p1', '"status"', $res, 'updated' );
 		$this->getVal( 'ed-p1', '"id"', $res, $idB );
-		$expListsB2->perm = 'public';
+		unset( $expListsB2->perm_override );
+		unset( $expListsB2->hidden );
 
 		$this->assertPages( 'ed-p2', $usr, $idB, $expPagesB );
 		$this->assertLists( 'ed-p3', $usr, $idB, $expListsB, $expListsB2 );
