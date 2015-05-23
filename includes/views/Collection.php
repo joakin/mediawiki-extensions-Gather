@@ -79,9 +79,10 @@ class Collection extends View {
 	 * @return string Html
 	 */
 	private function getOwnerHtml( $owner ) {
+		$ownerName = $owner->getName();
 		$userIconLink = Html::openElement( 'a', array(
 				'href' => SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )->
-					getSubPage( $owner->getName() )->getLocalUrl(),
+					getSubPage( $ownerName )->getLocalUrl(),
 			) ) .
 			Html::element( 'span', array(
 				'class' => CSS::iconClass( 'collection-owner', 'before', 'collection-owner-icon' ) ) ) .
@@ -89,8 +90,9 @@ class Collection extends View {
 			Html::closeElement( 'a' );
 
 		return Html::openElement( 'div', array( 'class' => 'collection-owner' ) )
-				. wfMessage( 'gather-collection-owner-text' )->rawParams( $userIconLink )->parse()
-				. Html::closeElement( 'div' );
+			. wfMessage( 'gather-collection-owner-text' )
+				->rawParams( $userIconLink )->params( $ownerName )->parse()
+			. Html::closeElement( 'div' );
 	}
 
 	/**
