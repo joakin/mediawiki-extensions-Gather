@@ -92,7 +92,7 @@
 	"gather-private": "Private",
 	"gather-public": "Public",
 	"gather-hidden": "Hidden",
-	"gather-moderation-hidden": "[[$1|Your collection]] was hidden. This means that you are the only one who can see it. Collections are hidden if they go against our [[Project:Gather/Moderation_Criteria|moderation criteria]]. You can contest this [[Project:Gather/User_Feedback|here]].",
+	"gather-moderation-hidden": "[[$1|Your collection]] was hidden. This means that you are the only one who can see it. Collections are hidden if they go against our [[Project:Gather/Moderation_Criteria|moderation criteria]]. You can [[Project:Gather/User_Feedback|contest this]].",
 	"gather-moderation-hidden-email-subject":"Your collection $1 was hidden.",
 	"gather-moderation-hidden-email-body": "Your collection $1 was hidden. This means that you are the only one who can see it. Collections are hidden if they go against our moderation criteria:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/Moderation_Criteria\n\nYou can contest this on the following page:\nhttps://en.wikipedia.org/wiki/Wikipedia:Gather/User_Feedback",
 	"gather-moderation-unhidden": "[[$1|Your collection]] was unhidden. This means that it can be viewed publicly again. ",
