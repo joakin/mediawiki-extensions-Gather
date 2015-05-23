@@ -38,6 +38,7 @@
 	"gather-edit-collection-label-description": "Descrición",
 	"gather-edit-collection-label-public": "Colección pública",
 	"gather-edit-collection-save-label": "Gardar",
+	"gather-edit-collection-title-label": "Editando colección",
 	"gather-edit-collection-failed-error": "Ocorreu un problema co seu intento de cambio, por favor ténteo de novo.",
 	"gather-edit-collection-clear-label": "Limpar",
 	"gather-delete-collection-confirm": "Está seguro de querer borrar esta colección?",

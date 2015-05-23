@@ -11,7 +11,8 @@
 			"Macofe",
 			"Moushira",
 			"Urhixidur",
-			"Wladek92"
+			"Wladek92",
+			"Freak2fast4u"
 		]
 	},
 	"gather": "Regrouper",
@@ -46,6 +47,7 @@
 	"gather-edit-collection-label-description": "Description",
 	"gather-edit-collection-label-public": "Collection publique",
 	"gather-edit-collection-save-label": "Enregistrer",
+	"gather-edit-collection-title-label": "Edition de la collection",
 	"gather-edit-collection-failed-error": "Il y a eu un problème avec votre tentative de modification ; veuillez essayer quelque chose d’autre.",
 	"gather-edit-collection-clear-label": "Effacer",
 	"gather-delete-collection-confirm": "Êtes-vous sûr de vouloir supprimer cette collection?",

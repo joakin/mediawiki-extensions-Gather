@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"NehalDaveND"
+		]
+	},
+	"gather-lists-collection-title": "शीर्षकम्",
+	"gather-lists-collection-description": "वर्णनम्",
+	"gather-lists-collection-count": "देशः",
+	"gather-lists-hide-collection-label": "गोप्यताम्",
+	"gather-editfeed-show": "दृश्यताम्",
+	"gather-edit-collection-label-name": "नाम",
+	"gather-edit-collection-label-description": "वर्णनम्",
+	"gather-edit-collection-save-label": "रक्ष्यताम्",
+	"gather-edit-collection-clear-label": "रिक्तीक्रियताम्",
+	"gather-delete-collection-confirm": "इदम् अभियानं विसर्जनीयमिति किं भवता निश्चितम् ?",
+	"gather-delete-collection-delete-label": "अपाक्रियताम्",
+	"gather-flag-collection-flag-label": "ध्वजः",
+	"gather-confirmation-cancel-button-label": "निरस्यताम्",
+	"gather-create-new-button-label": "सृज्यताम्",
+	"gather-watchlist-title": "निरीक्षासूचिः",
+	"gather-read-more": "अधिकं पठ्यताम्",
+	"gather-private": "एकान्ते",
+	"gather-public": "सार्वजनिकम्",
+	"gather-hidden": "निगूहितम्",
+	"gather-edit-button": "सम्पाद्यताम्",
+	"gather-delete-button": "अपाक्रियताम्",
+	"gather-overlay-continue": "अग्रिमम्"
+}

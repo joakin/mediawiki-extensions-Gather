@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kipala"
+			"Kipala",
+			"Denomain"
 		]
 	},
+	"gather-edit-collection-title-label": "Mkusanyiko unahaririwa",
 	"gather-create-new-button-label": "Anzisha",
 	"gather-delete-button": "futa"
 }
