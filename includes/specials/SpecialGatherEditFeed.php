@@ -68,7 +68,6 @@ class SpecialGatherEditFeed extends SpecialPage {
 		$html = Html::openElement( 'form', array( 'action' => $actionUrl ) )
 			. Html::openElement( 'select', array(
 				'name' => 'collection-id',
-				'class' => 'mw-ui-input mw-ui-input-inline',
 			) );
 		$collections = models\CollectionsList::newFromApi( $user, true );
 		foreach ( $collections as $collection ) {
