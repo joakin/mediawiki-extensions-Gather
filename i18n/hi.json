@@ -2,15 +2,21 @@
 	"@metadata": {
 		"authors": [
 			"Phoenix303",
-			"Sahilrathod"
+			"Sahilrathod",
+			"NehalDaveND"
 		]
 	},
 	"gather-lists-collection-last-updated": "अन्तिम अद्यतन",
 	"gather-lists-collection-title": "शीर्षक",
 	"gather-lists-collection-count": "गणना",
+	"gather-editfeed-show": "दिखाएँ",
+	"gather-edit-collection-label-name": "नाम",
+	"gather-edit-collection-label-description": "विवरण",
 	"gather-delete-collection-delete-label": "हटाएँ",
+	"gather-flag-collection-flag-label": "चिह्न",
 	"gather-confirmation-cancel-button-label": "रद्द करें",
 	"gather-add-to-collection-cancel": "नहीं धन्यवाद",
+	"gather-watchlist-title": "ध्यानसूची",
 	"gather-public": "सार्वजनिक",
 	"gather-hidden": "छिपा हुआ",
 	"gather-delete-button": "हटाएँ"
