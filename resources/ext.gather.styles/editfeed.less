@@ -7,6 +7,21 @@
 
 .gather-edit-feed-header {
 	text-align: center;
+
+	// FIXME: Remove this, when task is T98493 resolved
+	select {
+		vertical-align: baseline;
+	}
+}
+
+// FIXME: Remove this, when mwui get's a style for select fields
+.skin-minerva {
+	.gather-edit-feed-header {
+		select {
+			margin-right: .2em;
+			border: 1px solid rgb(169, 169, 169);
+		}
+	}
 }
 
 .gather-ui-tabs {
