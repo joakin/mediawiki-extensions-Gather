@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Arystanbek"
+		]
+	},
+	"gather-watchlist-title": "Көру ьізімі",
+	"gather-lists-title": "Жинақтар",
+	"gather-read-more": "Толығырақ оқу",
+	"gather-private": "Жеке",
+	"gather-public": "Көпшілік",
+	"gather-hidden": "Жасырылған",
+	"gather-edit-button": "Өңдеу",
+	"gather-delete-button": "Жою",
+	"gather-overlay-edit-button": "Атау сипаттамасын өңдеу",
+	"gather-overlay-continue": "Келесі"
+}
