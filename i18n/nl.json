@@ -28,7 +28,7 @@
 	"gather-delete-collection-heading": "Verzameling verwijderen",
 	"gather-delete-collection-delete-label": "Verwijderen",
 	"gather-confirmation-cancel-button-label": "Annuleer",
-	"gather-collection-owner-text": "Een verzameling door $1",
+	"gather-collection-owner-text": "Een verzameling {{GENDER:$2|van}} $1",
 	"gather-create-new-button-label": "Aanmaken",
 	"gather-create-collection-button-label": "Verzameling aanmaken",
 	"gather-add-new-placeholder": "Naam van de verzameling",
