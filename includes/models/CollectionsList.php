@@ -115,7 +115,8 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 				->getSubpage( $this->getOwner() )
 				->getLocalURL( $query );
 		} else {
-			return SpecialPage::getTitleFor( 'GatherLists' )
+			return SpecialPage::getTitleFor( 'Gather' )
+				->getSubpage( 'all' )
 				->getSubpage( $this->listMode )
 				->getLocalURL( $query );
 		}
@@ -164,7 +165,7 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 			$query['lstowner'] = $user->getName();
 		}
 		if ( $mode ) {
-			$query['lstmode'] = $mode;
+			$query['lstmode'] = "all$mode";
 		} else {
 			$mode = '';
 		}

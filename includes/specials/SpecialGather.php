@@ -106,7 +106,7 @@ class SpecialGather extends SpecialPage {
 			$req = $this->getRequest();
 			$continue = $req->getValues();
 			$cList = models\CollectionsList::newFromApi( null, $mode === 'hidden',
-				false, $continue, $mode === 'hidden' ? 'allhidden' : 'allpublic', 100 );
+				false, $continue, $mode, 100 );
 			$this->renderRows( $cList, $mode === 'hidden' ? 'show' : 'hide' );
 
 		} else {
@@ -123,7 +123,7 @@ class SpecialGather extends SpecialPage {
 	 */
 	public function getSubTitle( $hidden = false ) {
 		return Linker::link(
-			SpecialPage::getTitleFor( 'GatherLists', ( $hidden ? 'hidden' : false ) ),
+			SpecialPage::getTitleFor( 'Gather', ( $hidden ? 'hidden' : false ) ),
 			( $hidden ? $this->msg( 'gather-lists-showhidden' ) : $this->msg( 'gather-lists-showvisible' ) )
 		);
 	}
