@@ -11,7 +11,7 @@
 	"gather-delete-collection-delete-label": "Sil",
 	"gather-flag-collection-flag-label": "Bayrak",
 	"gather-create-collection-button-label": "Bir derleme oluştur",
-	"gather-moderation-hidden": "[[$1|Derlemeniz]] gizlendi. Bu sadece sizin gördüğünüz anlamına gelir. Derlemeler [[Project:Gather/Moderation_Criteria|denetleme kriterlerimizi]] sağlamıyorsa gizlenir. İtirazınızı [[Project:Gather/User_Feedback|Burada]] belirtebilirsiniz.",
+	"gather-moderation-hidden": "[[$1|Derlemeniz]] gizlendi. Bu sadece sizin görebileceğiniz anlamına gelir. Derlemeler [[Project:Gather/Moderation_Criteria|denetleme kriterlerimizi]] sağlamıyorsa gizlenir. İtirazınızı [[Project:Gather/User_Feedback|burada]] belirtebilirsiniz.",
 	"gather-moderation-unhidden": "[[$1|Your collection]] gizliliği kaldırıldı. Bu, yeniden herkes tarafından görülebileceği anlamına gelir.",
 	"gather-edit-button": "Düzenle",
 	"gather-delete-button": "Sil",
