@@ -46,6 +46,7 @@
 	"gather-edit-collection-title-label": "Label for the title of the collection editor.",
 	"gather-edit-collection-failed-error": "There was a problem saving the changes.",
 	"gather-edit-collection-clear-label": "Label for button that clears search.\n{{Identical|Clear}}",
+	"gather-edit-collection-related-pages": "Label for header of a section with related pages suggested for a collection.",
 	"gather-delete-collection-confirm": "Text under the heading asking the user if they would like to delete a collection.",
 	"gather-delete-collection-heading": "Heading for collection delete confirmation overlay",
 	"gather-delete-collection-delete-label": "Label for delete button in delete confirmation overlay.\n{{Identical|Delete}}",

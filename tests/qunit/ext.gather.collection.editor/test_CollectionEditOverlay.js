@@ -2,7 +2,7 @@
 	var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' );
 
-	QUnit.module( 'Gather', {
+	QUnit.module( 'Gather: CollectionEditOverlay', {
 		setup: function () {
 			var collection,
 				maxLengthDesc = CollectionEditOverlay.prototype.descriptionMaxLength,

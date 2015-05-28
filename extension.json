@@ -190,7 +190,8 @@
 				"mobile.startup"
 			],
 			"scripts": [
-				"resources/ext.gather.api/CollectionsApi.js"
+				"resources/ext.gather.api/CollectionsApi.js",
+				"resources/ext.gather.api/RelatedPagesApi.js"
 			]
 		},
 		"ext.gather.collections.list": {
@@ -380,6 +381,29 @@
 				"minerva": "resources/ext.gather.init/minerva.less"
 			}
 		},
+		"ext.gather.relatedpages": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.view",
+				"ext.gather.api",
+				"ext.gather.page.search"
+			],
+			"messages": [
+				"gather-edit-collection-related-pages"
+			],
+			"templates": {
+				"relatedpages.hogan": "resources/ext.gather.relatedpages/relatedpages.hogan"
+			},
+			"styles": [
+				"resources/ext.gather.relatedpages/relatedpages.less"
+			],
+			"scripts": [
+				"resources/ext.gather.relatedpages/RelatedPages.js"
+			]
+		},
 		"ext.gather.collection.editor": {
 			"targets": [
 				"mobile",
@@ -387,6 +411,7 @@
 			],
 			"dependencies": [
 				"ext.gather.page.search",
+				"ext.gather.relatedpages",
 				"ext.gather.logging",
 				"mobile.overlays",
 				"mobile.toast",

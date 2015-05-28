@@ -9,7 +9,8 @@
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
 		router = M.require( 'router' ),
-		CollectionDeleteOverlay = M.require( 'ext.gather.collection.delete/CollectionDeleteOverlay' );
+		CollectionDeleteOverlay = M.require( 'ext.gather.collection.delete/CollectionDeleteOverlay' ),
+		RelatedPages = M.require( 'ext.gather.relatedpages/RelatedPages' );
 
 	/**
 	 * Overlay for editing a collection
@@ -25,7 +26,8 @@
 				'.manage-members-pane .collection-header',
 				'.manage-members-pane .content',
 				'.manage-members-pane .results',
-				'.manage-members-pane .search'
+				'.manage-members-pane .search',
+				'.manage-members-pane .related-pages'
 			].join( ', ' ),
 			search: '.search-header, .manage-members-pane .results'
 		},
@@ -142,6 +144,17 @@
 				} );
 				self.searchPanel.on( 'change', $.proxy( self, 'onCollectionMembersChange' ) );
 				self.searchPanel.show();
+
+				// If there is 1 to 3 elements set up related results
+				if ( pages.length > 0 && pages.length < 4 ) {
+					self.relatedPanel = new RelatedPages( {
+						title: $.map( pages, function ( p ) {
+							return p.title;
+						} ).join( '|' ),
+						el: self.$( '.related-pages' )
+					} );
+					self.relatedPanel.on( 'change', $.proxy( self.searchPanel, 'toggleNewMember' ) );
+				}
 			} );
 		},
 		/**

@@ -14,6 +14,7 @@
 		</div>
 	</div>
 	<div class="panel">{{{spinner}}}</div>
+	<div class="related-pages"></div>
 	<div class="content">
 		<div class="actions">
 			<a class="mw-ui-button delete-action action">{{deleteMsg}}</a>

@@ -7,7 +7,7 @@
 	var CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		CollectionsContentOverlay = M.require( 'ext.gather.watchstar/CollectionsContentOverlay' );
 
-	QUnit.module( 'Gather', {
+	QUnit.module( 'Gather: Add to collection overlay', {
 		setup: function () {
 			var d = $.Deferred().resolve( {
 					id: 2

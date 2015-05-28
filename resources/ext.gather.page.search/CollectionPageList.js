@@ -119,6 +119,27 @@
 			} else {
 				return d.resolve();
 			}
+		},
+		/**
+		 * Adds or removes an item from the internal changes
+		 * @param {String} title of the member to add/remove
+		 * @param {Boolean} isRemoved if it is a removal or an addition
+		 */
+		toggleMember: function ( title, isRemoved ) {
+			var index;
+			if ( isRemoved ) {
+				this._removals.push( title );
+				index = this._additions.indexOf( title );
+				if ( index > -1 ) {
+					this._additions.splice( index, 1 );
+				}
+			} else {
+				this._additions.push( title );
+				index = this._removals.indexOf( title );
+				if ( index > -1 ) {
+					this._removals.splice( index, 1 );
+				}
+			}
 		}
 	} );
 

@@ -1,0 +1,4 @@
+<h4>{{heading}}</h4>
+{{{spinner}}}
+<div class='results'>
+</div>

@@ -54,14 +54,14 @@
 		/** @inheritdoc */
 		postRender: function () {
 			Panel.prototype.postRender.apply( this );
-			this._renderResults( this.options.pages );
+			this.renderResults();
 		},
 		/**
 		 * Updates the members of the collection associated with the panel
 		 * @param {Page} page
 		 * @param {Boolean} isRemoved whether page has been removed from this collection
 		 */
-		_updateCollectionMembers: function ( page, isRemoved ) {
+		updateCollectionMembers: function ( page, isRemoved ) {
 			var newPages = [],
 				options = this.options;
 
@@ -92,9 +92,10 @@
 		/**
 		 * Updates the rendering of the internal CollectionPageList
 		 * @private
-		 * @param {Page[]} pages
+		 * @param {Page[]} [pages] Pages to render. If missing will use internal pages.
 		 */
-		_renderResults: function ( pages ) {
+		renderResults: function ( pages ) {
+			pages = pages || this.options.pages;
 			var self = this,
 				emptyResultsMsg;
 			if ( this.pageList ) {
@@ -107,10 +108,10 @@
 					el: this.$( '.results' )
 				} );
 				this.pageList.on( 'member-removed', function ( page ) {
-					self._updateCollectionMembers( page, true );
+					self.updateCollectionMembers( page, true );
 				} );
 				this.pageList.on( 'member-added', function ( page ) {
-					self._updateCollectionMembers( page );
+					self.updateCollectionMembers( page );
 				} );
 			}
 			this.pageList.renderPageImages();
@@ -175,13 +176,13 @@
 									return page;
 								} );
 								self.$( '.spinner' ).hide();
-								self._renderResults( results );
+								self.renderResults( results );
 							}
 						} );
 					}, SEARCH_DELAY );
 				} else {
 					// re-render the members of the collection
-					this._renderResults( this.options.pages );
+					this.renderResults();
 				}
 
 				// keep track of last query to take into account backspace usage
@@ -202,6 +203,16 @@
 		saveChanges: function () {
 			this._hasChanged = false;
 			return this.pageList.saveChanges();
+		},
+		/**
+		 * Add a new item to the collection items and reflect the change on the ui
+		 * @param {Object} page The page to add.
+		 * @param {Boolean} removed If it is a removal or an addition.
+		 */
+		toggleNewMember: function ( page, removed ) {
+			this.pageList.toggleMember( page.title, removed );
+			this.updateCollectionMembers( page, removed );
+			this.renderResults();
 		}
 	} );
 
