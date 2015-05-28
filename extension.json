@@ -115,6 +115,7 @@
 				"mobile",
 				"desktop"
 			],
+			"position": "top",
 			"class": "ResourceLoaderImageModule",
 			"selector": ".mw-ui-icon-{name}:before",
 			"images": {
