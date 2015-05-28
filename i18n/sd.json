@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sindhu"
+		]
+	},
+	"gather-collection-owner-text": "مجموعو{{GENDER:$2|طرفان}}$1"
+}

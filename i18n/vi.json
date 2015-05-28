@@ -3,7 +3,8 @@
 		"authors": [
 			"Dinhxuanduyet",
 			"Macofe",
-			"KhangND"
+			"KhangND",
+			"Darcy Le"
 		]
 	},
 	"gather-lists-collection-last-updated": "Lần cập nhật cuối",
@@ -13,6 +14,7 @@
 	"gather-lists-hide-failure-toast": "Ẩn danh sách \"$1\" thất bại.",
 	"gather-add-to-collection-failed-toast": "Không thể thêm trang vào bộ sưu tập",
 	"gather-add-to-collection-cancel": "Không, cám ơn",
+	"gather-moderation-hidden": "[[$1|Bộ sưu tập của bạn]] đã bị ẩn. Điều này có nghĩa là bạn là người duy nhất có thể thấy nó. Những bộ sưu tập bị ẩn nếu chúng đi ngược lại [[Project:Gather/Moderation_Criteria|moderation criteria]]. Bạn có thể xem ở đây[[Project:Gather/User_Feedback|contest this]].",
 	"gather-overlay-search-new": "Bắt đầu tìm kiếm mới...",
 	"right-gather-hidelist": "Cưỡng ép ẩn một danh sách người dùng công cộng"
 }
