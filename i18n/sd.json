@@ -4,5 +4,6 @@
 			"Sindhu"
 		]
 	},
-	"gather-collection-owner-text": "مجموعو{{GENDER:$2|طرفان}}$1"
+	"gather-collection-owner-text": "مجموعو{{GENDER:$2|طرفان}}$1",
+	"gather-moderation-hidden": "[[$1|توهان جي چونڊ]] لڪل هئي. هن جو مطلب فقط توهان ئي آهيو جيڪي ان کي ڏسي سگهن ٿا. چونڊ مواد لڪل آهي جيڪڏهن اهي اسان جي [[Project:Gather/Moderation_Criteria|moderation criteria]]جي خلاف وڃن ٿا. توهان هي ڪري سگهو ٿا [[Project:Gather/User_Feedback|contest this]]."
 }
