@@ -175,8 +175,15 @@ class SpecialGather extends SpecialPage {
 				. gettype( $id ) . ' given.'
 			);
 		}
-		$collection = models\Collection::newFromApi( $id, null, $this->getRequest()->getValues() );
+		$collection = models\Collection::newFromListsApi( $id, null, $this->getRequest()->getValues() );
+		$this->renderCollection( $collection );
+	}
 
+	/**
+	 * Renders a Collection model
+	 * @param models|Collection $collection to render
+	 */
+	public function renderCollection( $collection ) {
 		if ( $collection === null ||
 			// If collection is private and current user doesn't own it
 			// FIXME: No permissions to visit this. Showing not found ATM.

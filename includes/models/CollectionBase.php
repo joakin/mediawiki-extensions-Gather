@@ -68,7 +68,7 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 * @param boolean $public Whether the collection is public or private
 	 * @param File $image Image that represents the collection
 	 */
-	public function __construct( $id = null, User $user, $title = '', $description = '',
+	public function __construct( $id = null, $user = null, $title = '', $description = '',
 		$public = true, $image = null ) {
 		$this->id = $id;
 		$this->owner = $user;
@@ -154,11 +154,20 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 * @return string localized url for collection
 	 */
 	public function getUrl( $args = array() ) {
-		return SpecialPage::getTitleFor( 'Gather' )
+		return isset( $this->url ) ? $this->url : SpecialPage::getTitleFor( 'Gather' )
 			->getSubpage( 'id' )
 			->getSubpage( $this->getId() )
 			->getSubpage( $this->getTitle() )
 			->getLocalURL( $args );
+	}
+
+	/**
+	 * Define the local url for which the collection can be accessed
+	 *
+	 * @param string $url for accessing the collection minus any query string parameters
+	 */
+	public function setUrl( $url ) {
+		$this->url = $url;
 	}
 
 	/** @inheritdoc */
@@ -195,7 +204,12 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	 * @return boolean
 	 */
 	public function isOwner( User $user ) {
-		return $this->owner->equals( $user );
+		if ( $this->owner ) {
+			return $this->owner->equals( $user );
+		} else {
+			// if owner is null then there can be no owner
+			return false;
+		}
 	}
 
 }

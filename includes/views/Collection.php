@@ -59,9 +59,12 @@ class Collection extends View {
 		if ( $privacyMsg ) {
 			$html .= Html::element( 'div', array( 'class' => 'collection-privacy' ), $privacyMsg );
 		}
-		$html .= Html::closeElement( 'div' ) .
-			$this->getOwnerHtml( $owner ) .
-			Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() );
+		$html .= Html::closeElement( 'div' );
+		// collection doesn't necessarily have an owner
+		if ( $owner ) {
+			$html .= $this->getOwnerHtml( $owner );
+		}
+		$html .=Html::element( 'h1', array( 'id' => 'section_0' ), $collection->getTitle() );
 		if ( $description ) {
 			$html .= Html::element( 'div', array( 'class' => 'collection-description' ), $description );
 		}
@@ -177,12 +180,13 @@ class Collection extends View {
 	 */
 	protected function getHtml( $data = array() ) {
 		$collection = $this->collection;
+		$owner = $collection->getOwner();
 
 		$html = Html::openElement( 'div', array(
 				'class' => 'collection content',
 				'data-id' => $collection->getId(),
 				'data-label' => $collection->getTitle(),
-				'data-owner' => $collection->getOwner()->getName(),
+				'data-owner' => $owner ? $owner->getName() : false,
 				'data-is-admin' => $this->user->isAllowed( 'gather-hidelist' ),
 				'data-is-owner' => $collection->isOwner( $this->user ) ? true : false,
 			) ) .
@@ -192,7 +196,11 @@ class Collection extends View {
 			$html .= $this->getCollectionItems( $collection, $data );
 			$url = $collection->getContinueUrl();
 			if ( $url ) {
-				$html .= Pagination::more( $url, wfMessage( 'gather-collection-more' )->text() );
+				$html .= Pagination::more( $url, wfMessage( 'gather-collection-more' )->text(),
+					array(
+						'data-pagination-query' => $collection->getContinueQuery(),
+					)
+				);
 			}
 		} else {
 			$html .= $this->getEmptyCollectionMessage();
