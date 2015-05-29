@@ -621,5 +621,6 @@
 		"GatherShouldShowTutorial": true,
 		"GatherAllowPublicWatchlist": false,
 		"GatherEnableBetaFeature": false
-	}
+	},
+	"manifest_version": 1
 }
