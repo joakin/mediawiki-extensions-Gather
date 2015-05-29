@@ -52,7 +52,9 @@ class Collection extends View {
 			$privacyMsg = wfMessage( 'gather-private' )->plain();
 		}
 
-		$html = Html::element( 'div', array( 'class' => 'collection-moderation' ) ) .
+		$html = Html::element( 'div', array(
+				'class' => $owner ? 'collection-moderation' : ''
+			) ) .
 			Html::openElement( 'div', array( 'class' => 'collection-header' ) ) .
 			Html::openElement( 'div', array( 'class' => 'collection-meta' ) );
 		// Provide privacy tag if collection is not public
