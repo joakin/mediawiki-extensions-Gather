@@ -279,8 +279,7 @@
 				"ext.gather.api",
 				"ext.gather.collection.base",
 				"mobile.settings",
-				"ext.gather.watchstar.icons",
-				"mobile.buttonWithSpinner"
+				"ext.gather.watchstar.icons"
 			],
 			"skinStyles": {
 				"vector": "resources/ext.gather.watchstar/vector.less"

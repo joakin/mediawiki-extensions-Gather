@@ -13,7 +13,9 @@
 <hr/>
 <h3>{{subheadingNewCollection}}</h3>
 <form>
-	<input class="mw-ui-input mw-ui-input-inline" placeholder="{{placeholder}}">
+	<input class="create-collection-input mw-ui-input mw-ui-input-inline" placeholder="{{placeholder}}">
+	<input type="submit" class="mw-ui-button mw-ui-constructive create-collection"
+		value="{{createButtonLabel}}" disabled />
 </form>
 <hr/>
 <h3>{{subheading}}</h3>
