@@ -158,14 +158,15 @@ class Collection extends View {
 	/**
 	 * Returns the html for the items of a collection
 	 * @param models\Collection
+	 * @param Array data passed to initial template rendering
 	 *
 	 * @return string HTML
 	 */
-	public function getCollectionItems( models\Collection $collection ) {
+	protected function getCollectionItems( models\Collection $collection, $data = array() ) {
 		$html = Html::openElement( 'div', array( 'class' => 'collection-cards' ) );
 		foreach ( $collection as $item ) {
 			$view = new CollectionItemCard( $item );
-			$html .= $view->getHtml();
+			$html .= $view->getHtml( $data );
 		}
 		$html .= Html::closeElement( 'div' );
 		return $html;
@@ -188,7 +189,7 @@ class Collection extends View {
 			$this->getHeaderHtml( $collection );
 
 		if ( $collection->getCount() > 0 ) {
-			$html .= $this->getCollectionItems( $collection );
+			$html .= $this->getCollectionItems( $collection, $data );
 			$url = $collection->getContinueUrl();
 			if ( $url ) {
 				$html .= Pagination::more( $url, wfMessage( 'gather-collection-more' )->text() );
