@@ -9,8 +9,8 @@
 		CreateCollectionButton = M.require( 'ext.gather.collections.list/CreateCollectionButton' );
 
 	CollectionsList = View.extend( {
+		/** @inheritdoc */
 		defaults: {
-			enhance: false,
 			collections: []
 		},
 		template: mw.template.get( 'ext.gather.collections.list', 'CollectionsList.hogan' ),
@@ -19,10 +19,7 @@
 			image: mw.template.get( 'ext.gather.collections.list', 'CardImage.hogan' )
 		},
 		/** @inheritdoc */
-		initialize: function ( options ) {
-			if ( options.enhance ) {
-				this.template = false;
-			}
+		initialize: function () {
 			View.prototype.initialize.apply( this, arguments );
 			// After the initial render initialize the infinite scrolling.
 			this.$pagination = this.$el.find( '.collections-pagination' );
