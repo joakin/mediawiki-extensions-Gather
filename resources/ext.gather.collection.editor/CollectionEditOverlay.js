@@ -116,10 +116,16 @@
 		 * Update title and description on the overlay
 		 */
 		_populateTitleAndDescription: function () {
-			var collection = this.options.collection;
-			this.$( '.collection-header h1' ).text( collection.title );
+			var collection = this.options.collection,
+				editIcon = this.$( '.edit-action' ),
+				iconPlacement = collection.description ?
+					'.collection-header .collection-description' : '.collection-header h1';
+			// Populate the text
+			this.$( '.collection-header h1 span' ).text( collection.title );
 			this.$( '.collection-header .collection-description span' )
 				.text( collection.description );
+			// Put the edit icon in desc or in title if desc is empty
+			this.$( iconPlacement ).append( editIcon );
 		},
 		/**
 		 * Set up collection search panel with existing members

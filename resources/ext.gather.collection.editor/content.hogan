@@ -1,9 +1,16 @@
 <div class="manage-members-pane hidden collection">
 	<div class="collection-header">
-		<h1>{{collection.title}}</h1>
+		<h1>
+			<span>{{collection.title}}</span>
+			{{^collection.description}}
+				{{#editIcon}}{{>icon}}{{/editIcon}}
+			{{/collection.description}}
+		</h1>
 		<div class='collection-description'>
 			<span>{{collection.description}}</span>
-			{{#editIcon}}{{>icon}}{{/editIcon}}
+			{{#collection.description}}
+				{{#editIcon}}{{>icon}}{{/editIcon}}
+			{{/collection.description}}
 		</div>
 	</div>
 	<div class="panel">{{{spinner}}}</div>
