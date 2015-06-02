@@ -1,4 +1,4 @@
-<div class="overlay-header save-header hideable">
+<div class="overlay-subheader save-header hideable">
 	<ul>
 		<li>{{#cancelArrowIcon}}{{>icon}}{{/cancelArrowIcon}}</li>
 	</ul>
@@ -9,7 +9,7 @@
 		<button class="submit save">{{saveMsg}}</button>
 	</div>
 </div>
-<div class="overlay-header continue-header hideable hidden">
+<div class="overlay-subheader continue-header hideable hidden">
 	<ul>
 		<li>{{{backButton}}}</li>
 	</ul>
@@ -18,7 +18,7 @@
 	</div>
 	<div class="overlay-action"><button class="submit save-description">{{saveMsg}}</button></div>
 </div>
-<div class="overlay-header search-header hideable hidden">
+<div class="overlay-subheader search-header hideable hidden">
 	<ul>
 		<li>{{{backButton}}}</li>
 	</ul>
