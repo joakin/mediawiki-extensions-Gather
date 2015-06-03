@@ -119,7 +119,7 @@
 	"gather-add-to-another": "Mostrar minhas outras coleções",
 	"gather-watchstar-button-label": "Adicionar à coleção",
 	"gather-menu-guider": "Toque no ícone do menu para dar uma olhada em sua nova coleção.",
-	"gather-api-help-param-listid": "ID da lista; omita-o ou defina-o como 0 para usar a lista de páginas vigiadas.",
+	"gather-api-help-param-listid": "ID da lista; omita-o ou defina-o como <kbd>0</kbd> para usar a lista de páginas vigiadas.",
 	"gather-api-help-param-listowner": "ID do usuário do proprietário da lista. Somente faz sentido para lista de páginas vigiadas.",
 	"gather-api-help-param-listtoken": "Token da lista de páginas vigiadas (veja API da lista de páginas vigiadas); requerido para procurar a lista de outras pessoas.",
 	"apihelp-query+listmembership-description": "Retorna um conjunto de páginas que estão em uma dada lista.",

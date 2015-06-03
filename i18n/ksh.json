@@ -114,7 +114,7 @@
 	"gather-add-to-another": "Zeisch min andere Sammlonge aan",
 	"gather-watchstar-button-label": "Lohß Jonn!",
 	"gather-menu-guider": "Kleck heh dat Minibellsche, öm Ding neu Sammlong ze beluhere.",
-	"gather-api-help-param-listid": "De Kännog fö di Leß. Lohß fott udder jivv en Noll aan, öm de Oppaßleß ze krijje.",
+	"gather-api-help-param-listid": "De Kännog fö di Leß. Lohß fott udder jivv en <kbd>0</kbd>aan, öm de Oppaßleß ze krijje.",
 	"gather-api-help-param-listowner": "Dem Metmaacher sing Kännong, däm di Leß jehüert. Dat hät blohß bei de Oppaßleste ene Senn.",
 	"gather-api-help-param-listtoken": "En makkehrong för de Oppaßßleß es nühdesch, wam_mer sesch enem andere sing Oppaßßleß belohre well. Süsch och noh dem <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Application Programming Interface\">API</i> för de Oppaßßleßte.",
 	"apihelp-query+listmembership-description": "Jidd uß, wat för en Sigge uß enem Pöngel en ene beschtemmpte Leß es.",

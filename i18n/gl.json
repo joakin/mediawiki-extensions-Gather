@@ -119,7 +119,7 @@
 	"gather-add-to-another": "Mostrar as miñas outras coleccións",
 	"gather-watchstar-button-label": "Engadir á colección",
 	"gather-menu-guider": "Prema na icona do menú para consultar a súa nova colección.",
-	"gather-api-help-param-listid": "Identificador de lista, omítao ou póñao a 0 para usar a súa lista de vixiancia.",
+	"gather-api-help-param-listid": "Identificador de lista, omítao ou póñao a <kbd>0</kbd> para usar a súa lista de vixiancia.",
 	"gather-api-help-param-listowner": "Identificador de usuario do propietario da lista. Só ten sentido para listas de vixiancia.",
 	"gather-api-help-param-listtoken": "Identificador de lista de vixiancia (consulte a API de lista de vixiancia); necesario cando se quere consultar a lista de vixiancia doutro usuario.",
 	"apihelp-query+listmembership-description": "Dun conxunto de páxinas devuelve cales están nunha lista dada.",

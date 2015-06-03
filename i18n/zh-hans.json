@@ -118,7 +118,7 @@
 	"gather-add-to-another": "显示我的其他收藏",
 	"gather-watchstar-button-label": "添加至收藏",
 	"gather-menu-guider": "点击菜单图标以检查您的新收藏。",
-	"gather-api-help-param-listid": "列表ID；省略或设置为0以使用监视列表。",
+	"gather-api-help-param-listid": "列表ID；省略或设置为<kbd>0</kbd>以使用监视列表。",
 	"gather-api-help-param-listowner": "列表主人的用户ID。只对监视列表有意义。",
 	"gather-api-help-param-listtoken": "监视列表令牌（见监视列表API）；当查看其他人监视列表时需要。",
 	"apihelp-query+listmembership-description": "返回指定列表上的哪一组页面。",

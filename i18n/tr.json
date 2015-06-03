@@ -18,7 +18,7 @@
 	"gather-overlay-search-empty": "Bu derlemeye eklemek için sayfa ara",
 	"gather-overlay-search-new": "Yeni bir arama başlat...",
 	"gather-lists-more-failed": "Daha fazla derleme yükleme başarısız oldu.",
-	"gather-api-help-param-listid": "Liste kimliği; izleme listesini kullanmak için boş bırakın veya 0 yazın.",
+	"gather-api-help-param-listid": "Liste kimliği; izleme listesini kullanmak için boş bırakın veya <kbd>0</kbd> yazın.",
 	"gather-api-help-param-listowner": "Liste sahibinin kullanıcı adı. Sadece izleme listeleri için anlamlıdır.",
 	"gather-api-help-param-listtoken": "İzleme listesi jetonu (izleme listesi API'sine bakın) -başkasının izleme listesine bakmak için gerekir.",
 	"apihelp-query+listmembership-example-1": "\"Sayfa\" izleme listesinde mi diye kontrol et.",

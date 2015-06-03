@@ -120,7 +120,7 @@
 	"gather-add-to-another": "הצגת הלקטים האחרים שלי",
 	"gather-watchstar-button-label": "הוספה ללקט",
 	"gather-menu-guider": "נא ללחוץ על כפתור התפריט כדי לראות את הלקט החדש שלך.",
-	"gather-api-help-param-listid": "מזהה רשימה; יש להשמיט או להשתמש ב־0 כדי להשתמש ברשימת המעקב.",
+	"gather-api-help-param-listid": "מזהה רשימה; יש להשמיט או להשתמש ב־<kbd>0</kbd> כדי להשתמש ברשימת המעקב.",
 	"gather-api-help-param-listowner": "מזהה המשתמש של בעל הרשימה. זה מתאים רק לרשימות מעקב.",
 	"gather-api-help-param-listtoken": "אסימון רשימת מעקב (ר' API של רשימת מעקב); נחוץ בעת חיפוש רשימת מעקב.",
 	"apihelp-query+listmembership-description": "מחזיר אילו דפים מתוך ערכה נמצאים ברשימה נתונה.",
