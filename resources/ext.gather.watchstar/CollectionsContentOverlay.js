@@ -10,7 +10,8 @@
 		ToastPanel = M.require( 'ext.gather.toastpanel/ToastPanel' ),
 		toastPanel = new ToastPanel().appendTo( document.body ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
-		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' );
+		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' ),
+		ButtonWithSpinner = M.require( 'ext.gather.buttonspinner/ButtonWithSpinner' );
 
 	/**
 	 * A clickable watchstar for managing collections
@@ -66,6 +67,13 @@
 		/** @inheritdoc */
 		initialize: function ( options ) {
 			this.api = new CollectionsApi();
+			this.createButton = new ButtonWithSpinner( {
+				label: this.defaults.createButtonLabel,
+				additionalClassNames: 'create-collection',
+				constructive: true,
+				disabled: true,
+				loading: false
+			} );
 			if ( options.collections === undefined ) {
 				options.collections = [];
 				CollectionsContentOverlayBase.prototype.initialize.call( this, options );
@@ -94,14 +102,16 @@
 		/** @inheritdoc */
 		postRender: function () {
 			CollectionsContentOverlayBase.prototype.postRender.apply( this );
-			this.$createButton = this.$( '.create-collection' );
+			if ( this.$( '.create-collection' ).length === 0 ) {
+				this.$( 'form' ).append( this.createButton.$el );
+			}
 			this.expandForm();
 		},
 		/**
 		 * Adjust the form so that it takes up the available screen.
 		 */
 		expandForm: function () {
-			var width = this.$( 'form' ).width() - this.$createButton.outerWidth() - 10;
+			var width = this.$( 'form' ).width() - this.createButton.$el.outerWidth() - 10;
 			this.$( 'form .create-collection-input' )
 				.css( 'width', width );
 		},
@@ -185,7 +195,7 @@
 		onInput: function ( ev ) {
 			var $input = $( ev.target ),
 				val = $input.val();
-			this.$createButton.prop( 'disabled', val === '' );
+			this.createButton.disabled( val === '' );
 		},
 		/**
 		 * Event handler for setting up a new collection
@@ -347,7 +357,8 @@
 			var self = this,
 				api = this.api;
 
-			this.$createButton.prop( 'disabled', true );
+			this.createButton.loading( true );
+			this.expandForm();
 			return api.addCollection( title ).done( function ( collection ) {
 				api.addPageToCollection( collection.id, page ).done( function () {
 					self._collectionStateChange( collection, true );
@@ -368,7 +379,9 @@
 					errorText: errMsg
 				} );
 				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast error' );
-				self.$createButton.prop( 'disabled', false );
+			} ).always( function () {
+				self.createButton.loading( false );
+				self.expandForm();
 			} );
 		}
 	} );

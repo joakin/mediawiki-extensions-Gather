@@ -267,6 +267,21 @@
 				"resources/ext.gather.collection.confirm/ConfirmationOverlay.js"
 			]
 		},
+		"ext.gather.buttonspinner": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"mobile.startup"
+			],
+			"styles": [
+				"resources/ext.gather.buttonspinner/button.less"
+			],
+			"scripts": [
+				"resources/ext.gather.buttonspinner/ButtonWithSpinner.js"
+			]
+		},
 		"ext.gather.watchstar": {
 			"targets": [
 				"mobile",
@@ -279,7 +294,8 @@
 				"ext.gather.api",
 				"ext.gather.collection.base",
 				"mobile.settings",
-				"ext.gather.watchstar.icons"
+				"ext.gather.watchstar.icons",
+				"ext.gather.buttonspinner"
 			],
 			"skinStyles": {
 				"vector": "resources/ext.gather.watchstar/vector.less"
