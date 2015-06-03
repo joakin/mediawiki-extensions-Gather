@@ -138,7 +138,7 @@ class Hooks {
 		// The reported error is "This requires Gather."
 		if (
 			!defined( 'MOBILEFRONTEND' ) &&
-			!\ExtensionRegistry::getInstance()->isLoaded('MobileFrontend')
+			!\ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' )
 		) {
 			echo "Gather extension requires MobileFrontend.\n";
 			die( -1 );

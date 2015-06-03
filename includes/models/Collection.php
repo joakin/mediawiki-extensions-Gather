@@ -231,6 +231,6 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	 */
 	public static function newFromCollectionInfo( $info ) {
 		return new Collection( $info->getId(), $info->getOwner(),
-			$info->getTitle(), $info->getDescription(), $info->isPublic(), $info->getFile());
+			$info->getTitle(), $info->getDescription(), $info->isPublic(), $info->getFile() );
 	}
 }
