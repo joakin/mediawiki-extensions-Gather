@@ -616,6 +616,12 @@
 		],
 		"LoadExtensionSchemaUpdates": [
 			"Gather\\UpdaterHooks::onLoadExtensionSchemaUpdates"
+		],
+		"UserMergeAccountFields": [
+			"Gather\\Hooks::onUserMergeAccountFields"
+		],
+		"MergeAccountFromTo": [
+			"Gather\\Hooks::onMergeAccountFromTo"
 		]
 	},
 	"config": {

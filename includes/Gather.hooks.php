@@ -322,4 +322,41 @@ class Hooks {
 			)
 		);
 	}
+
+	/**
+	 * Mark fields which contain copies of user IDs and need to be updated when those IDs change.
+	 * Lists with conflicting labels are ignored and will be dealt with by onMergeAccountFromTo().
+	 * @param array $updateFields Array of [tableName, idField, textField,
+	 *    'batchKey' => unique field, 'options' => array(...), 'db' => DatabaseBase] records.
+	 *    all except tableName and idField are optional.
+	 */
+	public static function onUserMergeAccountFields( array &$updateFields ) {
+		$updateFields[] = array( 'gather_list', 'gl_user', 'batchKey' => 'gl_id',
+			'options' => array( 'IGNORE' ) );
+	}
+
+	/**
+	 * Handle user ID changes where the simple approach via onUserMergeAccountFields() led to a
+	 * key conflict. Non-conflicting rows have already been updated by this point.
+	 * @param User $oldUser
+	 * @param User $newUser
+	 */
+	public static function onMergeAccountFromTo( User $oldUser, User $newUser ) {
+		$oldId = $oldUser->getId();
+		$newId = $newUser->getId();
+		$dbw = wfGetDB( DB_MASTER );
+		$disambiguator = $dbw->addQuotes( ' (' . $oldUser->getName() . ')' );
+
+		// Some edge cases are not handled well (does not seem worth the effort):
+		// - in the extremely unlikely case that oldUser has a list labeled "foo" and newUser has
+		//   both a list labeled "foo" and a list labeled "foo (oldUser)", the list is not migrated
+		// - the update is not batched and will perform poorly if someone has thousands of
+		//   lists with conflicting labels, which is extremely unlikely to happen
+		// - the disambiguated list name can exceed the normal 90 character label limit
+		// - if the disambiguated list name would exceed 255 characters, it gets truncated
+		$dbw->update( 'gather_list',
+			array( 'gl_user' => $newId, "gl_label = CONCAT(gl_label, $disambiguator )" ),
+			array( 'gl_user' => $oldId ),
+		__METHOD__, array( 'IGNORE' ) );
+	}
 }
