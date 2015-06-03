@@ -10,8 +10,7 @@
 		ToastPanel = M.require( 'ext.gather.toastpanel/ToastPanel' ),
 		toastPanel = new ToastPanel().appendTo( document.body ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
-		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' ),
-		ButtonWithSpinner = M.require( 'ButtonWithSpinner' );
+		CollectionsContentOverlayBase = M.require( 'ext.gather.collection.base/CollectionsContentOverlayBase' );
 
 	/**
 	 * A clickable watchstar for managing collections
@@ -37,6 +36,7 @@
 			'blur input': 'onBlurInput',
 			'input input': 'onInput',
 			'click .overlay-content li': 'onSelectCollection',
+			'touchend .create-collection': 'onCreateNewCollection',
 			'submit form': 'onCreateNewCollection'
 		},
 		/** @inheritdoc */
@@ -60,6 +60,7 @@
 			subheadingNewCollection: mw.msg( 'gather-add-to-new' ),
 			subheading: mw.msg( 'gather-add-to-existing' ),
 			moreLinkLabel: mw.msg( 'gather-add-to-another' ),
+			createButtonLabel: mw.msg( 'gather-create-new-button-label' ),
 			collections: undefined
 		},
 		/** @inheritdoc */
@@ -92,29 +93,17 @@
 		},
 		/** @inheritdoc */
 		postRender: function () {
-			var $form = this.$( 'form' );
-
-			this.createButton  = new ButtonWithSpinner( {
-				label: mw.msg( 'gather-create-new-button-label' ),
-				flags: [ 'primary', 'constructive' ]
-			} );
-			this.createButton.setDisabled( true );
-			// Binding here as widgets are not views and are created after events map runs
-			this.createButton.on( 'click', function () {
-				$form.submit();
-			} );
-
-			$form.append( this.createButton.$element );
 			CollectionsContentOverlayBase.prototype.postRender.apply( this );
+			this.$createButton = this.$( '.create-collection' );
 			this.expandForm();
 		},
 		/**
 		 * Adjust the form so that it takes up the available screen.
 		 */
 		expandForm: function () {
-			// FIXME: This selectors might change in future. Yuck.
-			var $btn = this.$( 'form .oo-ui-widget' );
-			this.$( 'form input' ).css( 'width', this.$( 'form' ).width() - $btn.width() - 10 );
+			var width = this.$( 'form' ).width() - this.$createButton.outerWidth() - 10;
+			this.$( 'form .create-collection-input' )
+				.css( 'width', width );
 		},
 		/**
 		 * Tests if title is valid
@@ -196,7 +185,7 @@
 		onInput: function ( ev ) {
 			var $input = $( ev.target ),
 				val = $input.val();
-			this.createButton.setDisabled( val === '' );
+			this.$createButton.prop( 'disabled', val === '' );
 		},
 		/**
 		 * Event handler for setting up a new collection
@@ -204,7 +193,7 @@
 		 */
 		onCreateNewCollection: function ( ev ) {
 			var page = M.getCurrentPage(),
-				title = $( ev.target ).find( 'input' ).val();
+				title = this.$( '.create-collection-input' ).val();
 
 			ev.preventDefault();
 			if ( this.isTitleValid( title ) ) {
@@ -358,7 +347,7 @@
 			var self = this,
 				api = this.api;
 
-			this.createButton.showSpinner();
+			this.$createButton.prop( 'disabled', true );
 			return api.addCollection( title ).done( function ( collection ) {
 				api.addPageToCollection( collection.id, page ).done( function () {
 					self._collectionStateChange( collection, true );
@@ -379,7 +368,7 @@
 					errorText: errMsg
 				} );
 				toast.show( mw.msg( 'gather-new-collection-failed-toast', title ), 'toast error' );
-				self.createButton.hideSpinner();
+				self.$createButton.prop( 'disabled', false );
 			} );
 		}
 	} );
