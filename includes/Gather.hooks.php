@@ -205,7 +205,11 @@ class Hooks {
 	 * @return boolean
 	 */
 	public static function onSkinMinervaDefaultModules( $skin, &$modules ) {
-		if ( MobileContext::singleton()->isBetaGroupMember() ) {
+		// load gather only on pages, that can contain content and in mobile beta view
+		if (
+			$skin->getTitle()->canExist() &&
+			MobileContext::singleton()->isBetaGroupMember()
+		) {
 			$modules['watch'] = array( 'ext.gather.init' );
 		}
 		return true;
