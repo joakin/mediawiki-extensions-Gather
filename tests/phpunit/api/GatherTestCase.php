@@ -11,6 +11,19 @@ class GatherTestCase extends ApiTestCase {
 		static::$users = array_merge( static::$users, self::$gatherUsers );
 	}
 
+	protected function doApiRequestWithWatchToken(
+		array $params, array $session = null, $appendModule = false, User $user = null
+	) {
+		$tokens = $this->getFromResults( $this->doApiRequest( array(
+			'action' => 'query',
+			'meta' => 'tokens',
+			'type' => 'watch',
+		), null, false, $user ), 'tokens' );
+
+		$params = array_merge( $params, array( 'token' => $tokens['watchtoken'] ) );
+		return $this->doApiRequest( $params, $session, $appendModule, $user );
+	}
+
 	/**
 	 * Creates a new list.
 	 * @param User|string $user User who will own the list (as User object or $users index)
@@ -26,19 +39,13 @@ class GatherTestCase extends ApiTestCase {
 			$user = static::$users[$user]->getUser();
 		}
 
-		$tokens = $this->getFromResults( $this->doApiRequest( array(
-			'action' => 'query',
-			'meta' => 'tokens',
-			'type' => 'watch',
-		), null, false, $user ), 'tokens' );
-
 		$params = array_merge( array(
 			'action' => 'editlist',
-			'token' => $tokens['watchtoken'],
 			'label' => $label,
 			'titles' => implode( '|', $pages ),
 		), $properties );
-		$result = $this->getFromResults( $this->doApiRequest( $params, null, false, $user ), 'editlist' );
+		$result = $this->getFromResults( $this->doApiRequestWithWatchToken( $params, null, false,
+			$user ), 'editlist' );
 		$this->assertEquals( 'created', $result['status'] );
 		return $result['id'];
 	}

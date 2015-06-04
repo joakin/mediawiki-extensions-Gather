@@ -8,6 +8,8 @@ require_once ( __DIR__ . '/GatherTestCase.php' );
  * @group medium
  */
 class ApiQueryListPagesTest extends GatherTestCase {
+	protected $tablesUsed = array( 'gather_list', 'gather_list_item' );
+
 	public function testSort() {
 		$listId = $this->createList( 'gatherUser', array( 'P1', 'P2', 'Talk:P3', 'Help:P4', 'P5' ) );
 

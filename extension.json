@@ -630,7 +630,8 @@
 			"Gather\\Hooks::onGetBetaFeaturePreferences"
 		],
 		"LoadExtensionSchemaUpdates": [
-			"Gather\\UpdaterHooks::onLoadExtensionSchemaUpdates"
+			"Gather\\UpdaterHooks::onLoadExtensionSchemaUpdates",
+			"Gather\\UpdaterHooks::onLoadExtensionSchemaUpdatesBC"
 		],
 		"UserMergeAccountFields": [
 			"Gather\\Hooks::onUserMergeAccountFields"

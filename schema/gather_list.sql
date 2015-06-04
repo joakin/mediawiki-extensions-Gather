@@ -19,6 +19,9 @@ CREATE TABLE /*_*/gather_list (
   -- The list permissions type (PRIVATE=0, PUBLIC=1, HIDDEN=2, ...)
   gl_perm TINYINT UNSIGNED NOT NULL,
 
+  -- The number of items (pages) in this collection
+  gl_item_count INT UNSIGNED NOT NULL DEFAULT 0,
+
   -- The timestamp is updated whenever the list's meta data is modified.
   -- It is possible we might update this field when modifying watchlist / list pages
   gl_updated VARBINARY(14) NOT NULL,
