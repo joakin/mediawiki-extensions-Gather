@@ -240,7 +240,7 @@ class SpecialGather extends SpecialPage {
 			);
 			$this->render( new views\CollectionsList( $this->getUser(), $collectionsList ) );
 		} else {
-			$this->renderError( new views\NoPublic() );
+			$this->renderError( new views\NoPublic( $user ) );
 		}
 	}
 
