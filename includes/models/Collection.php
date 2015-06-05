@@ -22,6 +22,12 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	const EXTRACTS_CHAR_LIMIT = 140;
 
 	/**
+	 * Stores api parameters that were used to generate the collection
+	 *
+	 * @var array
+	 */
+	protected $apiParams = array();
+	/**
 	 * Internal data used for creating url of collections which span multiple urls.
 	 *
 	 * @var array
@@ -135,10 +141,39 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	}
 
 	/**
+	 * Return a URL that allows you to retreive the rest of the items of the
+	 * collection
+	 * @return string|null
+	 */
+	public function getContinueQuery() {
+		$allParams = array_merge( $this->apiParams, $this->continue );
+		return wfArrayToCgi( $allParams );
+	}
+
+	/**
 	 * @param array $continue information to obtain further items
 	 */
-	public function setContinueQueryString( $continue ) {
+	public function setContinue( $continue, $params = array() ) {
+		$this->apiParams = $params;
 		$this->continue = $continue;
+	}
+
+	/**
+	 * Generate a default set of query parameters that apply to all API requests for
+	 * generating collections.
+	 * @param Integer [$limit] maximum number of items in the collection
+	 */
+	private static function getDefaultQueryParams( $limit = 50 ) {
+		return array(
+			'action' => 'query',
+			'prop' => 'pageimages|extracts',
+			'explaintext' => true,
+			'exintro' => true,
+			'exchars' => self::EXTRACTS_CHAR_LIMIT,
+			'exlimit' => $limit,
+			'pilimit' => $limit,
+			'continue' => '',
+		);
 	}
 
 	/**
@@ -149,36 +184,39 @@ class Collection extends CollectionBase implements IteratorAggregate {
 	 * @param array [$continue] optional parameters to append to the query.
 	 * @return models\Collections a collection
 	 */
-	public static function newFromApi( $id, User $user = null, $continue = array() ) {
+	public static function newFromListsApi( $id, User $user = null, $continue = array() ) {
 		$limit = 50;
 		$collection = null;
 		$params = array_merge( $continue, array(
-			'action' => 'query',
 			'list' => 'lists',
 			'lstids' => $id,
 			'lstprop' => 'label|description|public|image|owner',
-			'prop' => 'pageimages|extracts',
 			'generator' => 'listpages',
 			'glspsort' => 'namespace',
 			'glspid' => $id,
-			'explaintext' => true,
-			'exintro' => true,
-			'exchars' => self::EXTRACTS_CHAR_LIMIT,
 			'glsplimit' => $limit,
-			'exlimit' => $limit,
-			'pilimit' => $limit,
-			'continue' => '',
-		) );
+		), self::getDefaultQueryParams( $limit ) );
 		// If user is present, include it in the request. Api will return not found
 		// if the specified owner doesn't match the actual collection owner.
 		if ( $user ) {
 			$params['lstowner'] = $user->getName();
 		}
-		$api = new ApiMain( new FauxRequest( $params ) );
+		return self::newFromApiParams( $params );
+	}
 
+	/**
+	 * Generate a Collection from api with provided query parameters
+	 * @param Array $params to pass to api.
+	 * @param models\Collections [$collection] an existing collection to add to
+	 * @return models\Collections a collection
+	 */
+	private static function newFromApiParams( $params, $collection = null ) {
+		$api = new ApiMain( new FauxRequest( $params ) );
+		$id = isset( $params['lstids'] ) ? $params['lstids'] : -1;
 		try {
 			$api->execute();
 			$data = $api->getResult()->getResultData( null, array( 'Strip' => 'all' ) );
+			// When present is response we override optional parameter
 			if ( isset( $data['query']['lists'] ) ) {
 				$lists = $data['query']['lists'];
 				if ( count( $lists ) === 1 ) {
@@ -216,13 +254,16 @@ class Collection extends CollectionBase implements IteratorAggregate {
 					$collection->add( $item );
 				}
 			}
+
 			if ( isset( $data['continue'] ) ) {
-				$collection->setContinueQueryString( $data['continue'] );
+				$collection->setContinue( $data['continue'], $params );
+			}
+			if ( isset( $data['query-continue'] ) ) {
+				$collection->setContinue( $data['query-continue'], $params );
 			}
 		} catch ( Exception $e ) {
 			// just return collection
 		}
-
 		return $collection;
 	}
 
