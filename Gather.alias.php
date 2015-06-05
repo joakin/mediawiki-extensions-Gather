@@ -40,8 +40,8 @@ $specialPageAliases['lb'] = array(
 
 /** Northern Luri (لوری مینجایی) */
 $specialPageAliases['lrc'] = array(
-	'Gather' => array( 'جم_کردن' ),
-	'GatherLists' => array( 'جم_کردن_نومگه_یا' ),
+	'Gather' => array( 'جأم_کئردئن' ),
+	'GatherLists' => array( 'جأم_کئردئن_نومگە_یا' ),
 );
 
 /** Macedonian (македонски) */

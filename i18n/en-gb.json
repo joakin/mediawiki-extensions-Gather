@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Caliburn"
+			"Caliburn",
+			"Karthik3377"
 		]
 	},
 	"gather-edit-collection-label-name": "Name",
@@ -9,5 +10,6 @@
 	"gather-create-new-button-label": "Create",
 	"gather-watchlist-title": "Watchlist",
 	"gather-read-more": "Read more",
-	"gather-edit-button": "Edit"
+	"gather-edit-button": "Edit",
+	"apihelp-query+lists-param-minitems": "குறைந்த பட்சம் இந்த பல பொருட்களை கொண்ட மட்டும் பட்டியல்கள் காட்டவும். (Watchlists அலட்சியம்.)"
 }

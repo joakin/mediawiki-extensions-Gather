@@ -121,8 +121,19 @@
 	"gather-menu-guider": "Prema na icona do menú para consultar a súa nova colección.",
 	"gather-api-help-param-listid": "Identificador de lista, omítao ou póñao a <kbd>0</kbd> para usar a súa lista de vixiancia.",
 	"gather-api-help-param-listowner": "Identificador de usuario do propietario da lista. Só ten sentido para listas de vixiancia.",
-	"gather-api-help-param-listtoken": "Identificador de lista de vixiancia (consulte a API de lista de vixiancia); necesario cando se quere consultar a lista de vixiancia doutro usuario.",
+	"gather-api-help-param-listtoken": "Identificador de seguridade (dispoñible nas [[Special:Preferences#mw-prefsection-watchlist|preferencias]] de usuario baixo <em>Watchlist token</em>) para permitir o acceso ás listas de outros usuarios.",
 	"apihelp-query+listmembership-description": "Dun conxunto de páxinas devuelve cales están nunha lista dada.",
-	"apihelp-query+listmembership-example-1": "Verificar se \"Page\" (páxina) está na lista de seguimento.",
-	"gather-view-collection": "Ver colección"
+	"apihelp-query+listmembership-example-1": "Verificar se <kbd>Page</kbd> (páxina) está na lista de seguimento.",
+	"gather-view-collection": "Ver colección",
+	"apihelp-query+listpages-description": "Devolve as páxinas da lista dada.",
+	"apihelp-query+listpages-example-1": "Mostra as páxinas da lista de vixiancia do usuario.",
+	"apihelp-query+listpages-example-2": "Mostra as páxina na lista con identificador <kbd>2</kbd>.",
+	"apihelp-query+listpages-param-namespace": "Limitar as coleccións a estes espazos de nomes.",
+	"apihelp-query+listpages-param-sort": "Especificar o mecanismo de ordenación a usar.",
+	"apihelp-query+listpages-param-dir": "Seleccionar a dirección da ordenación",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal.",
+	"apihelp-query+listpages-paramvalue-dir-descending": "Inverso.",
+	"apihelp-query+listpages-param-limit": "Limitar o número de páxinas que se devolven.",
+	"apihelp-query+listpages-paramvalue-sort-position": "Usar ordenamento manual.",
+	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espazo de nomes, título."
 }

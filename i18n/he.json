@@ -122,8 +122,20 @@
 	"gather-menu-guider": "נא ללחוץ על כפתור התפריט כדי לראות את הלקט החדש שלך.",
 	"gather-api-help-param-listid": "מזהה רשימה; יש להשמיט או להשתמש ב־<kbd>0</kbd> כדי להשתמש ברשימת המעקב.",
 	"gather-api-help-param-listowner": "מזהה המשתמש של בעל הרשימה. זה מתאים רק לרשימות מעקב.",
-	"gather-api-help-param-listtoken": "אסימון רשימת מעקב (ר' API של רשימת מעקב); נחוץ בעת חיפוש רשימת מעקב.",
+	"gather-api-help-param-listtoken": "אסימון אבטחה (זמין ב[[Special:Preferences#mw-prefsection-watchlist|העדפות]] המשתמש תחת <em>אסימון רשימת מעקב</em>) כדי לאפשר גישה לרשימות של משתמש אחר.",
 	"apihelp-query+listmembership-description": "מחזיר אילו דפים מתוך ערכה נמצאים ברשימה נתונה.",
-	"apihelp-query+listmembership-example-1": "בדיקה האם \"Page\" נמצא ברשימת המעקב.",
-	"gather-view-collection": "הצגת לקט"
+	"apihelp-query+listmembership-example-1": "בדיקה האם <kbd>Page</kbd> נמצא ברשימת המעקב.",
+	"gather-view-collection": "הצגת לקט",
+	"apihelp-query+listpages-description": "החזרת דפים ברשימה הנתונה.",
+	"apihelp-query+listpages-example-1": "הצגת דפים ברשימת המעקב של המשתמש.",
+	"apihelp-query+listpages-example-2": "הצגת דפים ברשימה עם המזהה <kbd>2</kbd>.",
+	"apihelp-query+listpages-param-namespace": "הגבלת הלקטים למרחבי השמות הבאים.",
+	"apihelp-query+listpages-param-sort": "ציון מנגנון המיון שישמש.",
+	"apihelp-query+listpages-param-dir": "הגדרת כיוון המיון.",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "רגיל.",
+	"apihelp-query+listpages-paramvalue-dir-descending": "הפוך.",
+	"apihelp-query+listpages-param-limit": "הגבלת מספר הדפים שיוחזרו.",
+	"apihelp-query+listpages-paramvalue-sort-position": "שימוש במיון ידני.",
+	"apihelp-query+listpages-paramvalue-sort-namespace": "מיון לפי מרחב שם וכותרת.",
+	"apihelp-query+lists-param-minitems": "הצגה רק של רשימות שיש בהן לפחות מספר כזה של פריטים. (לא תקף לרשימות מעקב.)"
 }

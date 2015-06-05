@@ -120,8 +120,20 @@
 	"gather-menu-guider": "点击菜单图标以检查您的新收藏。",
 	"gather-api-help-param-listid": "列表ID；省略或设置为<kbd>0</kbd>以使用监视列表。",
 	"gather-api-help-param-listowner": "列表主人的用户ID。只对监视列表有意义。",
-	"gather-api-help-param-listtoken": "监视列表令牌（见监视列表API）；当查看其他人监视列表时需要。",
+	"gather-api-help-param-listtoken": "允许访问其他用户列表的安全密钥（可通过用户的[[Special:Preferences#mw-prefsection-watchlist|参数设置]]找到，在<em>Watchlist token</em>下方）。",
 	"apihelp-query+listmembership-description": "返回指定列表上的哪一组页面。",
-	"apihelp-query+listmembership-example-1": "检查监视列表上是否有“Page”。",
-	"gather-view-collection": "查看收藏"
+	"apihelp-query+listmembership-example-1": "检查监视列表上是否有<kbd>Page</kbd>。",
+	"gather-view-collection": "查看收藏",
+	"apihelp-query+listpages-description": "在指定列表返回页面。",
+	"apihelp-query+listpages-example-1": "显示用户的监视列表中的页面。",
+	"apihelp-query+listpages-example-2": "显示在ID为<kbd>2</kbd>的列表中的页面。",
+	"apihelp-query+listpages-param-namespace": "限制收藏至这些名字空间。",
+	"apihelp-query+listpages-param-sort": "指定要使用的排序机制。",
+	"apihelp-query+listpages-param-dir": "设置排序方向。",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "一般。",
+	"apihelp-query+listpages-paramvalue-dir-descending": "反向。",
+	"apihelp-query+listpages-param-limit": "限制返回的页面数。",
+	"apihelp-query+listpages-paramvalue-sort-position": "使用一般排序。",
+	"apihelp-query+listpages-paramvalue-sort-namespace": "按名字空间、标题排序。",
+	"apihelp-query+lists-param-minitems": "只显示拥有至少这么多项的列表。（忽略监视列表。）"
 }

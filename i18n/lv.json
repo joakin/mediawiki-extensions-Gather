@@ -16,5 +16,6 @@
 	"gather-add-to-collection-cancel": "Nē, paldies",
 	"gather-page-not-found": "Lapa nav atrasta",
 	"gather-lists-title": "Kolekcijas",
-	"gather-delete-button": "Dzēst"
+	"gather-delete-button": "Dzēst",
+	"apihelp-query+listpages-param-limit": "Ierobežot atgriezto lapu skaitu."
 }

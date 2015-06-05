@@ -120,6 +120,16 @@
 	"gather-menu-guider": "Toca en el icono del menú para echar un vistazo a tu nueva colección.",
 	"gather-api-help-param-listowner": "ID de usuario del propietario de la lista. Solo es útil para las listas de seguimiento.",
 	"apihelp-query+listmembership-description": "De un conjunto de páginas devuelve cuáles están en una lista dada.",
-	"apihelp-query+listmembership-example-1": "Verificar si \"Page\" está en la lista de seguimiento.",
-	"gather-view-collection": "Ver colección"
+	"apihelp-query+listmembership-example-1": "Verificar si <kbd>Page</kbd> está en la lista de seguimiento.",
+	"gather-view-collection": "Ver colección",
+	"apihelp-query+listpages-example-1": "Mostrar las páginas de la lista de seguimiento del usuario.",
+	"apihelp-query+listpages-example-2": "Mostrar las páginas en la lista con identificador <kbd>2</kbd>.",
+	"apihelp-query+listpages-param-namespace": "Limitar las colecciones a estos espacios de nombres.",
+	"apihelp-query+listpages-param-sort": "Especificar el mecanismo de ordenamiento que se usará.",
+	"apihelp-query+listpages-param-dir": "Establecer la dirección de ordenamiento.",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal.",
+	"apihelp-query+listpages-paramvalue-dir-descending": "Revertido.",
+	"apihelp-query+listpages-param-limit": "Limitar el número de páginas que se devuelven.",
+	"apihelp-query+listpages-paramvalue-sort-position": "Usar el ordenamiento manual.",
+	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espacio de nombres, título."
 }

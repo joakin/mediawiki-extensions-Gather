@@ -7,7 +7,8 @@
 			"Fringio",
 			"^musaz",
 			"Macofe",
-			"Ricordisamoa"
+			"Ricordisamoa",
+			"Alexmar983"
 		]
 	},
 	"gather-checkuser-log-action": "azione \"$1\" eseguita su [[$2]] tramite l'estensione Gather",
@@ -22,5 +23,9 @@
 	"gather-add-to-collection-cancel": "No, grazie.",
 	"gather-page-not-found": "Pagina non trovata",
 	"gather-overlay-search-results-empty": "Siamo spiacenti, non è stato possibile trovare alcuna pagina per \"$1\"",
-	"apihelp-query+listmembership-example-1": "Controlla se \"Page\" è negli osservati speciali."
+	"apihelp-query+listmembership-example-1": "Controlla se \"Page\" è negli osservati speciali.",
+	"apihelp-query+listpages-description": "Restituisce le pagine nella lista data.",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normale.",
+	"apihelp-query+listpages-paramvalue-dir-descending": "Invertito.",
+	"apihelp-query+listpages-param-limit": "Limitare il numero di pagine restituite."
 }

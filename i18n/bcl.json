@@ -6,5 +6,9 @@
 	},
 	"gather-edit-collection-title-label": "Koleksyon nin pagliliwat",
 	"gather-add-new-placeholder": "Pangaran kan koleksyon",
-	"gather-overlay-search-empty": "Hanapa baya sa pagdugang nin mga pahina"
+	"gather-overlay-search-empty": "Hanapa baya sa pagdugang nin mga pahina",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal.",
+	"apihelp-query+listpages-paramvalue-dir-descending": "Pinagbirik.",
+	"apihelp-query+listpages-param-limit": "Limitaran an numero kan pinagbalik na mga pahina",
+	"apihelp-query+lists-param-minitems": "Ipahiling sana an mga listahan na igwa kaining dakulon na mga aytem. (Ibalewala para sa mga bantay-listahan.)"
 }

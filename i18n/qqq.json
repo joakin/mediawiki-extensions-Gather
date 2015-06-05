@@ -1,19 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dan Garry",
-			"Joaquin Hernandez",
-			"Jon Robson",
-			"Rob Moen",
-			"Liuxinyu970226",
-			"Robby",
 			"Amire80",
-			"Yuri Astrakhan",
-			"Yurik",
-			"Florian Schmidt",
+			"Liuxinyu970226",
 			"Macofe",
 			"Nemo bis",
-			"Siebrand"
+			"Robby",
+			"Siebrand",
+			"Yurik"
 		]
 	},
 	"gather": "Title of special page shown on Special:SpecialPages for viewing your own lists.",
@@ -131,20 +125,8 @@
 	"gather-menu-guider": "Message that shows up in an overlay pointing at the menu button.",
 	"gather-api-help-param-listid": "{{doc-apihelp-param|lsm|id|listmembership|query+listmembership}}",
 	"gather-api-help-param-listowner": "{{doc-apihelp-param|lsm|owner|listmembership|query+listmembership}}",
-	"gather-api-help-param-listtoken": "{{doc-apihelp-param|lsm|token|listmembership|query+listmembership}}",
+	"gather-api-help-param-listtoken": "{{doc-apihelp-param|lsm|token|listmembership|query+listmembership}}\n\n\"Watchlist token\" is {{msg-mw|Prefs-watchlist-token}}",
 	"apihelp-query+listmembership-description": "\"List\" here means the specific way, provided by the Gather extension, to store a list of wiki page titles in the wiki database.\n----\n{{doc-apihelp-description|lsm|listmembership|query+listmembership}}",
 	"apihelp-query+listmembership-example-1": "{{doc-apihelp-example|lsm|listmembership|query+listmembership}}",
 	"gather-view-collection": "Label for button that takes you to a collection."
-	"apihelp-query+listpages-description": "{{doc-apihelp-description|lsp|listpages|query+listpages}}",
-	"apihelp-query+listpages-example-1": "{{doc-apihelp-example|lsp|listpages|query+listpages}}",
-	"apihelp-query+listpages-example-2": "{{doc-apihelp-example|lsp|listpages|query+listpages}}",
-	"apihelp-query+listpages-param-namespace": "{{doc-apihelp-param|lsp|namespace|listpages|query+listpages}}",
-	"apihelp-query+listpages-param-sort": "{{doc-apihelp-param|lsp|sort|listpages|query+listpages}}",
-	"apihelp-query+listpages-param-dir": "{{doc-apihelp-param|lsp|dir|listpages|query+listpages}}",
-	"apihelp-query+listpages-paramvalue-dir-ascending": "{{doc-apihelp-paramvalue|lsp|dir|listpages|query+listpages|ascending}}",
-	"apihelp-query+listpages-paramvalue-dir-descending": "{{doc-apihelp-paramvalue|lsp|dir|listpages|query+listpages|descending}}",
-	"apihelp-query+listpages-param-limit": "{{doc-apihelp-param|lsp|limit|listpages|query+listpages}}",
-	"apihelp-query+listpages-paramvalue-sort-position": "{{doc-apihelp-paramvalue|lsp|sort|listpages|query+listpages|sortkey}}",
-	"apihelp-query+listpages-paramvalue-sort-namespace": "{{doc-apihelp-paramvalue|lsp|sort|listpages|query+listpages|namespace}}",
-	"apihelp-query+lists-param-minitems": "{{doc-apihelp-param|lst|minitems|lists|query+lists}}"
 }
