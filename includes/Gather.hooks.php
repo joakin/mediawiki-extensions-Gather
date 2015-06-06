@@ -222,20 +222,19 @@ class Hooks {
 	public static function onMobilePersonalTools( &$items ) {
 		if ( MobileContext::singleton()->isBetaGroupMember() ) {
 			// Add collections link below watchlist
-			$itemArray = array_slice( $items, 0, 1, true ) +
-				array(
-					'collections' => array(
-						'links' => array(
-							array(
-								'text' => wfMessage( 'gather-lists-title' )->escaped(),
-								'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
-								'class' => CSS::iconClass( 'collections-icon', 'before', 'collection-menu-item' ),
-								'data-event-name' => 'collections',
-							),
-						),
+			$itemArray = array_slice( $items, 0, 1, true );
+			$itemArray[] = array(
+				'name' => 'collections',
+				'components' => array(
+					array(
+						'text' => wfMessage( 'gather-lists-title' )->escaped(),
+						'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
+						'class' => CSS::iconClass( 'collections-icon', 'before', 'collection-menu-item' ),
+						'data-event-name' => 'collections',
 					),
-				) +
-				array_slice( $items, 1, count( $items ) - 1, true );
+				),
+			);
+			$itemArray += array_slice( $items, 1, count( $items ) - 1, true );
 			$items = $itemArray;
 		}
 	}
