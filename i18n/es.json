@@ -131,5 +131,6 @@
 	"apihelp-query+listpages-paramvalue-dir-descending": "Revertido.",
 	"apihelp-query+listpages-param-limit": "Limitar el número de páginas que se devuelven.",
 	"apihelp-query+listpages-paramvalue-sort-position": "Usar el ordenamiento manual.",
-	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espacio de nombres, título."
+	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espacio de nombres, título.",
+	"apihelp-query+lists-param-minitems": "Mostrar solo las listas que tengan al menos esta cantidad de elementos. (Se omite para listas de seguimiento)"
 }
