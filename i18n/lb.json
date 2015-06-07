@@ -61,6 +61,7 @@
 	"apihelp-query+listmembership-example-1": "Nokucken ob <kbd>Page</kbd> op der Iwwerwaachungslëscht ass.",
 	"gather-view-collection": "Sammlung weisen",
 	"apihelp-query+listpages-example-1": "D'Säiten am Benotzer senger Iwwerwaachungslëscht weisen.",
+	"apihelp-query+listpages-example-2": "D'Säiten an der Lëscht mat der Nummer (ID) <kbd>2</kbd> weisen.",
 	"apihelp-query+listpages-param-namespace": "Sammlungen op dës Nummraim limitéieren.",
 	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal.",
 	"apihelp-query+listpages-paramvalue-sort-position": "Manuellt Zortéiere benotzen.",

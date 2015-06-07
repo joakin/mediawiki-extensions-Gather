@@ -102,6 +102,6 @@
 	"gather-add-to-another": "Показать другие мои коллекции",
 	"gather-watchstar-button-label": "Добавить в коллекцию",
 	"gather-menu-guider": "Нажмите на значок меню, чтобы взглянуть на вашу новую коллекцию.",
-	"apihelp-query+listmembership-example-1": "Проверить, есть ли \"Page\" в списке наблюдения.",
+	"apihelp-query+listmembership-example-1": "Проверить, есть ли <kbd>Page</kbd> в списке наблюдения.",
 	"gather-view-collection": "Просмотреть коллекцию"
 }
