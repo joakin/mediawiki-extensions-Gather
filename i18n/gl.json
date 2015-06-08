@@ -7,6 +7,7 @@
 		]
 	},
 	"gather": "Agrupar",
+	"gathereditfeed": "Xuntar fluxo de edición de listas",
 	"gatherlists": "Agrupar as listas",
 	"gather-checkuser-log-action": "acción \"$1\" realizada en [[$2]] vía a extensión Gather",
 	"gather-purpose-login-action": "<b>Agora pode agrupar páxinas en coleccións para compartilas cos seus amigos ou gardalas para despois.</b><br />\nRexístrese para probar.",
@@ -135,5 +136,6 @@
 	"apihelp-query+listpages-paramvalue-dir-descending": "Inverso.",
 	"apihelp-query+listpages-param-limit": "Limitar o número de páxinas que se devolven.",
 	"apihelp-query+listpages-paramvalue-sort-position": "Usar ordenamento manual.",
-	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espazo de nomes, título."
+	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espazo de nomes, título.",
+	"apihelp-query+lists-param-minitems": "Mostrar só as listas que teñan polo menos esta cantidade de elementos. (Omítese para listas de seguimento)"
 }

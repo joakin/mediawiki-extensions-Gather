@@ -125,6 +125,6 @@
 	"gather-api-help-param-listowner": "Benutzerkennung des Listenbesitzers. Macht nur Sinn für Beobachtungslisten.",
 	"gather-api-help-param-listtoken": "Ein Sicherheits-Token (verfügbar in den [[Special:Preferences#mw-prefsection-watchlist|Benutzereinstellungen]] unter <em>Beobachtungslisten-Token</em>) zum Ermöglichen des Zugriffs auf die Listen anderer Benutzer.",
 	"apihelp-query+listmembership-description": "Gibt zurück, welche von einer Reihe von Seiten in einer vorgegebenen Liste sind.",
-	"apihelp-query+listmembership-example-1": "Überprüft, ob „Seite“ auf der Beobachtungsliste ist.",
+	"apihelp-query+listmembership-example-1": "Überprüft, ob <kbd>Seite</kbd> auf der Beobachtungsliste ist.",
 	"gather-view-collection": "Sammlung ansehen"
 }
