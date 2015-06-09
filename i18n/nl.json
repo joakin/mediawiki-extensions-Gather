@@ -54,5 +54,7 @@
 	"gather-overlay-edit-button": "Titel en beschrijving bewerken",
 	"gather-overlay-continue": "Volgende",
 	"gather-watchstar-button-label": "Toevoegen aan verzameling",
-	"gather-view-collection": "Verzameling bekijken"
+	"gather-view-collection": "Verzameling bekijken",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normaal.",
+	"apihelp-query+listpages-paramvalue-dir-descending": "Omgekeerd."
 }
