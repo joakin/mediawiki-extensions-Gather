@@ -54,17 +54,11 @@
 		onChangeMemberStatus: function ( ev ) {
 			var index,
 				$target = $( ev.currentTarget ),
-				$listThumb = $target.find( '.list-thumb' ),
 				title = $target.data( 'title' ),
 				inCollection = $target.data( 'is-member' ),
 				page = new Page( {
 					title: title
 				} );
-
-			// FIXME: So hacky. Move/use methods on Page
-			page.heading =  title;
-			page.pageimageClass = $listThumb.attr( 'class' );
-			page.listThumbStyleAttribute = $listThumb.attr( 'style' );
 
 			if ( inCollection ) {
 				this._removals.push( title );
@@ -88,7 +82,7 @@
 				}
 				$target.find( '.status' ).replaceWith( this.options.iconButton );
 				$target.data( 'is-member', true );
-				page.isMember = true;
+				page.options.isMember = true;
 				/**
 				 * @event member-added
 				 * @param {Page} page

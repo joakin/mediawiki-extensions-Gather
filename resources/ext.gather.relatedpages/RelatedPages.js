@@ -2,6 +2,7 @@
 
 	var RelatedPagesApi = M.require( 'ext.gather.api/RelatedPagesApi' ),
 		View = M.require( 'View' ),
+		Page = M.require( 'Page' ),
 		CollectionPageList = M.require( 'ext.gather.page.search/CollectionPageList' ),
 		icons = M.require( 'icons' ),
 		RelatedPages;
@@ -66,10 +67,9 @@
 					self.loading( false );
 				} ).then( function ( relatedPages ) {
 					if ( relatedPages ) {
-						self.relatedPages = $.map( relatedPages, function ( page ) {
-							page.isMember = false;
-							page.heading = page.title;
-							return page;
+						self.relatedPages = $.map( relatedPages, function ( pageOptions ) {
+							pageOptions.isMember = false;
+							return new Page( pageOptions );
 						} );
 					}
 				} );
