@@ -4,7 +4,8 @@
 			"Metalhead64",
 			"Purodha",
 			"Inkowik",
-			"Tiin"
+			"Tiin",
+			"Martin Riesel"
 		]
 	},
 	"gather": "Gather",
@@ -127,5 +128,6 @@
 	"gather-api-help-param-listtoken": "Ein Sicherheits-Token (verfügbar in den [[Special:Preferences#mw-prefsection-watchlist|Benutzereinstellungen]] unter <em>Beobachtungslisten-Token</em>) zum Ermöglichen des Zugriffs auf die Listen anderer Benutzer.",
 	"apihelp-query+listmembership-description": "Gibt zurück, welche von einer Reihe von Seiten in einer vorgegebenen Liste sind.",
 	"apihelp-query+listmembership-example-1": "Überprüft, ob <kbd>Seite</kbd> auf der Beobachtungsliste ist.",
-	"gather-view-collection": "Sammlung ansehen"
+	"gather-view-collection": "Sammlung ansehen",
+	"apihelp-query+listpages-param-dir": "Sortierrichtung festlegen."
 }

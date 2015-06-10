@@ -40,6 +40,7 @@
 	"gather-edit-collection-title-label": "编辑收藏",
 	"gather-edit-collection-failed-error": "出现与您尝试的更改相关的一个问题，请尝试其他方法。",
 	"gather-edit-collection-clear-label": "清空",
+	"gather-edit-collection-related-pages": "相关页面",
 	"gather-delete-collection-confirm": "您确定要删除此收藏吗？",
 	"gather-delete-collection-heading": "删除收藏",
 	"gather-delete-collection-delete-label": "删除",

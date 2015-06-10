@@ -39,6 +39,7 @@
 	"gather-edit-collection-save-label": "حفظ",
 	"gather-edit-collection-failed-error": "لم يتم التغير بنجاح، برجاء إعادة المحاولة.",
 	"gather-edit-collection-clear-label": "مسح",
+	"gather-edit-collection-related-pages": "صفحات ذات صلة",
 	"gather-delete-collection-confirm": "تأكيد الحذف؟",
 	"gather-delete-collection-heading": "حذف المجموعة؟",
 	"gather-delete-collection-delete-label": "حذف؟",
