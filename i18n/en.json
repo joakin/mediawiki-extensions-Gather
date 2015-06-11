@@ -128,7 +128,7 @@
 	"gather-menu-guider": "Tap on the menu icon to take a look at your new collection.",
 	"gather-api-help-param-listid": "List ID; omit or set to <kbd>0</kbd> to use the watchlist.",
 	"gather-api-help-param-listowner": "User ID of the list owner. Only makes sense for watchlists.",
-	"gather-api-help-param-listtoken": "A security token (available in the user's [[Special:Preferences#mw-prefsection-watchlist|preferences]] under <em>Watchlist token</em>) to allow access to another user's lists.",
+	"gather-api-help-param-listtoken": "A security token (available in the user's [[Special:Preferences#mw-prefsection-watchlist|preferences]] under <em>{{int:prefs-watchlist-token}}</em>) to allow access to another user's lists.",
 	"apihelp-query+listmembership-description": "Returns which of a set of pages are in a given list.",
 	"apihelp-query+listmembership-example-1": "Check whether <kbd>Page</kbd> is on the watchlist.",
 	"gather-view-collection": "View collection",
