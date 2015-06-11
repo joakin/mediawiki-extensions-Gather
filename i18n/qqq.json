@@ -83,7 +83,7 @@
 	"gather-unknown-error": "Used as an error message, if there was an unknown error.",
 	"gather-desc": "{{desc|name=Gather|url=https://www.mediawiki.org/wiki/Extension:Gather}}",
 	"gather-no-public-lists-title": "The title of the view shown when there are no public collections for a user.",
-	"gather-no-public-lists-description": "The descriptive text explaining that there are no public collections for a user.",
+	"gather-no-public-lists-description": "The descriptive text explaining that there are no public collections for a user.\nParameters:\n* $1 - username of current user for use in gender.",
 	"gather-page-not-found": "Text in place of the collection excerpt explaining that the page does not exist",
 	"gather-anon-view-lists": "Text shown when trying to see your own collections on [[Special:Gather]] but the user is not logged in.",
 	"gather-watchlist-title": "Title used for special casing the Watchlist collection on the [[Special:Gather]] page.\n{{Identical|Watchlist}}",

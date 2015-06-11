@@ -83,7 +83,7 @@
 	"gather-desc": "Component of Mobile Frontend allowing users to curate lists.",
 	"gather-loginpage-desc": "With Collections you can create and share lists of your favourite pages.",
 	"gather-no-public-lists-title": "No public collections",
-	"gather-no-public-lists-description": "There are no public collections for this user.",
+	"gather-no-public-lists-description": "There are no public collections for this {{GENDER:$1|user}}.",
 	"gather-page-not-found": "Page not found",
 	"gather-anon-view-lists": "You need to be logged in to see your Collections.",
 	"gather-watchlist-title": "Watchlist",
