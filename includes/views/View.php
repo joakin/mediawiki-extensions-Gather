@@ -25,7 +25,9 @@ abstract class View {
 	 * @private
 	 * @return string Html
 	 */
-	abstract public function getTitle();
+	public function getTitle() {
+		return '';
+	}
 
 	/**
 	 * Returns the title for the HTML tag title
