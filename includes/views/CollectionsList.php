@@ -28,8 +28,10 @@ class CollectionsList extends View {
 	 */
 	public static function getListItemsHtml( $collectionsList ) {
 		$html = '';
+		// Show owner link on card when the collections list doesn't have an owner.
+		$showOwnerLink = !$collectionsList->getOwner();
 		foreach ( $collectionsList as $item ) {
-			$collectionsListItemCard = new CollectionsListItemCard( $item );
+			$collectionsListItemCard = new CollectionsListItemCard( $item, $showOwnerLink );
 			$html .= $collectionsListItemCard->getHtml();
 		}
 		$url = $collectionsList->getContinueUrl();
@@ -55,12 +57,14 @@ class CollectionsList extends View {
 	 * @inheritdoc
 	 */
 	public function getHtml( $data = array() ) {
-
+		$cList = $this->collectionsList;
 		$defaults = array(
-			'items' => $this->getListItemsHtml( $this->collectionsList ),
-			'owner' => $this->collectionsList->getOwner()->getName(),
-			'isOwner' => $this->collectionsList->isOwner( $this->user ) ? true : false,
+			'items' => $this->getListItemsHtml( $cList ),
 		);
+		if ( $cList->getOwner() ) {
+			$defaults['owner'] = $cList->getOwner()->getName();
+			$defaults['isOwner'] = $cList->isOwner( $this->user ) ? true : false;
+		}
 		return Template::render( 'CollectionsList', array_merge( $defaults, $data ) );
 	}
 }

@@ -88,31 +88,64 @@ class SpecialGather extends SpecialPage {
 			$this->getOutput()->redirect(
 				SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'id' )->getSubPage( $id )->getLocalURL()
 			);
-		} elseif ( preg_match( '/^all(\/(?<mode>[^\/]+))?\/?$/', $subpage, $matches ) ) {
+		} elseif ( preg_match( '/^all(\/(?<cond>[^\/]+))?\/?$/', $subpage, $matches ) ) {
 			// All collections. Public or hidden
 			// /all = /all/ = /all/public = /all/public/
 			// /all/hidden = /all/hidden/
+			// /all/active = /all/active/
 
-			// mode can be hidden or public only
-			$mode = isset( $matches['mode'] ) && $matches['mode'] === 'hidden' ?
-				'hidden' : 'public';
+			$apiParams = array();
+			$displayAsTable = true;
 
-			if ( $mode === 'hidden' ) {
+			// Mode defaults to public
+			if ( !isset( $matches['cond'] ) ) {
+				$mode = 'public';
+			} else {
+				$mode = $matches['cond'];
+			}
+
+			if ( $mode === 'active' ) {
+				// Fancy list of collections with a certain amount of items.
+
+				$displayAsTable = false;
+				$apiParams = array(
+					'lstminitems' => 4
+				);
+				// Active is a concrete view of public with different params.
+				$mode = 'public';
+
+			} elseif ( $mode === 'hidden' ) {
+				// Table list of hidden collections.
+
+				// If user doesn't have permissions, bail out.
 				if ( !$this->canHideLists() ) {
 					$view = new views\NotFound();
 					$this->renderError( $view );
 					return;
 				}
 				$out->addSubtitle( $this->getSubTitle() );
-			} elseif ( $this->canHideLists() ) {
-				$out->addSubtitle( $this->getSubTitle( true ) );
-			}
-			$req = $this->getRequest();
-			$continue = $req->getValues();
-			$cList = models\CollectionsList::newFromApi( null, $mode === 'hidden',
-				false, $continue, $mode, 100 );
-			$this->renderRows( $cList, $mode === 'hidden' ? 'show' : 'hide' );
+			} elseif ( $mode === 'public' ) {
+				// Table list of public collections.
 
+				// If the user has permissions to hide add a link to the /all/hidden
+				// view for switching there.
+				if ( $this->canHideLists() ) {
+					$out->addSubtitle( $this->getSubTitle( true ) );
+				}
+			} else {
+				$this->renderError( new views\NotFound() );
+				return;
+			}
+
+			$req = $this->getRequest();
+			$apiParams = array_merge( $apiParams, $req->getValues() );
+			$cList = models\CollectionsList::newFromApi( null, $mode === 'hidden',
+				false, $apiParams, $mode, 100 );
+			if ( $displayAsTable ) {
+				$this->renderRows( $cList, $mode === 'hidden' ? 'show' : 'hide' );
+			} else {
+				$this->renderCollectionsList( $cList );
+			}
 		} else {
 			// Unknown subpage
 			$this->renderError( new views\NotFound() );
@@ -232,6 +265,15 @@ class SpecialGather extends SpecialPage {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Renders a list of user collections
+	 *
+	 * @param models\CollectionsList $collectionsList owner of collections
+	 */
+	public function renderCollectionsList( models\CollectionsList $collectionsList ) {
+		$this->render( new views\CollectionsList( $this->getUser(), $collectionsList ) );
 	}
 
 	/**

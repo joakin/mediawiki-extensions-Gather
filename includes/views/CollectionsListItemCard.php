@@ -8,6 +8,7 @@ namespace Gather\views;
 use Gather\models;
 use Gather\views\helpers\Template;
 use Html;
+use helpers\CSS;
 
 /**
  * View for an item card in a mobile collection.
@@ -16,10 +17,13 @@ class CollectionsListItemCard extends View {
 
 	/**
 	 * @param models\CollectionInfo $collection
+	 * @param Boolean $showOwnerLink Whether the card should show the owner of
+	 * the collection link.
 	 */
-	public function __construct( models\CollectionInfo $collection ) {
+	public function __construct( models\CollectionInfo $collection, $showOwnerLink = false ) {
 		$this->collection = $collection;
 		$this->image = new Image( $collection );
+		$this->showOwnerLink = $showOwnerLink;
 	}
 
 	/**
@@ -67,6 +71,14 @@ class CollectionsListItemCard extends View {
 			'image' => $this->image->getHtml(),
 			'title' => $this->getTitle(),
 		);
+		$owner = $collection->getOwner();
+		if ( $owner && $this->showOwnerLink ) {
+			$defaults['owner'] = array(
+				'link' => $collection->getOwnerUrl(),
+				'class' => helpers\CSS::iconClass( 'profile', 'before' ),
+				'label' => $owner->getName(),
+			);
+		}
 		return Template::render( 'CollectionsListItemCard', array_merge( $defaults, $data ) );
 	}
 }

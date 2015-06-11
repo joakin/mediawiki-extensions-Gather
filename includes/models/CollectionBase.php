@@ -162,6 +162,22 @@ abstract class CollectionBase implements WithImage, ArraySerializable {
 	}
 
 	/**
+	 * Get url of owner.
+	 *
+	 * @return string|boolean url of owner's Gather page or false if no owner associated
+	 *  with collection.
+	 */
+	public function getOwnerUrl() {
+		$owner = $this->getOwner();
+		if ( $owner->getName() ) {
+			return SpecialPage::getTitleFor( 'Gather' )
+				->getSubpage( 'by' )
+				->getSubPage( $owner->getName() )->getLocalUrl();
+		} else {
+			return false;
+		}
+	}
+	/**
 	 * Define the local url for which the collection can be accessed
 	 *
 	 * @param string $url for accessing the collection minus any query string parameters
