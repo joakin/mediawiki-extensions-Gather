@@ -409,6 +409,7 @@
 				"mobile",
 				"desktop"
 			],
+			"@doc": "FIXME: ext.gather.styles gets loaded twice. See https://phabricator.wikimedia.org/T87871",
 			"dependencies": [
 				"ext.gather.page.search",
 				"ext.gather.relatedpages",
@@ -417,6 +418,7 @@
 				"mobile.toast",
 				"mediawiki.ui.checkbox",
 				"ext.gather.api",
+				"ext.gather.styles",
 				"ext.gather.collection.delete"
 			],
 			"messages": [
@@ -451,14 +453,20 @@
 				"mobile",
 				"desktop"
 			],
+			"@doc": "FIXME: skins.minerva.alpha.images should not be a dependency",
 			"dependencies": [
 				"ext.gather.api",
+				"skins.minerva.alpha.images",
 				"mobile.pagelist",
+				"ext.gather.watchstar.icons",
 				"mobile.search"
 			],
 			"messages": [
+				"search",
 				"gather-remove-toast",
 				"gather-add-toast",
+				"gather-collection-non-member",
+				"gather-collection-member",
 				"gather-overlay-search-empty",
 				"gather-overlay-search-new",
 				"gather-overlay-search-results-empty"

@@ -3,6 +3,7 @@
 
 	var Api = M.require( 'api' ).Api,
 		user = M.require( 'user' ),
+		Page = M.require( 'Page' ),
 		CollectionsApi;
 
 	/**
@@ -10,6 +11,7 @@
 	 *
 	 * @class CollectionApi
 	 * @extends Api
+	 * @uses Page
 	 */
 	CollectionsApi = Api.extend( {
 		boilerplate: {
@@ -129,9 +131,9 @@
 				if ( !resp.query ) {
 					return [];
 				}
-				return $.map( resp.query.pages, function ( page ) {
-					page.heading = page.title;
-					page.isMember = true;
+				return $.map( resp.query.pages, function ( pageOptions ) {
+					pageOptions.isMember = true;
+					var page = new Page( pageOptions );
 					return page;
 				} );
 			} );
