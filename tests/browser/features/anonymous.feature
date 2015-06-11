@@ -5,8 +5,13 @@ Feature: Anonymous users
     Given I am not logged in
       And I am using the mobile site
 
-  Scenario: Gather redirects to login screen
+  Scenario: Gather shows public view
     When I visit the Gather page
+    Then I see the recent collections page
+
+  Scenario: Clicking tab shows login page
+    When I visit the Gather page
+        And I click the my collections tab
     Then I see the login page
 
   Scenario: Anons not allowed to view private collections

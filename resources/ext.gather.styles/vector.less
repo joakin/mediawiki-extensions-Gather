@@ -2,6 +2,25 @@
 @import "minerva.variables.less";
 @import "minerva.mixins.less";
 
+.content-header {
+	padding: 0 16px 20px 0;
+}
+
+.mw-ui-button-group {
+	text-align: left;
+	margin: 0;
+
+	* {
+		// FIXME: !important needed to overrride rule in mw-ui-button
+		float: none !important;
+	}
+
+	// For talk and CTA drawer
+	.mw-ui-block {
+		width: auto;
+	}
+}
+
 .view-border-box,
 .collection {
 	* {

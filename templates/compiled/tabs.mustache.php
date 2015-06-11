@@ -21,13 +21,11 @@
 
     );
     
-    return '<div class=\'collections-list content view-border-box\' data-owner="'.htmlentities((string)LCRun3::v($cx, $in, array('owner')), ENT_QUOTES, 'UTF-8').'"
-  data-is-owner=\''.LCRun3::v($cx, $in, array('isOwner')).'\' data-mode=\''.htmlentities((string)LCRun3::v($cx, $in, array('mode')), ENT_QUOTES, 'UTF-8').'\'>
-  <div class=\'collection-cards\'>
-    '.LCRun3::v($cx, $in, array('items')).'
-  </div>
-  <div class=\'collection-actions\'></div>
-</div>
-';
+    return '<div class="content-header">
+	<ul class="button-bar mw-ui-button-group">
+		'.LCRun3::sec($cx, LCRun3::v($cx, $in, array('tabs')), $in, false, function($cx, $in) {return '<li class="mw-ui-button '.LCRun3::sec($cx, LCRun3::v($cx, $in, array('isCurrentTab')), $in, false, function($cx, $in) {return 'mw-ui-progressive';}).'">
+			<a href="'.htmlentities((string)LCRun3::v($cx, $in, array('href')), ENT_QUOTES, 'UTF-8').'">'.htmlentities((string)LCRun3::v($cx, $in, array('label')), ENT_QUOTES, 'UTF-8').'</a></li>';}).'
+	</ul>
+</div>';
 }
 ?>

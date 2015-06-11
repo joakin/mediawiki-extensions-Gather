@@ -9,6 +9,15 @@ When(/^I visit a private collection page$/) do
   visit(WatchlistCollectionPage)
 end
 
+When(/^I click the my collections tab$/) do
+  on(GatherRecentPage).my_collections_button_element.click
+end
+
+
+Then(/^I see the recent collections page$/) do
+  expect(@browser.url).to match(/Special\:Gather\/all\/recent/)
+end
+
 Then(/^I see the login page$/) do
   expect(@browser.url).to match(/Special\:UserLogin/)
 end
