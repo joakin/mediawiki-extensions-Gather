@@ -201,10 +201,17 @@
 		 * Event handler when the search input is cleared
 		 */
 		onClearSearch: function () {
+			this._clearSearch();
+			this.$( '.search-header input' ).focus();
+		},
+		/**
+		 * Clear the search input
+		 * @private
+		 */
+		_clearSearch: function () {
 			this.$( '.search-header input' ).val( '' );
 			this.searchPanel.search( '' );
 			this.$clear.addClass( 'hidden' );
-			this.$( '.search-header input' ).focus();
 		},
 		/**
 		 * Event handler for when the collection members change. If the search pane
@@ -212,7 +219,7 @@
 		 */
 		onCollectionMembersChange: function () {
 			if ( this.activePane === 'search' ) {
-				this.onClearSearch();
+				this._clearSearch();
 				this.onExitSearch();
 			}
 		},
