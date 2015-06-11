@@ -62,6 +62,10 @@ class SpecialGather extends SpecialPage {
 			$url = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )
 					->getSubPage( $user->getName() )->getLocalUrl();
 			$out->redirect( $url );
+		} elseif ( preg_match( '/^random$/', $subpage, $matches ) ) {
+			$this->renderCollection(
+				models\Collection::newFromRandomApi( array() )
+			);
 		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/?$/', $subpage, $matches ) ) {
 			// User's collections
 			// /by/:user = /by/:user/
