@@ -37,6 +37,16 @@ class SpecialGather extends SpecialPage {
 					'limit' => 10,
 					'continue' => array( 'r' => 4 ),
 				),
+				'edited' => array(
+					'title' => wfMessage( 'gather-collection-edited-title' ),
+					'description' => wfMessage( 'gather-collection-edited-description' ),
+					'params' => array(
+						'generator' => 'recentchanges',
+						'grcnamespace' => 0,
+						'grclimit' => 20,
+					),
+					'limit' => 10,
+				),
 			);
 	}
 
@@ -100,7 +110,8 @@ class SpecialGather extends SpecialPage {
 				if ( isset( $this->specialCollections[$key] ) ) {
 					$args = $this->specialCollections[$key];
 					$c = new models\Collection( 0, null, $args['title'], $args['description'] );
-					$c = models\Collection::newFromApi( $c, $args['params'], $args['limit'], $args['continue'] );
+					$c = models\Collection::newFromApi( $c, $args['params'], $args['limit'],
+						( $args['continue'] ? $args['continue'] : array() ) );
 					$c->setUrl( SpecialPage::getTitleFor( 'Gather' )
 						->getSubpage( 'explore' )
 						->getSubpage( $key )->getLocalUrl() );

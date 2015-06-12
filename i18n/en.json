@@ -36,6 +36,8 @@
 	"gather-all-collections": "Active",
 	"gather-collection-random-title": "Random pages",
 	"gather-collection-random-description": "A collection of random pages from across {{SITENAME}}",
+	"gather-collection-edited-title": "Recently edited",
+	"gather-collection-edited-description": "A collection of the most recently edited pages from across {{SITENAME}}",
 	"gather-editfeed-show": "Show",
 	"gather-editfeed-title": "Edits to pages in my collections",
 	"gather-editfeed-empty": "There have been no recent edits to any pages in this collection.",
