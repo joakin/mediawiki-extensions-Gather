@@ -612,11 +612,13 @@ class ApiEditList extends ApiBase {
 				$res[] = $r;
 			}
 
+			$dbw->begin( __METHOD__ );
 			$dbw->insert( 'gather_list_item', $rows, __METHOD__, 'IGNORE' );
 			$dbw->update( 'gather_list',
 				array( 'gl_item_count = gl_item_count + ' . $dbw->affectedRows() ),
 				array( 'gl_id' => $listId ),
 				__METHOD__ );
+			$dbw->commit( __METHOD__ );
 		} else {
 			// Remove titles from the list
 			$linkBatch = new LinkBatch();
@@ -632,6 +634,7 @@ class ApiEditList extends ApiBase {
 			}
 			$set = $linkBatch->constructSet( 'gli', $dbw );
 			if ( $set ) {
+				$dbw->begin( __METHOD__ );
 				$dbw->delete( 'gather_list_item', array(
 					'gli_gl_id' => $listId,
 					$set
@@ -640,6 +643,7 @@ class ApiEditList extends ApiBase {
 					array( 'gl_item_count = gl_item_count - ' . $dbw->affectedRows() ),
 					array( 'gl_id' => $listId ),
 					__METHOD__ );
+				$dbw->commit( __METHOD__ );
 			}
 		}
 
