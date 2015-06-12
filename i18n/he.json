@@ -125,7 +125,7 @@
 	"gather-menu-guider": "נא ללחוץ על כפתור התפריט כדי לראות את הלקט החדש שלך.",
 	"gather-api-help-param-listid": "מזהה רשימה; יש להשמיט או להשתמש ב־<kbd>0</kbd> כדי להשתמש ברשימת המעקב.",
 	"gather-api-help-param-listowner": "מזהה המשתמש של בעל הרשימה. זה מתאים רק לרשימות מעקב.",
-	"gather-api-help-param-listtoken": "אסימון אבטחה (זמין ב[[Special:Preferences#mw-prefsection-watchlist|העדפות]] המשתמש תחת <em>אסימון רשימת מעקב</em>) כדי לאפשר גישה לרשימות של משתמש אחר.",
+	"gather-api-help-param-listtoken": "אסימון אבטחה (זמין ב[[Special:Preferences#mw-prefsection-watchlist|העדפות]] המשתמש תחת <em>{{int:prefs-watchlist-token}}</em>) כדי לאפשר גישה לרשימות של משתמש אחר.",
 	"apihelp-query+listmembership-description": "מחזיר אילו דפים מתוך ערכה נמצאים ברשימה נתונה.",
 	"apihelp-query+listmembership-example-1": "בדיקה האם <kbd>Page</kbd> נמצא ברשימת המעקב.",
 	"gather-view-collection": "הצגת לקט",

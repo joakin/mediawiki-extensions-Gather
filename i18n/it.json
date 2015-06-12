@@ -18,6 +18,8 @@
 	"gather-lists-collection-description": "Descrizione",
 	"gather-lists-collection-count": "Conteggio",
 	"gather-lists-hide-success-toast": "Lista \"$1\" occultata con successo.",
+	"gather-collection-random-title": "Pagine a caso",
+	"gather-collection-random-description": "Una raccolta di pagine casuali da {{SITENAME}}",
 	"gather-edit-collection-save-label": "Salva",
 	"gather-edit-collection-related-pages": "Pagine correlate",
 	"gather-create-collection-button-label": "Crea una collezione",
@@ -28,5 +30,6 @@
 	"apihelp-query+listpages-description": "Restituisce le pagine nella lista data.",
 	"apihelp-query+listpages-paramvalue-dir-ascending": "Normale.",
 	"apihelp-query+listpages-paramvalue-dir-descending": "Invertito.",
-	"apihelp-query+listpages-param-limit": "Limitare il numero di pagine restituite."
+	"apihelp-query+listpages-param-limit": "Limitare il numero di pagine restituite.",
+	"apihelp-query+lists-param-minitems": "Mostra solo le liste che hanno almeno questa numero di elementi. (ingnorate per gli osservati speciali.)"
 }
