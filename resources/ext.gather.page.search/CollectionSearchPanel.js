@@ -142,6 +142,7 @@
 		 * Event handler for when try another search link is clicked
 		 */
 		onSearchLinkClick: function () {
+			// FIXME: Why is this global? View's should not use global jQuery for this sort of thing.
 			$( '.search input' ).val( '' ).focus().trigger( 'input' );
 			return false;
 		},

@@ -26,11 +26,13 @@
 		className: 'collection-overlay content-overlay overlay position-fixed',
 		/** @inheritdoc */
 		templatePartials: {
+			header: mw.template.get( 'ext.gather.collection.contentOverlay', 'header.hogan' ),
 			content: mw.template.get( 'ext.gather.collection.contentOverlay', 'content.hogan' )
 		},
 		appendTo: 'body',
 		/** @inheritdoc */
 		events: {
+			'click .cancel': 'onExit',
 			'click .more-collections': 'onClickLoadMoreCollections',
 			click: 'onClickInsideOverlay',
 			'focus input': 'onFocusInput',
@@ -42,12 +44,21 @@
 			'click .tutorial-next': 'onClickTutorialNext'
 		},
 		/** @inheritdoc */
+		onExit: function () {
+			this.hide();
+		},
+		/** @inheritdoc */
 		hasFixedHeader: false,
 		/** @inheritdoc */
-		defaults: {
+		defaults: $.extend( {}, CollectionsContentOverlayBase.prototype.defaults, {
 			page: undefined,
 			/** @inheritdoc */
 			fixedHeader: false,
+			closeIconGray: new Icon( {
+				name: 'close-gray',
+				additionalClassNames: 'cancel',
+				label: mw.msg( 'mobile-frontend-overlay-close' )
+			} ).toHtmlString(),
 			iconButton: new Icon( {
 				name: 'tick',
 				label: mw.msg( 'gather-collection-member' )
@@ -68,7 +79,7 @@
 			createButtonLabel: mw.msg( 'gather-create-new-button-label' ),
 			showTutorial: false,
 			collections: undefined
-		},
+		} ),
 		/** @inheritdoc */
 		initialize: function ( options ) {
 			this.api = new CollectionsApi();
