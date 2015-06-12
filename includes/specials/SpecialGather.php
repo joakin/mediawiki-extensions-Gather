@@ -21,8 +21,23 @@ use Linker;
  */
 class SpecialGather extends SpecialPage {
 
+	protected $specialCollections;
+
 	public function __construct() {
 		parent::__construct( 'Gather' );
+		$this->specialCollections = array(
+				'random' => array(
+					'title' => wfMessage( 'gather-collection-random-title' ),
+					'description' => wfMessage( 'gather-collection-random-description' ),
+					'params' => array(
+						'generator' => 'random',
+						'grnnamespace' => 0,
+						'grnlimit' => 10,
+					),
+					'limit' => 10,
+					'continue' => array( 'r' => 4 ),
+				),
+			);
 	}
 
 	/**
@@ -62,10 +77,35 @@ class SpecialGather extends SpecialPage {
 			$url = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )
 					->getSubPage( $user->getName() )->getLocalUrl();
 			$out->redirect( $url );
-		} elseif ( preg_match( '/^random$/', $subpage, $matches ) ) {
-			$this->renderCollection(
-				models\Collection::newFromRandomApi( array() )
-			);
+		} elseif ( preg_match( '/^explore\/(?<key>.*)$/', $subpage, $matches ) ) {
+			// Special explorable collections
+			// /explore/:type & /explore/
+			$key = $matches['key'];
+			if ( $key ) {
+				// /explore/:type -> Show the collection of type :type
+				if ( isset( $this->specialCollections[$key] ) ) {
+					$args = $this->specialCollections[$key];
+					$c = new models\Collection( 0, null, $args['title'], $args['description'] );
+					$c = models\Collection::newFromApi( $c, $args['params'], $args['limit'], $args['continue'] );
+					$c->setUrl( SpecialPage::getTitleFor( 'Gather' )
+						->getSubpage( 'explore' )
+						->getSubpage( $key )->getLocalUrl() );
+					$this->renderCollection( $c );
+				}
+			} else {
+				// /explore/ -> List all explorable collections
+				$collectionList = new models\CollectionsList();
+				foreach ( $this->specialCollections as $key => $definition ) {
+					$ci = new models\CollectionInfo( null, null,
+						$definition['title'], $definition['description'] );
+					$ci->setCount( '∞' );
+					$ci->setUrl( SpecialPage::getTitleFor( 'Gather' )
+						->getSubpage( 'explore' )
+						->getSubpage( $key )->getLocalUrl() );
+					$collectionList->add( $ci );
+				}
+				$this->renderCollectionsList( $collectionList );
+			}
 		} elseif ( preg_match( '/^by\/(?<user>[^\/]+)\/?$/', $subpage, $matches ) ) {
 			// User's collections
 			// /by/:user = /by/:user/
