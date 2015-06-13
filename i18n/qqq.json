@@ -34,7 +34,7 @@
 	"gather-lists-show-success-toast": "Label for toast displaying that specified list was shown successfully. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
 	"gather-lists-show-failure-toast": "Label for toast diaplaying that showing specified list failed. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
 	"gather-lists-hide-protocol": "Text shown to administrator to a moderation policy which outlines moderation expectations on [[Special:GatherLists]] (optional)",
-	"gather-collection-random-title": "Title of a collection which contains random items.",
+	"gather-collection-random-title": "Title of a collection which contains random items.\n{{Identical|Random page}}",
 	"gather-collection-random-description": "Description of a collection which contains random items.",
 	"gather-editfeed-show": "Label for a button to switch to a list of pages from the list of updates to said pages.\n\n{{Identical|Show}}",
 	"gather-editfeed-title": "Title for page that allows you to view edits inside a collection.",

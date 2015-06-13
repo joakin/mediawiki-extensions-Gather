@@ -79,7 +79,7 @@
 	"gather-desc": "Compoñente da extensión Mobile Frontend que permite aos usuarios xestionar listas.",
 	"gather-loginpage-desc": "Coas Coleccións pode crear e compartir listas das súas páxinas favoritas.",
 	"gather-no-public-lists-title": "Sen coleccións públicas",
-	"gather-no-public-lists-description": "No hai coleccións públicas para {{GENDER:$1|este usuario|esta usuaria}}.",
+	"gather-no-public-lists-description": "Non hai coleccións públicas para {{GENDER:$1|este usuario|esta usuaria}}.",
 	"gather-page-not-found": "Non se atopou a páxina",
 	"gather-anon-view-lists": "Debe iniciar sesión para ver as súas coleccións.",
 	"gather-watchlist-title": "Lista de vixilancia",
