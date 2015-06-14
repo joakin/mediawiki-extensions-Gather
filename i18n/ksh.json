@@ -75,7 +75,7 @@
 	"gather-desc": "Aandeil för et Projramm för Mobihljerähte för de eije Leßte ze beärbeide.",
 	"gather-loginpage-desc": "Met de Sammlonge kam_mer Sigge en eije Sammlong don un öffentlesch wiggerjävve.",
 	"gather-no-public-lists-title": "Kein öffentlesche Sammlonge",
-	"gather-no-public-lists-description": "mer han kein öffentlesche Sammlonge för heh dä Metmaacher.",
+	"gather-no-public-lists-description": "mer han kein öffentlesche Sammlonge för heh dä \n{{GENDER:$1|dä Metmaacher|de Metmaacherėn|dä Metmaacher|de Metmaacherėn|dä Metmaacher}}.",
 	"gather-page-not-found": "Sigg nit jefonge",
 	"gather-anon-view-lists": "Mer moß ennjelogg sin, öm de eije Leßte belohre ze künne.",
 	"gather-watchlist-title": "Oppaßleß",

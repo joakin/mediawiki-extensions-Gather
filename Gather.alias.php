@@ -38,7 +38,7 @@ $specialPageAliases['lb'] = array(
 	'Gather' => array( 'Sammelen' ),
 );
 
-/** Northern Luri (لوری مینجایی) */
+/** Northern Luri (لۊری شومالی) */
 $specialPageAliases['lrc'] = array(
 	'Gather' => array( 'جأم_کئردئن' ),
 	'GatherLists' => array( 'جأم_کئردئن_نومگە_یا' ),
