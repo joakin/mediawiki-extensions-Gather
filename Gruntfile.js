@@ -110,6 +110,8 @@ module.exports = function ( grunt ) {
 					'builtin-classes': true,
 					'external': [
 						'Hogan.Template',
+						// from MobileFrontend
+						'Page',
 						'HandleBars.Template',
 						'jQuery.Deferred',
 						'jQuery.Event',

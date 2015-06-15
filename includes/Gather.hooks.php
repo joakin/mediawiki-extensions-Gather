@@ -206,11 +206,10 @@ class Hooks {
 	 */
 	public static function onSkinMinervaDefaultModules( $skin, &$modules ) {
 		// load gather only on pages, that can contain content and in mobile beta view
-		if (
-			$skin->getTitle()->canExist() &&
-			MobileContext::singleton()->isBetaGroupMember()
-		) {
+		if ( $skin->getTitle()->canExist() ) {
 			$modules['watch'] = array( 'ext.gather.init' );
+			// FIXME: abuse of the hook.
+			$skin->getOutput()->addModuleStyles( 'ext.gather.menu.icon' );
 		}
 		return true;
 	}
@@ -220,23 +219,19 @@ class Hooks {
 	 * @param array &$items Items array to be added to menu
 	 */
 	public static function onMobilePersonalTools( &$items ) {
-		if ( MobileContext::singleton()->isBetaGroupMember() ) {
-			// Add collections link below watchlist
-			$itemArray = array_slice( $items, 0, 1, true );
-			$itemArray[] = array(
-				'name' => 'collections',
-				'components' => array(
-					array(
-						'text' => wfMessage( 'gather-lists-title' )->escaped(),
-						'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
-						'class' => CSS::iconClass( 'collections-icon', 'before', 'collection-menu-item' ),
-						'data-event-name' => 'collections',
-					),
-				),
-			);
-			$itemArray += array_slice( $items, 1, count( $items ) - 1, true );
-			$items = $itemArray;
-		}
+		// Add collections link below watchlist
+		$itemArray = array_slice( $items, 0, 1, true );
+		$itemArray[] = array(
+			'name' => 'collections',
+			'components' => array(
+				'text' => wfMessage( 'gather-lists-title' )->escaped(),
+				'href' => SpecialPage::getTitleFor( 'Gather' )->getLocalURL(),
+				'class' => CSS::iconClass( 'collections-icon', 'before', 'collection-menu-item hidden' ),
+				'data-event-name' => 'collections',
+			)
+		);
+		$itemArray += array_slice( $items, 1, count( $items ) - 1, true );
+		$items = $itemArray;
 	}
 
 	/**

@@ -1,13 +1,19 @@
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 ( function ( M, $ ) {
 
-	var CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
+	var $star, watchstar,
+		bucket, useGatherStar,
+		CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
+		Watchstar = M.require( 'modules/watchstar/Watchstar' ),
 		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
 		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
 		Tag = M.require( 'ext.gather.watchstar/Tag' ),
 		settings = M.require( 'settings' ),
 		settingOverlayWasDismissed = 'gather-has-dismissed-tutorial',
 		user = M.require( 'user' ),
+		experiments = M.require( 'experiments' ),
+		context = M.require( 'context' ),
+		skin = M.require( 'skin' ),
 		page = M.getCurrentPage();
 
 	/**
@@ -77,28 +83,29 @@
 
 	/**
 	 * Swap out the default watchstar for our link
-	 * @method
 	 * @param {Page} page
+	 * @param {jQuery.Object} $star element to bind to
 	 * @ignore
 	 */
-	function init( page ) {
-		var $star = $( '#ca-watch, #ca-unwatch' ),
-			shouldShow = shouldShowCollectionTutorial(),
-			watchstar = new CollectionsWatchstar( {
-				page: page,
-				isAnon: user.isAnon(),
-				isWatched: $star.hasClass( 'watched' ),
-				wasUserPrompted: shouldShow,
-				isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
-			} );
+	function init( page, $star ) {
+		var shouldShow = shouldShowCollectionTutorial(),
+			$menuItem = $( '#mw-mf-page-left .collection-menu-item' ).removeClass( 'hidden' );
+
+		watchstar = new CollectionsWatchstar( {
+			page: page,
+			isAnon: user.isAnon(),
+			isWatched: $star.hasClass( 'watched' ),
+			wasUserPrompted: shouldShow,
+			isNewlyAuthenticatedUser: mw.util.getParamValue( 'article_action' ) === 'add_to_collection'
+		} );
 
 		watchstar.insertBefore( $star );
 		$star.remove();
 		if ( shouldShow ) {
 			showPointer( watchstar );
 		}
+
 		watchstar.on( 'completed', function ( firstTimeUser, isNewCollection ) {
-			var $menuItem = $( '#mw-mf-page-left .collection-menu-item' );
 			if ( isNewCollection ) {
 				// FIXME: Rename pointer overlay?
 				// Only append the overlay if it is not there yet
@@ -122,7 +129,26 @@
 
 	// Only init when current page is an article
 	if ( !page.inNamespace( 'special' ) ) {
-		init( page );
+		try {
+			bucket = experiments.getBucket( 'gather' );
+			useGatherStar = context.isBetaGroupMember() || bucket === 'A';
+		} catch ( e ) {
+			// experiment hasn't been defined.
+			useGatherStar = false;
+		}
+		$star = $( '#ca-watch, #ca-unwatch' );
+		if ( useGatherStar ) {
+			init( page, $star );
+		} else {
+			watchstar = new Watchstar( {
+				el: $star,
+				page: page,
+				funnel: 'page',
+				isAnon: user.isAnon(),
+				isWatched: $star.hasClass( 'watched' )
+			} );
+			skin.emit( 'changed' );
+		}
 	}
 
 }( mw.mobileFrontend, jQuery ) );

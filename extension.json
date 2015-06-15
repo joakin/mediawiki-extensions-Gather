@@ -391,8 +391,9 @@
 			],
 			"dependencies": [
 				"ext.gather.menu.icon",
-				"ext.gather.watchstar",
-				"mobile.toast"
+				"mobile.experiments",
+				"mobile.watchstar",
+				"ext.gather.watchstar"
 			],
 			"messages": [
 				"gather-menu-guider"
