@@ -133,8 +133,8 @@
 			bucket = experiments.getBucket( 'gather' );
 			useGatherStar = context.isBetaGroupMember() || bucket === 'A';
 		} catch ( e ) {
-			// experiment hasn't been defined.
-			useGatherStar = false;
+			// experiment hasn't been defined. Only enable in beta.
+			useGatherStar = context.isBetaGroupMember();
 		}
 		$star = $( '#ca-watch, #ca-unwatch' );
 		if ( useGatherStar ) {
