@@ -64,4 +64,11 @@
 			'Check that an invalid description is correctly evaluated' );
 	} );
 
+	QUnit.test( 'New collection', 2, function ( assert ) {
+		var overlay = new CollectionEditOverlay( {} );
+		assert.ok( overlay.options.collection, 'Check an empty collection is created...' );
+		assert.strictEqual( overlay.$( '.privacy' ).prop( 'checked' ), true,
+			'... and public by default.' );
+	} );
+
 }( mw.mobileFrontend, jQuery ) );

@@ -94,6 +94,8 @@
 		initialize: function ( options ) {
 			if ( options && options.collection ) {
 				this.id = options.collection.id;
+			} else {
+				options.collection = {};
 			}
 			this.activePane = 'main';
 			this.api = new CollectionsApi();
