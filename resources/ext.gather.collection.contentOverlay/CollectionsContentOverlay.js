@@ -26,7 +26,7 @@
 		className: 'collection-overlay content-overlay overlay position-fixed',
 		/** @inheritdoc */
 		templatePartials: {
-			content: mw.template.get( 'ext.gather.watchstar', 'content.hogan' )
+			content: mw.template.get( 'ext.gather.collection.contentOverlay', 'content.hogan' )
 		},
 		appendTo: 'body',
 		/** @inheritdoc */

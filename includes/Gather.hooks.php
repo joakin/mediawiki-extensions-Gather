@@ -272,11 +272,11 @@ class Hooks {
 			),
 			'dependencies' => array( 'ext.gather.api' ),
 		);
-		$modules['qunit']['ext.gather.watchstar.tests'] = $boilerplate + array(
+		$modules['qunit']['ext.gather.collection.contentOverlay.tests'] = $boilerplate + array(
 			'scripts' => array(
-				'ext.gather.watchstar/test_CollectionsContentOverlay.js',
+				'ext.gather.collection.contentOverlay/test_CollectionsContentOverlay.js',
 			),
-			'dependencies' => array( 'ext.gather.watchstar' ),
+			'dependencies' => array( 'ext.gather.collection.contentOverlay' ),
 		);
 		$modules['qunit']['ext.gather.collection.editor.tests'] = $boilerplate + array(
 			'scripts' => array(
