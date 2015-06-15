@@ -70,7 +70,7 @@
 	"gather-no-such-action": "К сожалению, запрошенное действие не существует.",
 	"gather-loginpage-desc": "С помощью коллекций вы можете создавать и делиться вашими любимыми страницами.",
 	"gather-no-public-lists-title": "Нет публичных коллекций",
-	"gather-no-public-lists-description": "У данного участника нет публичных коллекций.",
+	"gather-no-public-lists-description": "У {{GENDER:$1|данного участника|данной участницы}} нет публичных коллекций.",
 	"gather-page-not-found": "Страница не найдена",
 	"gather-anon-view-lists": "Вы должны войти в систему, чтобы увидеть ваши Коллекции.",
 	"gather-watchlist-title": "Список наблюдения",
