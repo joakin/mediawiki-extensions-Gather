@@ -81,20 +81,8 @@ class SpecialGather extends SpecialPage {
 			'ext.gather.styles',
 			'ext.gather.menu.icon',
 		) );
-		if ( !isset( $subpage ) || $subpage === '' ) {
-			// Root subpage. For anons will be active collections, for logged in,
-			// their own.
-			$user = $this->getUser();
-			if ( !$user->isAnon() ) {
-				$page = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )
-						->getSubPage( $user->getName() );
-			} else {
-				$page = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'all' )
-						->getSubPage( 'active' );
-			}
-			$out->redirect( $page->getLocalUrl() );
-		} elseif ( $subpage === 'by' || $subpage === 'by/' ) {
-			// User owned collections.
+		if ( !isset( $subpage ) || $subpage === '' || $subpage === 'by' || $subpage === 'by/' ) {
+			// Root subpage. User owned collections.
 			// For listing own lists, you need to be logged in
 			$this->requireLogin( 'gather-anon-view-lists' );
 			$user = $this->getUser();
