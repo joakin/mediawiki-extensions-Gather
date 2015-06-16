@@ -4,7 +4,7 @@
 	var $star, watchstar,
 		bucket, useGatherStar,
 		CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
-		Watchstar = M.require( 'modules/watchstar/Watchstar' ),
+		Watchstar = M.require( 'mobile.watchstar/Watchstar' ),
 		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
 		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
 		Tag = M.require( 'ext.gather.watchstar/Tag' ),
@@ -60,6 +60,7 @@
 	function showPointer( watchstar ) {
 		var $star = watchstar.$el,
 			actionOverlay = new WatchstarPageActionOverlay( {
+				skin: skin,
 				target: $star
 			} );
 
@@ -111,6 +112,7 @@
 				// Only append the overlay if it is not there yet
 				if ( $( '#mw-mf-page-center .tutorial-overlay' ).length === 0 ) {
 					new PageActionOverlay( {
+						skin: skin,
 						target: $( '#mw-mf-main-menu-button' ),
 						summary: mw.msg( 'gather-menu-guider' ),
 						cancelMsg: mw.msg( 'gather-add-to-collection-cancel' )
