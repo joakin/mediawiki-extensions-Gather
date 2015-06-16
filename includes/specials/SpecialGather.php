@@ -73,8 +73,6 @@ class SpecialGather extends SpecialPage {
 			'ext.gather.moderation',
 		) );
 		$out->addModuleStyles( array(
-			// FIXME: This is needed only for the tabs at the top of the page.
-			'mobile.special.pagefeed.styles',
 			'mediawiki.ui.anchor',
 			'mediawiki.ui.icon',
 			'ext.gather.icons',
@@ -197,7 +195,6 @@ class SpecialGather extends SpecialPage {
 			if ( $displayAsTable ) {
 				$this->renderRows( $cList, $mode === 'hidden' ? 'show' : 'hide' );
 			} else {
-				$this->renderTabs( 0 );
 				$this->renderCollectionsList( $cList );
 			}
 		} else {
@@ -205,43 +202,6 @@ class SpecialGather extends SpecialPage {
 			$this->renderError( new views\NotFound() );
 		}
 
-	}
-
-	/**
-	 * Render tabs to my collections and public collections
-	 *
-	 * @param integer [$activeTab] - the tab that is currently selected.
-	 */
-	protected function renderTabs( $activeTab = 0 ) {
-		$currentUser = $this->getUser();
-		if ( $currentUser->isAnon() ) {
-			$myUrl = SpecialPage::getTitleFor( 'Userlogin' )
-				->getLocalUrl(
-					array(
-						'returnto' => 'Special:Gather',
-						'warning' => 'gather-anon-view-lists',
-					)
-				);
-		} else {
-			$myUrl = SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'by' )
-				->getSubPage( $this->getUser()->getName() )
-				->getLocalUrl();
-		}
-		$data = array(
-			'tabs' =>array(
-				array(
-					'label' => wfMessage( 'gather-all-collections' )->text(),
-					'href' => SpecialPage::getTitleFor( 'Gather' )->getSubPage( 'all/active' )
-						->getLocalUrl(),
-				),
-				array(
-					'label' => wfMessage( 'gather-my-collections' )->text(),
-					'href' => $myUrl,
-				),
-			),
-		);
-		$data['tabs'][$activeTab]["isCurrentTab"] = true;
-		$this->render( new views\Tabs(), $data );
 	}
 
 	/**
@@ -373,7 +333,6 @@ class SpecialGather extends SpecialPage {
 	 * @param User $user owner of collections
 	 */
 	public function renderUserCollectionsList( User $user ) {
-		$currentUser = $this->getUser();
 		$collectionsList = models\CollectionsList::newFromApi(
 			$user, $this->getUser()->equals( $user ), false,
 			$this->getRequest()->getValues()
@@ -383,10 +342,7 @@ class SpecialGather extends SpecialPage {
 				wfMessage( 'gather-meta-description', $user->getName() ),
 				models\Image::getThumbnail( $collectionsList->getFile() )
 			);
-			if ( $collectionsList->isOwner( $currentUser ) ) {
-				$this->renderTabs( 1 );
-			}
-			$this->render( new views\CollectionsList( $currentUser, $collectionsList ) );
+			$this->render( new views\CollectionsList( $this->getUser(), $collectionsList ) );
 		} else {
 			$this->renderError( new views\NoPublic( $user ) );
 		}

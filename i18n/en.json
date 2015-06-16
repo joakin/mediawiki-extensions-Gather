@@ -32,8 +32,6 @@
 	"gather-lists-show-success-toast": "List \"$1\" was made public again successfully.",
 	"gather-lists-show-failure-toast": "Failed to show list \"$1\".",
 	"gather-lists-hide-protocol": "",
-	"gather-my-collections": "My collections",
-	"gather-all-collections": "Active",
 	"gather-collection-random-title": "Random pages",
 	"gather-collection-random-description": "A collection of random pages from across {{SITENAME}}",
 	"gather-collection-edited-title": "Recently edited",
