@@ -158,21 +158,11 @@ class Collection extends CollectionBase implements IteratorAggregate {
 		$this->continue = $continue;
 	}
 
-	public static function newFromRandomApi( $continue = array() ) {
-		$c = new Collection( 0, null, wfMessage( 'gather-collection-random-title' ),
-			wfMessage( 'gather-collection-random-description' ) );
-		$c->setUrl( SpecialPage::getTitleFor( 'Gather' )
-			->getSubpage( 'random' )->getLocalUrl() );
-		$params = array(
-			'generator' => 'random',
-			'grnnamespace' => 0,
-			'grnlimit' => 10,
-		);
-
+	public static function newFromApi( $c, $params, $limit = 10, $continue = array() ) {
 		$c = self::newFromApiParams( array_merge( array_merge( $params, $continue ),
-			self::getDefaultQueryParams( 10 ) ), $c );
+			self::getDefaultQueryParams( $limit ) ), $c );
 		// Continuing a random collection is just a case of having any arbitary api continuation query.
-		$c->setContinue( array( 'r' => 4 ), $params );
+		$c->setContinue( $continue, $params );
 		return $c;
 	}
 
