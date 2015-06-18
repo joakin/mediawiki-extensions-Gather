@@ -79,6 +79,7 @@
 		"Gather\\views\\Pagination": "includes/views/Pagination.php",
 		"Gather\\views\\ReportTableRow": "includes/views/ReportTableRow.php",
 		"Gather\\views\\ReportTable": "includes/views/ReportTable.php",
+		"Gather\\views\\TemplateParser": "includes/views/TemplateParser.php",
 		"Gather\\views\\helpers\\CSS": "includes/views/helpers/CSS.php",
 		"Gather\\views\\helpers\\Template": "includes/views/helpers/Template.php",
 		"Gather\\SpecialGather": "includes/specials/SpecialGather.php",
@@ -701,7 +702,8 @@
 	"config": {
 		"GatherShouldShowTutorial": true,
 		"GatherAllowPublicWatchlist": false,
-		"GatherEnableBetaFeature": false
+		"GatherEnableBetaFeature": false,
+		"GatherRecompileTemplates": false
 	},
 	"manifest_version": 1
 }

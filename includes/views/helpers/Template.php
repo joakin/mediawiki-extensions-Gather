@@ -6,14 +6,20 @@
 
 namespace Gather\views\helpers;
 
-use TemplateParser;
+use Gather\views\TemplateParser;
 
 class Template {
 	/**
 	 * Easy helper for rendering a template from the Gather extension
 	 */
 	public static function render( $template, $data=array() ) {
-		$templateParser = new TemplateParser( __DIR__ . '/../../../templates' );
+		global $wgGatherRecompileTemplates;
+
+		$templateParser = new TemplateParser(
+			__DIR__ . '/../../../templates',
+			$wgGatherRecompileTemplates
+		);
+
 		return $templateParser->processTemplate( $template, $data );
 	}
 }

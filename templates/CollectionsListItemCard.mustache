@@ -7,12 +7,15 @@
 			<a href='{{collectionUrl}}'>{{title}}</a>
 		</div>
 		{{#owner}}
-		<a class="{{class}} collection-owner" href="{{link}}">{{label}}</a>
+		<a
+			class="{{class}} collection-owner"
+			href="{{link}}">{{label}}</a>
+		<span>•</span>
 		{{/owner}}
 		{{^owner}}
 		<span class='collection-card-following'>{{privacyMsg}}</span>
-		{{/owner}}
 		<span>•</span>
+		{{/owner}}
 		<span class='collection-card-article-count'>{{articleCountMsg}}</span>
 	</div>
 </div>

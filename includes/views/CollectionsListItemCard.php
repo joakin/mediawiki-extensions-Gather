@@ -78,40 +78,7 @@ class CollectionsListItemCard extends View {
 				'class' => helpers\CSS::iconClass( 'profile', 'before' ),
 				'label' => $owner->getName(),
 			);
-			// FIXME: Not needed when https://phabricator.wikimedia.org/T101918 is fixed.
-			$ownerElement = Html::element( 'a', array(
-					'class' => 'collection-owner ' . $defaults['owner']['class'],
-					'href' => $defaults['owner']['link'],
-				), $defaults['owner']['label'] );
-		} else {
-			// FIXME: Not needed when https://phabricator.wikimedia.org/T101918 is fixed.
-			$ownerElement = Html::element( 'span', array( 'class' => 'collection-card-following' ),
-				$this->getPrivacyMsg() );
 		}
-		// FIXME: Use Template::render( 'CollectionsListItemCard', array_merge( $defaults, $data ) );
-		// as soon as https://phabricator.wikimedia.org/T101918 is fixed.
-		return Html::openElement( 'div',
-			array(
-				'class' => $defaults['hasImage'] ? 'collection-card' : 'collection-card without-image',
-			) ) .
-			Html::rawElement( 'a', array(
-				'href' => $defaults['collectionUrl'],
-				'class' => 'collection-card-image',
-			), $defaults['image'] ) .
-			Html::openElement( 'div', array(
-				'class' => 'collection-card-overlay',
-				'dir' => $defaults['langdir'],
-			) ) .
-			Html::openElement( 'div', array( 'class' => 'collection-card-title' ) ) .
-				Html::element( 'a', array(
-					'href' => $defaults['collectionUrl'],
-				), $defaults['title'] ) .
-			Html::closeElement( 'div' ) .
-			$ownerElement .
-			Html::element( 'span', array(), '•' ) .
-			Html::element( 'span', array( 'class' => 'collection-card-article-count' ),
-				$defaults['articleCountMsg'] ) .
-			Html::closeElement( 'div' ) .
-			Html::closeElement( 'div' );
+		return Template::render( 'CollectionsListItemCard', array_merge( $defaults, $data ) );
 	}
 }
