@@ -114,6 +114,8 @@ class SpecialGather extends SpecialPage {
 						->getSubpage( 'explore' )
 						->getSubpage( $key )->getLocalUrl() );
 					$this->renderCollection( $c );
+				} else {
+					$this->renderError( new views\NotFound() );
 				}
 			} else {
 				// /explore/ -> List all explorable collections
