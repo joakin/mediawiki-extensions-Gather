@@ -6,12 +6,18 @@
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' ),
 		toast = M.require( 'toast' ),
 		View = M.require( 'View' ),
+		Icon = M.require( 'Icon' ),
 		CreateCollectionButton = M.require( 'ext.gather.collections.list/CreateCollectionButton' );
 
 	CollectionsList = View.extend( {
 		/** @inheritdoc */
 		defaults: {
-			collections: []
+			collections: [],
+			// FIXME: Use the icon partials in server and client when supported in server templates.
+			userIconClass: new Icon( {
+				name: 'profile',
+				hasText: true
+			} ).getClassName()
 		},
 		template: mw.template.get( 'ext.gather.collections.list', 'CollectionsList.hogan' ),
 		templatePartials: {
@@ -77,7 +83,7 @@
 			var self = this;
 			if ( this.continueArgs ) {
 				this.$pagination.show();
-				this.api.getCurrentUsersCollections( this.options.userName, null, this.continueArgs )
+				this._apiCallByMode()
 				.always( function () {
 					self.$pagination.hide();
 					self.infiniteScroll.enable();
@@ -92,6 +98,19 @@
 			}
 		},
 		/**
+		 * Call the api depending on the collectionslist mode
+		 * @return {jQuery.Deferred} Contains a list of collections
+		 */
+		_apiCallByMode: function () {
+			if ( this.options.mode === 'active' ) {
+				return this.api.getCollections( null, $.extend( this.continueArgs, {
+						lstminitems: 4
+					} ) );
+			} else {
+				return this.api.getCurrentUsersCollections( this.options.owner, null, this.continueArgs );
+			}
+		},
+		/**
 		 * Render collections into the view.
 		 * @param {Array} collections to render
 		 */
@@ -101,6 +120,12 @@
 				return self.templatePartials.item.render( $.extend( {}, coll, {
 					langdir: 'ltr',
 					articleCountMsg: mw.msg( 'gather-article-count', coll.count ),
+					// If the collection has an owner, don't show it in the cards.
+					owner: Boolean( self.options.owner ) ? null : {
+						label: coll.owner,
+						link: self._getOwnerUrl( coll.owner ),
+						className: self.options.userIconClass
+					},
 					privacyMsg: self._getPrivacyMsg( coll.perm ),
 					collectionUrl: self._getUrl( coll.id ),
 					hasImage: Boolean( coll.image ),
@@ -112,16 +137,20 @@
 			} ) );
 		},
 		/**
+		 * Get the owner url
+		 * @param {String} name of the owner
+		 * @return {String}
+		 */
+		_getOwnerUrl: function ( name ) {
+			return mw.util.getUrl( [ 'Special:Gather', 'by', name ].join( '/' ) );
+		},
+		/**
 		 * Get the url for a collection
 		 * @param {Number} id of the collection
 		 * @return {String}
 		 */
 		_getUrl: function ( id ) {
-			return mw.util.getUrl( [
-				'Special:Gather',
-				'id',
-				id
-			].join( '/' ) );
+			return mw.util.getUrl( [ 'Special:Gather', 'id', id ].join( '/' ) );
 		},
 		/**
 		 * Return privacy message depending on collection perm

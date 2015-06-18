@@ -1,13 +1,15 @@
 ( function ( M, $ ) {
 	var CollectionsList = M.require( 'ext.gather.collections.list/CollectionsList' ),
 		$collectionsList = $( '.collections-list' ),
-		owner = $collectionsList.data( 'owner' );
+		owner = $collectionsList.data( 'owner' ),
+		mode = $collectionsList.data( 'mode' );
 
 	$( function () {
 		new CollectionsList( {
 			el: $collectionsList,
 			enhance: true,
-			userName: owner
+			owner: owner,
+			mode: mode
 		} );
 	} );
 

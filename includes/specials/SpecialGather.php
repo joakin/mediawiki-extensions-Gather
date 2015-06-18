@@ -154,6 +154,7 @@ class SpecialGather extends SpecialPage {
 			} else {
 				$mode = $matches['cond'];
 			}
+			$originalMode = $mode;
 
 			if ( $mode === 'active' ) {
 				// Fancy list of collections with a certain amount of items.
@@ -192,6 +193,7 @@ class SpecialGather extends SpecialPage {
 			$apiParams = array_merge( $apiParams, $req->getValues() );
 			$cList = models\CollectionsList::newFromApi( null, $mode === 'hidden',
 				false, $apiParams, $mode, 100 );
+			$cList->setMode( $originalMode );
 			if ( $displayAsTable ) {
 				$this->renderRows( $cList, $mode === 'hidden' ? 'show' : 'hide' );
 			} else {

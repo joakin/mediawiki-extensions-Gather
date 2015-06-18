@@ -59,6 +59,7 @@ class CollectionsList extends View {
 	public function getHtml( $data = array() ) {
 		$cList = $this->collectionsList;
 		$defaults = array(
+			'mode' => $cList->getMode(),
 			'items' => $this->getListItemsHtml( $cList ),
 		);
 		if ( $cList->getOwner() ) {

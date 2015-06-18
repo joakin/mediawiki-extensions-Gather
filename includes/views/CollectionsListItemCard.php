@@ -75,7 +75,7 @@ class CollectionsListItemCard extends View {
 		if ( $owner && $this->showOwnerLink ) {
 			$defaults['owner'] = array(
 				'link' => $collection->getOwnerUrl(),
-				'class' => helpers\CSS::iconClass( 'profile', 'before' ),
+				'className' => helpers\CSS::iconClass( 'profile', 'before' ),
 				'label' => $owner->getName(),
 			);
 		}
