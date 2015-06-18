@@ -219,8 +219,9 @@ class Hooks {
 	 * @param array &$items Items array to be added to menu
 	 */
 	public static function onMobilePersonalTools( &$items ) {
-		// Add collections link below watchlist
-		$itemArray = array_slice( $items, 0, 1, true );
+		// Get an array with just watchlist in it.
+		$itemArray = array_slice( $items, 0, 1 );
+		// add collections after it.
 		$itemArray[] = array(
 			'name' => 'collections',
 			'components' => array(
@@ -230,8 +231,10 @@ class Hooks {
 				'data-event-name' => 'collections',
 			)
 		);
-		$itemArray += array_slice( $items, 1, count( $items ) - 1, true );
-		$items = $itemArray;
+		// combine it with the rest of the array
+		$items = array_merge( $itemArray,
+			array_slice( $items, 1, count( $items ) - 1 ) );
+		return true;
 	}
 
 	/**
