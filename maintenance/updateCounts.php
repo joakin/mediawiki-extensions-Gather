@@ -68,6 +68,8 @@ class UpdateCounts extends Maintenance {
 
 			$dbw->commit( __METHOD__ );
 			$maxGlId = max( $ids );
+
+			wfWaitForSlaves();
 		} while ( $res->numRows() );
 	}
 }
