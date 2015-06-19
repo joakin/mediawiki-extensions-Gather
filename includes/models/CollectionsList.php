@@ -222,5 +222,23 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 		return $image;
 	}
 
+	/**
+	 * Set the mode of the collection.
+	 * @param String $mode To identify the type of collections list (public,
+	 * recent, etc)
+	 */
+	public function setMode( $mode ) {
+		$this->mode = $mode;
+	}
+
+	/**
+	 * Get the mode of the collection.
+	 * @return String $mode To identify the type of collections list (public,
+	 * recent, etc)
+	 */
+	public function getMode() {
+		return $this->mode;
+	}
+
 }
 

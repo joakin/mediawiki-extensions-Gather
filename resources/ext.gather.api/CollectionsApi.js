@@ -178,21 +178,19 @@
 			} );
 		},
 		/**
-		 * Gets an object representing all the current users collections
+		 * Gets a list of collections
 		 * @method
-		 * @param {String} owner of the collections
 		 * @param {Page} page the current page.
 		 * @param {Object} [queryArgs] parameters to send to api
 		 */
-		getCurrentUsersCollections: function ( owner, page, queryArgs ) {
+		getCollections: function ( page, queryArgs ) {
 			var self = this,
 				args = $.extend( {}, queryArgs || {}, {
 					action: 'query',
 					list: 'lists',
 					lstlimit: 50,
 					lsttitle: page ? page.getTitle() : null,
-					lstprop: 'label|description|public|image|count|owner',
-					lstowner: owner
+					lstprop: 'label|description|public|image|count|owner'
 				} );
 			return this.get( args ).then( function ( resp ) {
 				var result = {};
@@ -206,6 +204,18 @@
 				}
 				return result;
 			} );
+		},
+		/**
+		 * Gets an object representing all the current users collections
+		 * @method
+		 * @param {String} owner of the collections
+		 * @param {Page} page the current page.
+		 * @param {Object} [queryArgs] parameters to send to api
+		 */
+		getCurrentUsersCollections: function ( owner, page, queryArgs ) {
+			return this.getCollections( page, $.extend( queryArgs, {
+				lstowner: owner
+			} ) );
 		},
 		/**
 		 * Edits a collection

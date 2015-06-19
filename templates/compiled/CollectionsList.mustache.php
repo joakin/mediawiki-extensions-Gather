@@ -22,7 +22,8 @@
     );
     
     return '
-<div class=\'collections-list content view-border-box\' data-owner="'.htmlentities((string)LCRun3::v($cx, $in, array('owner')), ENT_QUOTES, 'UTF-8').'" data-is-owner=\''.LCRun3::v($cx, $in, array('isOwner')).'\'>
+<div class=\'collections-list content view-border-box\' data-owner="'.htmlentities((string)LCRun3::v($cx, $in, array('owner')), ENT_QUOTES, 'UTF-8').'"
+  data-is-owner=\''.LCRun3::v($cx, $in, array('isOwner')).'\' data-mode=\''.htmlentities((string)LCRun3::v($cx, $in, array('mode')), ENT_QUOTES, 'UTF-8').'\'>
   <div class=\'collection-cards\'>
     '.LCRun3::v($cx, $in, array('items')).'
   </div>
