@@ -38,7 +38,8 @@
 			'input input': 'onInput',
 			'click .overlay-content li': 'onSelectCollection',
 			'touchend .create-collection': 'onCreateNewCollection',
-			'submit form': 'onCreateNewCollection'
+			'submit form': 'onCreateNewCollection',
+			'click .tutorial-next': 'onClickTutorialNext'
 		},
 		/** @inheritdoc */
 		hasFixedHeader: false,
@@ -60,8 +61,12 @@
 			placeholder: mw.msg( 'gather-add-new-placeholder' ),
 			subheadingNewCollection: mw.msg( 'gather-add-to-new' ),
 			subheading: mw.msg( 'gather-add-to-existing' ),
+			tutorialHeading: mw.msg( 'gather-collection-content-tutorial-heading' ),
+			tutorialSubheading: mw.msg( 'gather-collection-content-tutorial-subheading' ),
+			dismissButtonLabel: mw.msg( 'gather-tutorial-dismiss-button-label' ),
 			moreLinkLabel: mw.msg( 'gather-add-to-another' ),
 			createButtonLabel: mw.msg( 'gather-create-new-button-label' ),
+			showTutorial: false,
 			collections: undefined
 		},
 		/** @inheritdoc */
@@ -106,6 +111,14 @@
 				this.$( 'form' ).append( this.createButton.$el );
 			}
 			this.expandForm();
+			if ( this.options.showTutorial ) {
+				// Changes content area background color while in tutorial
+				this.$( '.overlay-content' ).addClass( 'interstitial' );
+				// Hide collection content
+				this.$( '.collectionContent' ).addClass( 'hidden' );
+				// Show tutorial
+				this.$( '.tutorial' ).removeClass( 'hidden' );
+			}
 		},
 		/**
 		 * Adjust the form so that it takes up the available screen.
@@ -170,6 +183,14 @@
 
 			$( ev.currentTarget ).remove();
 			this._loadCollections( user.getName(), this.options.page, this._continue );
+		},
+		/**
+		 * Event handler for clicking the tutorial next button
+		 */
+		onClickTutorialNext: function () {
+			this.$( '.tutorial' ).addClass( 'hidden' );
+			this.$( '.collectionContent' ).removeClass( 'hidden' );
+			this.$( '.overlay-content' ).removeClass( 'interstitial' );
 		},
 		/**
 		 * Event handler for focusing input
@@ -346,7 +367,11 @@
 		 * @param {Number} id of collection
 		 */
 		loadEditor: function ( id ) {
-			window.location.hash = '#/collection/edit/' + id;
+			var hash = '#/edit-collection/' + id;
+			if ( this.options.showTutorial ) {
+				hash = '#/edit-collection-tutorial/' + id;
+			}
+			window.location.hash = hash;
 		},
 		/**
 		 * Communicate with API to create a collection

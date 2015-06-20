@@ -1,0 +1,5 @@
+<div class="heading">{{{tutorialHeading}}}</div>
+<p>{{{tutorialText}}}</p>
+<div class="button-bar">
+	<button class="mw-ui-button mw-ui-progressive dismiss">{{dismissButtonLabel}}</button>
+</div>

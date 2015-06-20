@@ -308,6 +308,9 @@
 				"resources/ext.gather.collection.contentOverlay/contentOverlay.less"
 			],
 			"messages": [
+				"gather-collection-content-tutorial-heading",
+				"gather-collection-content-tutorial-subheading",
+				"gather-tutorial-dismiss-button-label",
 				"gather-remove-from-collection-failed-toast",
 				"gather-add-to-collection-failed-toast",
 				"gather-new-collection-failed-toast",
@@ -443,6 +446,7 @@
 				"ext.gather.relatedpages",
 				"ext.gather.logging",
 				"mobile.overlays",
+				"mobile.contentOverlays",
 				"mobile.toast",
 				"mediawiki.ui.checkbox",
 				"ext.gather.api",
@@ -467,17 +471,24 @@
 				"gather-edit-collection-clear-label",
 				"gather-update-collection-success",
 				"gather-edit-collection-confirm",
-				"gather-overlay-search-empty"
+				"gather-overlay-search-empty",
+				"gather-overlay-search-tutorial-heading",
+				"gather-overlay-search-tutorial-text",
+				"gather-tutorial-dismiss-button-label"
 			],
 			"templates": {
 				"header.hogan": "resources/ext.gather.collection.editor/header.hogan",
-				"content.hogan": "resources/ext.gather.collection.editor/content.hogan"
+				"content.hogan": "resources/ext.gather.collection.editor/content.hogan",
+				"SearchTutorialOverlay.hogan": "resources/ext.gather.collection.editor/SearchTutorialOverlay.hogan"
 			},
 			"scripts": [
+				"resources/ext.gather.collection.editor/SearchTutorialOverlay.js",
 				"resources/ext.gather.collection.editor/CollectionEditOverlay.js"
 			],
 			"styles": [
-				"resources/ext.gather.collection.editor/editOverlay.less"
+				"resources/ext.gather.collection.editor/editOverlay.less",
+				"resources/ext.gather.collection.editor/searchTutorialOverlay.less"
+
 			]
 		},
 		"ext.gather.page.search": {

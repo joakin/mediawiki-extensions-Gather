@@ -3,7 +3,6 @@
 
 @backgroundHeight: 1.4em;
 @backgroundYOffset: 0.75em;
-@topPadding: 1em;
 @thumbnailSize: 72px;
 @fontSize: .9em;
 
@@ -62,7 +61,7 @@
 
 	.overlay-content {
 		margin-top: ( @backgroundYOffset * 2) + @backgroundHeight;
-		padding: @topPadding 1em 1em;
+		padding: 0 1em 1em;
 		overflow-y: scroll;
 		top: 0;
 		bottom: 0;
@@ -103,6 +102,22 @@
 				display: block;
 			}
 		}
+		// Toggle class to change background of content area
+		&.interstitial {
+			background-color: @grayLightest;
+			overflow-y: hidden;
+		}
+
+		.tutorial {
+			.heading {
+				font-size: 1.5em;
+				margin: 1em 0;
+			}
+			.button-bar {
+				text-align: center;
+				margin: 1em 0;
+			}
+		}
 
 		h3 {
 			clear: both;
@@ -133,7 +148,7 @@
 			cursor: pointer;
 			border-top: solid 1px @grayLight;
 			font-size: 1.4em;
-			padding: 12px 50px 12px 0;
+			padding: 12px 50px 0 0;
 			position: relative;
 			overflow: hidden;
 

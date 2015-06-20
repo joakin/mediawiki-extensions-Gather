@@ -1,32 +1,41 @@
 {{{spinner}}}
-<div class="snapshot">
-{{#page}}
-	<div class="thumbnail{{^pageImageUrl}} missing{{/pageImageUrl}}">
-		{{#pageImageUrl}}
-		<img src="{{pageImageUrl}}" alt="{{title}}">
-		{{/pageImageUrl}}
+<div class="tutorial hidden">
+	<div class="heading">{{tutorialHeading}}</div>
+	<div>{{tutorialSubheading}}</div>
+	<div class="button-bar">
+		<button class="mw-ui-progressive mw-ui-button tutorial-next">{{dismissButtonLabel}}</button>
 	</div>
-	<strong>{{title}}</strong>
-	{{description}}
-{{/page}}
 </div>
-<hr/>
-<h3>{{subheadingNewCollection}}</h3>
-<form>
-	<input class="create-collection-input mw-ui-input mw-ui-input-inline" placeholder="{{placeholder}}">
-</form>
-<hr/>
-<h3>{{subheading}}</h3>
-<ul>
-{{#collections}}
-	<li data-collection-title="{{title}}" data-collection-id="{{id}}"
-		data-collection-is-watchlist="{{isWatchlist}}"
-		data-collection-is-member="{{titleInCollection}}">
-		{{title}} {{^titleInCollection}}{{{iconDisabledButton}}}{{/titleInCollection}}
-		{{#titleInCollection}}{{{iconButton}}}{{/titleInCollection}}
-	</li>
-{{/collections}}
-</ul>
-{{#moreLink}}
-<button class="mw-ui-quiet mw-ui-anchor mw-ui-progressive more-collections">{{moreLinkLabel}}</button>
-{{/moreLink}}
+<div class="collectionContent">
+	<div class="snapshot">
+	{{#page}}
+		<div class="thumbnail{{^pageImageUrl}} missing{{/pageImageUrl}}">
+			{{#pageImageUrl}}
+			<img src="{{pageImageUrl}}" alt="{{title}}">
+			{{/pageImageUrl}}
+		</div>
+		<strong>{{title}}</strong>
+		{{description}}
+	{{/page}}
+	</div>
+	<hr/>
+	<h3>{{subheadingNewCollection}}</h3>
+	<form>
+		<input class="create-collection-input mw-ui-input mw-ui-input-inline" placeholder="{{placeholder}}">
+	</form>
+	<hr/>
+	<h3>{{subheading}}</h3>
+	<ul>
+	{{#collections}}
+		<li data-collection-title="{{title}}" data-collection-id="{{id}}"
+			data-collection-is-watchlist="{{isWatchlist}}"
+			data-collection-is-member="{{titleInCollection}}">
+			{{title}} {{^titleInCollection}}{{{iconDisabledButton}}}{{/titleInCollection}}
+			{{#titleInCollection}}{{{iconButton}}}{{/titleInCollection}}
+		</li>
+	{{/collections}}
+	</ul>
+	{{#moreLink}}
+	<button class="mw-ui-quiet mw-ui-anchor mw-ui-progressive more-collections">{{moreLinkLabel}}</button>
+	{{/moreLink}}
+</div>

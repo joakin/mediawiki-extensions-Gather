@@ -10,8 +10,9 @@
 		schema = new SchemaGather(),
 		router = M.require( 'router' ),
 		CollectionDeleteOverlay = M.require( 'ext.gather.collection.delete/CollectionDeleteOverlay' ),
-		RelatedPages = M.require( 'ext.gather.relatedpages/RelatedPages' );
-
+		RelatedPages = M.require( 'ext.gather.relatedpages/RelatedPages' ),
+		SearchTutorialOverlay = M.require( 'ext.gather.collection.edit/SearchTutorialOverlay' ),
+		skin = M.require( 'skin' );
 	/**
 	 * Overlay for editing a collection
 	 * @extends Overlay
@@ -64,6 +65,7 @@
 			} ).options,
 			collection: null,
 			reloadOnSave: false,
+			showTutorial: false,
 			confirmExitMessage: mw.msg( 'gather-edit-collection-confirm' ),
 			editSuccessMsg: mw.msg( 'gather-update-collection-success' ),
 			editFailedError: mw.msg( 'gather-edit-collection-failed-error' ),
@@ -150,6 +152,7 @@
 		 */
 		_populateCollectionMembers: function () {
 			var self = this;
+
 			this.$( '.manage-members-pane' ).removeClass( 'hidden' );
 			this.api.getCollectionMembers( this.id ).done( function ( pages ) {
 				self.searchPanel = new CollectionSearchPanel( {
@@ -159,6 +162,16 @@
 				} );
 				self.searchPanel.on( 'change', $.proxy( self, 'onCollectionMembersChange' ) );
 				self.searchPanel.show();
+				if ( self.options.showTutorial ) {
+					self.searchTutorialOverlay = new SearchTutorialOverlay( {
+						target: self.$( '.mw-ui-icon-search' ),
+						skin: skin
+					} );
+					self.searchTutorialOverlay.show();
+					// Refresh pointer otherwise it is not positioned
+					// FIXME: Remove when ContentOverlay is fixed
+					self.searchTutorialOverlay.refreshPointerArrow( self.$( '.mw-ui-icon-search' ) );
+				}
 
 				// If there is 1 to 3 elements set up related results
 				if ( pages.length > 0 && pages.length < 4 ) {
@@ -407,6 +420,9 @@
 				if ( !window.confirm( this.options.confirmExitMessage ) ) {
 					return;
 				}
+			}
+			if ( this.options.showTutorial ) {
+				this.searchTutorialOverlay.hide();
 			}
 			this._emitCompleted();
 			return Overlay.prototype.hide.apply( this, arguments );

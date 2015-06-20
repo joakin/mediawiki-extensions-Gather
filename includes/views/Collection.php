@@ -124,7 +124,7 @@ class Collection extends View {
 		if ( $id !== 0 && $this->collection->isOwner( $this->user ) ) {
 			return Html::element( 'a', array(
 				// FIXME: This should work without JavaScript
-				'href' => '#/collection/edit/' . $id,
+				'href' => '#/edit-collection/' . $id,
 				'class' => CSS::buttonClass( 'progressive', 'collection-action-button edit-collection' )
 			), wfMessage( 'gather-edit-button' )->text() );
 		} else {
