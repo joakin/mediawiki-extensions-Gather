@@ -20,6 +20,7 @@
 	"gather-lists-show-success-toast": "Lëscht \"$1\" gouf erëm ëffentlech gemaach.",
 	"gather-lists-show-failure-toast": "D'Lëscht \"$1\" konnt net gewise ginn.",
 	"gather-collection-random-title": "Zoufälleg Säiten",
+	"gather-collection-edited-title": "Rezent geännert",
 	"gather-editfeed-show": "Weisen",
 	"gather-add-to-collection-failed-toast": "D'Säit konnt net bäi d'Sammlung bäigesat ginn.",
 	"gather-edit-collection-label-name": "Numm",

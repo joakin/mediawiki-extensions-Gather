@@ -19,6 +19,7 @@
 	"gather-lists-show-success-toast": "Lista \"$1\" została ponownie upubliczniona.",
 	"gather-lists-show-failure-toast": "Nie można pokazać listy \"$1\".",
 	"gather-collection-random-title": "Losowe strony",
+	"gather-collection-edited-title": "Ostatnio edytowane",
 	"gather-editfeed-show": "Pokaż",
 	"gather-edit-collection-label-name": "Nazwa",
 	"gather-edit-collection-label-description": "Opis",

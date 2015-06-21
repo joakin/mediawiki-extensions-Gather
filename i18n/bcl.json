@@ -4,6 +4,8 @@
 			"Geopoet"
 		]
 	},
+	"gather-collection-edited-title": "Dae pa sana haloy na pinagliwat",
+	"gather-collection-edited-description": "Sarong koleksyon kan pinakahuring pinagliwat na mga pahina na pinaggikanan sa {{SITENAME}}",
 	"gather-edit-collection-title-label": "Koleksyon nin pagliliwat",
 	"gather-add-new-placeholder": "Pangaran kan koleksyon",
 	"gather-overlay-search-empty": "Hanapa baya sa pagdugang nin mga pahina",

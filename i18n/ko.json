@@ -3,7 +3,8 @@
 		"authors": [
 			"SeoJeongHo",
 			"Macofe",
-			"LiteHell"
+			"LiteHell",
+			"Alex00728"
 		]
 	},
 	"gather-lists-collection-owner": "소유자",
@@ -19,9 +20,12 @@
 	"gather-lists-show-collection": "\"$1\"목록을 $2으로 다시 공유하기를 원하십니까?",
 	"gather-lists-show-success-toast": "\"$1\" 목록이 다시 공개되었습니다.",
 	"gather-lists-show-failure-toast": "\"$1\" 리스트를 불러오는데 실패하였습니다.",
+	"gather-collection-random-title": "임의 문서로",
+	"gather-collection-edited-title": "최근 바뀜",
 	"gather-remove-from-collection-failed-toast": "컬렉션에서 이 페이지를 제거 할수 없습니다.",
 	"gather-add-to-collection-failed-toast": "컬렉션에 페이지를 추가 할수 없습니다.",
 	"gather-edit-collection-label-public": "공공 컬렉션",
+	"gather-edit-collection-related-pages": "관련된 문서",
 	"gather-add-new-placeholder": "새로운 컬렉션 이름을 입력해 주세요.",
 	"gather-add-to-new": "새 공용 컬렉션에 추가",
 	"gather-add-to-collection-summary": "$1을 콜렉션에 추가 시키시겠습니까?",

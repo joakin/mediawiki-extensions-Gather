@@ -31,6 +31,8 @@
 	"gather-lists-show-failure-toast": "Nepodařilo se zveřejnit sbírku „$1“.",
 	"gather-collection-random-title": "Náhodné stránky",
 	"gather-collection-random-description": "Sbírka náhodných stránek napříč {{grammar:7sg|{{SITENAME}}}}",
+	"gather-collection-edited-title": "Nedávno editované",
+	"gather-collection-edited-description": "Sbírka nejnověji editovaných stránek napříč {{gender:7sg|{{SITENAME}}}}",
 	"gather-editfeed-show": "Zobrazit",
 	"gather-editfeed-title": "Editace stránek v mých sbírkách",
 	"gather-editfeed-empty": "Neexistují žádné nedávné změny žádné stránky v této sbírce.",

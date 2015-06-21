@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"Wehwei"
+			"Wehwei",
+			"LNDDYL"
 		]
 	},
 	"gather-lists-collection-owner": "擁有者",
@@ -20,7 +21,7 @@
 	"gather-delete-collection-success": "收藏成功刪除了",
 	"gather-delete-collection-failed-error": "刪除收藏時出了問題。",
 	"gather-confirmation-cancel-button-label": "取消",
-	"gather-add-to-collection-cancel": "不，謝謝",
+	"gather-add-to-collection-cancel": "不用了，謝謝",
 	"gather-watchlist-title": "監視清單",
 	"gather-lists-title": "典藏",
 	"gather-read-more": "閱讀更多",

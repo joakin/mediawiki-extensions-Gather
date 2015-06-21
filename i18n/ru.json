@@ -6,7 +6,8 @@
 			"Iluvatar",
 			"Mariya",
 			"Okras",
-			"Дмитрий"
+			"Дмитрий",
+			"WindEwriX"
 		]
 	},
 	"gather": "Собрать",
@@ -29,6 +30,7 @@
 	"gather-lists-show-collection": "Вы хотите, чтобы сделать список «$1» участника $2 снова публичным?",
 	"gather-lists-show-success-toast": "Список «$1» была успешно снова сделан публичным.",
 	"gather-lists-show-failure-toast": "Не удалось показать список «$1».",
+	"gather-collection-edited-title": "Недавно отредактированные",
 	"gather-editfeed-show": "Показать",
 	"gather-editfeed-title": "Правки страниц моей коллекции",
 	"gather-remove-from-collection-failed-toast": "Не удаётся удалить страницу из коллекции.",

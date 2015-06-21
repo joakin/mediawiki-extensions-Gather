@@ -33,6 +33,8 @@
 	"gather-lists-show-failure-toast": "Die Liste „$1“ konnte nicht angezeigt werden.",
 	"gather-collection-random-title": "Zufällige Seiten",
 	"gather-collection-random-description": "Eine Sammlung zufälliger Seiten von ganz {{SITENAME}}",
+	"gather-collection-edited-title": "Kürzlich bearbeitet",
+	"gather-collection-edited-description": "Eine Sammlung der kürzlich am meisten bearbeiteten Seiten von ganz {{SITENAME}}",
 	"gather-editfeed-show": "Anzeigen",
 	"gather-editfeed-title": "Bearbeitungen an Seiten in meinen Sammlungen",
 	"gather-editfeed-empty": "Es gibt keine kürzlich erfolgten Bearbeitungen an Seiten in dieser Sammlung.",

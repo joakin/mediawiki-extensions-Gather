@@ -31,6 +31,8 @@
 	"gather-lists-show-failure-toast": "הצגת הרשימה \"$1\" לא עבדה.",
 	"gather-collection-random-title": "דפים אקראיים",
 	"gather-collection-random-description": "לקט של דפים אקראיים מכל אתר {{SITENAME}}",
+	"gather-collection-edited-title": "נערכו לאחרונה",
+	"gather-collection-edited-description": "לקט של דפים שנערכו לאחרונה ברחבי {{SITENAME}}",
 	"gather-editfeed-show": "הצגה",
 	"gather-editfeed-title": "עריכות לדפים בלקטים שלי",
 	"gather-editfeed-empty": "לא היו לאחרונה עריכות לשום דף בלקט הזה.",

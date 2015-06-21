@@ -31,6 +31,8 @@
 	"gather-lists-show-failure-toast": "Error al mostrar la lista \"$1\".",
 	"gather-collection-random-title": "Páginas aleatorias",
 	"gather-collection-random-description": "Una colección de páginas aleatorias de {{SITENAME}}",
+	"gather-collection-edited-title": "Editados recientemente",
+	"gather-collection-edited-description": "Una colección de las páginas recientemente editadas en {{SITENAME}}",
 	"gather-editfeed-show": "Mostrar",
 	"gather-editfeed-title": "Ediciones en páginas de mis colecciones",
 	"gather-editfeed-empty": "No hay ediciones recientes en las páginas de esta colección.",

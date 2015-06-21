@@ -9,12 +9,14 @@
 	"gather-lists-collection-description": "څرگندونه",
 	"gather-lists-collection-count": "شمېرل",
 	"gather-lists-hide-collection-label": "پټول",
+	"gather-collection-random-title": "ناټاکلي مخونه",
 	"gather-editfeed-show": "ښکاره کول",
 	"gather-edit-collection-heading": "ټولگه سمول",
 	"gather-edit-collection-label-name": "نوم",
 	"gather-edit-collection-label-description": "څرگندونه",
 	"gather-edit-collection-save-label": "خوندي کول",
 	"gather-edit-collection-clear-label": "سپينول",
+	"gather-edit-collection-related-pages": "اړونده مخونه",
 	"gather-delete-collection-delete-label": "ړنگول",
 	"gather-flag-collection-flag-label": "رپی",
 	"gather-confirmation-cancel-button-label": "ناگارل",
@@ -31,5 +33,6 @@
 	"gather-article-count": "$1 {{PLURAL:$1|مخ|مخونه}}",
 	"gather-edit-button": "سمول",
 	"gather-delete-button": "ړنگول",
-	"gather-watchstar-button-label": "ټولگې کې ورگډول"
+	"gather-watchstar-button-label": "ټولگې کې ورگډول",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "نورمال."
 }

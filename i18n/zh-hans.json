@@ -29,6 +29,8 @@
 	"gather-lists-show-failure-toast": "显示列表“$1”失败。",
 	"gather-collection-random-title": "随机页面",
 	"gather-collection-random-description": "来自{{SITENAME}}中随机页面的收藏",
+	"gather-collection-edited-title": "最近编辑",
+	"gather-collection-edited-description": "来自{{SITENAME}}最近编辑页面的收藏",
 	"gather-editfeed-show": "显示",
 	"gather-editfeed-title": "对在我收藏中的页面的编辑",
 	"gather-editfeed-empty": "此收藏中没有对任何页面的最新编辑。",

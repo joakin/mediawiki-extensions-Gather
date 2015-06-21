@@ -27,5 +27,6 @@
 	"gather-delete-button": "Jê bibe",
 	"gather-overlay-edit-button": "Sernav û danasîna biguherîne",
 	"gather-watchstar-button-label": "Bixe nav koleksiyone",
-	"gather-view-collection": "Koleksîyone nîşan bide"
+	"gather-view-collection": "Koleksîyone nîşan bide",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal."
 }

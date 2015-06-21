@@ -20,6 +20,8 @@
 	"gather-lists-hide-success-toast": "Lista \"$1\" occultata con successo.",
 	"gather-collection-random-title": "Pagine a caso",
 	"gather-collection-random-description": "Una raccolta di pagine casuali da {{SITENAME}}",
+	"gather-collection-edited-title": "Modificati di recente",
+	"gather-collection-edited-description": "Una raccolta delle pagine modificate più di recente su {{SITENAME}}",
 	"gather-edit-collection-save-label": "Salva",
 	"gather-edit-collection-related-pages": "Pagine correlate",
 	"gather-create-collection-button-label": "Crea una collezione",
