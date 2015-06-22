@@ -124,6 +124,7 @@
 	"apihelp-gather-param-owner": "Owner of the collections to search for. If omitted, defaults to current user.",
 	"apihelp-gather-example-1": "List the collections for user <kbd>john</kbd>.",
 	"gather-lists-collection-more-link-label": "View more public collections.",
+	"gather-lists-more-no-owner": "View more collections",
 	"gather-lists-more": "View more collections from this user.",
 	"gather-lists-more-failed": "Loading more collections failed.",
 	"gather-collection-more": "View more pages in this collection",
