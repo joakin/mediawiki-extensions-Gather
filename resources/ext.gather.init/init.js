@@ -83,6 +83,16 @@
 	}
 
 	/**
+	 * Reveal the collections link in the main menu.
+	 * @return {jQuery.Object} representing the main menu collections link item.
+	 * @ignore
+	 */
+	function revealCollectionsInMainMenu() {
+		// FIXME: This should operate on MainMenu class.
+		return $( '#mw-mf-page-left' ).find( '.collection-menu-item' ).removeClass( 'hidden' );
+	}
+
+	/**
 	 * Swap out the default watchstar for our link
 	 * @param {Page} page
 	 * @param {jQuery.Object} $star element to bind to
@@ -90,7 +100,7 @@
 	 */
 	function init( page, $star ) {
 		var shouldShow = shouldShowCollectionTutorial(),
-			$menuItem = $( '#mw-mf-page-left .collection-menu-item' ).removeClass( 'hidden' );
+			$menuItem = revealCollectionsInMainMenu();
 
 		watchstar = new CollectionsWatchstar( {
 			page: page,
@@ -129,15 +139,16 @@
 		} );
 	}
 
+	try {
+		bucket = experiments.getBucket( 'gather' );
+		useGatherStar = context.isBetaGroupMember() || bucket === 'A';
+	} catch ( e ) {
+		// experiment hasn't been defined. Only enable in beta.
+		useGatherStar = context.isBetaGroupMember();
+	}
+
 	// Only init when current page is an article
 	if ( !page.inNamespace( 'special' ) ) {
-		try {
-			bucket = experiments.getBucket( 'gather' );
-			useGatherStar = context.isBetaGroupMember() || bucket === 'A';
-		} catch ( e ) {
-			// experiment hasn't been defined. Only enable in beta.
-			useGatherStar = context.isBetaGroupMember();
-		}
 		$star = $( '#ca-watch, #ca-unwatch' );
 		if ( useGatherStar ) {
 			init( page, $star );
@@ -151,6 +162,8 @@
 			} );
 			skin.emit( 'changed' );
 		}
+	} else {
+		revealCollectionsInMainMenu();
 	}
 
 }( mw.mobileFrontend, jQuery ) );
