@@ -205,12 +205,10 @@ class Hooks {
 	 * @return boolean
 	 */
 	public static function onSkinMinervaDefaultModules( $skin, &$modules ) {
-		// load gather only on pages, that can contain content and in mobile beta view
-		if ( $skin->getTitle()->canExist() ) {
-			$modules['watch'] = array( 'ext.gather.init' );
-			// FIXME: abuse of the hook.
-			$skin->getOutput()->addModuleStyles( 'ext.gather.menu.icon' );
-		}
+		// Gather code should be loaded unconditionally since it also controls revealing the menu item.
+		$modules['watch'] = array( 'ext.gather.init' );
+		// FIXME: abuse of the hook.
+		$skin->getOutput()->addModuleStyles( 'ext.gather.menu.icon' );
 		return true;
 	}
 

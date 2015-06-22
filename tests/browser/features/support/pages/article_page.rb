@@ -5,6 +5,11 @@ class ArticlePage
   page_url URL.url('<%=params[:article_name]%><%=params[:hash]%>')
 
   # UI elements
+  a(:mainmenu_button, id: 'mw-mf-main-menu-button')
+  # left nav
+  nav(:navigation, css: 'nav')
+
+  # UI elements
   li(:watch_star, css: '.collection-star-container')
 
   # toast
