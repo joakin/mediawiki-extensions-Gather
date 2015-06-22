@@ -36,7 +36,8 @@ class CollectionsList extends View {
 		}
 		$url = $collectionsList->getContinueUrl();
 		if ( $url ) {
-			$html .= Pagination::more( $url, wfMessage( 'gather-lists-more' )->text() );
+			$messageKey = $collectionsList->getOwner() ? 'gather-lists-more' : 'gather-lists-more-no-owner';
+			$html .= Pagination::more( $url, wfMessage( $messageKey )->text() );
 		}
 		return $html;
 	}
