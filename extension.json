@@ -480,10 +480,10 @@
 				"mobile",
 				"desktop"
 			],
-			"@doc": "FIXME: skins.minerva.alpha.images should not be a dependency",
+			"@doc": "FIXME: skins.minerva.beta.images should not be a dependency",
 			"dependencies": [
 				"ext.gather.api",
-				"skins.minerva.alpha.images",
+				"skins.minerva.beta.images",
 				"mobile.pagelist",
 				"ext.gather.watchstar.icons",
 				"mobile.search"
