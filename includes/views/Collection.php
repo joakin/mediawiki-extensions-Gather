@@ -185,7 +185,7 @@ class Collection extends View {
 		$owner = $collection->getOwner();
 
 		$html = Html::openElement( 'div', array(
-				'class' => 'collection content',
+				'class' => 'collection content view-border-box',
 				'data-id' => $collection->getId(),
 				'data-label' => $collection->getTitle(),
 				'data-owner' => $owner ? $owner->getName() : false,
