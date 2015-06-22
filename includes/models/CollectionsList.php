@@ -32,6 +32,7 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 	public function __construct( $user = false, $includePrivate = false ) {
 		$this->user = $user;
 		$this->includePrivate = $includePrivate;
+		$this->mode = '';
 	}
 
 	/**
