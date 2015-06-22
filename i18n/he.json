@@ -29,6 +29,8 @@
 	"gather-lists-show-collection": "האם להפוך את הרשימה \"$1\" מאת $2 שוב לציבורית?",
 	"gather-lists-show-success-toast": "הרשימה \"$1\" שוב הוגדרה כציבורית בהצלחה.",
 	"gather-lists-show-failure-toast": "הצגת הרשימה \"$1\" לא עבדה.",
+	"gather-my-collections": "הלקטים שלי",
+	"gather-all-collections": "פעילים",
 	"gather-collection-random-title": "דפים אקראיים",
 	"gather-collection-random-description": "לקט של דפים אקראיים מכל אתר {{SITENAME}}",
 	"gather-collection-edited-title": "נערכו לאחרונה",

@@ -31,6 +31,8 @@
 	"gather-lists-show-collection": "Möchtest du die Liste „$1“ von $2 erneut öffentlich machen?",
 	"gather-lists-show-success-toast": "Die Liste „$1“ wurde erfolgreich wieder öffentlich gemacht.",
 	"gather-lists-show-failure-toast": "Die Liste „$1“ konnte nicht angezeigt werden.",
+	"gather-my-collections": "Meine Sammlungen",
+	"gather-all-collections": "Neueste",
 	"gather-collection-random-title": "Zufällige Seiten",
 	"gather-collection-random-description": "Eine Sammlung zufälliger Seiten von ganz {{SITENAME}}",
 	"gather-collection-edited-title": "Kürzlich bearbeitet",

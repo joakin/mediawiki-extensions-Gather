@@ -29,6 +29,8 @@
 	"gather-lists-show-collection": "¿Quieres volver a hacer pública la lista \"$1\" de $2?",
 	"gather-lists-show-success-toast": "La lista \"$1\" se hizo pública de nuevo con éxito.",
 	"gather-lists-show-failure-toast": "Error al mostrar la lista \"$1\".",
+	"gather-my-collections": "Mis colecciones",
+	"gather-all-collections": "Activas",
 	"gather-collection-random-title": "Páginas aleatorias",
 	"gather-collection-random-description": "Una colección de páginas aleatorias de {{SITENAME}}",
 	"gather-collection-edited-title": "Editados recientemente",
