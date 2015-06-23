@@ -34,9 +34,8 @@
 	"gather-lists-show-success-toast": "Label for toast displaying that specified list was shown successfully. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
 	"gather-lists-show-failure-toast": "Label for toast diaplaying that showing specified list failed. Only shown to admins. Parameters:\n* $1 - Title of the collection.",
 	"gather-lists-hide-protocol": "Text shown to administrator to a moderation policy which outlines moderation expectations on [[Special:GatherLists]] (optional)",
-	"gather-collection-random-title": "Title of a collection which contains random items.\n{{Identical|Random page}}",
 	"gather-my-collections": "Label for tab pointing to the current user's collections.",
-	"gather-all-collections": "Label for tab pointing to all public collections.",
+	"gather-all-collections": "Label for tab pointing to all public collections.\n{{Identical|Recent}}",
 	"gather-collection-random-title": "Title of a collection which contains random items.",
 	"gather-collection-random-description": "Description of a collection which contains random items.",
 	"gather-collection-edited-title": "Title of collection which contains recently edited items.",
@@ -61,7 +60,7 @@
 	"gather-delete-collection-failed-error": "Toast error indicating there was a problem deleting the collection.",
 	"gather-flag-collection-heading": "Heading text for collection flag confirmation overlay",
 	"gather-flag-collection-confirm": "Text under the heading asking the user if they would like to flag a collection for review.",
-	"gather-flag-collection-flag-label": "Label for flag button in flag collection confirmation overlay.",
+	"gather-flag-collection-flag-label": "Label for flag button in flag collection confirmation overlay.\n{{Identical|Flag}}",
 	"gather-flag-collection-success": "Toast message indicating that flagging the collection was successful.",
 	"gather-confirmation-cancel-button-label": "Label for cancel button in confirmation overlay.\n{{Identical|Cancel}}",
 	"gather-error-unknown-collection": "Error message test when you try to edit a collection you do not own or that does not exist.",
@@ -115,7 +114,7 @@
 	"gather-edit-button": "Label for a button that enables editing a collection.\n{{Identical|Edit}}",
 	"gather-delete-button": "Label for a button that enables deleting a collection.\n{{Identical|Delete}}",
 	"gather-overlay-edit-button": "Label for button that enables editing of description and name of a collection.",
-	"gather-overlay-continue": "Label for button inside overlay to take you to another screen.",
+	"gather-overlay-continue": "Label for button inside overlay to take you to another screen.\n{{Identical|Next}}",
 	"gather-overlay-search-empty": "Message shown on a search input when empty, for searching and adding/removing items from a collection",
 	"gather-overlay-search-new": "Link label to start a new search (focus search input) when no results are found.",
 	"gather-overlay-search-results-empty": "Message shown on search results page when no pages are found.\nParameters:\n* $1 - search query.",
@@ -137,5 +136,7 @@
 	"gather-api-help-param-listtoken": "{{doc-apihelp-param|lsm|token|listmembership|query+listmembership}}\n\n\"Watchlist token\" is {{msg-mw|Prefs-watchlist-token}}",
 	"apihelp-query+listmembership-description": "\"List\" here means the specific way, provided by the Gather extension, to store a list of wiki page titles in the wiki database.\n----\n{{doc-apihelp-description|lsm|listmembership|query+listmembership}}",
 	"apihelp-query+listmembership-example-1": "{{doc-apihelp-example|lsm|listmembership|query+listmembership}}",
-	"gather-view-collection": "Label for button that takes you to a collection."
+	"gather-view-collection": "Label for button that takes you to a collection.",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "{{Identical|Normal}}",
+	"apihelp-query+listpages-paramvalue-dir-descending": "{{Identical|Reversed}}"
 }

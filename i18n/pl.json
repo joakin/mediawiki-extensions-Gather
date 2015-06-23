@@ -3,7 +3,8 @@
 		"authors": [
 			"Chrumps",
 			"VerMa",
-			"Devwebtel"
+			"Devwebtel",
+			"Mbkgacek"
 		]
 	},
 	"gather-lists-collection-owner": "Właściciel",
@@ -18,6 +19,7 @@
 	"gather-lists-show-collection": "Czy chcesz ponownie upublicznić listę \"$1\" użytkownika $2?",
 	"gather-lists-show-success-toast": "Lista \"$1\" została ponownie upubliczniona.",
 	"gather-lists-show-failure-toast": "Nie można pokazać listy \"$1\".",
+	"gather-all-collections": "Niedawno",
 	"gather-collection-random-title": "Losowe strony",
 	"gather-collection-edited-title": "Ostatnio edytowane",
 	"gather-editfeed-show": "Pokaż",
@@ -50,6 +52,7 @@
 	"gather-overlay-search-empty": "Szukaj, aby dodać strony",
 	"gather-overlay-search-new": "Rozpocznij nowe wyszukiwanie...",
 	"gather-overlay-search-results-empty": "Niestety nie znaleziono żadnych stron dla „$1”",
+	"gather-lists-more-no-owner": "Zobacz więcej zbiorów.",
 	"gather-watchstar-button-label": "Dodać do kolekcji",
 	"gather-view-collection": "Zobacz kolekcję"
 }
