@@ -102,7 +102,7 @@
 		 * @return {jQuery.Deferred} Contains a list of collections
 		 */
 		_apiCallByMode: function () {
-			if ( this.options.mode === 'active' ) {
+			if ( this.options.mode === 'recent' ) {
 				return this.api.getCollections( null, $.extend( this.continueArgs, {
 						lstminitems: 4
 					} ) );
