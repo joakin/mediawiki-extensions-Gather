@@ -45,11 +45,11 @@
 			this.query = '';
 			// FIXME: In future we'll want to use CollectionApi for this
 			this.api = new SearchApi();
-			Panel.prototype.initialize.call( this, options );
 			this._members = {};
-			$.each( this.options.pages, function ( i, page ) {
+			$.each( options.pages, function ( i, page ) {
 				self._members[page.title] = true;
 			} );
+			Panel.prototype.initialize.call( this, options );
 		},
 		/** @inheritdoc */
 		postRender: function () {
@@ -98,6 +98,9 @@
 			pages = pages || this.options.pages;
 			var self = this,
 				emptyResultsMsg;
+			pages = $.each( pages, function () {
+				this.isMember = self.hasMember( this.title );
+			} );
 			if ( this.pageList ) {
 				this.pageList.options.pages = pages;
 				this.pageList.render();
@@ -166,17 +169,11 @@
 
 					this.timer = setTimeout( function () {
 						self.api.search( query ).done( function ( data ) {
-							var results;
-
 							// check if we're getting the rights response in case of out of
 							// order responses (need to get the current value of the input)
 							if ( data.query === query ) {
-								results = $.map( data.results, function ( page ) {
-									page.isMember = self.hasMember( page.title );
-									return page;
-								} );
 								self.$( '.spinner' ).hide();
-								self.renderResults( results );
+								self.renderResults( data.results );
 							}
 						} );
 					}, SEARCH_DELAY );

@@ -280,6 +280,12 @@ class Hooks {
 			),
 			'dependencies' => array( 'ext.gather.collection.editor' ),
 		);
+		$modules['qunit']['ext.gather.page.search.tests'] = $boilerplate + array(
+			'scripts' => array(
+				'ext.gather.page.search/test_CollectionSearchPanel.js',
+			),
+			'dependencies' => array( 'ext.gather.page.search' ),
+		);
 		return true;
 	}
 
