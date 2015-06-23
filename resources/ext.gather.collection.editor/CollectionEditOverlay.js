@@ -49,10 +49,18 @@
 				additionalClassNames: 'cancel',
 				label: mw.msg( 'mobile-frontend-overlay-close' )
 			} ).options,
-			editIcon: new Icon( {
+			settingsIcon: new Icon( {
 				tagName: 'a',
-				name: 'edit-enabled',
-				additionalClassNames: 'edit-action'
+				name: 'collection-settings',
+				additionalClassNames: 'settings-action'
+			} ).options,
+			iconPrivateButton: new Icon( {
+				name: 'tick',
+				additionalClassNames: 'private-icon'
+			} ).options,
+			iconPublicButton: new Icon( {
+				name: 'tick-disabled',
+				additionalClassNames: 'public-icon'
 			} ).options,
 			collection: null,
 			reloadOnSave: false,
@@ -63,18 +71,21 @@
 			heading: mw.msg( 'gather-edit-collection-heading' ),
 			nameLabel: mw.msg( 'gather-edit-collection-label-name' ),
 			descriptionLabel: mw.msg( 'gather-edit-collection-label-description' ),
-			publicLabel: mw.msg( 'gather-edit-collection-label-public' ),
+			privateLabel: mw.msg( 'gather-edit-collection-label-private' ),
 			headerButtonsListClassName: 'overlay-action',
 			editMsg: mw.msg( 'gather-overlay-edit-button' ),
 			deleteMsg: mw.msg( 'gather-delete-button' ),
 			saveMsg: mw.msg( 'gather-edit-collection-save-label' ),
-			titleMsg: mw.msg( 'gather-edit-collection-title-label' ),
-			emptyInputMsg: mw.msg( 'gather-overlay-search-empty' )
+			editingTitleMsg: mw.msg( 'gather-edit-collection-title-label' ),
+			settingsTitleMsg: mw.msg( 'gather-edit-collection-settings-title-label' ),
+			emptyInputMsg: mw.msg( 'gather-overlay-search-empty' ),
+			emptyTitleMsg: mw.msg( 'gather-edit-collection-title-empty' ),
+			emptyDescriptionMsg: mw.msg( 'gather-edit-collection-description-empty' )
 		} ),
 		/** @inheritdoc */
 		events: $.extend( {}, Overlay.prototype.events, {
-			'click .edit-action': 'onEditActionClick',
-			'click .collection-header': 'onEditActionClick',
+			'click .settings-action': 'onSettingsActionClick',
+			'click .collection-header': 'onSettingsActionClick',
 			'click .delete-action': 'onDeleteActionClick',
 			'click .clear': 'onClearSearch',
 			'focus .manage-members-pane input': 'onFocusSearch',
@@ -82,7 +93,8 @@
 			'click .search-header .back': 'onExitSearch',
 			'click .save-description': 'onSaveDescriptionClick',
 			'click .back': 'onBackClick',
-			'click .save': 'onFirstPaneSaveClick'
+			'click .save': 'onFirstPaneSaveClick',
+			'click .collection-privacy': 'onToggleCollectionPrivacy'
 		} ),
 		/** @inheritdoc */
 		templatePartials: $.extend( {}, Overlay.prototype.templatePartials, {
@@ -95,7 +107,10 @@
 			if ( options && options.collection ) {
 				this.id = options.collection.id;
 			} else {
-				options.collection = {};
+				options.collection = {
+					// New collection is public by default
+					isPublic: true
+				};
 			}
 			this.activePane = 'main';
 			this.api = new CollectionsApi();
@@ -111,9 +126,7 @@
 				this._populateCollectionMembers();
 			} else {
 				this.id = null;
-				// New collection privacy default to public
-				this.$( '.privacy' ).prop( 'checked', true );
-				this._switchToEditPane();
+				this._switchToSettingsPane();
 			}
 		},
 		/**
@@ -121,7 +134,7 @@
 		 */
 		_populateTitleAndDescription: function () {
 			var collection = this.options.collection,
-				editIcon = this.$( '.edit-action' ),
+				settingsIcon = this.$( '.settings-action' ),
 				iconPlacement = collection.description ?
 					'.collection-header .collection-description' : '.collection-header h1';
 			// Populate the text
@@ -129,7 +142,7 @@
 			this.$( '.collection-header .collection-description span' )
 				.text( collection.description );
 			// Put the edit icon in desc or in title if desc is empty
-			this.$( iconPlacement ).append( editIcon );
+			this.$( iconPlacement ).append( settingsIcon );
 		},
 		/**
 		 * Set up collection search panel with existing members
@@ -187,10 +200,10 @@
 			}
 		},
 		/**
-		 * Switch to edit pane.
+		 * Switch to settings pane.
 		 * @private
 		 */
-		_switchToEditPane: function () {
+		_switchToSettingsPane: function () {
 			if ( this.activePane !== 'edit' ) {
 				this.activePane = 'edit';
 				this.$( this._selectors.manage )
@@ -255,10 +268,10 @@
 			this._switchToFirstPane();
 		},
 		/**
-		 * Event handler when the edit button is clicked.
+		 * Event handler when the settings button is clicked.
 		 */
-		onEditActionClick: function () {
-			this._switchToEditPane();
+		onSettingsActionClick: function () {
+			this._switchToSettingsPane();
 		},
 		/**
 		 * Event handler when the delete button is clicked.
@@ -330,8 +343,8 @@
 				self = this,
 				description = this.$( '.description' ).val();
 
-			if ( this.$( '.privacy' ).length ) {
-				isPrivate = !this.$( '.privacy' ).is( ':checked' );
+			if ( this.$( '.collection-privacy' ).length ) {
+				isPrivate = this.$( '.collection-privacy' ).hasClass( 'private' );
 			}
 
 			if ( this.isTitleValid( title ) && this.isDescriptionValid( description ) ) {
@@ -381,6 +394,12 @@
 				toast.show( this.options.editFailedError, 'toast error' );
 			}
 
+		},
+		/**
+		 * Event handler when the privacy toggle is clicked.
+		 */
+		onToggleCollectionPrivacy: function () {
+			this.$( '.collection-privacy' ).toggleClass( 'private' );
 		},
 		/** @inheritdoc */
 		hide: function () {

@@ -13,5 +13,5 @@ class GatherPage
     css: '.collection-editor-overlay .save')
   div(:collection_items, css: '.collection-cards')
   div(:collection_description, css: '.collection-description')
-  button(:edit_name_and_description, css: '.edit-action')
+  button(:edit_name_and_description, css: '.settings-action')
 end

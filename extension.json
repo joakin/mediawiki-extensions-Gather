@@ -136,7 +136,8 @@
 				"collections-read-more": "resources/ext.gather.icons/next.svg",
 				"collection-owner": "resources/ext.gather.icons/user.svg",
 				"collection-flag": "resources/ext.gather.icons/flag.svg",
-				"collection-hide": "resources/ext.gather.icons/suppress.svg"
+				"collection-hide": "resources/ext.gather.icons/suppress.svg",
+				"collection-settings": "resources/ext.gather.icons/settings.svg"
 			}
 		},
 		"ext.gather.styles": {
@@ -446,15 +447,19 @@
 				"mediawiki.ui.checkbox",
 				"ext.gather.api",
 				"ext.gather.styles",
+				"ext.gather.icons",
 				"ext.gather.collection.delete"
 			],
 			"messages": [
 				"gather-edit-collection-failed-error",
 				"gather-edit-collection-label-name",
+				"gather-edit-collection-description-empty",
 				"gather-edit-collection-label-description",
-				"gather-edit-collection-label-public",
+				"gather-edit-collection-label-private",
 				"gather-edit-collection-save-label",
 				"gather-edit-collection-title-label",
+				"gather-edit-collection-title-empty",
+				"gather-edit-collection-settings-title-label",
 				"gather-error-unknown-collection",
 				"gather-overlay-continue",
 				"gather-overlay-edit-button",

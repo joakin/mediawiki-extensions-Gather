@@ -67,7 +67,7 @@
 	QUnit.test( 'New collection', 2, function ( assert ) {
 		var overlay = new CollectionEditOverlay( {} );
 		assert.ok( overlay.options.collection, 'Check an empty collection is created...' );
-		assert.strictEqual( overlay.$( '.privacy' ).prop( 'checked' ), true,
+		assert.strictEqual( overlay.$( '.collection-privacy' ).hasClass( 'private' ), false,
 			'... and public by default.' );
 	} );
 

@@ -11,7 +11,6 @@
 	.content {
 		.actions {
 			padding-top: 2em;
-			text-align: center;
 			.action {
 				margin-bottom: .2em;
 			}
@@ -25,13 +24,34 @@
 		}
 
 		// Spacing between form fields
-		label, .mw-ui-checkbox {
+		label, .collection-privacy {
 			margin-top: 2em;
 		}
 
 		.description {
 			// 2 Rows. Default is 8em (4 rows)
 			min-height: 4em;
+		}
+
+		// Inline collection privacy toggle group
+		.collection-privacy {
+			cursor: pointer;
+			.private-icon {
+					display: none;
+			}
+			.private-icon, .public-icon {
+				// Offset the icon for left alignment
+				margin-left: -1em;
+				float: left;
+			}
+			&.private {
+				.private-icon {
+					display: block;
+				}
+				.public-icon {
+					display: none;
+				}
+			}
 		}
 	}
 
@@ -53,16 +73,26 @@
 	}
 
 	.collection {
-		h1 {
-			font-size: 1.25em;
-			font-weight: bold;
-			word-break: normal;
-			word-wrap: break-word;
-		}
+
 		.collection-header {
 			cursor: pointer;
 			margin: 1.5em 1em;
-			.edit-action {
+
+			h1 {
+				font-size: 1.25em;
+				font-weight: bold;
+				word-break: normal;
+				word-wrap: break-word;
+			}
+
+			// Keep text inline with any ajacent icons
+			h1, .collection-description {
+				span {
+					vertical-align: top;
+				}
+			}
+
+			.settings-action {
 				display: inline-block;
 				vertical-align: sub;
 				// FIXME: Find a way to manipulate icon size without refering explicitly to :before (implementation detail).
@@ -70,6 +100,8 @@
 					background-size: 75% auto;
 				}
 			}
+
+
 		}
 	}
 }

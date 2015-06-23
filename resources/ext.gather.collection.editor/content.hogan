@@ -3,33 +3,41 @@
 		<h1>
 			<span>{{collection.title}}</span>
 			{{^collection.description}}
-				{{#editIcon}}{{>icon}}{{/editIcon}}
+				{{#settingsIcon}}{{>icon}}{{/settingsIcon}}
 			{{/collection.description}}
 		</h1>
 		<div class='collection-description'>
 			<span>{{collection.description}}</span>
 			{{#collection.description}}
-				{{#editIcon}}{{>icon}}{{/editIcon}}
+				{{#settingsIcon}}{{>icon}}{{/settingsIcon}}
 			{{/collection.description}}
 		</div>
 	</div>
 	<div class="panel">{{{spinner}}}</div>
 	<div class="related-pages"></div>
 	<div class="content">
-		<div class="actions">
-			<a class="mw-ui-button delete-action action">{{deleteMsg}}</a>
-		</div>
 	</div>
 </div>
 <div class="content editor-pane hidden">
 	<label>{{nameLabel}}</label>
-	<input class="mw-ui-input title" value="{{collection.title}}">
+	<input class="mw-ui-input title" value="{{collection.title}}" placeholder="{{emptyTitleMsg}}"">
 	<label>{{descriptionLabel}}</label>
 	<textarea class="mw-ui-input description"
-		rows='2'>{{collection.description}}</textarea>
-	{{^collection.isHidden}}<div class="mw-ui-checkbox">
-		<input type="checkbox" class="privacy" id="collection-editor-privacy-{{collection.id}}"
-			{{#collection.isPublic}}checked{{/collection.isPublic}} />
-		<label for="collection-editor-privacy-{{collection.id}}">{{publicLabel}}</label>
-	</div>{{/collection.isHidden}}
+		rows='2' placeholder="{{emptyDescriptionMsg}}">{{collection.description}}</textarea>
+	{{^collection.isHidden}}
+	<div class="collection-privacy {{^collection.isPublic}}private{{/collection.isPublic}}">
+		{{#iconPublicButton}}
+			{{>icon}}
+		{{/iconPublicButton}}
+		{{#iconPrivateButton}}
+			{{>icon}}
+		{{/iconPrivateButton}}
+		<label for="collection-editor-privacy-{{collection.id}}">{{privateLabel}}</label>
+	</div>
+	{{/collection.isHidden}}
+	{{#collection.id}}
+		<div class="actions">
+			<a class="mw-ui-button delete-action action">{{deleteMsg}}</a>
+		</div>
+	{{/collection.id}}
 </div>
