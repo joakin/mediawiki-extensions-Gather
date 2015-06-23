@@ -69,7 +69,7 @@ module.exports = function ( grunt ) {
 					coverage: {
 						prefixUrl: 'w/', // Prefix url on the server
 						baseUrl: '../../', // Path to assets from the server (extensions/Mobile...)
-						src: [ '<%= files.js %>', '!<%= files.jsExternals %>' ],
+						src: [ '<%= files.js %>' ],
 						instrumentedFiles: 'tests/report/tmp',
 						htmlReport: 'tests/report'
 					}
