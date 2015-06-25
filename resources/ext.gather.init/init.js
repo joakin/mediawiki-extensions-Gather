@@ -166,7 +166,7 @@
 			} );
 		}
 		skin.emit( 'changed' );
-	} else {
+	} else if ( useGatherStar ) {
 		revealCollectionsInMainMenu();
 	}
 
