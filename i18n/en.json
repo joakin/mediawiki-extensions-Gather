@@ -99,7 +99,6 @@
 	"gather-watchlist-title": "Watchlist",
 	"gather-watchlist-description": "A list of pages that I am interested in.",
 	"gather-lists-title": "Collections",
-	"gather-lists-from-user-title": "Collections by $1",
 	"gather-meta-description": "Here are the collections $1 {{GENDER:$1|has created}} on {{SITENAME}}.",
 	"gather-read-more": "Read more",
 	"gather-private": "Private",
