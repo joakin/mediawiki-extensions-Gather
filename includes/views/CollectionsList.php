@@ -48,10 +48,7 @@ class CollectionsList extends View {
 	 * @return string title for page showing curated lists
 	 */
 	public function getTitle() {
-		$owner = $this->collectionsList->getOwner();
-		$pageTitle = $owner ? wfMessage( 'gather-lists-from-user-title', $owner ) :
-			wfMessage( 'gather-lists-title' );
-		return $pageTitle->text();
+		return wfMessage( 'gather-lists-title' )->text();
 	}
 
 	/**
