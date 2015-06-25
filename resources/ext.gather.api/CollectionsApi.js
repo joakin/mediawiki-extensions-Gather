@@ -189,9 +189,11 @@
 					action: 'query',
 					list: 'lists',
 					lstlimit: 50,
-					lsttitle: page ? page.getTitle() : null,
 					lstprop: 'label|description|public|image|count|owner'
 				} );
+			if ( page ) {
+				args.lsttitle = page.getTitle();
+			}
 			return this.get( args ).then( function ( resp ) {
 				var result = {};
 				if ( resp['query-continue'] ) {

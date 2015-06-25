@@ -104,7 +104,8 @@
 		_apiCallByMode: function () {
 			if ( this.options.mode === 'recent' ) {
 				return this.api.getCollections( null, $.extend( this.continueArgs, {
-						lstminitems: 4
+						lstminitems: 4,
+						lstmode: 'allpublic'
 					} ) );
 			} else {
 				return this.api.getCurrentUsersCollections( this.options.owner, null, this.continueArgs );
