@@ -112,9 +112,13 @@
 
 		watchstar.insertBefore( $star );
 		$star.remove();
-		if ( shouldShow ) {
-			showPointer( watchstar );
-		}
+
+		// Delay tutorial so it's more noticeable to the user
+		setTimeout( function () {
+			if ( shouldShow ) {
+				showPointer( watchstar );
+			}
+		}, 1000 );
 
 		watchstar.on( 'completed', function ( firstTimeUser, isNewCollection ) {
 			if ( isNewCollection ) {
@@ -160,8 +164,8 @@
 				isAnon: user.isAnon(),
 				isWatched: $star.hasClass( 'watched' )
 			} );
-			skin.emit( 'changed' );
 		}
+		skin.emit( 'changed' );
 	} else {
 		revealCollectionsInMainMenu();
 	}
