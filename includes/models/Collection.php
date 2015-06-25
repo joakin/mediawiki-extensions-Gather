@@ -266,9 +266,6 @@ class Collection extends CollectionBase implements IteratorAggregate {
 			if ( isset( $data['continue'] ) ) {
 				$collection->setContinue( $data['continue'], $params );
 			}
-			if ( isset( $data['query-continue'] ) ) {
-				$collection->setContinue( $data['query-continue'], $params );
-			}
 		} catch ( Exception $e ) {
 			// just return collection
 		}
