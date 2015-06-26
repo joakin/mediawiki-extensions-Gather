@@ -286,7 +286,9 @@ class ApiQueryLists extends ApiQueryBase {
 				ApiBase::PARAM_TYPE => array(
 					'allpublic',
 					'allhidden',
-				)
+					'review',
+				),
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => array(),
 			),
 			'prop' => array(
 				ApiBase::PARAM_DFLT => 'label',
@@ -299,7 +301,8 @@ class ApiQueryLists extends ApiQueryBase {
 					'count',
 					'updated',
 					'owner',
-				)
+				),
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => array(),
 			),
 			'minitems' => array(
 				ApiBase::PARAM_TYPE => 'integer',
@@ -315,7 +318,8 @@ class ApiQueryLists extends ApiQueryBase {
 				ApiBase::PARAM_TYPE => 'user',
 			),
 			'token' => array(
-				ApiBase::PARAM_TYPE => 'string'
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_HELP_MSG => 'gather-api-help-param-listtoken',
 			),
 			'limit' => array(
 				ApiBase::PARAM_DFLT => 10,
@@ -332,7 +336,7 @@ class ApiQueryLists extends ApiQueryBase {
 
 	protected function getExamplesMessages() {
 		return array(
-			'action=query&list=lists' => 'apihelp-query+lists',
+			'action=query&list=lists&lstowner=john' => 'apihelp-query+lists-example-1',
 		);
 	}
 

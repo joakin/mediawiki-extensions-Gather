@@ -384,6 +384,7 @@ class ApiEditList extends ApiBase {
 					'public',
 					'private',
 				),
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => array(),
 			),
 			'description' => array(
 				ApiBase::PARAM_TYPE => 'string',
@@ -400,6 +401,7 @@ class ApiEditList extends ApiBase {
 					'hidelist',
 					'showlist',
 				),
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => array(),
 			),
 			'continue' => array(
 				ApiBase::PARAM_HELP_MSG => 'api-help-param-continue',
