@@ -118,7 +118,7 @@ class CollectionsList implements IteratorAggregate, ArraySerializable, WithImage
 		} else {
 			return SpecialPage::getTitleFor( 'Gather' )
 				->getSubpage( 'all' )
-				->getSubpage( $this->listMode )
+				->getSubpage( $this->mode )
 				->getLocalURL( $query );
 		}
 	}
