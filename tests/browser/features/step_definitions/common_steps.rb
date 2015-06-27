@@ -1,4 +1,5 @@
 Given(/^I am using the mobile site$/) do
+  visit(MainPage)
   on(MainPage) do |page|
     page.goto
     # A domain is explicitly given to avoid a bug in earlier versions of Chrome
@@ -14,7 +15,7 @@ end
 
 Given(/^I am logged into the mobile website$/) do
   step 'I am using the mobile site'
-  visit(LoginPage).login_with(ENV['MEDIAWIKI_USER'], ENV['MEDIAWIKI_PASSWORD'], false)
+  visit(LoginPage).login_with(user, password, false)
 end
 
 Then(/^I wait$/) do
@@ -39,7 +40,8 @@ end
 Given(/^I am on the "(.+)" page$/) do |article|
   # Ensure we do not cause a redirect
   article = article.sub(/ /, '_')
-  visit(ArticlePage, using_params: { article_name: article })
+  # article parameters need to be encoded.
+  visit(ArticlePage, using_params: { :article_name => article })
 end
 
 When(/^I click the watchstar$/) do

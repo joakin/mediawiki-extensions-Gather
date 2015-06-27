@@ -15,11 +15,11 @@ end
 
 
 Then(/^I see the recent collections page$/) do
-  expect(@browser.url).to match(/Special\:Gather\/all\/recent/)
+  expect(browser.url).to match(/Special\:Gather\/all\/recent/)
 end
 
 Then(/^I see the login page$/) do
-  expect(@browser.url).to match(/Special\:UserLogin/)
+  expect(browser.url).to match(/Special\:UserLogin/)
 end
 
 Then(/^I see the error page$/) do
