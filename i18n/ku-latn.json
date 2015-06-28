@@ -26,6 +26,11 @@
 	"gather-edit-button": "Biguherîne",
 	"gather-delete-button": "Jê bibe",
 	"gather-overlay-edit-button": "Sernav û danasîna biguherîne",
+	"apihelp-editlist-param-perm": "Dîtbariya lîsteyê biguherîne.",
+	"apihelp-editlist-paramvalue-mode-remove": "Lîsteyên ji lîsteyekê jê bibe",
+	"apihelp-editlist-paramvalue-mode-deletelist": "Tevahiya lîsteyê jê bibe",
+	"apihelp-query+lists-paramvalue-prop-label": "Sernavê lîsteyê",
+	"apihelp-query+lists-paramvalue-prop-description": "Danasîna lîsteyê",
 	"gather-watchstar-button-label": "Bixe nav koleksiyone",
 	"gather-view-collection": "Koleksîyone nîşan bide",
 	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal."

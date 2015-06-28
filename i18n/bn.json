@@ -1,15 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aftabuzzaman"
+			"Aftabuzzaman",
+			"Jim Carter"
 		]
 	},
+	"gather-all-collections": "সাম্প্রতিক",
 	"gather-editfeed-show": "দেখাও",
+	"gather-edit-collection-label-private": "ব্যক্তিগত সংগ্রহ",
+	"gather-edit-collection-settings-title-label": "সংগ্রহ সেটিংস",
+	"gather-edit-collection-title-empty": "সংগ্রহের জন্য একটি নাম লিখুন (আবশ্যক)",
+	"gather-edit-collection-description-empty": "সংগ্রহের একটি বর্ণনা লিখুন (ঐচ্ছিক)",
+	"gather-tutorial-dismiss-button-label": "ঠিক আছে",
 	"gather-watchlist-title": "নজরতালিকা",
 	"gather-read-more": "আরও পড়ুন",
 	"gather-private": "ব্যক্তিগত",
 	"gather-article-count": "$1টি {{PLURAL:$1|পাতা}}",
 	"gather-overlay-search-new": "একটি নতুন অনুসন্ধান শুরু করুন...",
+	"gather-overlay-search-tutorial-text": "বা পরামর্শকৃত পাতা থেকে পছন্দ করে নিন।",
 	"gather-lists-more-failed": "আরও সংগ্রহ লোড করা ব্যর্থ হয়েছে।",
 	"gather-view-collection": "সংগ্রহ দেখুন"
 }

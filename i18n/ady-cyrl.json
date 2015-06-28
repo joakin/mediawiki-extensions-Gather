@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bedynokue.nart",
+			"Highlander45temp"
+		]
+	},
+	"gather-tutorial-dismiss-button-label": "Хъун",
+	"gather-collection-content-tutorial-subheading": "Е, лъыплъэ купым хэгъахъу зэхъок1 пэпчъ плъэгъунэу.",
+	"gather-overlay-search-tutorial-text": "Е къыуагъэлъэгъурэ нэк1убгъохэм къахэх.",
+	"apihelp-editlist-param-perm": "Плъэгъун плъэк1ыщтыр гъэпс.",
+	"apihelp-editlist-param-mode": "Мы купым епш1эщтыр сыдым фэд:",
+	"apihelp-editlist-paramvalue-perm-public": "Зэк1эмэ алъэгъунэу ш1ы (сыдми модерацием мыщ е1эзэжьын фит)",
+	"apihelp-editlist-paramvalue-mode-showlist": "Мыщ ыпэк1э купыр зэрэбгъэбылъыгъэр зэк1эгъэк1ожь.",
+	"apihelp-query+lists-param-title": "Мы нэк1убгъор зыхафэрэ куп закъохэр ары къэбгъэлъэгъон фаер.",
+	"apihelp-query+lists-paramvalue-prop-description": "Купым икъэбар"
+}

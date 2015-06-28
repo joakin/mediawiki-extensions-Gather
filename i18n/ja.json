@@ -3,7 +3,8 @@
 		"authors": [
 			"Otokoume",
 			"赤城。",
-			"Shirayuki"
+			"Shirayuki",
+			"Sujiniku"
 		]
 	},
 	"gather-lists-collection-owner": "所有者",
@@ -13,12 +14,12 @@
 	"gather-collection-random-title": "おまかせ表示",
 	"gather-edit-collection-label-name": "名前",
 	"gather-edit-collection-label-description": "説明",
-	"gather-edit-collection-label-public": "公開コレクション",
 	"gather-edit-collection-save-label": "保存",
 	"gather-delete-collection-delete-label": "削除",
 	"gather-confirmation-cancel-button-label": "キャンセル",
+	"gather-tutorial-dismiss-button-label": "OK",
 	"gather-create-new-button-label": "作成",
-	"gather-add-to-collection-summary": "コレクションに$1を追加しますか？",
+	"gather-add-to-collection-summary": "あなたが世界と共有できるページのコレクションに $1 を{{GENDER:$2|追加}}。",
 	"gather-add-to-collection-confirm": "コレクションに追加",
 	"gather-add-to-collection-cancel": "不要です",
 	"gather-page-not-found": "ページが見つかりません",
