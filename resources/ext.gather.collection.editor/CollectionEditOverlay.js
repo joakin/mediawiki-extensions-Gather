@@ -94,7 +94,8 @@
 			'input .search-header input': 'onRunSearch',
 			'click .search-header .back': 'onExitSearch',
 			'click .save-description': 'onSaveDescriptionClick',
-			'click .back': 'onBackClick',
+			'click .back': 'onSettingsBackClick',
+			'click .cancel': 'onCancelClick',
 			'click .save': 'onFirstPaneSaveClick',
 			'click .collection-privacy': 'onToggleCollectionPrivacy'
 		} ),
@@ -106,8 +107,13 @@
 		} ),
 		/** @inheritdoc */
 		initialize: function ( options ) {
+			// Initial properties;
+			this.id = null;
+			this.originalTitle = '';
+
 			if ( options && options.collection ) {
 				this.id = options.collection.id;
+				this.originalTitle = options.collection.title;
 			} else {
 				options.collection = {
 					// New collection is public by default
@@ -121,13 +127,11 @@
 		},
 		/** @inheritdoc */
 		postRender: function () {
-			var id = this.id;
 			Overlay.prototype.postRender.apply( this, arguments );
 
-			if ( id ) {
+			if ( this.id ) {
 				this._populateCollectionMembers();
 			} else {
-				this.id = null;
 				this._switchToSettingsPane();
 			}
 		},
@@ -300,9 +304,18 @@
 			deleteOverlay.show();
 		},
 		/**
+		 * Event handler when the cancel (back) button is clicked on the edit pane.
+		 */
+		onCancelClick: function () {
+			Overlay.prototype.onExit.apply( this, arguments );
+			if ( this._stateChanged ) {
+				this._reloadCollection();
+			}
+		},
+		/**
 		 * Event handler when the back button is clicked on the title/edit description pane.
 		 */
-		onBackClick: function () {
+		onSettingsBackClick: function () {
 			if ( this.id ) {
 				// reset the values to their original values.
 				this.$( 'input.title' ).val( this.options.collection.title );
@@ -320,9 +333,18 @@
 		_reloadCollection: function () {
 			var self = this;
 			window.setTimeout( function () {
+				var collection;
 				router.navigate( '/' );
 				if ( self.options.reloadOnSave ) {
-					window.location.reload();
+					collection = self.options.collection;
+					// Reload collection with updated title in url
+					if ( self.originalTitle !== collection.title ) {
+						window.location.href = mw.util.getUrl(
+							[ 'Special:Gather', 'id', collection.id, collection.title ].join( '/' )
+						);
+					} else {
+						window.location.reload();
+					}
 				}
 			}, 100 );
 		},
