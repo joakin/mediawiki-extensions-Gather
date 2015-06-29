@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Sherry"
 		]
 	},
 	"gather": "Gather",
@@ -121,16 +122,21 @@
 	"gather-overlay-search-tutorial-heading": "接下来，通过搜索类似的条目添加一个二级页面至您的收藏。",
 	"gather-overlay-search-tutorial-text": "或从建议的页面中选择。",
 	"right-gather-hidelist": "强制隐藏一个公开的用户列表",
+	"apihelp-editlist-description": "创建或编辑一个收藏（包括添加或移除页面）。",
 	"apihelp-editlist-param-id": "列表ID；设置为<kbd>0</kbd>以使用监视列表。",
 	"apihelp-editlist-param-label": "设置列表标签（标题）。",
 	"apihelp-editlist-param-perm": "更改列表可见性。",
 	"apihelp-editlist-param-description": "设置列表描述。",
 	"apihelp-editlist-param-image": "设置主图片。",
 	"apihelp-editlist-paramvalue-perm-public": "将其可见性设为任何人（版主仍可以覆盖这个）",
+	"apihelp-editlist-paramvalue-perm-private": "将其可见性设定为仅限主人",
+	"apihelp-editlist-paramvalue-mode-hidelist": "将列表设定为私有。需要<kbd>gather-hidelist</kbd>权限（并且不能在没有该权限的情况下撤销）。",
+	"apihelp-editlist-paramvalue-mode-showlist": "取消以前的隐藏列表。",
 	"apihelp-query+lists-description": "列举指定用户的收藏。",
 	"apihelp-query+lists-param-mode": "显示所有匹配某一标准的列表（不能与主人/id参数一起使用；如果这些和模式都没有提供，则只显示当前用户的列表）。",
 	"apihelp-query+lists-param-prop": "要显示的额外信息。",
 	"apihelp-query+lists-param-ids": "要返回的列表ID。使用<kbd>0</kbd>用于监视列表。",
+	"apihelp-query+lists-param-title": "仅显示含有这个页面的列表。",
 	"apihelp-query+lists-param-owner": "要搜索的收藏主人。如果省略，默认为当前用户。",
 	"apihelp-query+lists-paramvalue-mode-allpublic": "显示所有（公开）列表",
 	"apihelp-query+lists-paramvalue-prop-label": "列表标题",

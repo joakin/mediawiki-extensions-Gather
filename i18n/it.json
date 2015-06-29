@@ -36,6 +36,7 @@
 	"apihelp-editlist-paramvalue-mode-remove": "Cancella pagine da un elenco.",
 	"apihelp-query+lists-param-prop": "Ulteriori informazioni da mostrare.",
 	"apihelp-query+lists-param-title": "Mostra esclusivamente gli elenchi che contengono questa pagina.",
+	"apihelp-query+lists-paramvalue-prop-label": "Titolo della lista",
 	"apihelp-query+lists-paramvalue-prop-count": "Numero di elementi nell'elenco",
 	"apihelp-query+lists-paramvalue-prop-owner": "Proprietario dell'elenco",
 	"apihelp-query+listmembership-example-1": "Controlla se <kbd>Page</kbd> è negli osservati speciali.",
