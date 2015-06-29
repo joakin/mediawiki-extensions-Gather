@@ -65,6 +65,7 @@
 	"gather-overlay-search-new": "Eppes anescht sichen...",
 	"gather-overlay-search-results-empty": "Pardon, mir konnte keng Säite fir \"$1\" fannen",
 	"apihelp-editlist-param-perm": "Visibilitéit vun der Ännerungslëscht.",
+	"apihelp-editlist-param-description": "Beschreiwung vun der Lëscht festleeën.",
 	"apihelp-editlist-paramvalue-mode-remove": "Säite vun enger Lëscht läschen.",
 	"apihelp-editlist-paramvalue-mode-deletelist": "Déi ganz Lëscht läschen.",
 	"apihelp-query+lists-param-title": "Nëmme Lëschte weisen op deenen dës Säit drop ass.",
