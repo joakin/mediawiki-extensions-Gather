@@ -298,6 +298,7 @@
 				"ext.gather.api",
 				"ext.gather.collection.base",
 				"mobile.settings",
+				"skins.minerva.icons.variants.js",
 				"ext.gather.watchstar.icons",
 				"ext.gather.buttonspinner"
 			],
@@ -329,6 +330,7 @@
 				"gather-view-collection"
 			],
 			"templates": {
+				"header.hogan": "resources/ext.gather.collection.contentOverlay/header.hogan",
 				"content.hogan": "resources/ext.gather.collection.contentOverlay/content.hogan"
 			},
 			"scripts": [
