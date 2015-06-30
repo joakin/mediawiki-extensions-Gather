@@ -1,7 +1,7 @@
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 ( function ( M, $ ) {
 
-	var $star, watchstar,
+	var $star, watchstar, pageActionPointer, actionOverlay,
 		bucket, useGatherStar,
 		CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
 		Watchstar = M.require( 'mobile.watchstar/Watchstar' ),
@@ -10,10 +10,12 @@
 		Tag = M.require( 'ext.gather.watchstar/Tag' ),
 		settings = M.require( 'settings' ),
 		settingOverlayWasDismissed = 'gather-has-dismissed-tutorial',
+		mainMenuPointerDismissed = 'gather-has-dismissed-mainmenu',
 		user = M.require( 'user' ),
 		experiments = M.require( 'experiments' ),
 		context = M.require( 'context' ),
 		skin = M.require( 'skin' ),
+		mainMenu = M.require( 'mainMenu' ),
 		page = M.getCurrentPage();
 
 	/**
@@ -58,11 +60,12 @@
 	 * @ignore
 	 */
 	function showPointer( watchstar ) {
-		var $star = watchstar.$el,
-			actionOverlay = new WatchstarPageActionOverlay( {
-				skin: skin,
-				target: $star
-			} );
+		var $star = watchstar.$el;
+
+		actionOverlay = new WatchstarPageActionOverlay( {
+			skin: skin,
+			target: $star
+		} );
 
 		// Dismiss when watchstar is clicked
 		$star.on( 'click', function () {
@@ -88,6 +91,23 @@
 	 * @ignore
 	 */
 	function revealCollectionsInMainMenu() {
+		if ( !settings.get( mainMenuPointerDismissed ) ) {
+			mainMenu.advertiseNewFeature( '.collection-menu-item',
+				mw.msg( 'gather-main-menu-new-feature' ), skin ).done( function ( pointerOverlay ) {
+					pointerOverlay.on( 'hide', function () {
+						settings.save( mainMenuPointerDismissed, true );
+					} );
+				} );
+		}
+
+		mainMenu.on( 'open', function () {
+			if ( actionOverlay ) {
+				actionOverlay.hide();
+			}
+			if ( pageActionPointer ) {
+				pageActionPointer.hide();
+			}
+		} );
 		// FIXME: This should operate on MainMenu class.
 		return $( '#mw-mf-page-left' ).find( '.collection-menu-item' ).removeClass( 'hidden' );
 	}
@@ -125,7 +145,7 @@
 				// FIXME: Rename pointer overlay?
 				// Only append the overlay if it is not there yet
 				if ( $( '#mw-mf-page-center .tutorial-overlay' ).length === 0 ) {
-					new PageActionOverlay( {
+					pageActionPointer = new PageActionOverlay( {
 						skin: skin,
 						target: $( '#mw-mf-main-menu-button' ),
 						summary: mw.msg( 'gather-menu-guider' ),
