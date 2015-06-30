@@ -81,7 +81,7 @@
 	"gather-add-failed-toast": "There was a problem adding the item to your \"$1\" collection.",
 	"gather-add-title-invalid-toast": "There was an issue with the title you entered. Please try something else",
 	"gather-collection-content-tutorial-heading": "Start a collection of your favorite interests that you can bookmark for later or share with others.",
-	"gather-collection-content-tutorial-subheading": "Or, add this to your watchlist to follow changes to the article.",
+	"gather-collection-content-tutorial-subheading": "Or, add this to your '''watchlist''' to follow changes to the article.",
 	"gather-add-to-collection-summary": "{{GENDER:$2|Add}} $1 to a collection, a list of pages that you can bookmark and share!",
 	"gather-add-to-collection-confirm": "Start a collection",
 	"gather-add-to-collection-cancel": "No thanks",

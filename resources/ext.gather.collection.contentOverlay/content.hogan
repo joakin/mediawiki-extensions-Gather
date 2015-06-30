@@ -1,7 +1,7 @@
 {{{spinner}}}
 <div class="tutorial hidden">
 	<div class="heading">{{tutorialHeading}}</div>
-	<div>{{tutorialSubheading}}</div>
+	<div>{{{tutorialSubheading}}}</div>
 	<div class="button-bar">
 		<button class="mw-ui-progressive mw-ui-button tutorial-next">{{dismissButtonLabel}}</button>
 	</div>
