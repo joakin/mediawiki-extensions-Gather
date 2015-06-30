@@ -53,6 +53,13 @@
 	"gather-overlay-search-new": "Rozpocznij nowe wyszukiwanie...",
 	"gather-overlay-search-results-empty": "Niestety nie znaleziono żadnych stron dla „$1”",
 	"gather-overlay-search-tutorial-text": "Albo wybierz z proponowanych stron.",
+	"apihelp-editlist-param-perm": "Zmień widoczność listy.",
+	"apihelp-editlist-paramvalue-mode-remove": "Usuń strony z listy.",
+	"apihelp-query+lists-param-prop": "Dodatkowe informacje do wyświetlenia.",
+	"apihelp-query+lists-param-title": "Pokaż tylko te listy, które zawierają tę stronę",
+	"apihelp-query+lists-paramvalue-prop-label": "Tytuł listy",
+	"apihelp-query+lists-paramvalue-prop-description": "Opis listy",
+	"apihelp-query+lists-paramvalue-prop-updated": "Znacznik czasu ostatniej aktualizacji",
 	"gather-lists-more-no-owner": "Zobacz więcej zbiorów.",
 	"gather-watchstar-button-label": "Dodać do kolekcji",
 	"gather-view-collection": "Zobacz kolekcję"
