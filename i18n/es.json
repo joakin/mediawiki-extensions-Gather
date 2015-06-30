@@ -7,7 +7,8 @@
 			"Laurenslimb",
 			"Tusca",
 			"Larjona",
-			"Ryo567"
+			"Ryo567",
+			"Ncontinanza"
 		]
 	},
 	"gatherlists": "Recopilar listas",
@@ -106,6 +107,9 @@
 	"gather-moderation-unhidden": "[[$1|Tu colección]] se ha vuelto a mostrar. Esto significa que puede verse públicamente de nuevo.",
 	"gather-moderation-unhidden-email-subject": "Tu colección $1 se ha vuelto a mostrar.",
 	"gather-moderation-unhidden-email-body": "Tu colección $1 se ha vuelto a mostrar. Esto significa que puede verse públicamente de nuevo.",
+	"gather-moderation-approved": "[[$1|Su colección]] fue aprobada. Esto significa que no se ocultará automáticamente de nuevo.",
+	"gather-moderation-approved-email-subject": "Su colección de $1 ha sido aprobada",
+	"gather-moderation-approved-email-body": "Su colección $1 ha sido aprobada. Esto significa que no se ocultará automáticamente de nuevo.",
 	"echo-category-title-gather": "Recopilar",
 	"gather-echo-pref-tooltip": "Notificarme acerca de los cambios en mis colecciones.",
 	"gather-article-count": "$1 {{PLURAL:$1|página|páginas}}",
@@ -129,6 +133,7 @@
 	"apihelp-editlist-param-description": "Establecer la descripción de la lista.",
 	"apihelp-editlist-param-image": "Establecer la imagen principal.",
 	"apihelp-editlist-param-mode": "Qué tipo de operación realizar sobre la lista:",
+	"apihelp-editlist-paramvalue-perm-public": "Hacer que sea visible para todos (la moderación puede anular esto)",
 	"apihelp-editlist-paramvalue-perm-private": "Hacerla visible solo para el propietario",
 	"apihelp-editlist-paramvalue-mode-update": "Añadir páginas a una lista (y crearla si no se ha especificado un identificador de lista).",
 	"apihelp-editlist-paramvalue-mode-remove": "Eliminar páginas de una lista.",
@@ -145,6 +150,7 @@
 	"apihelp-query+lists-paramvalue-mode-allhidden": "Mostrar todas las listas ocultas (requiere el permiso <kbd>gather-hidelist</kbd>; no muestra las listas privadas)",
 	"apihelp-query+lists-paramvalue-prop-label": "Título de la lista",
 	"apihelp-query+lists-paramvalue-prop-description": "Descripción de la lista",
+	"apihelp-query+lists-paramvalue-prop-review": "Está la lista temporalmente oculta y esperando revisión del moderador?",
 	"apihelp-query+lists-paramvalue-prop-image": "Imagen principal",
 	"apihelp-query+lists-paramvalue-prop-count": "Número de elementos en la lista",
 	"apihelp-query+lists-paramvalue-prop-updated": "Fecha y hora de la última actualización",
