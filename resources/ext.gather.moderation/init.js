@@ -8,18 +8,22 @@
 	 * Initialize the moderation buttons
 	 */
 	function init() {
-		var $collection = $( '.collection' );
+		var label, owner,
+			$collection = $( '.collection' );
+
 		if ( $collection.length && $collection.data( 'is-admin' ) ) {
+			label = $collection.data( 'label' );
+			owner = $collection.data( 'owner' );
 			new Icon( {
 				name: 'collection-hide',
-				title: mw.msg( 'gather-lists-hide-collection' ),
+				title: mw.msg( 'gather-lists-hide-collection', label, owner ),
 				additionalClassNames: 'moderate-collection'
 			} )
 			.appendTo( '.collection-moderation' );
 			// FIXME: Should be possible to apply data directly
 			$( '.moderate-collection' )
-				.data( 'label', $collection.data( 'label' ) )
-				.data( 'owner', $collection.data( 'owner' ) )
+				.data( 'label', label )
+				.data( 'owner', owner )
 				.data( 'id', $collection.data( 'id' ) )
 				.data( 'action', 'hide' );
 		}
