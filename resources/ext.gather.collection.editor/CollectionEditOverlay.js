@@ -164,6 +164,7 @@
 				self.searchPanel.show();
 				if ( self.options.showTutorial ) {
 					self.searchTutorialOverlay = new SearchTutorialOverlay( {
+						appendToElement: self.$el,
 						target: self.$( '.mw-ui-icon-search' ),
 						skin: skin
 					} );
@@ -210,6 +211,9 @@
 					.addClass( 'hidden' );
 				this.$( this._selectors.search ).removeClass( 'hidden' );
 				this.$( '.search-header input' ).focus();
+				if ( this.options.showTutorial ) {
+					this.searchTutorialOverlay.hide();
+				}
 			}
 		},
 		/**
