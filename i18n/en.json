@@ -157,7 +157,7 @@
 	"apihelp-query+lists-paramvalue-mode-review": "Show all lists that need review (requires the <code>gather-hidelist</code> userright)",
 	"apihelp-query+lists-paramvalue-prop-label": "Title of the list",
 	"apihelp-query+lists-paramvalue-prop-description": "Description of the list",
-	"apihelp-query+lists-paramvalue-prop-public": "Several visibility-related properties: <dl><dt>perm</dt><dd><samp>public</samp> or <samp>private</samp> (set by owner), private is only visible to owner</dd><dt>perm_override</dt><dd><samp>hidden</samp> or <samp>approved</samp> (or not present), can be set by a moderator</dd><dt>flagged</dt><dd>the list got enough flags to qualify for moderator attention</dd><dt>hidden</dt><dd>the list is hidden and only visible to the owner and moderators (due to flags or explicit moderator choice)</dd></dl>",
+	"apihelp-query+lists-paramvalue-prop-public": "Several visibility-related properties:\n;perm:<samp>public</samp> or <samp>private</samp> (set by owner), <samp>private</samp> is only visible to owner.\n;perm_override:<samp>hidden</samp> or <samp>approved</samp> (or not present), can be set by a moderator.\n;flagged:The list got enough flags to qualify for moderator attention.\n;hidden:The list is hidden and only visible to the owner and moderators (due to flags or explicit moderator choice).",
 	"apihelp-query+lists-paramvalue-prop-review": "Is the list temporarily hidden and waiting for moderator review?",
 	"apihelp-query+lists-paramvalue-prop-image": "Lead image",
 	"apihelp-query+lists-paramvalue-prop-count": "Number of items in the list",
