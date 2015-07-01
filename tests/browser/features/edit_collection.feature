@@ -14,12 +14,25 @@ Feature: Editing collections
     When I click the edit collection button
     Then I see the collection editor overlay
 
+  Scenario: Changing name
+    When I click the edit collection button
+        And I see the collection editor overlay
+        And I wait
+        And I click to edit name and description
+        And I add " cool" to the name
+        And I click to save settings
+        And I wait
+        And I click done
+        And the page has reloaded
+      Then the name of my collection contains " cool"
+        And I see "_cool" in the page url
+
   Scenario: Changing description
     When I click the edit collection button
         And I see the collection editor overlay
         And I click to edit name and description
         And I enter "All work and no play makes Jack a dull boy" as the description
-        And I click to save description
+        And I click to save settings
         And I wait
         And I click done
         And the page has reloaded
@@ -30,7 +43,7 @@ Feature: Editing collections
         And I see the collection editor overlay
         And I click to edit name and description
         And I enter "" as the description
-        And I click to save description
+        And I click to save settings
         And I wait
         And I click done
         And the page has reloaded
