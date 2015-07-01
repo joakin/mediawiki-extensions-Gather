@@ -10,6 +10,7 @@ module.exports = function ( grunt ) {
 
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-jscs' );
+	grunt.loadNpmTasks( 'grunt-banana-checker' );
 	grunt.loadNpmTasks( 'grunt-qunit-istanbul' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-notify' );
@@ -48,6 +49,9 @@ module.exports = function ( grunt ) {
 					src: '<%= files.jsTests %>'
 				}
 			}
+		},
+		banana: {
+			all: ['i18n/']
 		},
 		qunit: {
 			all: {
@@ -133,7 +137,7 @@ module.exports = function ( grunt ) {
 		checkInstallPathNotFound( MW_INSTALL_PATH, grunt );
 	} );
 
-	grunt.registerTask( 'lint', [ 'jshint', 'jscs' ] );
+	grunt.registerTask( 'lint', [ 'jshint', 'jscs', 'banana' ] );
 	grunt.registerTask( 'docs', [ 'checkInstallPath', 'clean:jsdocs', 'mkdir:jsdocs', 'jsduck:main' ] );
 
 	// grunt test will be run by npm test which will be run by Jenkins
