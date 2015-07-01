@@ -195,10 +195,9 @@
 				args.lsttitle = page.getTitle();
 			}
 			return this.get( args ).then( function ( resp ) {
-				var result = {};
-				if ( resp['continue'] ) {
-					result.continueArgs = resp['continue'].lists;
-				}
+				var result = {
+					continueArgs: resp.continue || resp['query-continue']
+				};
 				if ( resp.query && resp.query.lists ) {
 					result.collections = $.map( resp.query.lists, self._mapCollection );
 				} else {
