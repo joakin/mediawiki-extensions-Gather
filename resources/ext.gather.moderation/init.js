@@ -11,7 +11,7 @@
 		var label, owner,
 			$collection = $( '.collection' );
 
-		if ( $collection.length && $collection.data( 'is-admin' ) ) {
+		if ( $collection.length && $collection.data( 'is-admin' ) && $collection.data( 'is-public' ) ) {
 			label = $collection.data( 'label' );
 			owner = $collection.data( 'owner' );
 			new Icon( {

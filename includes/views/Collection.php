@@ -189,6 +189,7 @@ class Collection extends View {
 				'data-id' => $collection->getId(),
 				'data-label' => $collection->getTitle(),
 				'data-owner' => $owner ? $owner->getName() : false,
+				'data-is-public' => $collection->isPublic(),
 				'data-is-admin' => $this->user->isAllowed( 'gather-hidelist' ),
 				'data-is-owner' => $collection->isOwner( $this->user ) ? true : false,
 			) ) .
