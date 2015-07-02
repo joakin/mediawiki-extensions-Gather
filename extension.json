@@ -393,6 +393,7 @@
 			]
 		},
 		"ext.gather.init": {
+			"class": "MFResourceLoaderParsedMessageModule",
 			"targets": [
 				"mobile",
 				"desktop"
@@ -403,9 +404,10 @@
 				"mobile.watchstar",
 				"ext.gather.watchstar"
 			],
-			"messages": [
-				"gather-menu-guider"
-			],
+			"messages": {
+				"gather-main-menu-new-feature": [ "parse" ],
+				"gather-menu-guider": "gather-menu-guider"
+			},
 			"scripts": [
 				"resources/ext.gather.init/init.js"
 			],

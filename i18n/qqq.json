@@ -191,5 +191,6 @@
 	"apihelp-query+listpages-paramvalue-dir-descending": "{{doc-apihelp-paramvalue|query+listpages|dir|descending}}{{Identical|Reversed}}",
 	"apihelp-query+listpages-param-limit": "{{doc-apihelp-param|query+listpages|limit|paramvalues=1}}",
 	"apihelp-query+listpages-paramvalue-sort-position": "{{doc-apihelp-paramvalue|query+listpages|sort|position}}",
-	"apihelp-query+listpages-paramvalue-sort-namespace": "{{doc-apihelp-paramvalue|query+listpages|sort|namespace}}"
+	"apihelp-query+listpages-paramvalue-sort-namespace": "{{doc-apihelp-paramvalue|query+listpages|sort|namespace}}",
+	"gather-main-menu-new-feature": "A message that shows in an overlay pointing to the collections item in the main menu for users that have not seen it before."
 }
