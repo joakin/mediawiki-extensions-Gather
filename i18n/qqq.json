@@ -191,5 +191,7 @@
 	"apihelp-query+listpages-param-limit": "{{doc-apihelp-param|query+listpages|limit|paramvalues=1}}",
 	"apihelp-query+listpages-paramvalue-sort-position": "{{doc-apihelp-paramvalue|query+listpages|sort|position}}",
 	"apihelp-query+listpages-paramvalue-sort-namespace": "{{doc-apihelp-paramvalue|query+listpages|sort|namespace}}",
-	"apihelp-query+lists-param-minitems": "{{doc-apihelp-param|query+lists|minitems}}"
+	"apihelp-query+lists-param-minitems": "{{doc-apihelp-param|query+lists|minitems}}",
+	"gather-main-menu-new-feature": "Message explaining the collections item in the main menu. Wikitext supported."
+
 }
