@@ -55,6 +55,7 @@
 	"gather-hidden": "Verstoppt",
 	"gather-moderation-hidden-email-subject": "Är Sammlung $1 gouf verstoppt.",
 	"gather-moderation-unhidden-email-subject": "Är Sammlung $1 gëtt nees gewisen.",
+	"gather-moderation-approved-email-subject": "Är Sammlung $1 gouf ugeholl.",
 	"gather-article-count": "{{PLURAL:$1|Eng Säit|$1 Säiten}}",
 	"gather-empty": "Nach näischt an dëser Sammlung...",
 	"gather-empty-footer": "Dëst ass eng eidel Sammlung.",

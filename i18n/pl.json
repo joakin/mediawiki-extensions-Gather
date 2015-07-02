@@ -59,6 +59,7 @@
 	"apihelp-query+lists-param-title": "Pokaż tylko te listy, które zawierają tę stronę",
 	"apihelp-query+lists-paramvalue-prop-label": "Tytuł listy",
 	"apihelp-query+lists-paramvalue-prop-description": "Opis listy",
+	"apihelp-query+lists-paramvalue-prop-review": "Czy lista jest tymczasowo ukryta i czeka na przejrzenie przez moderatora?",
 	"apihelp-query+lists-paramvalue-prop-updated": "Znacznik czasu ostatniej aktualizacji",
 	"gather-lists-more-no-owner": "Zobacz więcej zbiorów.",
 	"gather-watchstar-button-label": "Dodać do kolekcji",

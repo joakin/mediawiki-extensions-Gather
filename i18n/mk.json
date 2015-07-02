@@ -132,7 +132,7 @@
 	"apihelp-editlist-paramvalue-perm-private": "Нека е видлив само за сопственикот",
 	"apihelp-editlist-paramvalue-mode-remove": "Избриши страници од список.",
 	"apihelp-editlist-paramvalue-mode-deletelist": "Избриши го целиот список.",
-	"apihelp-editlist-paramvalue-mode-hidelist": "Направи го списокот личен. Го бара корисничкото право <kbd>gather-hidelist</kbd> (и не може да се отповика без тоа право).",
+	"apihelp-editlist-paramvalue-mode-hidelist": "Направи го списокот личен. Го бара корисничкото право <code>gather-hidelist</code> (и не може да се отповика без тоа право).",
 	"apihelp-editlist-paramvalue-mode-showlist": "Отповикај претходна операција за скривање на списокот.",
 	"apihelp-query+lists-description": "Дај ги збирките на даден корисник.",
 	"apihelp-query+lists-param-prop": "Дополнителни информации за приказ.",

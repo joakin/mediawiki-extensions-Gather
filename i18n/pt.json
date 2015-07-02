@@ -102,6 +102,7 @@
 	"gather-moderation-unhidden": "[[$1|A sua coleção]] foi tornada visível. Isto significa que pode ser consultada publicamente de novo.",
 	"gather-moderation-unhidden-email-subject": "A sua coleção $1 foi tornada visível.",
 	"gather-moderation-unhidden-email-body": "A sua coleção $1 foi tornada visível. Isto significa que pode ser consultada publicamente de novo.",
+	"gather-moderation-approved-email-subject": "A sua coleção $1 foi aprovada.",
 	"echo-category-title-gather": "Coleções",
 	"gather-echo-pref-tooltip": "Notificar-me sobre alterações às minhas coleções.",
 	"gather-article-count": "$1 {{PLURAL:$1|página|páginas}}",
