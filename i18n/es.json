@@ -80,7 +80,7 @@
 	"gather-collection-content-tutorial-heading": "Inicia una colección de tus intereses favoritos que puedes marcar para más tarde o compartir con otros.",
 	"gather-collection-content-tutorial-subheading": "O bien, añádela a tu lista de seguimiento para seguir los cambios en el artículo.",
 	"gather-add-to-collection-summary": "¡{{GENDER:$2|Añade}} $1 a una colección de páginas que puedes compartir con los demás!",
-	"gather-add-to-collection-confirm": "Añadir a la colección",
+	"gather-add-to-collection-confirm": "Iniciar una colección",
 	"gather-add-to-collection-cancel": "No, gracias",
 	"gather-update-collection-success": "La colección se ha actualizado con éxito.",
 	"gather-edit-collection-confirm": "Has realizado cambios en tu colección. ¿Quieres salir sin guardar?",
@@ -181,5 +181,6 @@
 	"apihelp-query+listpages-param-limit": "Limitar el número de páginas que se devuelven.",
 	"apihelp-query+listpages-paramvalue-sort-position": "Usar el ordenamiento manual.",
 	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espacio de nombres, título.",
-	"apihelp-query+lists-param-minitems": "Mostrar solo las listas que tengan al menos esta cantidad de elementos. (Se omite para listas de seguimiento)"
+	"apihelp-query+lists-param-minitems": "Mostrar solo las listas que tengan al menos esta cantidad de elementos. (Se omite para listas de seguimiento)",
+	"gather-main-menu-new-feature": "\"¡Nuevo!\" Echa un vistazo a los temas favoritos de los lectores de {{SITENAME}}, o crea tu propia colección."
 }

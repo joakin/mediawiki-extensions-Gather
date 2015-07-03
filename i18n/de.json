@@ -80,7 +80,7 @@
 	"gather-add-failed-toast": "Es gab ein Problem beim Hinzufügen des Objekts zu deiner Sammlung „$1“.",
 	"gather-add-title-invalid-toast": "Es gab ein Problem mit dem eingegebenen Titel. Bitte einen anderen versuchen.",
 	"gather-collection-content-tutorial-heading": "Beginne eine Sammlung deiner Lieblingsinteressen, die du für später als Lesezeichen speichern oder mit anderen teilen kannst.",
-	"gather-collection-content-tutorial-subheading": "Oder füge diese Seite deiner Beobachtungsliste hinzu, um Änderungen am Artikel zu folgen.",
+	"gather-collection-content-tutorial-subheading": "Oder füge diese Seite deiner '''Beobachtungsliste''' hinzu, um Änderungen am Artikel zu folgen.",
 	"gather-add-to-collection-summary": "{{GENDER:$2|Füge}} $1 zu einer Sammlung hinzu, einer Liste mit Seiten, die du einmerken und teilen kannst!",
 	"gather-add-to-collection-confirm": "Eine Sammlung beginnen",
 	"gather-add-to-collection-cancel": "Nein, danke",
@@ -144,5 +144,6 @@
 	"apihelp-query+listmembership-description": "Gibt zurück, welche von einer Reihe von Seiten in einer vorgegebenen Liste sind.",
 	"apihelp-query+listmembership-example-1": "Überprüft, ob <kbd>Seite</kbd> auf der Beobachtungsliste ist.",
 	"gather-view-collection": "Sammlung ansehen",
-	"apihelp-query+listpages-param-dir": "Sortierrichtung festlegen."
+	"apihelp-query+listpages-param-dir": "Sortierrichtung festlegen.",
+	"gather-main-menu-new-feature": "'''Neu!''' Teste die Lieblingsthemen von {{SITENAME}}-Lesern oder erstelle eine Sammlung deiner eigenen Themen."
 }

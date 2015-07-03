@@ -78,8 +78,8 @@
 	"gather-add-title-invalid-toast": "出现与您输入的标题相关的一个问题。请尝试其他标题",
 	"gather-collection-content-tutorial-heading": "开始一个收藏，这样您可以为您喜欢的兴趣添加书签以便以后浏览或与其他人分享它。",
 	"gather-collection-content-tutorial-subheading": "或将此添加至您的监视列表以关注对条目的更改。",
-	"gather-add-to-collection-summary": "将$1{{GENDER:$2|添加}}至页面收藏，这样您就可以与世界分享它了！",
-	"gather-add-to-collection-confirm": "添加至收藏",
+	"gather-add-to-collection-summary": "将$1{{GENDER:$2|添加}}至页面收藏，一个您可以添加书签并分享它的页面列表！",
+	"gather-add-to-collection-confirm": "开始一个收藏",
 	"gather-add-to-collection-cancel": "不，谢谢",
 	"gather-update-collection-success": "收藏已成功更新。",
 	"gather-edit-collection-confirm": "您对您的收藏做出了更新。您是否希望离开而不保存它们？",
@@ -150,10 +150,10 @@
 	"apihelp-query+lists-param-limit": "限制返回的列表数。",
 	"apihelp-query+lists-paramvalue-mode-allpublic": "显示所有（公开）列表",
 	"apihelp-query+lists-paramvalue-mode-allhidden": "显示所有被隐藏的列表（需要<code>gather-hidelist</code>用户权限；不会显示私有列表）",
-	"apihelp-query+lists-paramvalue-mode-review": "显示所有需要复核的列表（需要<kbd>gather-hidelist</kbd>用户权限）",
+	"apihelp-query+lists-paramvalue-mode-review": "显示所有需要复核的列表（需要<code>gather-hidelist</code>用户权限）",
 	"apihelp-query+lists-paramvalue-prop-label": "列表标题",
 	"apihelp-query+lists-paramvalue-prop-description": "列表描述",
-	"apihelp-query+lists-paramvalue-prop-public": "几个可见性相关的属性：perm - <kbd>public</kbd>或<kbd>private</kbd>（可由主任设置），私有内容只有主任可见；perm_override - <kbd>hidden</kbd>或<kbd>approved</kbd>（或不提供），可由版主设置，flagged - 列表已获足够标记，有权使版主注意，hidden - 列表被隐藏，并且只有主人喝版主可见（由于标记或明确的版主选择）",
+	"apihelp-query+lists-paramvalue-prop-public": "几个可见性相关的属性：\n;perm:<samp>public</samp>或<samp>private</samp>（可由主任设置），<samp>private</samp>只有主人可见。\n;perm_override:<samp>hidden</samp>或<samp>approved</samp>（或不提供），可由版主设置。\n;flagged:列表已获足够标记，有权使版主注意。\n;hidden:列表被隐藏，并且只有主人喝版主可见（由于标记或明确的版主选择）。",
 	"apihelp-query+lists-paramvalue-prop-review": "列表被暂时隐藏并等待版主复核么？",
 	"apihelp-query+lists-paramvalue-prop-image": "主题图像",
 	"apihelp-query+lists-paramvalue-prop-count": "列表中的项目数",
@@ -185,5 +185,6 @@
 	"apihelp-query+listpages-param-limit": "限制返回的页面数。",
 	"apihelp-query+listpages-paramvalue-sort-position": "使用一般排序。",
 	"apihelp-query+listpages-paramvalue-sort-namespace": "按名字空间、标题排序。",
-	"apihelp-query+lists-param-minitems": "只显示拥有至少这么多项的列表。（忽略监视列表。）"
+	"apihelp-query+lists-param-minitems": "只显示拥有至少这么多项的列表。（忽略监视列表。）",
+	"gather-main-menu-new-feature": "'''新功能！'''浏览{{SITENAME}}读者最喜爱的话题，或创建您自己的收藏。"
 }

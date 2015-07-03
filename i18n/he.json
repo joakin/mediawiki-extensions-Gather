@@ -79,8 +79,8 @@
 	"gather-add-title-invalid-toast": "הייתה בעיה עם הכותרת שכתבת. נא לנסות משהו אחר",
 	"gather-collection-content-tutorial-heading": "{{GENDER:|התחל|התחילי}} לקט של מה שמעניין אותך ושאפשר להוסיף לסימניות שלך לאחר־כך או לשתך עם אחרים.",
 	"gather-collection-content-tutorial-subheading": "או {{GENDER:|הוסף|הוסיפי}} את זה לרשימת המעקב שלך כדי לעקוב אחרי שינויים לערך.",
-	"gather-add-to-collection-summary": "{{GENDER:$2|הוסף|הוסיפי}} את $1 ללקט של דפים {{GENDER:$2|שתוכל|שתוכלי}} לשתף עם כל העולם!",
-	"gather-add-to-collection-confirm": "הוספה ללקט",
+	"gather-add-to-collection-summary": "{{GENDER:$2|הוסף|הוסיפי}} את $1 ללקט, רשימה של דפים {{GENDER:$2|שתוכל|שתוכלי}} לשמור כסימניות ולשתף!",
+	"gather-add-to-collection-confirm": "התחלת לקט",
 	"gather-add-to-collection-cancel": "לא תודה",
 	"gather-update-collection-success": "האוסף עודכן בהצלחה.",
 	"gather-edit-collection-confirm": "עשית שינויים ללקט הזה. האם לעזוב מבלי לשמור אותם?",
@@ -154,7 +154,7 @@
 	"apihelp-query+lists-paramvalue-mode-review": "הצגת כל הרשימות שדורשות סקירה (דורש את ההרשאה <code>gather-hidelist</code>)",
 	"apihelp-query+lists-paramvalue-prop-label": "כותרת הרשימה",
 	"apihelp-query+lists-paramvalue-prop-description": "תיאור הרשימה",
-	"apihelp-query+lists-paramvalue-prop-public": "מספר מאפיינים של נראוּת: perm‏ - <kbd>public</kbd> או <kbd>private</kbd> (מוגדר על־ידי הבעלים), private מוצג רק לבעלים; perm_override‏ - <kbd>hidden</kbd> או <kbd>approved</kbd> (או לא מוצג), יכול להיות מוגדר על־ידי מפקח; flagged‏ - ברשימה יש מספיק דגלים לצורך תשומת לב ממפקח, hidden - הרשימה מוסתרת ונראית רק לבעלים ולמפקחים (בשל דגלים או בחירה מפורשת של מפקח)",
+	"apihelp-query+lists-paramvalue-prop-public": "מספר מאפיינים של נראוּת:\n:perm:<samp>public</samp> או <samp>private</samp> (מוגדר על־ידי הבעלים), private מוצג רק לבעלים.\n;perm_override:<samp>hidden</samp> או <samp>approved</samp> (או לא מוצג), יכול להיות מוגדר על־ידי מפקח\n;flagged:‏ - ברשימה יש מספיק דגלים לצורך תשומת לב ממפקח\n;hidden:הרשימה מוסתרת ונראית רק לבעלים ולמפקחים (בשל דגלים או בחירה מפורשת של מפקח)",
 	"apihelp-query+lists-paramvalue-prop-review": "האם הרשימה מוסתרת זמנית ומחכה לסקירה של מפקח?",
 	"apihelp-query+lists-paramvalue-prop-image": "תמונה מובילה",
 	"apihelp-query+lists-paramvalue-prop-count": "מספר הפריטים ברשימה",
@@ -186,5 +186,6 @@
 	"apihelp-query+listpages-param-limit": "הגבלת מספר הדפים שיוחזרו.",
 	"apihelp-query+listpages-paramvalue-sort-position": "שימוש במיון ידני.",
 	"apihelp-query+listpages-paramvalue-sort-namespace": "מיון לפי מרחב שם וכותרת.",
-	"apihelp-query+lists-param-minitems": "הצגה רק של רשימות שיש בהן לפחות מספר כזה של פריטים. (לא תקף לרשימות מעקב.)"
+	"apihelp-query+lists-param-minitems": "הצגה רק של רשימות שיש בהן לפחות מספר כזה של פריטים. (לא תקף לרשימות מעקב.)",
+	"gather-main-menu-new-feature": "'''חדש!''' אפשר למצוא את הנושאים האהובים על קוראי {{SITENAME}} או ליצור לקט משלך."
 }
