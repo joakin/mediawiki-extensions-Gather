@@ -193,5 +193,4 @@
 	"apihelp-query+listpages-paramvalue-sort-namespace": "{{doc-apihelp-paramvalue|query+listpages|sort|namespace}}",
 	"apihelp-query+lists-param-minitems": "{{doc-apihelp-param|query+lists|minitems}}",
 	"gather-main-menu-new-feature": "Message explaining the collections item in the main menu. Wikitext supported."
-
 }

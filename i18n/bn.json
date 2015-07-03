@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Aftabuzzaman",
-			"Jim Carter"
+			"Jim Carter",
+			"Sayma Jahan"
 		]
 	},
 	"gather-all-collections": "সাম্প্রতিক",
@@ -19,5 +20,6 @@
 	"gather-overlay-search-new": "একটি নতুন অনুসন্ধান শুরু করুন...",
 	"gather-overlay-search-tutorial-text": "বা পরামর্শকৃত পাতা থেকে পছন্দ করে নিন।",
 	"gather-lists-more-failed": "আরও সংগ্রহ লোড করা ব্যর্থ হয়েছে।",
-	"gather-view-collection": "সংগ্রহ দেখুন"
+	"gather-view-collection": "সংগ্রহ দেখুন",
+	"gather-main-menu-new-feature": "\"\"নতুন!\"\" পাঠকদের প্রিয় বিষয় গুলো চেক করুন অথবা নিজের একটি  সংগ্রহ তৈরি  করুন"
 }
