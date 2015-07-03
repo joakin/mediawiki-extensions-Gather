@@ -9,8 +9,9 @@ Given(/^I am using the mobile site$/) do
 end
 
 Given(/^I view one of my public collections$/) do
-  visit(GatherPage)
-  on(GatherPage).my_first_public_collection_element.click
+  # create a collection with a random name
+  response = make_collection(@random_string)
+  visit(GatherUserCollectionPage, using_params: { :id => response.data["id"] } )
 end
 
 Given(/^I am logged into the mobile website$/) do
