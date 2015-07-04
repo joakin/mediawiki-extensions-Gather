@@ -76,6 +76,7 @@
 	"apihelp-query+lists-paramvalue-prop-description": "Beschreiwung vun der Lëscht",
 	"apihelp-query+lists-paramvalue-prop-count": "Zuel vun den Elementer op der Lëscht",
 	"apihelp-query+lists-paramvalue-prop-updated": "Zäitstempel vun der leschter Aktualisatioun",
+	"apihelp-query+lists-paramvalue-prop-owner": "Besëtzer vun der Lëscht",
 	"gather-lists-more-no-owner": "Méi Sammlunge weisen",
 	"gather-add-to-another": "Meng aner Sammlunge weisen",
 	"apihelp-query+listmembership-example-1": "Nokucken ob <kbd>Page</kbd> op der Iwwerwaachungslëscht ass.",

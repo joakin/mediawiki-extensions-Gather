@@ -4,7 +4,8 @@
 			"Chrumps",
 			"VerMa",
 			"Devwebtel",
-			"Mbkgacek"
+			"Mbkgacek",
+			"PiotrAntosz"
 		]
 	},
 	"gather-lists-collection-owner": "Właściciel",
@@ -36,6 +37,8 @@
 	"gather-create-collection-button-label": "Utwórz kolekcję",
 	"gather-add-new-placeholder": "Nazwa kolekcji",
 	"gather-add-to-new": "Dodaj do nowej kolekcji publicznej",
+	"gather-collection-content-tutorial-subheading": "Lub dodaj to do listy \"Do obejrzania\", aby śledzić zmiany w tym artykule.",
+	"gather-add-to-collection-confirm": "Rozpocznij kolekcje.",
 	"gather-add-to-collection-cancel": "Nie, dziękuję",
 	"gather-unknown-error": "Przepraszamy, podczas przetwarzania Twojego żądania wystąpił nieznany błąd.",
 	"gather-page-not-found": "Nie odnaleziono strony",
@@ -63,5 +66,6 @@
 	"apihelp-query+lists-paramvalue-prop-updated": "Znacznik czasu ostatniej aktualizacji",
 	"gather-lists-more-no-owner": "Zobacz więcej zbiorów.",
 	"gather-watchstar-button-label": "Dodać do kolekcji",
-	"gather-view-collection": "Zobacz kolekcję"
+	"gather-view-collection": "Zobacz kolekcję",
+	"gather-main-menu-new-feature": "\"Nowość!\" Sprawdź już teraz ulubione tematy czytelników na {{SITENAME}} lub stwórz własną kolekcje."
 }

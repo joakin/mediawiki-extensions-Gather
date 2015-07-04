@@ -77,7 +77,7 @@
 	"gather-add-failed-toast": "添加项目至您的“$1”收藏时出现问题。",
 	"gather-add-title-invalid-toast": "出现与您输入的标题相关的一个问题。请尝试其他标题",
 	"gather-collection-content-tutorial-heading": "开始一个收藏，这样您可以为您喜欢的兴趣添加书签以便以后浏览或与其他人分享它。",
-	"gather-collection-content-tutorial-subheading": "或将此添加至您的监视列表以关注对条目的更改。",
+	"gather-collection-content-tutorial-subheading": "或将此添加至您的'''监视列表'''以关注对条目的更改。",
 	"gather-add-to-collection-summary": "将$1{{GENDER:$2|添加}}至页面收藏，一个您可以添加书签并分享它的页面列表！",
 	"gather-add-to-collection-confirm": "开始一个收藏",
 	"gather-add-to-collection-cancel": "不，谢谢",

@@ -78,8 +78,8 @@
 	"gather-add-failed-toast": "Hubo un problema al añadir el elemento a tu colección \"$1\".",
 	"gather-add-title-invalid-toast": "Se produjo un problema con el título proporcionado. Prueba con otro",
 	"gather-collection-content-tutorial-heading": "Inicia una colección de tus intereses favoritos que puedes marcar para más tarde o compartir con otros.",
-	"gather-collection-content-tutorial-subheading": "O bien, añádela a tu lista de seguimiento para seguir los cambios en el artículo.",
-	"gather-add-to-collection-summary": "¡{{GENDER:$2|Añade}} $1 a una colección de páginas que puedes compartir con los demás!",
+	"gather-collection-content-tutorial-subheading": "O bien, añádela a tu '''lista de seguimiento''' para seguir los cambios en el artículo.",
+	"gather-add-to-collection-summary": "¡{{GENDER:$2|Añade}} $1 a una colección, una lista de páginas que puedes guardar y compartir!",
 	"gather-add-to-collection-confirm": "Iniciar una colección",
 	"gather-add-to-collection-cancel": "No, gracias",
 	"gather-update-collection-success": "La colección se ha actualizado con éxito.",
@@ -182,5 +182,5 @@
 	"apihelp-query+listpages-paramvalue-sort-position": "Usar el ordenamiento manual.",
 	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por espacio de nombres, título.",
 	"apihelp-query+lists-param-minitems": "Mostrar solo las listas que tengan al menos esta cantidad de elementos. (Se omite para listas de seguimiento)",
-	"gather-main-menu-new-feature": "\"¡Nuevo!\" Echa un vistazo a los temas favoritos de los lectores de {{SITENAME}}, o crea tu propia colección."
+	"gather-main-menu-new-feature": "'''¡Nuevo!''' Echa un vistazo a los temas favoritos de los lectores de {{SITENAME}}, o crea tu propia colección."
 }

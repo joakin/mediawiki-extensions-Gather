@@ -78,7 +78,7 @@
 	"gather-add-failed-toast": "הייתה בעיה ליצור את הלקט שלך \"$1\".",
 	"gather-add-title-invalid-toast": "הייתה בעיה עם הכותרת שכתבת. נא לנסות משהו אחר",
 	"gather-collection-content-tutorial-heading": "{{GENDER:|התחל|התחילי}} לקט של מה שמעניין אותך ושאפשר להוסיף לסימניות שלך לאחר־כך או לשתך עם אחרים.",
-	"gather-collection-content-tutorial-subheading": "או {{GENDER:|הוסף|הוסיפי}} את זה לרשימת המעקב שלך כדי לעקוב אחרי שינויים לערך.",
+	"gather-collection-content-tutorial-subheading": "או {{GENDER:|הוסף|הוסיפי}} את זה ל'''רשימת המעקב''' שלך כדי לעקוב אחרי שינויים לערך.",
 	"gather-add-to-collection-summary": "{{GENDER:$2|הוסף|הוסיפי}} את $1 ללקט, רשימה של דפים {{GENDER:$2|שתוכל|שתוכלי}} לשמור כסימניות ולשתף!",
 	"gather-add-to-collection-confirm": "התחלת לקט",
 	"gather-add-to-collection-cancel": "לא תודה",
