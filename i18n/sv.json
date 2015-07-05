@@ -5,7 +5,8 @@
 			"Dan Koehl",
 			"Jopparn",
 			"WikiPhoenix",
-			"Josve05a"
+			"Josve05a",
+			"Rockyfelle"
 		]
 	},
 	"gather": "Samla in",
@@ -35,7 +36,6 @@
 	"gather-edit-collection-heading": "Redigera samling",
 	"gather-edit-collection-label-name": "Namn",
 	"gather-edit-collection-label-description": "Beskrivning",
-	"gather-edit-collection-label-public": "Offentlig samling",
 	"gather-edit-collection-save-label": "Spara",
 	"gather-edit-collection-title-label": "Redigerar samling",
 	"gather-edit-collection-clear-label": "Rensa",
@@ -61,8 +61,9 @@
 	"gather-new-collection-failed-toast": "Ett fel uppstod när din samling \"$1\" skapades.",
 	"gather-add-failed-toast": "Ett fel uppstod när objektet lades till i din samling \"$1\".",
 	"gather-add-title-invalid-toast": "Ett fel uppstod med titeln du angav. Prova någonting annat",
+	"gather-collection-content-tutorial-subheading": "Eller, lägg till denna i din \"watchlist\" för att följa efter ändringar i artikeln.",
 	"gather-add-to-collection-summary": "{{GENDER:$2|Lägg till}} $1 i en samling av sidor som du kan dela med världen!",
-	"gather-add-to-collection-confirm": "Lägg till i samling",
+	"gather-add-to-collection-confirm": "Starta en kollektion",
 	"gather-add-to-collection-cancel": "Nej tack",
 	"gather-update-collection-success": "Samlingen har uppdaterats.",
 	"gather-edit-collection-confirm": "Du har gjort ändringar i din samling. Vill du lämna den utan att spara?",
@@ -76,7 +77,6 @@
 	"gather-watchlist-title": "Bevakningslista",
 	"gather-watchlist-description": "En lista över sidor som jag är intresserad av.",
 	"gather-lists-title": "Samlingar",
-	"gather-lists-from-user-title": "Samlingar av $1",
 	"gather-meta-description": "Här är samlingarna $1 {{GENDER:$1|har skapat}} på {{SITENAME}}.",
 	"gather-read-more": "Läs mer",
 	"gather-private": "Privat",
@@ -100,8 +100,7 @@
 	"gather-overlay-search-new": "Starta en ny sökning...",
 	"gather-overlay-search-results-empty": "Tyvärr, vi kunde inte hitta några sidor med \"$1\"",
 	"right-gather-hidelist": "Tvinga en offentlig användarlista att bli dold",
-	"apihelp-gather-param-gather": "Åtgärda att utföra på samlingar.",
-	"apihelp-gather-example-1": "Lista samlingarna för användaren <kbd>john</kbd>.",
+	"apihelp-query+lists-example-1": "Lista samlingarna för användaren <kbd>john</kbd>.",
 	"gather-lists-collection-more-link-label": "Visa fler offentliga samlingar.",
 	"gather-lists-more": "Visa fler samlingar från denna användare.",
 	"gather-lists-more-failed": "Kunde inte läsa in fler samlingar.",
@@ -110,5 +109,6 @@
 	"gather-watchstar-button-label": "Lägg till i samling",
 	"gather-menu-guider": "Tryck på menyikonen för att ta en titt på din nya samling.",
 	"apihelp-query+listmembership-example-1": "Kontrollera om \"Page\" är på bevakningslistan.",
-	"gather-view-collection": "Visa samling"
+	"gather-view-collection": "Visa samling",
+	"gather-main-menu-new-feature": "\"Nytt!\" Kolla på dom nya favorit ämnena av {{SITENAME}} läsare eller skapa din egen kollektion."
 }

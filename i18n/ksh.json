@@ -72,7 +72,7 @@
 	"gather-add-failed-toast": "E Problehm es opjetrodde dohbei, dadd Objägg en Ding Sammlong mem Nahme „$1“ ze donn.",
 	"gather-add-title-invalid-toast": "E Problehm es opjetrodde met dä Övverschreff för di Sammlong. Bes esu johd un versöhk jädd angersch.",
 	"gather-collection-content-tutorial-heading": "Fang en Sammlong vun Dinge Eträße aan, di De för schpääder faßhallde kanns udder aan anddere wigger jävve.",
-	"gather-collection-content-tutorial-subheading": "Udder, donn di Sigg heh op Ding Oppaßleß, öm de Ändronge drahn metzekrijje.",
+	"gather-collection-content-tutorial-subheading": "Udder, donn di Sigg heh op Ding <strong>Oppaßleß</strong>, öm de Ändronge drahn metzekrijje.",
 	"gather-add-to-collection-summary": "Wells De di Sigg „$1“ en en Sammlong donn, di De en de Wält wigger jävve kanns?{{GENDER:$2|}}",
 	"gather-add-to-collection-confirm": "Dobei donn",
 	"gather-add-to-collection-cancel": "Nää, dat welle mer nit",
