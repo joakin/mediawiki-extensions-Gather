@@ -18,7 +18,7 @@ Feature: Add to a collection
     Then I see a toast panel
 
   Scenario:
-    Given there are more than 100 collections
+    Given I have more than 100 collections
       And I am on the "Selenium Gather test" page
     When I click the watchstar
      Then I see a more button

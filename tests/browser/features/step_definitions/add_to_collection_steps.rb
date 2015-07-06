@@ -1,3 +1,8 @@
+Given(/^I have more than 100 collections$/) do
+  response = api.action(:query, list: 'lists', owner: user, lstlimit: 101)
+  1.upto(101-response.data['lists'].length) { |i| make_collection("B#{i}") }
+end
+
 When(/^I select a collection$/) do
   on(ArticlePage).collections_overlay_collection_one_element.when_present.click
 end
