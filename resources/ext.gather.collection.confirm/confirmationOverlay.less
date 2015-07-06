@@ -6,6 +6,13 @@
 	text-align: center;
 	z-index: @z-indexOverOverlay;
 
+	&.position-fixed {
+		left: 3%;
+		right: 3%;
+		margin: 0 auto;
+		max-width: 500px;
+	}
+
 	h3 {
 		padding: 0.25em;
 	}
@@ -19,6 +26,7 @@
 		padding: 0.5em;
 	}
 
+	// FIXME: no need for this selector, merge the contents with the above rules
 	&.content-overlay {
 		background-color: white;
 		top: @headerHeight * 1.2;
