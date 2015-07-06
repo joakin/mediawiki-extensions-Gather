@@ -78,7 +78,7 @@
 	"gather-add-failed-toast": "Houbo un problema ó engadir o elemento á súa colección \"$1\".",
 	"gather-add-title-invalid-toast": "Houbo un problema co título proporcionado. Por favor, probe con outro",
 	"gather-collection-content-tutorial-heading": "Comece unha colección dos seus intereses favoritos que pode marcar para máis tarde ou compartir con outros.",
-	"gather-collection-content-tutorial-subheading": "Ou ben, engádaa á súa lista de vixilancia para seguir os cambios no artigo.",
+	"gather-collection-content-tutorial-subheading": "Ou ben, engádaa á súa '''lista de vixilancia''' para seguir os cambios no artigo.",
 	"gather-add-to-collection-summary": "{{GENDER:$2|Engada}} $1 a unha colección, unha lista de páxinas que pode gardar para máis tarde e compartir!",
 	"gather-add-to-collection-confirm": "Comezar unha colección",
 	"gather-add-to-collection-cancel": "Non, grazas",
