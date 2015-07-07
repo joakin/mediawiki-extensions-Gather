@@ -9,6 +9,7 @@ use Gather\models;
 use Gather\views\helpers\CSS;
 use Html;
 use Linker;
+use Gather\views\helpers\Template;
 
 /**
  * View for an item card in a mobile collection.
@@ -52,50 +53,27 @@ class CollectionItemCard extends View {
 		$pageUrl = $title->getLocalUrl();
 		$isMissing = $item->isMissing();
 
-		if ( $img ) {
-			$img = Html::openElement( 'a', array( 'href' => $title->getLocalUrl() ) ) .
-				$img .
-				Html::closeElement( 'a' );
-		}
-		$html = Html::openElement( 'div', array( 'class' => 'collection-card' ) ) .
-			$img .
-			Html::openElement( 'h2', array( 'class' => 'collection-card-title', 'dir' => $dir ) ) .
-			Html::element( 'a', array( 'href' => $pageUrl, 'class' => $isMissing ? 'new' : '' ),
-				$title->getPrefixedText() ) .
-			Html::closeElement( 'h2' );
+		$data = array(
+			'dir' => $dir,
+			'page' => array(
+				'url' => $pageUrl,
+				'displayTitle' => $title->getPrefixedText(),
+			),
+			'msgMissing' => wfMessage( 'gather-page-not-found' )->escaped(),
+			'isMissing' => $isMissing,
+			'progressiveAnchorClass' => CSS::anchorClass( 'progressive' ),
+			'iconClass' => CSS::iconClass(
+				'collections-read-more', 'element', 'collections-read-more-arrow'
+			),
+		);
+
 		// Handle excerpt for titles with an extract or unknown pages
-		if ( $item->hasExtract() || $isMissing ) {
-			if ( $item->hasExtract() ) {
-				$itemExcerpt = $item->getExtract();
-			} elseif ( $isMissing ) {
-				$itemExcerpt = wfMessage( 'gather-page-not-found' )->escaped();
-			}
-			$html .= Html::element(
-				'p', array( 'class' => 'collection-card-excerpt', 'dir' => $dir ), $itemExcerpt
-			);
+		if ( $item->hasExtract() ) {
+			$data['extract'] = $item->getExtract();
 		}
-
-		if ( !$isMissing ) {
-			$html .= Html::openElement( 'div', array( 'class' => 'collection-card-footer' ) )
-				. Html::openElement( 'a',
-					array(
-						'href' => $pageUrl,
-						'class' => CSS::anchorClass( 'progressive' )
-					)
-				)
-				. wfMessage( 'gather-read-more' )->escaped()
-				. Html::element(
-					'span',
-					array( 'class' => CSS::iconClass(
-						'collections-read-more', 'element', 'collections-read-more-arrow'
-					) ),
-					''
-				)
-				. Html::closeElement( 'a' )
-				. Html::closeElement( 'div' );
+		if ( $img ) {
+			$data['cardImage'] = $img;
 		}
-		$html .= Html::closeElement( 'div' );
-
-		return $html;
+		return Template::render( 'CollectionItemCard', $data );
 	}
 }

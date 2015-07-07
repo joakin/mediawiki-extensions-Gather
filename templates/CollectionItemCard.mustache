@@ -1,0 +1,23 @@
+<div class="collection-card">
+	{{#cardImage}}
+	<a href="{{page.url}}">{{{cardImage}}}</a>
+	{{/cardImage}}
+	<h2 class="collection-card-title" dir="{{dir}}">
+		{{#page}}
+		<a href="{{url}}" class="{{#isMissing}}new{{/isMissing}}">{{displayTitle}}</a>
+		{{/page}}
+	</h2>
+	{{#extract}}
+	<p class="collection-card-excerpt" dir="{{dir}}">{{extract}}</p>
+	{{/extract}}
+	{{#isMissing}}
+	<p class="collection-card-excerpt" dir="{{dir}}">{{msgMissing}}</p>
+	{{/isMissing}}
+	{{^isMissing}}
+	<div class="collection-card-footer">
+		<a href="{{page.url}}" class="{{progressiveAnchorClass}}">
+			{{msg}}<span class="{{iconClass}}">
+		</a>
+	</div>
+	{{/isMissing}}
+</div>
