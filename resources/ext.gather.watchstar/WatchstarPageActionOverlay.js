@@ -2,7 +2,7 @@
 	var
 		SchemaGather = M.require( 'ext.gather.logging/SchemaGather' ),
 		schema = new SchemaGather(),
-		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
+		PageActionOverlay = M.require( 'mobile.contentOverlays/PointerOverlay' ),
 		WatchstarPageActionOverlay;
 
 	WatchstarPageActionOverlay = PageActionOverlay.extend( {
