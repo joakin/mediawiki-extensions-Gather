@@ -75,8 +75,8 @@
 	"gather-new-collection-failed-toast": "Ocorreu um problema ao criar a sua coleção \"$1\".",
 	"gather-add-failed-toast": "Ocorreu um problema ao adicionar o item à sua coleção \"$1\".",
 	"gather-add-title-invalid-toast": "Ocorreu um problema com o título que indicou. Por favor, tente outro qualquer",
-	"gather-add-to-collection-summary": "{{GENDER:$2|Adicione}} $1 a um conjunto de páginas que pode partilhar com o mundo!",
-	"gather-add-to-collection-confirm": "Adicionar à coleção",
+	"gather-add-to-collection-summary": "{{GENDER:$2|Adicione}} $1 a uma coleção, que se trata de um conjunto de páginas que pode marcar e partilhar!",
+	"gather-add-to-collection-confirm": "Iniciar coleção",
 	"gather-add-to-collection-cancel": "Não, obrigado",
 	"gather-update-collection-success": "Coleção atualizada com sucesso.",
 	"gather-edit-collection-confirm": "Fez alterações à sua coleção. Deseja sair sem gravar as mudanças?",
@@ -123,5 +123,6 @@
 	"gather-add-to-another": "Mostrar outras coleções minhas",
 	"gather-watchstar-button-label": "Adicionar à coleção",
 	"gather-view-collection": "Ver coleção",
-	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por domínio, título."
+	"apihelp-query+listpages-paramvalue-sort-namespace": "Ordenar por domínio, título.",
+	"gather-main-menu-new-feature": "\"'Novo!\"' Confira os tópicos favoritos dos leitores de {{SITENAME}} ou crie uma coleção sua."
 }
