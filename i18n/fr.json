@@ -12,7 +12,8 @@
 			"Moushira",
 			"Urhixidur",
 			"Wladek92",
-			"Freak2fast4u"
+			"Freak2fast4u",
+			"TomT0m"
 		]
 	},
 	"gather": "Regrouper",
@@ -77,6 +78,7 @@
 	"gather-new-collection-failed-toast": "Il y a eu un problème lors de la création de votre collection \"$1\".",
 	"gather-add-failed-toast": "Il y a eu un problème en ajoutant l'article à votre collection \"$1\".",
 	"gather-add-title-invalid-toast": "Il y a eu un problème avec le titre que vous avez entré. Veuillez essayer quelque chose d’autre",
+	"gather-collection-content-tutorial-subheading": "Ou ajoutez ceci à votre '''liste de suivi''' pour suivre les modifications de l'article.",
 	"gather-add-to-collection-summary": "Ajouter $1 à une collection de pages que vous pouvez partager avec le monde entier !",
 	"gather-add-to-collection-confirm": "Ajouter à une collection",
 	"gather-add-to-collection-cancel": "Non merci",
@@ -130,5 +132,6 @@
 	"gather-watchstar-button-label": "Ajouter à une collection",
 	"gather-api-help-param-listowner": "Identifiant de l'utilisateur propriétaire de la liste. N'a de sens que pour les listes de suivi.",
 	"gather-api-help-param-listtoken": "Jeton de liste de surveillance jeton (voir l'API de la liste de surveillance); nécessaire lorsque l'on regarde la liste de surveillance d'une autre personne.",
-	"gather-view-collection": "Visualiser une collection"
+	"gather-view-collection": "Visualiser une collection",
+	"gather-main-menu-new-feature": "'''Nouveauté!''' Découvrez les sujets favoris des lecteurs de {{SITENAME}} ou de créez votre propre collection."
 }

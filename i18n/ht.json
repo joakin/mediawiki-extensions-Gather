@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Tisave"
+			"Tisave",
+			"Bfpage"
 		]
 	},
-	"gather-create-collection-button-label": "Kreye yon koleksyon"
+	"gather-tutorial-dismiss-button-label": "Oke",
+	"gather-create-collection-button-label": "Kreye yon koleksyon",
+	"gather-collection-content-tutorial-subheading": "Oswa, ajoute atik sa a yo '' ou 'alèrt' '' yo swiv chanjman nan atik la.",
+	"gather-add-to-collection-confirm": "Kòmanse yon koleksyon"
 }
