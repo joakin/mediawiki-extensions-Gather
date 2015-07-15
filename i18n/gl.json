@@ -3,7 +3,8 @@
 		"authors": [
 			"Fisterraeomar",
 			"Banjo",
-			"Elisardojm"
+			"Elisardojm",
+			"Toliño"
 		]
 	},
 	"gather": "Agrupar",
@@ -141,7 +142,7 @@
 	"apihelp-editlist-paramvalue-mode-hidelist": "Facer que a lista sexa privada. Require o permiso <code>gather-hidelist</code> (e non pode desfacerse sen ese permiso).",
 	"apihelp-editlist-paramvalue-mode-showlist": "Desfacer unha operación previa de ocultar lista.",
 	"apihelp-editlist-paramvalue-mode-flag": "Marcar a lista como ofensiva.",
-	"apihelp-editlist-paramvalue-mode-approve": "Marcar a lista como aceptable, independentemente de outras marcas. Require o permiso <code>gather-hidelist</code>.",
+	"apihelp-editlist-paramvalue-mode-approve": "Marcar a lista como aceptable, independentemente doutras marcas. Require o permiso de usuario <code>gather-hidelist</code>.",
 	"apihelp-query+lists-description": "Lista as coleccións dun usuario dado.",
 	"apihelp-query+lists-param-mode": "Mostrar todas as listas que coincidan con certos criterios (non pode utilizarse cos parámetros de dono/identificador; se non se especifican nin estes nin o modo, só se mostran as listas do usuario actual).",
 	"apihelp-query+lists-param-prop": "Información adicional que mostrar.",
@@ -154,6 +155,7 @@
 	"apihelp-query+lists-paramvalue-mode-review": "Mostrar todas as listas que necesitan revisión (require o permiso <code>gather-hidelist</code>)",
 	"apihelp-query+lists-paramvalue-prop-label": "Título da lista",
 	"apihelp-query+lists-paramvalue-prop-description": "Descrición da lista",
+	"apihelp-query+lists-paramvalue-prop-public": "Varias propiedades relacionadas coa visibilidade:\n;perm:<samp>public</samp> ou <samp>private</samp> (fixadas polo propietario), <samp>private</samp> só é visible para o propietario.\n;perm_override:<samp>hidden</samp> ou <samp>approved</samp> (ou non presente), poden ser fixadas por un moderador.\n;flagged:A lista ten marcas abondo para ter a atención dun moderador.\n;hidden:A lista está agochada e só é visible para o propietario e os moderadores (debido a marcas ou pola escolla explícita dun moderador).",
 	"apihelp-query+lists-paramvalue-prop-review": "A lista está temporalmente oculta e esperando revisión do moderador?",
 	"apihelp-query+lists-paramvalue-prop-image": "Imaxe principal",
 	"apihelp-query+lists-paramvalue-prop-count": "Número de elementos na lista",
