@@ -5,7 +5,7 @@
 		bucket, useGatherStar,
 		CollectionsWatchstar = M.require( 'ext.gather.watchstar/CollectionsWatchstar' ),
 		Watchstar = M.require( 'mobile.watchstar/Watchstar' ),
-		PageActionOverlay = M.require( 'modules/tutorials/PageActionOverlay' ),
+		PageActionOverlay = M.require( 'mobile.contentOverlays/PointerOverlay' ),
 		WatchstarPageActionOverlay = M.require( 'ext.gather.watchstar/WatchstarPageActionOverlay' ),
 		Tag = M.require( 'ext.gather.watchstar/Tag' ),
 		settings = M.require( 'settings' ),
