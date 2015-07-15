@@ -3,7 +3,7 @@ class ArticlePage
   page_url "<%= URI.encode(params[:article_name]) %><%= params[:hash] %>"
 
   # UI elements
-  a(:mainmenu_button, id: 'mw-mf-main-menu-button')
+  a(:mainmenu_button, css: '.main-menu-button', index: 0)
   # left nav
   nav(:navigation, css: 'nav')
 

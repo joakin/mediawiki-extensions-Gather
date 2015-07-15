@@ -1,5 +1,5 @@
 When(/^I click on the main navigation button$/) do
-  on(ArticlePage).mainmenu_button_element.click
+  on(ArticlePage).mainmenu_button_element.when_present.click
 end
 
 Then(/^I should see a link to "(.*?)" in the main navigation menu$/) do |text|

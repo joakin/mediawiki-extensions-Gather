@@ -28,6 +28,8 @@ Given(/^I have Gather$/) do
     page.goto
     # Disable the onboarding tutorials
     page.browser.execute_script("localStorage.setItem('gather-has-dismissed-tutorial','true');")
+    page.browser.execute_script("localStorage.setItem('gather-has-dismissed-mainmenu','true');")
+
     # A domain is explicitly given to avoid a bug in earlier versions of Chrome
     page.browser.cookies.add 'optin', 'beta', domain: URI.parse(page.page_url_value).host
     page.refresh
