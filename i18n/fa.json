@@ -23,6 +23,7 @@
 	"gather-edit-collection-label-private": "مجموعهٔ شخصی",
 	"gather-edit-collection-save-label": "ذخیره",
 	"gather-edit-collection-clear-label": "پاک‌سازی",
+	"gather-edit-collection-related-pages": "صفحات مرتبط",
 	"gather-delete-collection-delete-label": "حذف",
 	"gather-flag-collection-flag-label": "علامت",
 	"gather-confirmation-cancel-button-label": "لغو",
@@ -47,5 +48,6 @@
 	"gather-lists-collection-more-link-label": "دیدن مجموعه‌های عمومی بیش‌تر",
 	"gather-lists-more": "دیدن مجموعه‌های بیش‌تر از این کاربر",
 	"gather-collection-more": "دیدن صفحات بیش‌تر در این مجموعه",
-	"gather-add-to-another": "نمایش دیگر محموعه‌های من"
+	"gather-add-to-another": "نمایش دیگر محموعه‌های من",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "عادی."
 }
