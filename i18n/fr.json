@@ -174,5 +174,14 @@
 	"gather-api-help-param-listowner": "Identifiant de l'utilisateur propriétaire de la liste. N'a de sens que pour les listes de suivi.",
 	"gather-api-help-param-listtoken": "Jeton de liste de surveillance jeton (voir l'API de la liste de surveillance); nécessaire lorsque l'on regarde la liste de surveillance d'une autre personne.",
 	"gather-view-collection": "Visualiser une collection",
+	"apihelp-query+listpages-description": "Retourne les pages de la liste donnée.",
+	"apihelp-query+listpages-example-1": "Afficher les pages de la liste de suivi de l'utilisateur.",
+	"apihelp-query+listpages-example-2": "Afficher les pages dans la liste avec l'ID <kbd>2</kbd>.",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal.",
+	"apihelp-query+listpages-paramvalue-dir-descending": "Inversé.",
+	"apihelp-query+listpages-param-limit": "Limiter le nombre de pages retournées.",
+	"apihelp-query+listpages-paramvalue-sort-position": "Utiliser le classement manuel.",
+	"apihelp-query+listpages-paramvalue-sort-namespace": "Trier par espace de noms, par titre.",
+	"apihelp-query+lists-param-minitems": "Ne montrer que les listes qui ont au moins autant d'éléments qu'indiqué. (Ignoré pour les listes de suivi.)",
 	"gather-main-menu-new-feature": "'''Nouveauté!''' Découvrez les sujets favoris des lecteurs de {{SITENAME}} ou de créez votre propre collection."
 }

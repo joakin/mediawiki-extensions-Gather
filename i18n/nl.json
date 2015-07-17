@@ -5,7 +5,8 @@
 			"JensRiskin",
 			"MedShot",
 			"Hansmuller",
-			"Robin0van0der0vliet"
+			"Robin0van0der0vliet",
+			"Siebrand"
 		]
 	},
 	"gather-lists-collection-owner": "Eigenaar:",
@@ -21,7 +22,6 @@
 	"gather-edit-collection-heading": "Verzameling bewerken",
 	"gather-edit-collection-label-name": "Naam",
 	"gather-edit-collection-label-description": "Beschrijving",
-	"gather-edit-collection-label-public": "Openbare verzameling",
 	"gather-edit-collection-save-label": "Opslaan",
 	"gather-edit-collection-title-label": "Verzameling bewerken",
 	"gather-edit-collection-clear-label": "Legen",
@@ -41,7 +41,6 @@
 	"gather-page-not-found": "Pagina niet gevonden",
 	"gather-watchlist-title": "Volglijst",
 	"gather-lists-title": "Verzamelingen",
-	"gather-lists-from-user-title": "Verzamelingen van $1",
 	"gather-read-more": "Meer lezen",
 	"gather-private": "Privé",
 	"gather-public": "Openbaar",
@@ -50,7 +49,7 @@
 	"gather-empty": "Er zit nog niks in deze verzameling...",
 	"gather-empty-footer": "Dit is een leger verzameling",
 	"gather-edit-button": "Bewerken",
-	"gather-delete-button": "Verwijder",
+	"gather-delete-button": "Verwijderen",
 	"gather-overlay-edit-button": "Titel en beschrijving bewerken",
 	"gather-overlay-continue": "Volgende",
 	"gather-watchstar-button-label": "Toevoegen aan verzameling",

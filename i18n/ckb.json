@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pirehelokan"
+		]
+	},
+	"apihelp-editlist-param-label": "سەردێڕی لیستەکە دابنێ.",
+	"apihelp-editlist-param-perm": "دیتنی لیستەکە ببینە.",
+	"apihelp-editlist-param-description": "پێناسەی لیستەکە دابنێ",
+	"apihelp-editlist-param-image": "وێنەی سەرەکی دابنێ",
+	"apihelp-editlist-paramvalue-perm-private": "تەنیا خاوەنەکە بیبینێت",
+	"apihelp-editlist-paramvalue-mode-remove": "پەڕەکان لە لیستێک بسڕەوە.",
+	"apihelp-editlist-paramvalue-mode-deletelist": "گشت لیستەکە بسڕەرەوە.",
+	"apihelp-query+lists-param-prop": "زانیاریی زیاتر بۆ پیشان دان.",
+	"apihelp-query+lists-paramvalue-mode-allpublic": "تەواوی لیستەکە (گشتی) پیشان بدە",
+	"apihelp-query+lists-paramvalue-prop-label": "سەردێڕی لیستەکە",
+	"apihelp-query+lists-paramvalue-prop-description": "وەسفی لیستەکە",
+	"apihelp-query+lists-paramvalue-prop-count": "ژمارەی بڕگەکانی ناو لیستەکە",
+	"apihelp-query+lists-paramvalue-prop-owner": "خاوەنی لیست"
+}
