@@ -38,6 +38,7 @@
 	"gather-lists-show-collection": "Voulez-vous rendre publique la liste \"$1\" par $2 de nouveau?",
 	"gather-lists-show-success-toast": "Liste \"$1\" est redevenue publique.",
 	"gather-lists-show-failure-toast": "Impossible d'afficher la liste \"$1\".",
+	"gather-my-collections": "Mes collections",
 	"gather-collection-random-title": "Pages au hasard",
 	"gather-editfeed-show": "Afficher",
 	"gather-editfeed-title": "Modifications sur les pages dans mes collections",
