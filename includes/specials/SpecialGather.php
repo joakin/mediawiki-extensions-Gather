@@ -111,7 +111,7 @@ class SpecialGather extends SpecialPage {
 					$args = $this->specialCollections[$key];
 					$c = new models\Collection( 0, null, $args['title'], $args['description'] );
 					$c = models\Collection::newFromApi( $c, $args['params'], $args['limit'],
-						( $args['continue'] ? $args['continue'] : array() ) );
+						( isset( $args['continue'] ) ? $args['continue'] : array() ) );
 					$c->setUrl( SpecialPage::getTitleFor( 'Gather' )
 						->getSubpage( 'explore' )
 						->getSubpage( $key )->getLocalUrl() );
