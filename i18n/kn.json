@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Radhatanaya",
-			"Madhusarthij"
+			"Madhusarthij",
+			"Ananth subray"
 		]
 	},
+	"gather-add-to-collection-confirm": "ಸಂಪರ್ಕವನ್ನು ಆರಂಭಿಸಿ",
 	"gather-edit-collection-confirm": "Pre-Placement meet: An imperative forum on campus to make the students aware of the organization in terms of its business, relevant job profile, future, career growth prospects and the remuneration offered.\nRegistration by students: Interested students register with the company representatives on the spot after the pre-placement talk.\nSelection Process as per Company directives: Students undergo the relevant procedures followed by companies such as technical test, group discussion and personal HR interview and final interview.",
 	"apihelp-editlist-param-mode": "ಪಟ್ಟಿಯಲ್ಲಿ ಯಾವ ರೀತಿಯ ಕ್ರಿಯೆಯನ್ನು  ಮಾಡಬೇಕು:",
 	"apihelp-query+lists-param-title": "ಈ ಪುಟವನ್ನು  ಒಳಗೊಂಡಿರುವ ಪಟ್ಟಿಯನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ.",
