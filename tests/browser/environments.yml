@@ -25,7 +25,7 @@ mw-vagrant-guest:
   mediawiki_password: vagrant
 
 beta:
-  mediawiki_url: http://en.wikipedia.beta.wmflabs.org/wiki/
+  mediawiki_url: http://en.m.wikipedia.beta.wmflabs.org/wiki/
   mediawiki_user: Selenium_user
   # mediawiki_password: SET THIS IN THE ENVIRONMENT!
 
