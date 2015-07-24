@@ -128,7 +128,12 @@
 	"gather-overlay-search-tutorial-heading": "Als nächstes fügst du eine zweite Seite zu deiner Sammlung hinzu, indem du nach einem ähnlichen Artikel suchst.",
 	"gather-overlay-search-tutorial-text": "Oder wähle vorgeschlagene Seiten aus.",
 	"right-gather-hidelist": "Das Verstecken einer öffentlichen Benutzerliste erzwingen",
+	"apihelp-editlist-param-label": "Listenbezeichnung (Titel) festlegen.",
+	"apihelp-editlist-param-perm": "Listensichtbarkeit ändern.",
+	"apihelp-editlist-param-description": "Listenbeschreibung festlegen.",
+	"apihelp-editlist-param-image": "Hauptbild festlegen.",
 	"apihelp-query+lists-param-owner": "Nach Sammlungen dieses Benutzers suchen. Wird durch den aktuellen Benutzer ersetzt, wenn leer.",
+	"apihelp-query+lists-paramvalue-prop-owner": "Listenbesitzer",
 	"apihelp-query+lists-example-1": "Die Sammlungen des Benutzers <kbd>john</kbd> auflisten.",
 	"gather-lists-collection-more-link-label": "Weitere öffentliche Sammlungen ansehen.",
 	"gather-lists-more-no-owner": "Weitere Sammlungen ansehen",
@@ -145,5 +150,6 @@
 	"apihelp-query+listmembership-example-1": "Überprüft, ob <kbd>Seite</kbd> auf der Beobachtungsliste ist.",
 	"gather-view-collection": "Sammlung ansehen",
 	"apihelp-query+listpages-param-dir": "Sortierrichtung festlegen.",
+	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal.",
 	"gather-main-menu-new-feature": "'''Neu!''' Teste die Lieblingsthemen von {{SITENAME}}-Lesern oder erstelle eine Sammlung deiner eigenen Themen."
 }
