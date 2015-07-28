@@ -158,7 +158,7 @@
 	"apihelp-query+lists-paramvalue-prop-review": "האם הרשימה מוסתרת זמנית ומחכה לסקירה של מפקח?",
 	"apihelp-query+lists-paramvalue-prop-image": "תמונה מובילה",
 	"apihelp-query+lists-paramvalue-prop-count": "מספר הפריטים ברשימה",
-	"apihelp-query+lists-paramvalue-prop-updated": "חותם הזמן של העדכון האחרון",
+	"apihelp-query+lists-paramvalue-prop-updated": "חותם־הזמן של העדכון האחרון",
 	"apihelp-query+lists-paramvalue-prop-owner": "בעלי הרשימה",
 	"apihelp-query+lists-example-1": "רשימת לקטים עבור המשתמש <kbd>john</kbd>.",
 	"gather-lists-collection-more-link-label": "תצוגה של לקטים ציבוריים נוספים.",
