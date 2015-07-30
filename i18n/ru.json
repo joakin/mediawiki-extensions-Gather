@@ -62,7 +62,7 @@
 	"gather-new-collection-failed-toast": "Возникла проблема при создании коллекции «$1».",
 	"gather-add-failed-toast": "Возникла проблема при добавлении элемента в вашу коллекцию «$1».",
 	"gather-add-title-invalid-toast": "Возникла проблема с названием, которое вы ввели. Попробуйте что-нибудь другое",
-	"gather-add-to-collection-summary": "Добавил{{GENDER:$2||а}} $1 в коллекцию страниц, которой вы можете поделиться со всем миром!",
+	"gather-add-to-collection-summary": "{{GENDER:$2|Добавьте}} $1 в коллекцию — список страниц, которые вы можете добавить в закладки и поделиться!",
 	"gather-add-to-collection-confirm": "Начать коллекцию",
 	"gather-add-to-collection-cancel": "Нет, спасибо",
 	"gather-update-collection-success": "Коллекция была успешно обновлена.",
