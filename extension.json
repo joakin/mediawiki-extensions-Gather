@@ -113,10 +113,6 @@
 			]
 		},
 		"ext.gather.menu.icon": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
 			"position": "top",
 			"class": "ResourceLoaderImageModule",
 			"selector": ".mw-ui-icon-{name}:before",
@@ -125,10 +121,6 @@
 			}
 		},
 		"ext.gather.icons": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
 			"position": "top",
 			"class": "ResourceLoaderImageModule",
 			"selector": ".mw-ui-icon-{name}:before",
@@ -158,10 +150,6 @@
 			}
 		},
 		"ext.gather.watchstar.icons": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
 			"class": "ResourceLoaderImageModule",
 			"selector": ".mw-ui-icon-{name}:before",
 			"images": {
