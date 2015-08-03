@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Semso98",
-			"Emir Mujadzic"
+			"Emir Mujadzic",
+			"Srdjan m"
 		]
 	},
+	"gather-editfeed-show": "Prikaži",
 	"gather-flag-collection-confirm": "Da li ste sigurni da želite označiti ovu kolekciju za pregled?",
 	"gather-flag-collection-success": "Kolekcija je uspješno osnačena.",
 	"gather-add-new-placeholder": "Ime kolekcije",

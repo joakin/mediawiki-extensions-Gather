@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alex Blokha"
+			"Alex Blokha",
+			"Ата"
 		]
 	},
-	"gather-purpose-login-action": "Увійдіть у систему, щоб спробувати.",
-	"gather-purpose-signup-action": "Зареєструйтесь, щоб спробувати.",
+	"gather-purpose-login-action": "<b>Тепер Ви можете групувати сторінки у колекції, щоб ділитися з друзями чи зберігати на майбутнє.</b><br />Увійдіть у систему, щоб спробувати.",
+	"gather-purpose-signup-action": "<b>Тепер Ви можете групувати сторінки у колекції, щоб ділитися з друзями чи зберігати на майбутнє.</b><br />Зареєструйтеся, щоб спробувати.",
 	"gather-edit-collection-clear-label": "Очистити",
 	"gather-overlay-edit-button": "Редагувати заголовок та опис"
 }
