@@ -14,7 +14,6 @@
 		"grunt-cli": "0.1.13",
 		"grunt-phpdocumentor": "~0.4.1",
 		"jshint": ">=1.1.0",
-		"jscs": ">=1.11.3",
 		"jsdoc": "<=3.3.0",
 		"kss": ">=0.3.6",
 		"svgo": ">=0.4.4"
@@ -24,7 +23,7 @@
 		"grunt-mkdir": "^0.1.2",
 		"grunt-svg2png": "0.2.5",
 		"grunt-contrib-jshint": "0.10.0",
-		"grunt-jscs": ">=1.5.0",
+		"grunt-jscs": "1.8.0",
 		"grunt-banana-checker": "0.2.1",
 		"jscs-jsdoc": "git+https://github.com/jdlrobson/jscs-jsdoc.git#checkParamExistence",
 		"grunt-jsduck": "^1.0.1",
