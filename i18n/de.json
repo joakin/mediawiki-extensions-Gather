@@ -132,6 +132,7 @@
 	"apihelp-editlist-param-perm": "Listensichtbarkeit ändern.",
 	"apihelp-editlist-param-description": "Listenbeschreibung festlegen.",
 	"apihelp-editlist-param-image": "Hauptbild festlegen.",
+	"apihelp-editlist-paramvalue-mode-deletelist": "Löscht die ganze Liste.",
 	"apihelp-query+lists-param-owner": "Nach Sammlungen dieses Benutzers suchen. Wird durch den aktuellen Benutzer ersetzt, wenn leer.",
 	"apihelp-query+lists-paramvalue-prop-owner": "Listenbesitzer",
 	"apihelp-query+lists-example-1": "Die Sammlungen des Benutzers <kbd>john</kbd> auflisten.",
