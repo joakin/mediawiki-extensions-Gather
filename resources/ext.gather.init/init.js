@@ -108,8 +108,7 @@
 				pageActionPointer.hide();
 			}
 		} );
-		// FIXME: This should operate on MainMenu class.
-		return $( '#mw-mf-page-left' ).find( '.collection-menu-item' ).removeClass( 'hidden' );
+		return mainMenu.$( '.collection-menu-item' ).removeClass( 'hidden' );
 	}
 
 	/**
