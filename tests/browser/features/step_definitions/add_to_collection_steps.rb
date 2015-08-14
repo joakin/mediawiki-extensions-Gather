@@ -3,6 +3,10 @@ Given(/^I have more than 100 collections$/) do
   1.upto(101-response.data['lists'].length) { |i| make_collection("B#{i}") }
 end
 
+Given(/^I have a collection$/) do
+  make_collection("Z0")
+end
+
 When(/^I select a collection$/) do
   on(ArticlePage).collections_overlay_collection_one_element.when_present.click
 end
