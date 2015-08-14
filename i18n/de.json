@@ -153,6 +153,7 @@
 	"gather-view-collection": "Sammlung ansehen",
 	"apihelp-query+listpages-param-dir": "Sortierrichtung festlegen.",
 	"apihelp-query+listpages-paramvalue-dir-ascending": "Normal.",
+	"apihelp-query+listpages-paramvalue-sort-position": "Verwendet manuelle Sortierung.",
 	"apihelp-query+listpages-paramvalue-sort-namespace": "Sortieren nach Namensraum, Titel.",
 	"gather-main-menu-new-feature": "'''Neu!''' Teste die Lieblingsthemen von {{SITENAME}}-Lesern oder erstelle eine Sammlung deiner eigenen Themen."
 }
