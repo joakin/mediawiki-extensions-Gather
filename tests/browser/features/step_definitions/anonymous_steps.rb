@@ -1,3 +1,8 @@
+Given(/^there are public collections$/) do
+  1.upto(5) { |i| make_collection("X#{i}") }
+end
+
+
 Given(/^I am not logged in$/) do
 end
 

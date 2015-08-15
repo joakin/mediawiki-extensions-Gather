@@ -12,7 +12,8 @@ Feature: Add to a collection
     Then I see the collection dialog
 
   Scenario: Adding item to existing collection.
-    Given I am on the "Selenium Gather test" page
+    Given I have a collection
+     And I am on the "Selenium Gather test" page
     When I click the watchstar
      And I select a collection
     Then I see a toast panel

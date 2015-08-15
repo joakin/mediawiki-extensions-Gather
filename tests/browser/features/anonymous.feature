@@ -4,6 +4,7 @@ Feature: Anonymous users
   Background:
     Given I am not logged in
       And I am using the mobile site
+      And there are public collections
 
   Scenario: Gather shows public view
     When I visit the Gather page
