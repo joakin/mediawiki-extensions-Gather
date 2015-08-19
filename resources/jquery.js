@@ -1,1 +1,1 @@
-module.exports = window.jQuery;
+export default window.jQuery;

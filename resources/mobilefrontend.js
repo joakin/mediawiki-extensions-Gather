@@ -1,1 +1,1 @@
-module.exports = window.mw.mobileFrontend;
+export default window.mw.mobileFrontend;
