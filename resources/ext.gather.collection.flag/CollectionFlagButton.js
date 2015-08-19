@@ -1,4 +1,5 @@
 import mobileFrontend from '../mobilefrontend';
+import msg from '../messages';
 
 const CollectionsApi = mobileFrontend.require( 'ext.gather.api/CollectionsApi' ),
 	CollectionFlagOverlay = mobileFrontend.require( 'ext.gather.collection.flag/CollectionFlagOverlay' ),
@@ -20,7 +21,7 @@ export default Button.extend( {
 			name: 'collection-flag',
 			additionalClassNames: 'mw-ui-quiet'
 		} ).getClassName(),
-		title: mw.msg( 'gather-flag-collection-flag-label' )
+		title: msg( 'gather-flag-collection-flag-label' )
 	},
 	events: {
 		click: 'onCollectionFlagButtonClick'
