@@ -1,10 +1,11 @@
 import mobileFrontend from '../mobilefrontend';
 
-var CollectionsApi = mobileFrontend.require( 'ext.gather.api/CollectionsApi' ),
+const CollectionsApi = mobileFrontend.require( 'ext.gather.api/CollectionsApi' ),
 	CollectionFlagOverlay = mobileFrontend.require( 'ext.gather.collection.flag/CollectionFlagOverlay' ),
 	Button = mobileFrontend.require( 'Button' ),
-	Icon = mobileFrontend.require( 'Icon' ),
-	api = new CollectionsApi();
+	Icon = mobileFrontend.require( 'Icon' );
+
+let api = new CollectionsApi();
 
 /**
  * A button used to flag a collection
@@ -46,7 +47,7 @@ export default Button.extend( {
 
 		api.getCollection( this.options.collectionId ).done( ( collection ) => {
 			let flagOverlay = new CollectionFlagOverlay( {
-				collection: collection
+				collection
 			} );
 			flagOverlay.show();
 
