@@ -1,8 +1,8 @@
 import mobileFrontend from '../mobilefrontend';
 import msg from '../messages';
+import CollectionFlagOverlay from './CollectionFlagOverlay';
 
 const CollectionsApi = mobileFrontend.require( 'ext.gather.api/CollectionsApi' ),
-	CollectionFlagOverlay = mobileFrontend.require( 'ext.gather.collection.flag/CollectionFlagOverlay' ),
 	Button = mobileFrontend.require( 'Button' ),
 	Icon = mobileFrontend.require( 'Icon' );
 

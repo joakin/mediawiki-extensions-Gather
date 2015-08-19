@@ -556,9 +556,6 @@
 				"gather-flag-collection-heading",
 				"gather-flag-collection-flag-label",
 				"gather-flag-collection-success"
-			],
-			"scripts": [
-				"resources/ext.gather.collection.flag/CollectionFlagOverlay.js"
 			]
 		},
 		"ext.gather.routes": {
