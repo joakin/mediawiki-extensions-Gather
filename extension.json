@@ -540,24 +540,6 @@
 				"resources/ext.gather.collection.delete/CollectionDeleteOverlay.js"
 			]
 		},
-		"ext.gather.collection.flag": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
-			"dependencies": [
-				"ext.gather.collection.confirm",
-				"mobile.toast",
-				"ext.gather.api",
-				"mediawiki.util"
-			],
-			"messages": [
-				"gather-flag-collection-confirm",
-				"gather-flag-collection-heading",
-				"gather-flag-collection-flag-label",
-				"gather-flag-collection-success"
-			]
-		},
 		"ext.gather.routes": {
 			"targets": [
 				"mobile",
@@ -601,6 +583,24 @@
 			],
 			"scripts": [
 				"resources/ext.gather.special.usercollections/init.js"
+			]
+		},
+		"ext.gather.collection.flag": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"dependencies": [
+				"ext.gather.collection.confirm",
+				"mobile.toast",
+				"ext.gather.api",
+				"mediawiki.util"
+			],
+			"messages": [
+				"gather-flag-collection-confirm",
+				"gather-flag-collection-heading",
+				"gather-flag-collection-flag-label",
+				"gather-flag-collection-success"
 			]
 		},
 		"ext.gather.special.collection": {
