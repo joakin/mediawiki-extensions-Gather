@@ -558,8 +558,7 @@
 				"gather-flag-collection-success"
 			],
 			"scripts": [
-				"resources/ext.gather.collection.flag/CollectionFlagOverlay.js",
-				"resources/ext.gather.collection.flag/CollectionFlagButton.js"
+				"resources/ext.gather.collection.flag/CollectionFlagOverlay.js"
 			]
 		},
 		"ext.gather.routes": {

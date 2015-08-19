@@ -1,7 +1,6 @@
 import $ from '../jquery';
 import mobileFrontend from '../mobilefrontend';
-
-const CollectionFlagButton = mobileFrontend.require( 'ext.gather.collection.flag/CollectionFlagButton' );
+import CollectionFlagButton from '../ext.gather.collection.flag/CollectionFlagButton';
 
 $( function () {
 	let $collection = $( '.collection' );
