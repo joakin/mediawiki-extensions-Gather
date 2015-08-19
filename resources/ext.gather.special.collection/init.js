@@ -1,16 +1,16 @@
-( function ( M, $ ) {
+import $ from '../jquery';
+import mobileFrontend from '../mobilefrontend';
 
-	var CollectionFlagButton = M.require( 'ext.gather.collection.flag/CollectionFlagButton' );
+const CollectionFlagButton = mobileFrontend.require( 'ext.gather.collection.flag/CollectionFlagButton' );
 
-	$( function () {
-		var $collection = $( '.collection' );
+$( function () {
+	let $collection = $( '.collection' );
 
-		if ( !$collection.data( 'is-owner' ) ) {
-			new CollectionFlagButton( {
-				collectionId: $collection.data( 'id' )
-			} ).prependTo( '.collection-moderation' );
-		}
+	if ( !$collection.data( 'is-owner' ) ) {
+		new CollectionFlagButton( {
+			collectionId: $collection.data( 'id' )
+		} ).prependTo( '.collection-moderation' );
+	}
 
-		$( '.collection-actions' ).addClass( 'visible' );
-	} );
-}( mw.mobileFrontend, jQuery ) );
+	$( '.collection-actions' ).addClass( 'visible' );
+} );
