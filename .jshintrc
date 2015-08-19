@@ -18,5 +18,6 @@
 	"trailing": true,
 	"undef" : true,
 	"unused": true,
-	"supernew": true
+	"supernew": true,
+	"esnext": true
 }
