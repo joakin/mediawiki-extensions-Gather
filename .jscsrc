@@ -9,6 +9,7 @@
   "disallowDanglingUnderscores": null,
   "requireSpacesInsideParentheses": "all",
   "disallowImplicitTypeConversion": ["numeric", "boolean", "binary", "string"],
+  "esnext": true,
   "validateJSDoc": {
     "checkParamNames": true,
     "requireParamTypes": true,
