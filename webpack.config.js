@@ -2,11 +2,13 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+var isProduction = process.env.NODE_ENV === 'production'
+
 var out = 'build/';
 
-module.exports = {
+var conf = {
   entry: {
-		'resources/ext.gather.special.collection/init': './resources/ext.gather.special.collection/init.js'
+    'resources/ext.gather.special.collection/init': './resources/ext.gather.special.collection/init.js'
   },
   output: {
     path: path.join(__dirname, out),
@@ -25,3 +27,9 @@ module.exports = {
     new webpack.optimize.DedupePlugin()
   ]
 };
+
+if (!isProduction) {
+  conf.devtool = "#inline-source-map";
+}
+
+module.exports = conf;
