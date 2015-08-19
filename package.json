@@ -3,7 +3,8 @@
   "description": "Node.js dependencies used in Gather",
   "version": "0.0.1",
   "scripts": {
-  	"start": "webpack -w --progress --colors",
+    "start": "webpack -w --progress --colors",
+    "build": "NODE_ENV=production webpack -p --progress --colors",
     "test": "grunt test"
   },
   "repository": {

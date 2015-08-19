@@ -619,7 +619,7 @@
 				"ext.gather.moderation"
 			],
 			"scripts": [
-				"resources/ext.gather.special.collection/init.js"
+				"build/resources/ext.gather.special.collection/init.js"
 			]
 		},
 		"ext.gather.special": {
