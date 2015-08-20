@@ -1,5 +1,4 @@
 import $ from '../jquery';
-import mobileFrontend from '../mobilefrontend';
 import CollectionFlagButton from '../ext.gather.collection.flag/CollectionFlagButton';
 
 $( function () {
