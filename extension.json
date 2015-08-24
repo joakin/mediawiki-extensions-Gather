@@ -606,21 +606,6 @@
 				"gather-flag-collection-success"
 			]
 		},
-		"ext.gather.special.collection": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
-			"group": "other",
-			"dependencies": [
-				"ext.gather.special.base",
-				"ext.gather.collection.flag",
-				"ext.gather.moderation"
-			],
-			"scripts": [
-				"build/resources/ext.gather.special.collection/init.js"
-			]
-		},
 		"ext.gather.special": {
 			"targets": [
 				"mobile",
