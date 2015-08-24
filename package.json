@@ -18,6 +18,7 @@
     "jsdoc": "<=3.3.0",
     "jshint": ">=1.1.0",
     "kss": ">=0.3.6",
+    "mustache-loader": "^0.3.0",
     "svgo": ">=0.4.4",
     "xtend": "^4.0.0"
   },
@@ -42,6 +43,8 @@
     "jscs-jsdoc": "git+https://github.com/jdlrobson/jscs-jsdoc.git#checkParamExistence",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
+    "loader-utils": "^0.2.11",
+    "mustache-loader": "^0.3.0",
     "style-loader": "^0.12.3",
     "update-resourceloader-config-plugin": "^1.1.0",
     "url-loader": "^0.5.6",

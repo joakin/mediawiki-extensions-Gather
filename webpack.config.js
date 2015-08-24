@@ -8,7 +8,8 @@ var path = require( 'path' ),
 
 conf = {
 	entry: {
-		'resources/ext.gather.special.collection/init': './resources/ext.gather.special.collection/init.js'
+		'resources/ext.gather.special.collection/init': './resources/ext.gather.special.collection/init.js',
+		'resources/ext.gather.special.usercollections/init': './resources/ext.gather.special.usercollections/init.js'
 	},
 	output: {
 		path: path.join( __dirname, out ),
@@ -25,6 +26,9 @@ conf = {
 			test: /\.js$/,
 			exclude: /node_modules/,
 			loader: 'babel-loader'
+		} , {
+			test: /\.(mustache|hogan)$/,
+			loader: 'mustache?noShortcut' // + isProduction ? '?minify' : ''
 		} ]
 	},
 	plugins: [
@@ -36,9 +40,12 @@ conf = {
 		new UpdateResourceLoaderConfigPlugin( {
 			i18n: 'mw.msg',
 			aliases: {
+				View: 'mobile.startup',
 				Button: 'mobile.startup',
 				Icon: 'mobile.startup',
-				toast: 'mobile.toast'
+				icons: 'mobile.startup',
+				toast: 'mobile.toast',
+				InfiniteScroll: 'mobile.infiniteScroll'
 			}
 		} )
 	]

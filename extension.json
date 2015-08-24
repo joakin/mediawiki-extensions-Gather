@@ -184,38 +184,6 @@
 				"resources/ext.gather.api/RelatedPagesApi.js"
 			]
 		},
-		"ext.gather.collections.list": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
-			"dependencies": [
-				"mobile.infiniteScroll",
-				"mobile.toast",
-				"ext.gather.api",
-				"ext.gather.menu.icon",
-				"ext.gather.collection.editor",
-				"mobile.startup"
-			],
-			"styles": [],
-			"messages": [
-				"gather-lists-more-failed",
-				"gather-article-count",
-				"gather-public",
-				"gather-private",
-				"gather-hidden",
-				"gather-create-collection-button-label"
-			],
-			"templates": {
-				"CollectionsList.hogan": "templates/CollectionsList.mustache",
-				"CollectionsListItemCard.hogan": "templates/CollectionsListItemCard.mustache",
-				"CardImage.hogan": "templates/CardImage.mustache"
-			},
-			"scripts": [
-				"resources/ext.gather.collections.list/CreateCollectionButton.js",
-				"resources/ext.gather.collections.list/CollectionsList.js"
-			]
-		},
 		"ext.gather.collection.base": {
 			"targets": [
 				"mobile",
@@ -574,20 +542,6 @@
 				"ext.gather.routes"
 			]
 		},
-		"ext.gather.special.usercollections": {
-			"targets": [
-				"mobile",
-				"desktop"
-			],
-			"group": "other",
-			"dependencies": [
-				"ext.gather.special.base",
-				"ext.gather.collections.list"
-			],
-			"scripts": [
-				"resources/ext.gather.special.usercollections/init.js"
-			]
-		},
 		"ext.gather.collection.flag": {
 			"targets": [
 				"mobile",
@@ -613,8 +567,10 @@
 			],
 			"group": "other",
 			"dependencies": [
+				"ext.gather.menu.icon",
+				"ext.gather.special.base",
 				"resources/ext.gather.special.collection/init.js",
-				"ext.gather.special.usercollections"
+				"resources/ext.gather.special.usercollections/init.js"
 			]
 		},
 		"ext.gather.moderation": {
@@ -660,6 +616,31 @@
 			],
 			"scripts": [
 				"build/resources/ext.gather.special.collection/init.js"
+			]
+		},
+		"resources/ext.gather.special.usercollections/init.js": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"messages": [
+				"gather-lists-more-failed",
+				"gather-article-count",
+				"gather-public",
+				"gather-private",
+				"gather-hidden",
+				"gather-create-collection-button-label"
+			],
+			"dependencies": [
+				"ext.gather.api",
+				"mobile.infiniteScroll",
+				"mobile.startup",
+				"mobile.toast",
+				"ext.gather.collection.editor"
+			],
+			"scripts": [
+				"build/resources/ext.gather.special.usercollections/init.js"
 			]
 		}
 	},

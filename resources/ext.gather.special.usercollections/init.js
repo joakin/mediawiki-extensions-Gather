@@ -1,16 +1,15 @@
-( function ( M, $ ) {
-	var CollectionsList = M.require( 'ext.gather.collections.list/CollectionsList' ),
-		$collectionsList = $( '.collections-list' ),
-		owner = $collectionsList.data( 'owner' ),
-		mode = $collectionsList.data( 'mode' );
+import $ from '../jquery.js';
+import CollectionsList from '../ext.gather.collections.list/CollectionsList.js';
 
-	$( function () {
-		new CollectionsList( {
-			el: $collectionsList,
-			enhance: true,
-			owner: owner,
-			mode: mode
-		} );
+let $collectionsList = $( '.collections-list' ),
+	owner = $collectionsList.data( 'owner' ),
+	mode = $collectionsList.data( 'mode' );
+
+$( function () {
+	new CollectionsList( {
+		el: $collectionsList,
+		enhance: true,
+		owner,
+		mode
 	} );
-
-}( mw.mobileFrontend, jQuery ) );
+} );
