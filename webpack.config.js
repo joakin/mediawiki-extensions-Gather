@@ -34,7 +34,12 @@ conf = {
 		} ),
 		new webpack.optimize.DedupePlugin(),
 		new UpdateResourceLoaderConfigPlugin( {
-			i18n: 'mw.msg'
+			i18n: 'mw.msg',
+			aliases: {
+				Button: 'mobile.startup',
+				Icon: 'mobile.startup',
+				toast: 'mobile.toast'
+			}
 		} )
 	]
 };
