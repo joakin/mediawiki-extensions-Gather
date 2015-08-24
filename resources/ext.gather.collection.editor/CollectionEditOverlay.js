@@ -11,7 +11,7 @@
 		router = M.require( 'router' ),
 		CollectionDeleteOverlay = M.require( 'ext.gather.collection.delete/CollectionDeleteOverlay' ),
 		RelatedPages = M.require( 'ext.gather.relatedpages/RelatedPages' ),
-		SearchTutorialOverlay = M.require( 'ext.gather.collection.edit/SearchTutorialOverlay' ),
+		SearchTutorialOverlay = M.require( 'ext.gather.collection.editor/SearchTutorialOverlay' ),
 		skin = M.require( 'skin' );
 	/**
 	 * Overlay for editing a collection
@@ -479,6 +479,6 @@
 		}
 	} );
 
-	M.define( 'ext.gather.collection.edit/CollectionEditOverlay', CollectionEditOverlay );
+	M.define( 'ext.gather.collection.editor/CollectionEditOverlay', CollectionEditOverlay );
 
 }( mw.mobileFrontend, jQuery ) );

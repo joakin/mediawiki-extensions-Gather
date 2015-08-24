@@ -19,7 +19,7 @@
 		api.getCollection( id ).done( function ( collection ) {
 			if ( collection ) {
 				loader.loadModule( 'ext.gather.collection.editor', true ).done( function ( loadingOverlay ) {
-					var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' ),
+					var CollectionEditOverlay = M.require( 'ext.gather.collection.editor/CollectionEditOverlay' ),
 						isSpecialPage = mw.config.get( 'wgNamespaceNumber' ) === mw.config.get( 'wgNamespaceIds' ).special;
 					loadingOverlay.hide();
 					d.resolve(

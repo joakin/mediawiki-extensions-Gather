@@ -1,5 +1,5 @@
 ( function ( M, $ ) {
-	var CollectionEditOverlay = M.require( 'ext.gather.collection.edit/CollectionEditOverlay' ),
+	var CollectionEditOverlay = M.require( 'ext.gather.collection.editor/CollectionEditOverlay' ),
 		CollectionsApi = M.require( 'ext.gather.api/CollectionsApi' );
 
 	QUnit.module( 'Gather: CollectionEditOverlay', {

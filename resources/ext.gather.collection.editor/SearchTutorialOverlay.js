@@ -21,5 +21,5 @@
 		}
 	} );
 
-	M.define( 'ext.gather.collection.edit/SearchTutorialOverlay', SearchTutorialOverlay );
+	M.define( 'ext.gather.collection.editor/SearchTutorialOverlay', SearchTutorialOverlay );
 }( mw.mobileFrontend, jQuery ) );
