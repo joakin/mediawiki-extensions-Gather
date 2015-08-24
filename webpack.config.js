@@ -26,7 +26,7 @@ conf = {
 			test: /\.js$/,
 			exclude: /node_modules/,
 			loader: 'babel-loader'
-		} , {
+		}, {
 			test: /\.(mustache|hogan)$/,
 			loader: 'mustache?noShortcut' // + isProduction ? '?minify' : ''
 		} ]

@@ -569,8 +569,8 @@
 			"dependencies": [
 				"ext.gather.menu.icon",
 				"ext.gather.special.base",
-				"resources/ext.gather.special.collection/init.js",
-				"resources/ext.gather.special.usercollections/init.js"
+				"resources/ext.gather.special.collection/init",
+				"resources/ext.gather.special.usercollections/init"
 			]
 		},
 		"ext.gather.moderation": {
@@ -595,7 +595,7 @@
 				"resources/ext.gather.moderation/init.js"
 			]
 		},
-		"resources/ext.gather.special.collection/init.js": {
+		"resources/ext.gather.special.collection/init": {
 			"targets": [
 				"mobile",
 				"desktop"
@@ -618,7 +618,7 @@
 				"build/resources/ext.gather.special.collection/init.js"
 			]
 		},
-		"resources/ext.gather.special.usercollections/init.js": {
+		"resources/ext.gather.special.usercollections/init": {
 			"targets": [
 				"mobile",
 				"desktop"
