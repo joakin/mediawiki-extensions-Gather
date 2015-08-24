@@ -298,7 +298,9 @@
 			"class": "MFResourceLoaderParsedMessageModule",
 			"messages": {
 				"gather-collection-content-tutorial-heading": "gather-collection-content-tutorial-heading",
-				"gather-collection-content-tutorial-subheading": ["parse"],
+				"gather-collection-content-tutorial-subheading": [
+					"parse"
+				],
 				"gather-tutorial-dismiss-button-label": "gather-tutorial-dismiss-button-label",
 				"gather-remove-from-failed-collection-toast": "gather-remove-from-failed-collection-toast",
 				"gather-add-to-collection-failed-toast": "gather-add-to-collection-failed-toast",
@@ -393,7 +395,9 @@
 				"ext.gather.watchstar"
 			],
 			"messages": {
-				"gather-main-menu-new-feature": [ "parse" ],
+				"gather-main-menu-new-feature": [
+					"parse"
+				],
 				"gather-menu-guider": "gather-menu-guider"
 			},
 			"scripts": [
@@ -480,7 +484,6 @@
 			"styles": [
 				"resources/ext.gather.collection.editor/editOverlay.less",
 				"resources/ext.gather.collection.editor/searchTutorialOverlay.less"
-
 			]
 		},
 		"ext.gather.page.search": {
@@ -649,6 +652,24 @@
 			],
 			"scripts": [
 				"resources/ext.gather.moderation/init.js"
+			]
+		},
+		"resources/ext.gather.special.collection/init.js": {
+			"targets": [
+				"mobile",
+				"desktop"
+			],
+			"group": "other",
+			"dependencies": [
+				"ext.gather.api/CollectionsApi",
+				"Button",
+				"Icon",
+				"ext.gather.collection.confirm/ConfirmationOverlay",
+				"ext.gather.logging/SchemaGatherFlags",
+				"toast"
+			],
+			"scripts": [
+				"build/resources/ext.gather.special.collection/init.js"
 			]
 		}
 	},

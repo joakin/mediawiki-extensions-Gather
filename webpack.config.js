@@ -1,8 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var ExtractI18nKeys = require('./webpack/ExtractI18nKeys');
-var ExtractMFRequiredModules = require('./webpack/ExtractMFRequiredModules');
+var UpdateResourceLoaderConfigPlugin = require('update-resourceloader-config-plugin');
 
 var isProduction = process.env.NODE_ENV === 'production';
 
@@ -27,12 +26,8 @@ var conf = {
 		// new webpack.NoErrorsPlugin(),
 		new ExtractTextPlugin('style.css', { allChunks: true }),
 		// new webpack.optimize.DedupePlugin(),
-		new ExtractI18nKeys({
-			functionName: 'mw.msg',
-			onKeys: console.log.bind(null, '\n\ni18n keys:\n')
-		}),
-		new ExtractMFRequiredModules({
-			onModules: console.log.bind(null, '\n\nModules:\n')
+		new UpdateResourceLoaderConfigPlugin({
+			i18n: 'mw.msg'
 		})
 	]
 };
