@@ -10,6 +10,7 @@
 		"OO": true
 	},
 
+	"node": true,
 	"browser": true,
 	"curly": true,
 	"eqeqeq": true,
